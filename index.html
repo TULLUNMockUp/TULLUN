@@ -12,81 +12,97 @@
             background-color: #f5f5f5;
         }
         
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
-        }
-        
-        #controls {
-            margin: 20px auto;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 600px;
-        }
-        
-        #design-controls {
-            display: none;
-            margin: 15px 0;
-            padding: 10px;
-            background: #f0f0f0;
-            border-radius: 5px;
-        }
-        
-        button {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        button:hover {
-            background: #45a049;
-        }
-        
+        /* Mockup Container - iPhone 15 Pro dimensions */
         #mockup-container {
             position: relative;
-            display: inline-block;
+            width: 393px;
+            height: 852px;
             margin: 20px auto;
-            width: 500px;
-            height: 1000px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 60px;
+            overflow: hidden;
         }
         
-        #phone-case-bg {
+        /* Phone Case Layers */
+        #phone-case-bg, #phone-case-overlay {
             position: absolute;
-            z-index: 1;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
+            pointer-events: none;
         }
         
+        /* Design Area - Exact cutout dimensions */
         #design-area {
             position: absolute;
-            z-index: 2;
-            top: 100px;
-            left: 50px;
-            width: 400px;
-            height: 800px;
+            top: 60px;
+            left: 27px;
+            width: 339px;
+            height: 732px;
             overflow: hidden;
+            border-radius: 40px;
+            background: #f0f0f0; /* Visible only during adjustment */
         }
         
         #user-design {
             position: absolute;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             transform-origin: center center;
         }
         
-        #phone-case-overlay {
+        /* Controls */
+        #controls {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        button, input[type="file"] {
+            margin: 8px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #4a6bff;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background: #3a5bef;
+        }
+        
+        /* Adjustment Controls */
+        .adjust-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .adjust-group button {
+            width: 80px;
+        }
+        
+        /* Debug Guide (visible during development) */
+        .debug-guide {
             position: absolute;
-            z-index: 3;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
+            height: 100%;
+            border: 2px dashed rgba(255,0,0,0.3);
             pointer-events: none;
+            z-index: 999;
+            display: none; /* Turn on for debugging */
         }
     </style>
 </head>
@@ -96,14 +112,19 @@
     <div id="controls">
         <input type="file" id="image-upload" accept="image/*">
         
-        <div id="design-controls">
-            <h3>Adjust Your Design</h3>
+        <div class="adjust-group">
             <button id="scale-up">+ Enlarge</button>
             <button id="scale-down">- Shrink</button>
-            <button id="move-left">← Move Left</button>
-            <button id="move-right">→ Move Right</button>
-            <button id="move-up">↑ Move Up</button>
-            <button id="move-down">↓ Move Down</button>
+        </div>
+        
+        <div class="adjust-group">
+            <button id="move-left">← Left</button>
+            <button id="move-right">→ Right</button>
+            <button id="move-up">↑ Up</button>
+            <button id="move-down">↓ Down</button>
+        </div>
+        
+        <div class="adjust-group">
             <button id="rotate-left">↺ Rotate Left</button>
             <button id="rotate-right">↻ Rotate Right</button>
         </div>
@@ -113,17 +134,180 @@
     
     <div id="mockup-container">
         <!-- Phone Case Background -->
-        <img id="phone-case-bg" src="mockups/iphone15-case-back.png">
+        <img id="phone-case-bg" src="mockups/iphone15-case-back.png" alt="Phone Case Background">
         
         <!-- Design Area -->
         <div id="design-area">
-            <img id="user-design" src="">
+            <img id="user-design" src="" alt="User Design" style="display: none;">
+            <div class="debug-guide"></div> <!-- For alignment checks -->
         </div>
         
         <!-- Phone Case Overlay -->
-        <img id="phone-case-overlay" src="mockups/iphone15-case-back.png">
+        <img id="phone-case-overlay" src="mockups/iphone15-case-overlay.png" alt="Phone Case Overlay">
     </div>
-    
-    <script src="script.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Elements
+        const elements = {
+            upload: document.getElementById('image-upload'),
+            design: document.getElementById('user-design'),
+            designArea: document.getElementById('design-area'),
+            caseBg: document.getElementById('phone-case-bg'),
+            caseOverlay: document.getElementById('phone-case-overlay'),
+            controls: {
+                scaleUp: document.getElementById('scale-up'),
+                scaleDown: document.getElementById('scale-down'),
+                moveLeft: document.getElementById('move-left'),
+                moveRight: document.getElementById('move-right'),
+                moveUp: document.getElementById('move-up'),
+                moveDown: document.getElementById('move-down'),
+                rotateLeft: document.getElementById('rotate-left'),
+                rotateRight: document.getElementById('rotate-right'),
+                download: document.getElementById('download-btn')
+            }
+        };
+        
+        // Design State
+        const designState = {
+            scale: 1,
+            posX: 0,
+            posY: 0,
+            rotation: 0,
+            minScale: 0.5,
+            maxScale: 3
+        };
+        
+        // Initialize
+        function init() {
+            // Set initial mockup dimensions
+            elements.caseBg.onload = function() {
+                console.log('Mockup loaded. Design area dimensions:', {
+                    width: elements.designArea.offsetWidth,
+                    height: elements.designArea.offsetHeight,
+                    top: elements.designArea.offsetTop,
+                    left: elements.designArea.offsetLeft
+                });
+            };
+            
+            // Event Listeners
+            elements.upload.addEventListener('change', handleImageUpload);
+            
+            // Control Events
+            elements.controls.scaleUp.addEventListener('click', () => adjustScale(0.1));
+            elements.controls.scaleDown.addEventListener('click', () => adjustScale(-0.1));
+            elements.controls.moveLeft.addEventListener('click', () => adjustPosition(-10, 0));
+            elements.controls.moveRight.addEventListener('click', () => adjustPosition(10, 0));
+            elements.controls.moveUp.addEventListener('click', () => adjustPosition(0, -10));
+            elements.controls.moveDown.addEventListener('click', () => adjustPosition(0, 10));
+            elements.controls.rotateLeft.addEventListener('click', () => adjustRotation(-5));
+            elements.controls.rotateRight.addEventListener('click', () => adjustRotation(5));
+            elements.controls.download.addEventListener('click', downloadMockup);
+        }
+        
+        // Image Upload Handler
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    elements.design.src = event.target.result;
+                    elements.design.style.display = 'block';
+                    resetDesignPosition();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Design Adjustment Functions
+        function adjustScale(amount) {
+            designState.scale = Math.max(
+                designState.minScale,
+                Math.min(designState.maxScale, designState.scale + amount)
+            );
+            updateDesign();
+        }
+        
+        function adjustPosition(x, y) {
+            designState.posX += x;
+            designState.posY += y;
+            updateDesign();
+        }
+        
+        function adjustRotation(degrees) {
+            designState.rotation += degrees;
+            updateDesign();
+        }
+        
+        function resetDesignPosition() {
+            designState.scale = 1;
+            designState.posX = 0;
+            designState.posY = 0;
+            designState.rotation = 0;
+            updateDesign();
+        }
+        
+        function updateDesign() {
+            elements.design.style.transform = `
+                translate(${designState.posX}px, ${designState.posY}px)
+                scale(${designState.scale})
+                rotate(${designState.rotation}deg)
+            `;
+        }
+        
+        // Download Function
+        function downloadMockup() {
+            if (!elements.design.src) {
+                alert('Please upload an image first!');
+                return;
+            }
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas to mockup dimensions
+            canvas.width = elements.caseBg.naturalWidth;
+            canvas.height = elements.caseBg.naturalHeight;
+            
+            // Draw background
+            ctx.drawImage(elements.caseBg, 0, 0, canvas.width, canvas.height);
+            
+            // Draw user design with transformations
+            ctx.save();
+            
+            // Calculate center point of design area
+            const centerX = elements.designArea.offsetLeft + (elements.designArea.offsetWidth / 2);
+            const centerY = elements.designArea.offsetTop + (elements.designArea.offsetHeight / 2);
+            
+            // Apply transformations
+            ctx.translate(centerX + designState.posX, centerY + designState.posY);
+            ctx.rotate(designState.rotation * Math.PI / 180);
+            ctx.scale(designState.scale, designState.scale);
+            
+            // Draw design centered
+            ctx.drawImage(
+                elements.design,
+                -elements.designArea.offsetWidth / 2,
+                -elements.designArea.offsetHeight / 2,
+                elements.designArea.offsetWidth,
+                elements.designArea.offsetHeight
+            );
+            
+            ctx.restore();
+            
+            // Draw overlay
+            ctx.drawImage(elements.caseOverlay, 0, 0, canvas.width, canvas.height);
+            
+            // Create download
+            const link = document.createElement('a');
+            link.download = `phone-case-design-${new Date().getTime()}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Initialize the app
+        init();
+    });
+    </script>
 </body>
 </html>
