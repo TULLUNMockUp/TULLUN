@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded'console.log("Checking mockup files...");
+phoneCaseBg.onerror = () => console.error("Background image failed to load!");
+phoneCaseOverlay.onerror = () => console.error("Overlay image failed to load!");, function() {
     // DOM Elements
     const imageUpload = document.getElementById('image-upload');
     const userDesign = document.getElementById('user-design');
