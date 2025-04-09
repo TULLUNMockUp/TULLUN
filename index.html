@@ -1,42 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.5">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
+    <title>Phone Case Mockup Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #mockup-container { position: relative; display: inline-block; }
+        #user-design { position: absolute; top: 100px; left: 50px; max-width: 200px; }
+        #phone-case { pointer-events: none; }
+        #controls { margin: 20px; }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Phone Case Mockup Generator&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: Arial, sans-serif; text-align: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#mockup-container { position: relative; display: inline-block; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#user-design { position: absolute; top: 100px; left: 50px; max-width: 200px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#phone-case { pointer-events: none; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#controls { margin: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Phone Case Mockup Generator&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="controls"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="file" id="image-upload" accept="image/*"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="download-btn"&gt;Download Mockup&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="mockup-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- User's uploaded image will appear here --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;img id="user-design" src="" style="display: none;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Predefined phone case mockup --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;img id="phone-case" src="mockups/iphone15-case.png" width="500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="script.js"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <h1>Phone Case Mockup Generator</h1>
+    <div id="controls">
+        <input type="file" id="image-upload" accept="image/*">
+        <button id="download-btn">Download Mockup</button>
+    </div>
+    <div id="mockup-container">
+        <!-- User's uploaded image will appear here -->
+        <img id="user-design" src="" style="display: none;">
+        <!-- Predefined phone case mockup -->
+        <img id="phone-case" src="mockups/iphone15-case.png" width="500">
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
