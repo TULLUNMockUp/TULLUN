@@ -53,8 +53,10 @@
             position: relative;
             display: inline-block;
             margin: 20px auto;
-            width: 500px;
-            height: 1000px;
+            width: 1000px; /* Set to 1000px for display */
+            height: 1000px; /* Set to 1000px for display */
+            overflow: hidden; /* To keep the mockup within bounds */
+            background-color: white; /* Optional: background for visibility */
         }
         
         #phone-case-bg {
@@ -67,10 +69,10 @@
         #design-area {
             position: absolute;
             z-index: 2;
-            top: 100px;
-            left: 50px;
-            width: 400px;
-            height: 800px;
+            top: calc(50% - 400px); /* Center vertically */
+            left: calc(50% - 200px); /* Center horizontally */
+            width: 400px; /* Maintain design width */
+            height: 800px; /* Maintain design height */
             overflow: hidden;
         }
         
