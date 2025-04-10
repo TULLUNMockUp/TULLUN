@@ -127,13 +127,13 @@
         downloadBtn.addEventListener('click', function() {
             if (!uploadedImage) return;
             
-            // Create canvas at mockup size (1000x1000)
+            // Create canvas at 2000x2000 (2x scale for high quality)
             const canvas = document.createElement('canvas');
-            canvas.width = 1000;
-            canvas.height = 1000;
+            canvas.width = 2000;
+            canvas.height = 2000;
             const ctx = canvas.getContext('2d');
 
-            // Draw elements in same order as mockup
+            // Draw elements
             const phoneCaseBg = new Image();
             const phoneCaseOverlay = new Image();
 
@@ -142,26 +142,28 @@
 
             Promise.all([
                 new Promise(resolve => { phoneCaseBg.onload = resolve; }),
-                new Promise(resolve => { phoneCaseOverlay.onload = resolve; })
+                new Promise(resolve => { phoneCaseOverlay.onload = resolve; }),
+                new Promise(resolve => { uploadedImage.onload = resolve; })
             ]).then(() => {
-                // Draw background
-                ctx.drawImage(phoneCaseBg, 0, 0, 1000, 1000);
+                // Draw background (scaled 2x)
+                ctx.drawImage(phoneCaseBg, 0, 0, 2000, 2000);
                 
-                // Calculate centered position for design (same as in mockup)
+                // Calculate scale and position (same as preview but 2x)
                 const scale = Math.min(
                     1000 / uploadedImage.width,
                     1000 / uploadedImage.height
-                );
+                ) * 2; // Double the scale for high-res output
+                
                 const width = uploadedImage.width * scale;
                 const height = uploadedImage.height * scale;
-                const x = (1000 - width) / 2;
-                const y = (1000 - height) / 2;
+                const x = (2000 - width) / 2;
+                const y = (2000 - height) / 2;
                 
-                // Draw user design
+                // Draw user design (scaled 2x)
                 ctx.drawImage(uploadedImage, x, y, width, height);
                 
-                // Draw overlay
-                ctx.drawImage(phoneCaseOverlay, 0, 0, 1000, 1000);
+                // Draw overlay (scaled 2x)
+                ctx.drawImage(phoneCaseOverlay, 0, 0, 2000, 2000);
                 
                 // Download
                 const link = document.createElement('a');
