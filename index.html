@@ -107,43 +107,59 @@
         const imageUpload = document.getElementById('image-upload');
         const userDesign = document.getElementById('user-design');
         const downloadBtn = document.getElementById('download-btn');
-        let uploadedImage = null;
+        let uploadedImage = new Image();
 
         // Handle image upload
         imageUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
+            if (!file) return;
+            
             const reader = new FileReader();
             reader.onload = function(e) {
                 userDesign.src = e.target.result;
-                uploadedImage = new Image();
                 uploadedImage.src = e.target.result;
             }
-            if (file) {
-                reader.readAsDataURL(file);
-            }
+            reader.readAsDataURL(file);
         });
 
         // Handle download button
         downloadBtn.addEventListener('click', function() {
-            if (!uploadedImage) return;
-            
+            if (!uploadedImage.src) {
+                alert('Please upload an image first');
+                return;
+            }
+
             // Create canvas at 2000x2000 (2x scale for high quality)
             const canvas = document.createElement('canvas');
             canvas.width = 2000;
             canvas.height = 2000;
             const ctx = canvas.getContext('2d');
 
-            // Draw elements
+            // Create promise to wait for all images to load
+            const loadImage = (img) => {
+                return new Promise((resolve) => {
+                    if (img.complete && img.naturalWidth !== 0) {
+                        resolve();
+                    } else {
+                        img.onload = resolve;
+                        img.onerror = () => {
+                            console.error('Error loading image');
+                            resolve();
+                        };
+                    }
+                });
+            };
+
             const phoneCaseBg = new Image();
             const phoneCaseOverlay = new Image();
-
+            
             phoneCaseBg.src = document.getElementById('phone-case-bg').src;
             phoneCaseOverlay.src = document.getElementById('phone-case-overlay').src;
 
             Promise.all([
-                new Promise(resolve => { phoneCaseBg.onload = resolve; }),
-                new Promise(resolve => { phoneCaseOverlay.onload = resolve; }),
-                new Promise(resolve => { uploadedImage.onload = resolve; })
+                loadImage(phoneCaseBg),
+                loadImage(phoneCaseOverlay),
+                loadImage(uploadedImage)
             ]).then(() => {
                 // Draw background (scaled 2x)
                 ctx.drawImage(phoneCaseBg, 0, 0, 2000, 2000);
@@ -165,11 +181,17 @@
                 // Draw overlay (scaled 2x)
                 ctx.drawImage(phoneCaseOverlay, 0, 0, 2000, 2000);
                 
-                // Download
-                const link = document.createElement('a');
-                link.download = 'phone-case-mockup.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                // Trigger download
+                canvas.toBlob((blob) => {
+                    const link = document.createElement('a');
+                    link.download = 'phone-case-mockup.png';
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(link.href);
+                }, 'image/png', 1);
+            }).catch(error => {
+                console.error('Error generating mockup:', error);
+                alert('Error generating mockup. Please try again.');
             });
         });
     </script>
