@@ -66,18 +66,19 @@
         #design-area {
             position: absolute;
             z-index: 2; 
-            top: 247.25px; /* Adjusted from Y coordinate (994.5) scaled down */
-            left: 242.25px; /* Adjusted from X coordinate (969) scaled down */
-            width: 350px;  /* Width for design area */
-            height: 660px; /* Height for design area */
+            top: 247.25px; /* Y coordinate scaled down: 994.5 * (500/2000) */
+            left: 242.25px; /* X coordinate scaled down: 969 * (500/2000) */
+            width: 750px;  /* Original design width */
+            height: 1590px; /* Original design height */
             overflow: hidden;
+            transform-origin: top left; /* Ensure scaling starts from top-left */
+            transform: scale(0.25); /* Scale down to fit mockup container */
         }
 
         #user-design {
             position: absolute;
             width: 100%;
             height: auto;
-            transform-origin: center center;
         }
 
         #phone-case-overlay {
@@ -119,3 +120,4 @@
     </script>
 </body>
 </html>
+
