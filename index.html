@@ -14,7 +14,26 @@
 
         h1 {
             color: #333;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .case-material-link {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
             margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .case-material-link:hover {
+            text-decoration: underline;
         }
 
         #controls {
@@ -75,8 +94,8 @@
             position: absolute;
             max-width: 100%;
             max-height: 100%;
-            top: 48.5%;
-            left: 48.5%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             object-fit: contain;
         }
@@ -86,12 +105,24 @@
             pointer-events: none;
         }
 
+        .carousel-wrapper {
+            position: relative;
+            max-width: 1600px;
+            margin: 20px auto;
+        }
+
         .carousel-container {
-            width: 100%;
-            overflow-x: auto;
+            width: calc(100% - 80px);
+            margin: 0 auto;
+            overflow-x: hidden;
             white-space: nowrap;
-            margin: 20px 0;
-            padding: 10px 0;
+            scroll-behavior: smooth;
+        }
+
+        .carousel-inner {
+            display: inline-block;
+            white-space: nowrap;
+            transition: transform 0.3s ease;
         }
 
         .carousel-item {
@@ -124,10 +155,42 @@
             font-size: 14px;
             margin-top: 5px;
         }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 5;
+            border: none;
+        }
+
+        .carousel-arrow:hover {
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .carousel-arrow.left {
+            left: 0;
+        }
+
+        .carousel-arrow.right {
+            right: 0;
+        }
     </style>
 </head>
 <body>
     <h1>Phone Case Mockup Generator</h1>
+    <div class="subtitle">Select Phone Case Material and Make</div>
+    <a href="#" class="case-material-link">Clear TPU case for Samsung</a>
     
     <div id="controls">
         <input type="file" id="image-upload" accept="image/*">
@@ -145,117 +208,123 @@
     </div>
 
     <!-- Secondary Mockups Carousel -->
-    <div class="carousel-container">
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="1">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+    <div class="carousel-wrapper">
+        <button class="carousel-arrow left">&#10094;</button>
+        <div class="carousel-container">
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="1">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 1</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 1</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="2">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="2">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 2</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 2</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="3">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="3">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 3</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 3</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="4">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="4">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 4</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 4</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="5">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="5">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 5</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 5</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="6">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="6">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 6</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 6</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="7">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="7">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 7</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 7</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="8">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="8">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 8</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 8</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="9">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="9">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 9</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
-            </div>
-            <div class="mockup-label">View 9</div>
-        </div>
-        <div class="carousel-item">
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" checked data-view="10">
-                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="Your Design">
+                <div class="carousel-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" checked data-view="10">
+                        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="Your Design">
+                        </div>
+                        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+                    </div>
+                    <div class="mockup-label">View 10</div>
                 </div>
-                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
             </div>
-            <div class="mockup-label">View 10</div>
         </div>
+        <button class="carousel-arrow right">&#10095;</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
@@ -263,7 +332,14 @@
         const imageUpload = document.getElementById('image-upload');
         const downloadBtn = document.getElementById('download-btn');
         const downloadZipBtn = document.getElementById('download-zip-btn');
+        const carouselInner = document.querySelector('.carousel-inner');
+        const carouselContainer = document.querySelector('.carousel-container');
+        const leftArrow = document.querySelector('.carousel-arrow.left');
+        const rightArrow = document.querySelector('.carousel-arrow.right');
+        const caseMaterialLink = document.querySelector('.case-material-link');
         let uploadedImage = new Image();
+        let currentScroll = 0;
+        const itemWidth = 320; // 300px width + 20px margin
 
         // Handle image upload
         imageUpload.addEventListener('change', function(event) {
@@ -280,6 +356,36 @@
             }
             reader.readAsDataURL(file);
         });
+
+        // Carousel navigation
+        function updateCarousel() {
+            carouselInner.style.transform = `translateX(-${currentScroll}px)`;
+            leftArrow.style.display = currentScroll <= 0 ? 'none' : 'flex';
+            rightArrow.style.display = currentScroll >= (carouselInner.scrollWidth - carouselContainer.offsetWidth) ? 'none' : 'flex';
+        }
+
+        leftArrow.addEventListener('click', () => {
+            currentScroll = Math.max(0, currentScroll - itemWidth * 5);
+            updateCarousel();
+        });
+
+        rightArrow.addEventListener('click', () => {
+            currentScroll = Math.min(
+                carouselInner.scrollWidth - carouselContainer.offsetWidth,
+                currentScroll + itemWidth * 5
+            );
+            updateCarousel();
+        });
+
+        // Case material link
+        caseMaterialLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('This would navigate to the mockup views page in a real implementation');
+            // window.location.href = 'mockup-views.html';
+        });
+
+        // Initialize carousel
+        updateCarousel();
 
         // Helper function to generate mockup image
         async function generateMockupImage(container, scale = 2) {
@@ -358,7 +464,7 @@
             const checkboxes = document.querySelectorAll('.carousel-checkbox:checked');
             for (const checkbox of checkboxes) {
                 const viewNumber = checkbox.dataset.view;
-                const container = document.querySelector(`.secondary-mockup:nth-child(${viewNumber})`).parentElement;
+                const container = document.querySelector(`.secondary-mockup input[data-view="${viewNumber}"]`).parentElement;
                 const canvas = await generateMockupImage(container, 2);
                 const data = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1));
                 imgFolder.file(`view-${viewNumber}.png`, data);
