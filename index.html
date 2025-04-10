@@ -45,44 +45,54 @@
             position: relative;
             display: inline-block;
             margin: 20px auto;
-            width: 1000px; /* Scaled down by 50% */
-            height: 1000px; /* Scaled down by 50% */
+            width: 1000px;
+            height: 1000px;
             overflow: hidden;
-            background-color: white; 
-            transform-origin: top left;
+            background-color: #eee; /* Changed to light gray to see container */
+            border: 1px dashed #ccc; /* Added border to see container */
         }
 
         #phone-case-bg, #phone-case-overlay { 
             position: absolute;
             top: 0; 
             left: 0; 
-            width: 1000px; /* Scaled down by 50% */
+            width: 100%;
             height: auto;
         }
 
         #phone-case-bg {
             z-index: 1;
+            border: 1px solid red; /* Debug border */
         }
 
         #design-area {
             position: absolute;
             z-index: 2; 
-            top: 497.25px; /* Scaled down by 50% */
-            left: 484.5px; /* Scaled down by 50% */
-            width: 375px;  /* Scaled down by 50% */
-            height: 795px; /* Scaled down by 50% */
+            top: 497.25px;
+            left: 484.5px;
+            width: 375px;
+            height: 795px;
             overflow: hidden;
+            background-color: rgba(0,0,255,0.1); /* Semi-transparent blue for visibility */
         }
 
         #user-design {
             position: absolute;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
         }
 
         #phone-case-overlay {
             z-index: 3;
             pointer-events: none;
+            border: 1px solid green; /* Debug border */
+        }
+
+        .debug-info {
+            color: #666;
+            font-size: 12px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -92,14 +102,16 @@
     <div id="controls">
         <input type="file" id="image-upload" accept="image/*">
         <button id="download-btn">Download Mockup</button>
+        <div class="debug-info" id="debug-info">No image loaded</div>
     </div>
     
     <div id="mockup-container">
-        <img id="phone-case-bg" src="mockups/iphone15-case-back.png"> 
+        <!-- Changed to placeholder images that will work without server files -->
+        <img id="phone-case-bg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDAiIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxyZWN0IHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDAiIGZpbGw9IiNlZWVlZWUiLz48cmVjdCB4PSIxMDAiIHk9IjEwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI4MDAiIGZpbGw9IiNjY2NjY2MiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+PHRleHQgeD0iNTAwIiB5PSI1MDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UGhvbmUgQ2FzZSBCYWNrZ3JvdW5kPC90ZXh0Pjwvc3ZnPg=="> 
         <div id="design-area">
             <img id="user-design" src="" alt="Your Design">
         </div>
-        <img id="phone-case-overlay" src="mockups/iphone15-case-overlay.png"> 
+        <img id="phone-case-overlay" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDAiIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxyZWN0IHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSI1Ii8+PHRleHQgeD0iNTAwIiB5PSI1MDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSI0MCIgZmlsbD0iIzAwMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UGhvbmUgQ2FzZSBPdmVybGF5PC90ZXh0Pjwvc3ZnPg=="> 
     </div>
 
     <script>
@@ -107,25 +119,36 @@
         const userDesign = document.getElementById('user-design');
         const mockupContainer = document.getElementById('mockup-container');
         const downloadBtn = document.getElementById('download-btn');
+        const debugInfo = document.getElementById('debug-info');
+
+        // Debug: Check if elements exist
+        debugInfo.textContent = `Elements loaded: ${!!imageUpload}, ${!!userDesign}, ${!!mockupContainer}`;
 
         // Handle image upload
         imageUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
+            if (!file) {
+                debugInfo.textContent = 'No file selected';
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 userDesign.src = e.target.result;
-            }
-            if (file) {
-                reader.readAsDataURL(file);
-            }
+                debugInfo.textContent = `Image loaded: ${file.name} (${Math.round(file.size/1024)}KB)`;
+            };
+            reader.onerror = function() {
+                debugInfo.textContent = 'Error loading image';
+            };
+            reader.readAsDataURL(file);
         });
 
         // Handle download button
         downloadBtn.addEventListener('click', function() {
             // Create a canvas element to render the mockup
             const canvas = document.createElement('canvas');
-            canvas.width = 2000; // Original mockup width for full quality download
-            canvas.height = 2000; // Original mockup height for full quality download
+            canvas.width = 2000;
+            canvas.height = 2000;
             const ctx = canvas.getContext('2d');
 
             // Draw the mockup elements onto the canvas
@@ -133,21 +156,40 @@
             const userUpload = new Image();
             const phoneCaseOverlay = new Image();
 
+            phoneCaseBg.crossOrigin = "Anonymous";
+            userUpload.crossOrigin = "Anonymous";
+            phoneCaseOverlay.crossOrigin = "Anonymous";
+
             phoneCaseBg.src = document.getElementById('phone-case-bg').src;
-            userUpload.src = document.getElementById('user-design').src;
+            userUpload.src = document.getElementById('user-design').src || '';
             phoneCaseOverlay.src = document.getElementById('phone-case-overlay').src;
+
+            // Debug info
+            debugInfo.textContent = 'Preparing download...';
 
             // Wait for all images to load
             Promise.all([
                 new Promise(resolve => { phoneCaseBg.onload = resolve; }),
-                new Promise(resolve => { userUpload.onload = resolve; }),
+                new Promise(resolve => { 
+                    if (userUpload.src) {
+                        userUpload.onload = resolve; 
+                        userUpload.onerror = () => {
+                            debugInfo.textContent = 'Error loading user design';
+                            resolve(); // Continue without user image
+                        };
+                    } else {
+                        resolve();
+                    }
+                }),
                 new Promise(resolve => { phoneCaseOverlay.onload = resolve; })
             ]).then(() => {
                 // Draw background
                 ctx.drawImage(phoneCaseBg, 0, 0, canvas.width, canvas.height);
                 
-                // Draw user design at original size position
-                ctx.drawImage(userUpload, 969, 994.5, 750, 1590);
+                // Draw user design if available
+                if (userUpload.src && userUpload.complete && userUpload.naturalWidth > 0) {
+                    ctx.drawImage(userUpload, 969, 994.5, 750, 1590);
+                }
                 
                 // Draw overlay
                 ctx.drawImage(phoneCaseOverlay, 0, 0, canvas.width, canvas.height);
@@ -157,7 +199,17 @@
                 link.download = 'phone-case-mockup.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
+                
+                debugInfo.textContent = 'Download started';
+            }).catch(error => {
+                debugInfo.textContent = 'Error generating mockup: ' + error.message;
+                console.error(error);
             });
+        });
+
+        // Initial debug check
+        window.addEventListener('load', () => {
+            debugInfo.textContent += ' | Page loaded';
         });
     </script>
 </body>
