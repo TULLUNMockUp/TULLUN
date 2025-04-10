@@ -5,70 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Case Mockup Generator</title>
     <style>
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #45a049;
+            --text: #333;
+            --text-light: #555;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             text-align: center;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
         }
 
         h1 {
-            color: #333;
+            color: var(--text);
             margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            color: #555;
+            color: var(--text-light);
             margin-bottom: 20px;
-            font-size: 18px;
+            font-size: 1.1rem;
         }
 
         .case-material-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .case-material-link {
-            color: #4CAF50;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 10px 15px;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 10px 16px;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            transition: var(--transition);
+            background: rgba(76, 175, 80, 0.05);
         }
 
         .case-material-link:hover, .case-material-link.active {
-            background-color: #4CAF50;
+            background-color: var(--primary);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .case-material-link.active {
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
         }
 
         #controls {
             margin: 20px auto;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             max-width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .upload-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .upload-label {
+            display: block;
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .upload-label:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        #image-upload {
+            position: absolute;
+            opacity: 0;
+            width: 0.1px;
+            height: 0.1px;
+            overflow: hidden;
+            z-index: -1;
         }
 
         button {
-            background: #4CAF50;
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 4px;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition);
+            min-width: 200px;
         }
 
         button:hover {
-            background: #45a049;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         #main-mockup-container {
@@ -78,7 +151,15 @@
             width: 1000px;
             height: 1000px;
             overflow: hidden;
-            background-color: white;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+
+        #main-mockup-container:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
         }
 
         .phone-case-bg, .phone-case-overlay {
@@ -120,7 +201,7 @@
         .carousel-wrapper {
             position: relative;
             max-width: 1600px;
-            margin: 20px auto;
+            margin: 30px auto;
         }
 
         .carousel-container {
@@ -134,7 +215,7 @@
         .carousel-inner {
             display: inline-block;
             white-space: nowrap;
-            transition: transform 0.5s ease-out;
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .carousel-item {
@@ -151,8 +232,16 @@
             width: 300px;
             height: 300px;
             overflow: hidden;
-            background-color: white;
+            background-color: var(--card-bg);
             margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+
+        .secondary-mockup:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
 
         .carousel-checkbox {
@@ -161,11 +250,15 @@
             right: 10px;
             z-index: 4;
             transform: scale(1.5);
+            cursor: pointer;
+            accent-color: var(--primary);
         }
 
         .mockup-label {
-            font-size: 14px;
-            margin-top: 5px;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-weight: 500;
+            color: var(--text-light);
         }
 
         .carousel-arrow {
@@ -174,7 +267,7 @@
             transform: translateY(-50%);
             width: 40px;
             height: 40px;
-            background-color: rgba(0,0,0,0.5);
+            background-color: var(--primary);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -184,10 +277,13 @@
             font-size: 20px;
             z-index: 5;
             border: none;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .carousel-arrow:hover {
-            background-color: rgba(0,0,0,0.7);
+            background-color: var(--primary-dark);
+            transform: translateY(-50%) scale(1.1);
         }
 
         .carousel-arrow.left {
@@ -209,41 +305,135 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.85);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 24px;
+            font-size: 1.2rem;
             flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .loading-content {
+            text-align: center;
+            max-width: 400px;
+            padding: 0 20px;
         }
 
         .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #4CAF50;
+            border: 5px solid rgba(255,255,255,0.1);
+            border-top: 5px solid var(--primary);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 15px;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+            margin-bottom: 20px;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .progress-bar {
+            width: 100%;
+            max-width: 300px;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease-out;
+        }
+
+        .encouragement-message {
+            margin-top: 15px;
+            font-size: 1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            #main-mockup-container {
+                width: 800px;
+                height: 800px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            #main-mockup-container {
+                width: 600px;
+                height: 600px;
+            }
+            
+            .carousel-item {
+                width: 250px;
+            }
+            
+            .secondary-mockup {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            #main-mockup-container {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 1/1;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .case-material-link {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            
+            button {
+                padding: 10px 16px;
+                min-width: 160px;
+            }
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
     </style>
 </head>
 <body>
     <div class="loading">
-        <div class="spinner"></div>
-        <div>Generating your mockups...</div>
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="status-message">Generating your mockups...</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="encouragement-message">Your stunning designs will be ready soon...</div>
+        </div>
     </div>
     
-    <h1>Phone Case Mockup Generator</h1>
-    <div class="subtitle">Select Phone Case Material and Make</div>
+    <h1 class="fade-in">Phone Case Mockup Generator</h1>
+    <div class="subtitle fade-in">Create professional mockups for your phone case designs</div>
     
-    <div class="case-material-container">
+    <div class="case-material-container fade-in">
         <a href="#" class="case-material-link active" data-case="samsung-tpu">Clear TPU case for Samsung</a>
         <a href="#" class="case-material-link" data-case="iphone-tpu">Clear TPU case for iPhone</a>
         <a href="#" class="case-material-link" data-case="iphone-hybrid">Clear Hybrid case for iPhone</a>
@@ -251,16 +441,19 @@
         <a href="#" class="case-material-link" data-case="iphone-fullprint">Full print case for iPhone</a>
     </div>
     
-    <div id="controls">
-        <input type="file" id="image-upload" accept="image/*">
+    <div id="controls" class="fade-in">
+        <div class="upload-container">
+            <label for="image-upload" class="upload-label">Upload Your Design</label>
+            <input type="file" id="image-upload" accept="image/*">
+        </div>
         <button id="download-btn">Download Main Mockup</button>
-        <button id="download-zip-btn">Download Selected Views as ZIP</button>
+        <button id="download-zip-btn">Download Selected Views</button>
     </div>
     
     <!-- Samsung TPU Mockups -->
     <div id="samsung-tpu" class="case-mockups">
         <!-- Main Mockup -->
-        <div id="main-mockup-container">
+        <div id="main-mockup-container" class="fade-in">
             <img class="phone-case-bg" src="mockups/samsung-tpu-back-main.png">
             <div class="design-area">
                 <img class="user-design" src="" alt="">
@@ -269,42 +462,42 @@
         </div>
 
         <!-- Secondary Mockups Carousel -->
-        <div class="carousel-wrapper">
+        <div class="carousel-wrapper fade-in">
             <button class="carousel-arrow left">&#10094;</button>
             <div class="carousel-container">
                 <div class="carousel-inner">
                     <div class="carousel-item">
                         <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="1">
+                            <input type="checkbox" class="carousel-checkbox" data-view="1" checked>
                             <img class="phone-case-bg" src="mockups/samsung-tpu-view1.png">
                             <div class="design-area">
                                 <img class="user-design" src="" alt="">
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view1-overlay.png">
                         </div>
-                        <div class="mockup-label">View 1</div>
+                        <div class="mockup-label">Front View</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="2">
+                            <input type="checkbox" class="carousel-checkbox" data-view="2" checked>
                             <img class="phone-case-bg" src="mockups/samsung-tpu-view2.png">
                             <div class="design-area">
                                 <img class="user-design" src="" alt="">
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view2-overlay.png">
                         </div>
-                        <div class="mockup-label">View 2</div>
+                        <div class="mockup-label">Back View</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="3">
+                            <input type="checkbox" class="carousel-checkbox" data-view="3" checked>
                             <img class="phone-case-bg" src="mockups/samsung-tpu-view3.png">
                             <div class="design-area">
                                 <img class="user-design" src="" alt="">
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view3-overlay.png">
                         </div>
-                        <div class="mockup-label">View 3</div>
+                        <div class="mockup-label">Side View</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
@@ -315,7 +508,7 @@
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view4-overlay.png">
                         </div>
-                        <div class="mockup-label">View 4</div>
+                        <div class="mockup-label">Angle View</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
@@ -326,7 +519,7 @@
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view5-overlay.png">
                         </div>
-                        <div class="mockup-label">View 5</div>
+                        <div class="mockup-label">Top View</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
@@ -337,7 +530,7 @@
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view6-overlay.png">
                         </div>
-                        <div class="mockup-label">View 6</div>
+                        <div class="mockup-label">Bottom View</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
@@ -348,7 +541,7 @@
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view7-overlay.png">
                         </div>
-                        <div class="mockup-label">View 7</div>
+                        <div class="mockup-label">Close-up</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
@@ -359,7 +552,7 @@
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view8-overlay.png">
                         </div>
-                        <div class="mockup-label">View 8</div>
+                        <div class="mockup-label">Lifestyle 1</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
@@ -370,7 +563,7 @@
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view9-overlay.png">
                         </div>
-                        <div class="mockup-label">View 9</div>
+                        <div class="mockup-label">Lifestyle 2</div>
                     </div>
                     <div class="carousel-item">
                         <div class="secondary-mockup">
@@ -381,7 +574,7 @@
                             </div>
                             <img class="phone-case-overlay" src="mockups/samsung-tpu-view10-overlay.png">
                         </div>
-                        <div class="mockup-label">View 10</div>
+                        <div class="mockup-label">Lifestyle 3</div>
                     </div>
                 </div>
             </div>
@@ -432,6 +625,9 @@
         const downloadZipBtn = document.getElementById('download-zip-btn');
         const caseLinks = document.querySelectorAll('.case-material-link');
         const loadingElement = document.querySelector('.loading');
+        const statusMessage = document.querySelector('.status-message');
+        const progressFill = document.querySelector('.progress-fill');
+        const encouragementMessage = document.querySelector('.encouragement-message');
         
         // State variables
         let uploadedImage = new Image();
@@ -439,6 +635,30 @@
         let currentScroll = 0;
         const itemWidth = 320; // 300px width + 20px margin
         const mockupCache = new Map();
+
+        // Encouragement messages for different stages
+        const encouragementMessages = {
+            uploading: [
+                "Your design is being prepared...",
+                "Great choice! We're loading your artwork...",
+                "This design will look amazing on a phone case!"
+            ],
+            generating: [
+                "Creating beautiful mockups for your shop...",
+                "Your customers are going to love these!",
+                "Almost there! Your professional mockups are being generated..."
+            ],
+            compressing: [
+                "Packaging your files for easy download...",
+                "Your shop assets will be ready in just a moment...",
+                "Final touches to make your files perfect..."
+            ],
+            downloading: [
+                "Your designs are ready! Preparing download...",
+                "Great work! Your mockups are complete.",
+                "These will look fantastic in your online store!"
+            ]
+        };
 
         // Initialize carousels
         document.querySelectorAll('.carousel-inner').forEach(carousel => {
@@ -450,7 +670,7 @@
             const file = event.target.files[0];
             if (!file) return;
             
-            showLoading("Loading your design...");
+            showLoading("Uploading your design...", "uploading");
             
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -466,6 +686,7 @@
                     design.onload = () => {
                         design.style.display = 'block';
                         hideLoading();
+                        updateButtonStates();
                     };
                     design.onerror = () => {
                         design.style.display = 'none';
@@ -479,6 +700,13 @@
             };
             reader.readAsDataURL(file);
         });
+
+        // Update button states based on image upload
+        function updateButtonStates() {
+            const hasImage = uploadedImage.src !== '';
+            downloadBtn.disabled = !hasImage;
+            downloadZipBtn.disabled = !hasImage;
+        }
 
         // Case material selection
         caseLinks.forEach(link => {
@@ -563,7 +791,7 @@
                 return mockupCache.get(cacheKey);
             }
 
-            showLoading("Generating mockup...");
+            showLoading("Generating mockup...", "generating");
             
             try {
                 const canvas = document.createElement('canvas');
@@ -612,17 +840,21 @@
                 return;
             }
 
-            showLoading("Generating main mockup...");
+            showLoading("Generating main mockup...", "generating");
             
             try {
                 const activeCase = document.querySelector('.case-mockups:not(.hidden)');
                 const mainContainer = activeCase.querySelector('#main-mockup-container');
                 const canvas = await generateMockupImage(mainContainer);
-                downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
+                
+                showLoading("Preparing download...", "downloading");
+                setTimeout(() => {
+                    downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
+                    hideLoading();
+                }, 500);
             } catch (error) {
                 console.error("Error generating mockup:", error);
                 alert("Error generating mockup. Please try again.");
-            } finally {
                 hideLoading();
             }
         });
@@ -634,17 +866,17 @@
                 return;
             }
 
-            showLoading("Preparing your download...");
+            showLoading("Preparing your download...", "generating");
             
             try {
                 const activeCase = document.querySelector('.case-mockups:not(.hidden)');
                 await preloadMockupAssets(activeCase);
                 
                 const zip = new JSZip();
-                const imgFolder = zip.folder("mockups");
+                const imgFolder = zip.folder("phone-case-mockups");
                 
                 // Add main mockup
-                showLoading("Generating main mockup...");
+                showLoading("Generating main mockup...", "generating");
                 const mainContainer = activeCase.querySelector('#main-mockup-container');
                 const mainCanvas = await generateMockupImage(mainContainer);
                 imgFolder.file("main-mockup.png", await canvasToBlob(mainCanvas));
@@ -655,27 +887,40 @@
                 
                 for (let i = 0; i < checkboxes.length; i++) {
                     const checkbox = checkboxes[i];
-                    showLoading(`Generating view ${i+1} of ${totalViews}...`);
+                    const progress = Math.round((i / totalViews) * 100);
+                    progressFill.style.width = `${progress}%`;
+                    
+                    showLoading(`Generating view ${i+1} of ${totalViews}...`, "generating");
                     
                     const viewNumber = checkbox.dataset.view;
                     const container = checkbox.closest('.secondary-mockup');
                     const canvas = await generateMockupImage(container);
-                    imgFolder.file(`view-${viewNumber}.png`, await canvasToBlob(canvas));
+                    
+                    const label = container.closest('.carousel-item').querySelector('.mockup-label').textContent;
+                    const filename = label.toLowerCase().replace(/\s+/g, '-') + '.png';
+                    imgFolder.file(filename, await canvasToBlob(canvas));
                 }
                 
                 // Generate ZIP
-                showLoading("Compressing files...");
+                showLoading("Compressing files...", "compressing");
+                progressFill.style.width = '90%';
+                
                 const content = await zip.generateAsync({
                     type: "blob",
                     compression: "DEFLATE",
                     compressionOptions: { level: 6 }
                 }, updateProgress);
                 
-                downloadBlob(content, 'mockups.zip');
+                progressFill.style.width = '100%';
+                showLoading("Your files are ready!", "downloading");
+                
+                setTimeout(() => {
+                    downloadBlob(content, 'phone-case-mockups.zip');
+                    hideLoading();
+                }, 1000);
             } catch (error) {
                 console.error("Error generating mockups:", error);
                 alert("Error generating mockups. Please try again.");
-            } finally {
                 hideLoading();
             }
         });
@@ -701,27 +946,45 @@
             }, 100);
         }
         
-        function showLoading(message = "Processing...") {
-            loadingElement.innerHTML = `
-                <div class="spinner"></div>
-                <div>${message}</div>
-            `;
+        function showLoading(message, stage = "generating") {
+            statusMessage.textContent = message;
+            
+            // Select a random encouragement message for the current stage
+            const messages = encouragementMessages[stage] || encouragementMessages.generating;
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            encouragementMessage.textContent = randomMessage;
+            
+            progressFill.style.width = '0%';
             loadingElement.style.display = 'flex';
+            
+            // Disable buttons during processing
+            downloadBtn.disabled = true;
+            downloadZipBtn.disabled = true;
+            imageUpload.disabled = true;
         }
         
         function hideLoading() {
             loadingElement.style.display = 'none';
+            
+            // Re-enable buttons
+            downloadBtn.disabled = !uploadedImage.src;
+            downloadZipBtn.disabled = !uploadedImage.src;
+            imageUpload.disabled = false;
         }
         
         function updateProgress(metadata) {
             if (metadata.currentFile) {
                 const progress = Math.round(metadata.percent);
-                loadingElement.innerHTML = `
-                    <div class="spinner"></div>
-                    <div>Compressing ${metadata.currentFile}... ${progress}%</div>
-                `;
+                progressFill.style.width = `${progress}%`;
+                
+                if (progress < 90) { // Don't show 100% until we're really done
+                    statusMessage.textContent = `Compressing ${metadata.currentFile}... ${progress}%`;
+                }
             }
         }
+
+        // Initialize button states
+        updateButtonStates();
     </script>
 </body>
 </html>
