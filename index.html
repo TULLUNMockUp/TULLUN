@@ -45,20 +45,18 @@
             position: relative;
             display: inline-block;
             margin: 20px auto;
-            width: 500px; 
-            height: 500px; 
+            width: 2000px; /* Original mockup size */
+            height: 2000px; /* Original mockup size */
             overflow: hidden;
             background-color: white; 
         }
 
         #phone-case-bg, #phone-case-overlay { 
             position: absolute;
-            top: 0; /* Reset to align with mockup container */
-            left: 0; /* Reset to align with mockup container */
+            top: 0; 
+            left: 0; 
             width: 2000px; /* Original mockup size */
             height: auto;
-            transform-origin: top left; /* Ensure scaling starts from top-left */
-            transform: scale(0.25); /* Scale down to fit mockup container */
         }
 
         #phone-case-bg {
@@ -68,13 +66,11 @@
         #design-area {
             position: absolute;
             z-index: 2; 
-            top: 994.5px; /* Original Y coordinate */
-            left: 969px; /* Original X coordinate */
-            width: 750px;  /* Original design width */
-            height: 1590px; /* Original design height */
+            top: 994.5px; /* Original Y coordinate for design placement */
+            left: 969px; /* Original X coordinate for design placement */
+            width: 750px;  /* Width to match design area */
+            height: 1590px; /* Height to match design area */
             overflow: hidden;
-            transform-origin: top left; /* Ensure scaling starts from top-left */
-            transform: scale(0.25); /* Scale down to fit mockup container */
         }
 
         #user-design {
@@ -108,7 +104,10 @@
     <script>
         const imageUpload = document.getElementById('image-upload');
         const userDesign = document.getElementById('user-design');
+        const mockupContainer = document.getElementById('mockup-container');
+        const downloadBtn = document.getElementById('download-btn');
 
+        // Handle image upload
         imageUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             const reader = new FileReader();
@@ -119,8 +118,19 @@
                 reader.readAsDataURL(file);
             }
         });
-    </script>
-</body>
-</html>
 
+        // Handle download button
+        downloadBtn.addEventListener('click', function() {
+            // Create a canvas element to render the mockup
+            const canvas = document.createElement('canvas');
+            canvas.width = 2000; // Original mockup width
+            canvas.height = 2000; // Original mockup height
+            const ctx = canvas.getContext('2d');
 
+            // Draw the mockup elements onto the canvas
+            const phoneCaseBg = new Image();
+            const userUpload = new Image();
+            const phoneCaseOverlay = new Image();
+
+            phoneCaseBg.src = document.getElementById('phone-case-bg').src;
+            userUpload.src = document.getElementById('userundefined
