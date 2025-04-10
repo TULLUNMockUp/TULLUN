@@ -41,28 +41,12 @@
             background: #45a049;
         }
 
-        .mockup-row {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
         #main-mockup-container {
             position: relative;
             display: inline-block;
             margin: 20px auto;
             width: 1000px;
             height: 1000px;
-            overflow: hidden;
-            background-color: white;
-        }
-
-        .secondary-mockup-container {
-            position: relative;
-            display: inline-block;
-            margin: 10px;
-            width: 500px;
-            height: 500px;
             overflow: hidden;
             background-color: white;
         }
@@ -91,8 +75,8 @@
             position: absolute;
             max-width: 100%;
             max-height: 100%;
-            top: 48.5%;
-            left: 48.5%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             object-fit: contain;
         }
@@ -102,48 +86,43 @@
             pointer-events: none;
         }
 
-        .view-selector {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
+        .carousel-container {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
             margin: 20px 0;
+            padding: 10px 0;
         }
 
-        .view-option {
-            width: 100px;
-            height: 100px;
-            border: 2px solid #ddd;
-            cursor: pointer;
+        .carousel-item {
+            display: inline-block;
+            width: 300px;
+            margin: 0 10px;
+            vertical-align: top;
+            white-space: normal;
             position: relative;
         }
 
-        .view-option.active {
-            border-color: #4CAF50;
+        .secondary-mockup {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            background-color: white;
+            margin-bottom: 10px;
         }
 
-        .view-option input[type="checkbox"] {
+        .carousel-checkbox {
             position: absolute;
-            top: 5px;
-            right: 5px;
+            top: 10px;
+            right: 10px;
             z-index: 4;
-        }
-
-        .secondary-mockups {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .secondary-mockup-wrapper {
-            margin: 10px;
-            text-align: center;
+            transform: scale(1.5);
         }
 
         .mockup-label {
-            margin-top: 5px;
             font-size: 14px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -153,53 +132,7 @@
     <div id="controls">
         <input type="file" id="image-upload" accept="image/*">
         <button id="download-btn">Download Main Mockup</button>
-        <button id="download-zip-btn">Download All Selected as ZIP</button>
-    </div>
-
-    <div class="view-selector">
-        <div class="view-option active" data-view="main">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="view-option" data-view="view1">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view2">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view3">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view4">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view5">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view6">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view7">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view8">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view9">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
-        <div class="view-option" data-view="view10">
-            <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
-            <input type="checkbox" checked>
-        </div>
+        <button id="download-zip-btn">Download Selected Views as ZIP</button>
     </div>
     
     <!-- Main Mockup -->
@@ -211,10 +144,11 @@
         <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
     </div>
 
-    <!-- Secondary Mockups (2 rows of 5) -->
-    <div class="secondary-mockups">
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-1">
+    <!-- Secondary Mockups Carousel -->
+    <div class="carousel-container">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="1">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -223,8 +157,9 @@
             </div>
             <div class="mockup-label">View 1</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-2">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="2">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -233,8 +168,9 @@
             </div>
             <div class="mockup-label">View 2</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-3">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="3">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -243,8 +179,9 @@
             </div>
             <div class="mockup-label">View 3</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-4">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="4">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -253,8 +190,9 @@
             </div>
             <div class="mockup-label">View 4</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-5">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="5">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -263,11 +201,9 @@
             </div>
             <div class="mockup-label">View 5</div>
         </div>
-    </div>
-    
-    <div class="secondary-mockups">
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-6">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="6">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -276,8 +212,9 @@
             </div>
             <div class="mockup-label">View 6</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-7">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="7">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -286,8 +223,9 @@
             </div>
             <div class="mockup-label">View 7</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-8">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="8">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -296,8 +234,9 @@
             </div>
             <div class="mockup-label">View 8</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-9">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="9">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -306,8 +245,9 @@
             </div>
             <div class="mockup-label">View 9</div>
         </div>
-        <div class="secondary-mockup-wrapper">
-            <div class="secondary-mockup-container" id="secondary-mockup-10">
+        <div class="carousel-item">
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" checked data-view="10">
                 <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="Your Design">
@@ -323,7 +263,6 @@
         const imageUpload = document.getElementById('image-upload');
         const downloadBtn = document.getElementById('download-btn');
         const downloadZipBtn = document.getElementById('download-zip-btn');
-        const viewOptions = document.querySelectorAll('.view-option');
         let uploadedImage = new Image();
 
         // Handle image upload
@@ -342,16 +281,8 @@
             reader.readAsDataURL(file);
         });
 
-        // Handle view selection
-        viewOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                viewOptions.forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
         // Helper function to generate mockup image
-        async function generateMockupImage(container, scale = 1) {
+        async function generateMockupImage(container, scale = 2) {
             const canvas = document.createElement('canvas');
             canvas.width = 1000 * scale;
             canvas.height = 1000 * scale;
@@ -398,7 +329,7 @@
             }
 
             const mainContainer = document.getElementById('main-mockup-container');
-            const canvas = await generateMockupImage(mainContainer, 2); // 2x scale for high quality
+            const canvas = await generateMockupImage(mainContainer, 2); // 2x scale for 2000x2000
             
             // Trigger download
             const link = document.createElement('a');
@@ -424,14 +355,13 @@
             imgFolder.file("main-mockup.png", mainData);
             
             // Add selected secondary mockups
-            const checkboxes = document.querySelectorAll('.view-option input[type="checkbox"]');
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    const container = document.getElementById(`secondary-mockup-${i+1}`);
-                    const canvas = await generateMockupImage(container, 2);
-                    const data = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1));
-                    imgFolder.file(`mockup-${i+1}.png`, data);
-                }
+            const checkboxes = document.querySelectorAll('.carousel-checkbox:checked');
+            for (const checkbox of checkboxes) {
+                const viewNumber = checkbox.dataset.view;
+                const container = document.querySelector(`.secondary-mockup:nth-child(${viewNumber})`).parentElement;
+                const canvas = await generateMockupImage(container, 2);
+                const data = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1));
+                imgFolder.file(`view-${viewNumber}.png`, data);
             }
             
             // Generate and download ZIP
