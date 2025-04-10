@@ -265,8 +265,8 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background-color: var(--primary);
             color: white;
             border-radius: 50%;
@@ -274,7 +274,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 24px;
             z-index: 5;
             border: none;
             transition: var(--transition);
@@ -287,11 +287,11 @@
         }
 
         .carousel-arrow.left {
-            left: 0;
+            left: 10px;
         }
 
         .carousel-arrow.right {
-            right: 0;
+            right: 10px;
         }
 
         .hidden {
@@ -405,6 +405,12 @@
                 padding: 10px 16px;
                 min-width: 160px;
             }
+
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
         }
 
         /* Fade-in animation */
@@ -463,7 +469,7 @@
 
         <!-- Secondary Mockups Carousel -->
         <div class="carousel-wrapper fade-in">
-            <button class="carousel-arrow left">&#10094;</button>
+            <button class="carousel-arrow left">←</button>
             <div class="carousel-container">
                 <div class="carousel-inner">
                     <div class="carousel-item">
@@ -521,76 +527,112 @@
                         </div>
                         <div class="mockup-label">Top View</div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="6">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view6.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view6-overlay.png">
-                        </div>
-                        <div class="mockup-label">Bottom View</div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="7">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view7.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view7-overlay.png">
-                        </div>
-                        <div class="mockup-label">Close-up</div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="8">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view8.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view8-overlay.png">
-                        </div>
-                        <div class="mockup-label">Lifestyle 1</div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="9">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view9.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view9-overlay.png">
-                        </div>
-                        <div class="mockup-label">Lifestyle 2</div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="10">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view10.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view10-overlay.png">
-                        </div>
-                        <div class="mockup-label">Lifestyle 3</div>
-                    </div>
                 </div>
             </div>
-            <button class="carousel-arrow right">&#10095;</button>
+            <button class="carousel-arrow right">→</button>
         </div>
     </div>
 
-    <!-- Other case types (hidden by default) -->
+    <!-- iPhone TPU Mockups -->
     <div id="iphone-tpu" class="case-mockups hidden">
-        <!-- Similar structure with iPhone TPU mockups -->
+        <!-- Main Mockup -->
+        <div id="main-mockup-container">
+            <img class="phone-case-bg" src="mockups/iphone-tpu-back-main.png">
+            <div class="design-area">
+                <img class="user-design" src="" alt="">
+            </div>
+            <img class="phone-case-overlay" src="mockups/iphone-tpu-overlay-main.png">
+        </div>
+
+        <!-- Secondary Mockups Carousel -->
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left">←</button>
+            <div class="carousel-container">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="1" checked>
+                            <img class="phone-case-bg" src="mockups/iphone-tpu-view1.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/iphone-tpu-view1-overlay.png">
+                        </div>
+                        <div class="mockup-label">Front View</div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="2" checked>
+                            <img class="phone-case-bg" src="mockups/iphone-tpu-view2.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/iphone-tpu-view2-overlay.png">
+                        </div>
+                        <div class="mockup-label">Back View</div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="3" checked>
+                            <img class="phone-case-bg" src="mockups/iphone-tpu-view3.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/iphone-tpu-view3-overlay.png">
+                        </div>
+                        <div class="mockup-label">Side View</div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow right">→</button>
+        </div>
     </div>
 
+    <!-- iPhone Hybrid Mockups -->
     <div id="iphone-hybrid" class="case-mockups hidden">
-        <!-- Similar structure with iPhone Hybrid mockups -->
+        <!-- Main Mockup -->
+        <div id="main-mockup-container">
+            <img class="phone-case-bg" src="mockups/iphone-hybrid-back-main.png">
+            <div class="design-area">
+                <img class="user-design" src="" alt="">
+            </div>
+            <img class="phone-case-overlay" src="mockups/iphone-hybrid-overlay-main.png">
+        </div>
+
+        <!-- Secondary Mockups Carousel -->
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left">←</button>
+            <div class="carousel-container">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="1" checked>
+                            <img class="phone-case-bg" src="mockups/iphone-hybrid-view1.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/iphone-hybrid-view1-overlay.png">
+                        </div>
+                        <div class="mockup-label">Front View</div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="2" checked>
+                            <img class="phone-case-bg" src="mockups/iphone-hybrid-view2.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/iphone-hybrid-view2-overlay.png">
+                        </div>
+                        <div class="mockup-label">Back View</div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow right">→</button>
+        </div>
     </div>
 
+    <!-- Pixel TPU Mockups -->
     <div id="pixel-tpu" class="case-mockups hidden">
         <!-- Main Mockup -->
         <div id="main-mockup-container">
@@ -603,18 +645,79 @@
 
         <!-- Secondary Mockups Carousel -->
         <div class="carousel-wrapper">
-            <button class="carousel-arrow left">&#10094;</button>
+            <button class="carousel-arrow left">←</button>
             <div class="carousel-container">
                 <div class="carousel-inner">
-                    <!-- 10 secondary views would follow same pattern -->
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="1" checked>
+                            <img class="phone-case-bg" src="mockups/pixel-tpu-view1.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/pixel-tpu-view1-overlay.png">
+                        </div>
+                        <div class="mockup-label">Front View</div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="2" checked>
+                            <img class="phone-case-bg" src="mockups/pixel-tpu-view2.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/pixel-tpu-view2-overlay.png">
+                        </div>
+                        <div class="mockup-label">Back View</div>
+                    </div>
                 </div>
             </div>
-            <button class="carousel-arrow right">&#10095;</button>
+            <button class="carousel-arrow right">→</button>
         </div>
     </div>
 
+    <!-- iPhone Full Print Mockups -->
     <div id="iphone-fullprint" class="case-mockups hidden">
-        <!-- Similar structure with iPhone Full Print mockups -->
+        <!-- Main Mockup -->
+        <div id="main-mockup-container">
+            <img class="phone-case-bg" src="mockups/iphone-fullprint-back-main.png">
+            <div class="design-area">
+                <img class="user-design" src="" alt="">
+            </div>
+            <img class="phone-case-overlay" src="mockups/iphone-fullprint-overlay-main.png">
+        </div>
+
+        <!-- Secondary Mockups Carousel -->
+        <div class="carousel-wrapper">
+            <button class="carousel-arrow left">←</button>
+            <div class="carousel-container">
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="1" checked>
+                            <img class="phone-case-bg" src="mockups/iphone-fullprint-view1.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/iphone-fullprint-view1-overlay.png">
+                        </div>
+                        <div class="mockup-label">Front View</div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="secondary-mockup">
+                            <input type="checkbox" class="carousel-checkbox" data-view="2" checked>
+                            <img class="phone-case-bg" src="mockups/iphone-fullprint-view2.png">
+                            <div class="design-area">
+                                <img class="user-design" src="" alt="">
+                            </div>
+                            <img class="phone-case-overlay" src="mockups/iphone-fullprint-view2-overlay.png">
+                        </div>
+                        <div class="mockup-label">Back View</div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow right">→</button>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
@@ -679,9 +782,8 @@
                     design.style.display = 'none';
                 });
                 
-                // Update only visible designs
-                const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-                activeCase.querySelectorAll('.user-design').forEach(design => {
+                // Update all designs (including hidden ones)
+                document.querySelectorAll('.user-design').forEach(design => {
                     design.src = e.target.result;
                     design.onload = () => {
                         design.style.display = 'block';
@@ -722,28 +824,33 @@
                 document.querySelectorAll('.case-mockups').forEach(mockup => {
                     mockup.classList.add('hidden');
                 });
-                document.getElementById(caseType).classList.remove('hidden');
+                const activeMockup = document.getElementById(caseType);
+                activeMockup.classList.remove('hidden');
                 
                 // Reset carousel scroll for the new view
                 currentScroll = 0;
-                currentCarousel = document.querySelector(`#${caseType} .carousel-inner`);
+                currentCarousel = activeMockup.querySelector('.carousel-inner');
                 updateCarousel(currentCarousel);
             });
         });
 
         // Carousel navigation
         function updateCarousel(carouselInner) {
+            if (!carouselInner) return;
             carouselInner.style.transform = `translateX(-${currentScroll}px)`;
             const arrows = carouselInner.closest('.carousel-wrapper').querySelectorAll('.carousel-arrow');
-            arrows[0].style.display = currentScroll <= 0 ? 'none' : 'flex';
-            arrows[1].style.display = currentScroll >= (carouselInner.scrollWidth - carouselInner.parentElement.offsetWidth) ? 'none' : 'flex';
+            if (arrows.length > 0) {
+                arrows[0].style.display = currentScroll <= 0 ? 'none' : 'flex';
+                arrows[1].style.display = currentScroll >= (carouselInner.scrollWidth - carouselInner.parentElement.offsetWidth) ? 'none' : 'flex';
+            }
         }
 
+        // Carousel arrow click handlers
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('carousel-arrow')) {
                 const wrapper = e.target.closest('.carousel-wrapper');
                 const carouselInner = wrapper.querySelector('.carousel-inner');
-                const scrollAmount = itemWidth; // Scroll one item at a time
+                const scrollAmount = itemWidth * 3; // Scroll three items at a time
                 
                 if (e.target.classList.contains('left')) {
                     currentScroll = Math.max(0, currentScroll - scrollAmount);
