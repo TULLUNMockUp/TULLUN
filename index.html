@@ -67,8 +67,8 @@
         #design-area {
             position: absolute;
             z-index: 2; 
-            top: 497.25px; /* 994.5px / 2 */
-            left: 484.5px; /* 969px / 2 */
+            bottom: 0;
+            right: 0;
             width: 375px;  /* Scaled down by 50% */
             height: 795px; /* Scaled down by 50% */
             overflow: hidden;
@@ -146,8 +146,8 @@
                 // Draw background
                 ctx.drawImage(phoneCaseBg, 0, 0, canvas.width, canvas.height);
                 
-                // Draw user design at original size position
-                ctx.drawImage(userUpload, 969, 994.5, 750, 1590);
+                // Draw user design at original size position (bottom right corner)
+                ctx.drawImage(userUpload, 2000 - 750 - 969, 2000 - 1590 - 994.5, 750, 1590);
                 
                 // Draw overlay
                 ctx.drawImage(phoneCaseOverlay, 0, 0, canvas.width, canvas.height);
