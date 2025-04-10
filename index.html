@@ -75,9 +75,12 @@
 
         #user-design {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            transform-origin: center center;
+            height: 100%;
+            transform-origin: top left; /* Important for correct scaling */
+            transform: translate(-969px, -994.5px) scale(2.4); /* Adjust values */
         }
 
         #phone-case-overlay {
@@ -87,7 +90,6 @@
     </style>
 </head>
 <body>
-    <h1>Phone Case Mockup Generator</h1>
     
     <div id="controls">
         <input type="file" id="image-upload" accept="image/*">
