@@ -23,7 +23,7 @@
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 600px;
+            max-width: 800px;
         }
 
         button {
@@ -41,7 +41,13 @@
             background: #45a049;
         }
 
-        #mockup-container {
+        .mockup-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #main-mockup-container {
             position: relative;
             display: inline-block;
             margin: 20px auto;
@@ -51,37 +57,47 @@
             background-color: white;
         }
 
-        #phone-case-bg, #phone-case-overlay {
+        .secondary-mockup-container {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+            width: 500px;
+            height: 500px;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .phone-case-bg, .phone-case-overlay {
             position: absolute;
             top: 0;
             left: 0;
-            width: 1000px;
+            width: 100%;
             height: auto;
         }
 
-        #phone-case-bg {
+        .phone-case-bg {
             z-index: 1;
         }
 
-        #design-area {
+        .design-area {
             position: absolute;
             z-index: 2;
-            width: 1000px;
-            height: 1000px;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
         }
 
-        #user-design {
+        .user-design {
             position: absolute;
-            max-width: 1000px;
-            max-height: 1000px;
-            top: 48.5%;
-            left: 48.5%;
+            max-width: 100%;
+            max-height: 100%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
             object-fit: contain;
         }
 
-        #phone-case-overlay {
+        .phone-case-overlay {
             z-index: 3;
             pointer-events: none;
         }
@@ -99,10 +115,35 @@
             height: 100px;
             border: 2px solid #ddd;
             cursor: pointer;
+            position: relative;
         }
 
         .view-option.active {
             border-color: #4CAF50;
+        }
+
+        .view-option input[type="checkbox"] {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            z-index: 4;
+        }
+
+        .secondary-mockups {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .secondary-mockup-wrapper {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .mockup-label {
+            margin-top: 5px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -111,7 +152,8 @@
     
     <div id="controls">
         <input type="file" id="image-upload" accept="image/*">
-        <button id="download-btn">Download Mockup</button>
+        <button id="download-btn">Download Main Mockup</button>
+        <button id="download-zip-btn">Download All Selected as ZIP</button>
     </div>
 
     <div class="view-selector">
@@ -120,48 +162,167 @@
         </div>
         <div class="view-option" data-view="view1">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view2">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view3">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view4">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view5">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view6">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view7">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view8">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view9">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
         <div class="view-option" data-view="view10">
             <img src="mockups/iphone15-case-back.png" style="width:100%;height:100%;object-fit:cover;">
+            <input type="checkbox" checked>
         </div>
     </div>
     
-    <div id="mockup-container">
-        <img id="phone-case-bg" src="mockups/iphone15-case-back.png">
-        <div id="design-area">
-            <img id="user-design" src="" alt="Your Design">
+    <!-- Main Mockup -->
+    <div id="main-mockup-container">
+        <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+        <div class="design-area">
+            <img class="user-design" src="" alt="Your Design">
         </div>
-        <img id="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+        <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
     </div>
 
+    <!-- Secondary Mockups (2 rows of 5) -->
+    <div class="secondary-mockups">
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-1">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 1</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-2">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 2</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-3">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 3</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-4">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 4</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-5">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 5</div>
+        </div>
+    </div>
+    
+    <div class="secondary-mockups">
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-6">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 6</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-7">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 7</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-8">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 8</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-9">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 9</div>
+        </div>
+        <div class="secondary-mockup-wrapper">
+            <div class="secondary-mockup-container" id="secondary-mockup-10">
+                <img class="phone-case-bg" src="mockups/iphone15-case-back.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="Your Design">
+                </div>
+                <img class="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
+            </div>
+            <div class="mockup-label">View 10</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script>
         const imageUpload = document.getElementById('image-upload');
-        const userDesign = document.getElementById('user-design');
         const downloadBtn = document.getElementById('download-btn');
+        const downloadZipBtn = document.getElementById('download-zip-btn');
         const viewOptions = document.querySelectorAll('.view-option');
         let uploadedImage = new Image();
 
@@ -172,7 +333,10 @@
             
             const reader = new FileReader();
             reader.onload = function(e) {
-                userDesign.src = e.target.result;
+                // Update design in all mockups
+                document.querySelectorAll('.user-design').forEach(design => {
+                    design.src = e.target.result;
+                });
                 uploadedImage.src = e.target.result;
             }
             reader.readAsDataURL(file);
@@ -183,84 +347,100 @@
             option.addEventListener('click', function() {
                 viewOptions.forEach(opt => opt.classList.remove('active'));
                 this.classList.add('active');
-                
-                // For now using same mockup files for all views
-                document.getElementById('phone-case-bg').src = 'mockups/iphone15-case-back.png';
-                document.getElementById('phone-case-overlay').src = 'mockups/iphone15-case-overlay.png';
             });
         });
 
-        // Handle download button
-        downloadBtn.addEventListener('click', function() {
+        // Helper function to generate mockup image
+        async function generateMockupImage(container, scale = 1) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1000 * scale;
+            canvas.height = 1000 * scale;
+            const ctx = canvas.getContext('2d');
+
+            const bg = container.querySelector('.phone-case-bg');
+            const design = container.querySelector('.user-design');
+            const overlay = container.querySelector('.phone-case-overlay');
+
+            // Wait for all images to load
+            await Promise.all([
+                new Promise(resolve => { if (bg.complete) resolve(); else bg.onload = resolve; }),
+                new Promise(resolve => { if (design.complete) resolve(); else design.onload = resolve; }),
+                new Promise(resolve => { if (overlay.complete) resolve(); else overlay.onload = resolve; })
+            ]);
+
+            // Draw background
+            ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+            
+            // Draw design (centered)
+            if (design.src) {
+                const designScale = Math.min(
+                    (1000 * scale) / design.naturalWidth,
+                    (1000 * scale) / design.naturalHeight
+                );
+                const width = design.naturalWidth * designScale;
+                const height = design.naturalHeight * designScale;
+                const x = (canvas.width - width) / 2;
+                const y = (canvas.height - height) / 2;
+                ctx.drawImage(design, x, y, width, height);
+            }
+            
+            // Draw overlay
+            ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
+            
+            return canvas;
+        }
+
+        // Handle main mockup download
+        downloadBtn.addEventListener('click', async function() {
             if (!uploadedImage.src) {
                 alert('Please upload an image first');
                 return;
             }
 
-            // Create canvas at 2000x2000 (2x scale for high quality)
-            const canvas = document.createElement('canvas');
-            canvas.width = 2000;
-            canvas.height = 2000;
-            const ctx = canvas.getContext('2d');
-
-            // Create promise to wait for all images to load
-            const loadImage = (img) => {
-                return new Promise((resolve) => {
-                    if (img.complete && img.naturalWidth !== 0) {
-                        resolve();
-                    } else {
-                        img.onload = resolve;
-                        img.onerror = () => {
-                            console.error('Error loading image');
-                            resolve();
-                        };
-                    }
-                });
-            };
-
-            const phoneCaseBg = new Image();
-            const phoneCaseOverlay = new Image();
+            const mainContainer = document.getElementById('main-mockup-container');
+            const canvas = await generateMockupImage(mainContainer, 2); // 2x scale for high quality
             
-            phoneCaseBg.src = document.getElementById('phone-case-bg').src;
-            phoneCaseOverlay.src = document.getElementById('phone-case-overlay').src;
+            // Trigger download
+            const link = document.createElement('a');
+            link.download = 'main-mockup.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
 
-            Promise.all([
-                loadImage(phoneCaseBg),
-                loadImage(phoneCaseOverlay),
-                loadImage(uploadedImage)
-            ]).then(() => {
-                // Draw background (scaled 2x)
-                ctx.drawImage(phoneCaseBg, 0, 0, 2000, 2000);
-                
-                // Calculate scale and position (same as preview but 2x)
-                const scale = Math.min(
-                    1000 / uploadedImage.width,
-                    1000 / uploadedImage.height
-                ) * 2; // Double the scale for high-res output
-                
-                const width = uploadedImage.width * scale;
-                const height = uploadedImage.height * scale;
-                const x = (2000 - width) / 2;
-                const y = (2000 - height) / 2;
-                
-                // Draw user design (scaled 2x)
-                ctx.drawImage(uploadedImage, x, y, width, height);
-                
-                // Draw overlay (scaled 2x)
-                ctx.drawImage(phoneCaseOverlay, 0, 0, 2000, 2000);
-                
-                // Trigger download
-                canvas.toBlob((blob) => {
-                    const link = document.createElement('a');
-                    link.download = 'phone-case-mockup.png';
-                    link.href = URL.createObjectURL(blob);
-                    link.click();
-                    URL.revokeObjectURL(link.href);
-                }, 'image/png', 1);
-            }).catch(error => {
-                console.error('Error generating mockup:', error);
-                alert('Error generating mockup. Please try again.');
-            });
+        // Handle ZIP download
+        downloadZipBtn.addEventListener('click', async function() {
+            if (!uploadedImage.src) {
+                alert('Please upload an image first');
+                return;
+            }
+
+            const zip = new JSZip();
+            const imgFolder = zip.folder("mockups");
+            
+            // Add main mockup
+            const mainContainer = document.getElementById('main-mockup-container');
+            const mainCanvas = await generateMockupImage(mainContainer, 2);
+            const mainData = await new Promise(resolve => mainCanvas.toBlob(resolve, 'image/png', 1));
+            imgFolder.file("main-mockup.png", mainData);
+            
+            // Add selected secondary mockups
+            const checkboxes = document.querySelectorAll('.view-option input[type="checkbox"]');
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    const container = document.getElementById(`secondary-mockup-${i+1}`);
+                    const canvas = await generateMockupImage(container, 2);
+                    const data = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1));
+                    imgFolder.file(`mockup-${i+1}.png`, data);
+                }
+            }
+            
+            // Generate and download ZIP
+            const content = await zip.generateAsync({type: "blob"});
+            const link = document.createElement('a');
+            link.download = 'mockups.zip';
+            link.href = URL.createObjectURL(content);
+            link.click();
+            URL.revokeObjectURL(link.href);
         });
     </script>
 </body>
