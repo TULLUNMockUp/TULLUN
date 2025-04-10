@@ -67,16 +67,20 @@
         #design-area {
             position: absolute;
             z-index: 2; 
-            top: 80px; /* 994.5px / 2 */
-            left: 250px; /* 969px / 2 */
-            width: 375px;  /* Scaled down by 50% */
-            height: 795px; /* Scaled down by 50% */
+            top: 0;
+            left: 0;
+            width: 1000px;
+            height: 1000px;
             overflow: hidden;
         }
 
         #user-design {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            max-width: 1000px;
+            max-height: 1000px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             object-fit: contain;
         }
 
@@ -114,7 +118,6 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 userDesign.src = e.target.result;
-                userDesign.style.display = 'block'; // Make sure image is visible
             }
             if (file) {
                 reader.readAsDataURL(file);
@@ -147,10 +150,22 @@
                 // Draw background
                 ctx.drawImage(phoneCaseBg, 0, 0, canvas.width, canvas.height);
                 
-                // Draw user design at the correct position (scaled up 2x from preview position)
-                const designWidth = 375 * 2; // 750px
-                const designHeight = 795 * 2; // 1590px
-                ctx.drawImage(userUpload, 969, 994.5, designWidth, designHeight);
+                // Calculate dimensions to maintain aspect ratio while fitting within 1000x1000
+                const maxSize = 1000;
+                let width = userUpload.width;
+                let height = userUpload.height;
+                
+                // Calculate the scaling factor
+                const scale = Math.min(maxSize/width, maxSize/height);
+                width = width * scale;
+                height = height * scale;
+                
+                // Calculate centered position
+                const x = (2000 - width) / 2;
+                const y = (2000 - height) / 2;
+                
+                // Draw user design centered and proportionally scaled
+                ctx.drawImage(userUpload, x, y, width, height);
                 
                 // Draw overlay
                 ctx.drawImage(phoneCaseOverlay, 0, 0, canvas.width, canvas.height);
