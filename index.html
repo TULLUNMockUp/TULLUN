@@ -45,18 +45,17 @@
             position: relative;
             display: inline-block;
             margin: 20px auto;
-            width: 1000px; /* Scaled down by 50% */
-            height: 1000px; /* Scaled down by 50% */
+            width: 1000px;
+            height: 1000px;
             overflow: hidden;
-            background-color: white; 
-            transform-origin: top left;
+            background-color: white;
         }
 
-        #phone-case-bg, #phone-case-overlay { 
+        #phone-case-bg, #phone-case-overlay {
             position: absolute;
-            top: 0; 
-            left: 0; 
-            width: 1000px; /* Scaled down by 50% */
+            top: 0;
+            left: 0;
+            width: 1000px;
             height: auto;
         }
 
@@ -66,9 +65,7 @@
 
         #design-area {
             position: absolute;
-            z-index: 2; 
-            top: 50;
-            left: 50;
+            z-index: 2;
             width: 1000px;
             height: 1000px;
             overflow: hidden;
@@ -99,18 +96,18 @@
     </div>
     
     <div id="mockup-container">
-        <img id="phone-case-bg" src="mockups/iphone15-case-back.png"> 
+        <img id="phone-case-bg" src="mockups/iphone15-case-back.png">
         <div id="design-area">
             <img id="user-design" src="" alt="Your Design">
         </div>
-        <img id="phone-case-overlay" src="mockups/iphone15-case-overlay.png"> 
+        <img id="phone-case-overlay" src="mockups/iphone15-case-overlay.png">
     </div>
 
     <script>
         const imageUpload = document.getElementById('image-upload');
         const userDesign = document.getElementById('user-design');
-        const mockupContainer = document.getElementById('mockup-container');
         const downloadBtn = document.getElementById('download-btn');
+        let uploadedImage = null;
 
         // Handle image upload
         imageUpload.addEventListener('change', function(event) {
@@ -118,6 +115,8 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 userDesign.src = e.target.result;
+                uploadedImage = new Image();
+                uploadedImage.src = e.target.result;
             }
             if (file) {
                 reader.readAsDataURL(file);
@@ -126,51 +125,45 @@
 
         // Handle download button
         downloadBtn.addEventListener('click', function() {
-            // Create a canvas element to render the mockup
+            if (!uploadedImage) return;
+            
+            // Create canvas at mockup size (1000x1000)
             const canvas = document.createElement('canvas');
-            canvas.width = 2000; // Original mockup width for full quality download
-            canvas.height = 2000; // Original mockup height for full quality download
+            canvas.width = 1000;
+            canvas.height = 1000;
             const ctx = canvas.getContext('2d');
 
-            // Draw the mockup elements onto the canvas
+            // Draw elements in same order as mockup
             const phoneCaseBg = new Image();
-            const userUpload = new Image();
             const phoneCaseOverlay = new Image();
 
             phoneCaseBg.src = document.getElementById('phone-case-bg').src;
-            userUpload.src = document.getElementById('user-design').src;
             phoneCaseOverlay.src = document.getElementById('phone-case-overlay').src;
 
-            // Wait for all images to load
             Promise.all([
                 new Promise(resolve => { phoneCaseBg.onload = resolve; }),
-                new Promise(resolve => { userUpload.onload = resolve; }),
                 new Promise(resolve => { phoneCaseOverlay.onload = resolve; })
             ]).then(() => {
                 // Draw background
-                ctx.drawImage(phoneCaseBg, 0, 0, canvas.width, canvas.height);
+                ctx.drawImage(phoneCaseBg, 0, 0, 1000, 1000);
                 
-                // Calculate dimensions to maintain aspect ratio while fitting within 1000x1000
-                const maxSize = 1000;
-                let width = userUpload.width;
-                let height = userUpload.height;
+                // Calculate centered position for design (same as in mockup)
+                const scale = Math.min(
+                    1000 / uploadedImage.width,
+                    1000 / uploadedImage.height
+                );
+                const width = uploadedImage.width * scale;
+                const height = uploadedImage.height * scale;
+                const x = (1000 - width) / 2;
+                const y = (1000 - height) / 2;
                 
-                // Calculate the scaling factor
-                const scale = Math.min(maxSize/width, maxSize/height);
-                width = width * scale;
-                height = height * scale;
-                
-                // Calculate centered position
-                const x = (2000 - width) / 2;
-                const y = (2000 - height) / 2;
-                
-                // Draw user design centered and proportionally scaled
-                ctx.drawImage(userUpload, x, y, width, height);
+                // Draw user design
+                ctx.drawImage(uploadedImage, x, y, width, height);
                 
                 // Draw overlay
-                ctx.drawImage(phoneCaseOverlay, 0, 0, canvas.width, canvas.height);
+                ctx.drawImage(phoneCaseOverlay, 0, 0, 1000, 1000);
                 
-                // Create download link
+                // Download
                 const link = document.createElement('a');
                 link.download = 'phone-case-mockup.png';
                 link.href = canvas.toDataURL('image/png');
