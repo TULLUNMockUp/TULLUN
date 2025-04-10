@@ -45,18 +45,20 @@
             position: relative;
             display: inline-block;
             margin: 20px auto;
-            width: 800px; 
-            height: 800px; 
+            width: 500px; 
+            height: 500px; 
             overflow: hidden;
             background-color: white; 
         }
 
         #phone-case-bg, #phone-case-overlay { 
             position: absolute;
-            top: 50px; 
-            left: 25px; 
-            width: 750px; 
+            top: 0; /* Reset to align with mockup container */
+            left: 0; /* Reset to align with mockup container */
+            width: 2000px; /* Original mockup size */
             height: auto;
+            transform-origin: top left; /* Ensure scaling starts from top-left */
+            transform: scale(0.25); /* Scale down to fit mockup container */
         }
 
         #phone-case-bg {
@@ -66,8 +68,8 @@
         #design-area {
             position: absolute;
             z-index: 2; 
-            top: 150px; /* Y coordinate scaled down: 994.5 * (500/2000) */
-            left: 150px; /* X coordinate scaled down: 969 * (500/2000) */
+            top: 994.5px; /* Original Y coordinate */
+            left: 969px; /* Original X coordinate */
             width: 750px;  /* Original design width */
             height: 1590px; /* Original design height */
             overflow: hidden;
@@ -120,4 +122,5 @@
     </script>
 </body>
 </html>
+
 
