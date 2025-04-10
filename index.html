@@ -45,17 +45,18 @@
             position: relative;
             display: inline-block;
             margin: 20px auto;
-            width: 2000px; /* Original mockup size */
-            height: 2000px; /* Original mockup size */
+            width: 1000px; /* Scaled down by 50% */
+            height: 1000px; /* Scaled down by 50% */
             overflow: hidden;
             background-color: white; 
+            transform-origin: top left;
         }
 
         #phone-case-bg, #phone-case-overlay { 
             position: absolute;
             top: 0; 
             left: 0; 
-            width: 2000px; /* Original mockup size */
+            width: 1000px; /* Scaled down by 50% */
             height: auto;
         }
 
@@ -66,10 +67,10 @@
         #design-area {
             position: absolute;
             z-index: 2; 
-            top: 994.5px; /* Original Y coordinate for design placement */
-            left: 969px; /* Original X coordinate for design placement */
-            width: 750px;  /* Width to match design area */
-            height: 1590px; /* Height to match design area */
+            top: 497.25px; /* Scaled down by 50% */
+            left: 484.5px; /* Scaled down by 50% */
+            width: 375px;  /* Scaled down by 50% */
+            height: 795px; /* Scaled down by 50% */
             overflow: hidden;
         }
 
@@ -123,8 +124,8 @@
         downloadBtn.addEventListener('click', function() {
             // Create a canvas element to render the mockup
             const canvas = document.createElement('canvas');
-            canvas.width = 2000; // Original mockup width
-            canvas.height = 2000; // Original mockup height
+            canvas.width = 2000; // Original mockup width for full quality download
+            canvas.height = 2000; // Original mockup height for full quality download
             const ctx = canvas.getContext('2d');
 
             // Draw the mockup elements onto the canvas
@@ -133,4 +134,31 @@
             const phoneCaseOverlay = new Image();
 
             phoneCaseBg.src = document.getElementById('phone-case-bg').src;
-            userUpload.src = document.getElementById('userundefined
+            userUpload.src = document.getElementById('user-design').src;
+            phoneCaseOverlay.src = document.getElementById('phone-case-overlay').src;
+
+            // Wait for all images to load
+            Promise.all([
+                new Promise(resolve => { phoneCaseBg.onload = resolve; }),
+                new Promise(resolve => { userUpload.onload = resolve; }),
+                new Promise(resolve => { phoneCaseOverlay.onload = resolve; })
+            ]).then(() => {
+                // Draw background
+                ctx.drawImage(phoneCaseBg, 0, 0, canvas.width, canvas.height);
+                
+                // Draw user design at original size position
+                ctx.drawImage(userUpload, 969, 994.5, 750, 1590);
+                
+                // Draw overlay
+                ctx.drawImage(phoneCaseOverlay, 0, 0, canvas.width, canvas.height);
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.download = 'phone-case-mockup.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html>
