@@ -6,40 +6,44 @@
     <title>Phone Case Mockup Generator</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             text-align: center;
             padding: 20px;
             background-color: #f5f5f5;
+            color: #333;
         }
 
         h1 {
-            color: #333;
+            color: #222;
             margin-bottom: 10px;
+            font-weight: 300;
+            font-size: 2.2em;
         }
 
         .subtitle {
-            color: #555;
+            color: #666;
             margin-bottom: 20px;
-            font-size: 18px;
+            font-size: 1.1em;
+            font-weight: 300;
         }
 
         .case-material-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 30px;
         }
 
         .case-material-link {
             color: #4CAF50;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-            padding: 10px 15px;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-            transition: all 0.3s;
+            font-weight: 400;
+            font-size: 0.95em;
+            padding: 10px 18px;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            transition: all 0.2s ease;
         }
 
         .case-material-link:hover, .case-material-link.active {
@@ -51,8 +55,8 @@
             margin: 20px auto;
             padding: 15px;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
             max-width: 800px;
         }
 
@@ -60,23 +64,26 @@
             background: #4CAF50;
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 18px;
             margin: 5px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 0.95em;
+            font-weight: 400;
+            transition: background-color 0.2s ease;
+            letter-spacing: 0.5px;
         }
 
         button:hover {
-            background: #45a049;
+            background: #3d8b40;
         }
 
         #main-mockup-container {
             position: relative;
             display: inline-block;
             margin: 20px auto;
-            width: 1000px;
-            height: 1000px;
+            width: 800px;
+            height: 800px;
             overflow: hidden;
             background-color: white;
         }
@@ -139,7 +146,7 @@
 
         .carousel-item {
             display: inline-block;
-            width: 300px;
+            width: 360px;
             margin: 0 10px;
             vertical-align: top;
             white-space: normal;
@@ -148,8 +155,8 @@
 
         .secondary-mockup {
             position: relative;
-            width: 300px;
-            height: 300px;
+            width: 360px;
+            height: 360px;
             overflow: hidden;
             background-color: white;
             margin-bottom: 10px;
@@ -164,8 +171,9 @@
         }
 
         .mockup-label {
-            font-size: 14px;
+            font-size: 0.9em;
             margin-top: 5px;
+            font-weight: 300;
         }
 
         .carousel-arrow {
@@ -184,6 +192,7 @@
             font-size: 20px;
             z-index: 5;
             border: none;
+            transition: background-color 0.2s ease;
         }
 
         .carousel-arrow:hover {
@@ -214,8 +223,9 @@
             justify-content: center;
             align-items: center;
             color: white;
-            font-size: 24px;
+            font-size: 1.2em;
             flex-direction: column;
+            font-weight: 300;
         }
 
         .spinner {
