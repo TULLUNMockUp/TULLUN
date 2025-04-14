@@ -245,6 +245,49 @@
     </style>
 </head>
 <body>
+        <style>
+        /* Add this new style for the adjustment controls */
+        .adjustment-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+        }
+        
+        .adjustment-control {
+            margin-bottom: 10px;
+        }
+        
+        .adjustment-control label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .adjustment-control input {
+            width: 100%;
+        }
+        
+        #show-adjustments {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
     <div class="loading">
         <div class="spinner"></div>
         <div>Generating your mockups...</div>
