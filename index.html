@@ -948,19 +948,29 @@
             updateCarousel(carousel);
         });
 
-        // Image upload handler
-        imageUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            showLoading("Loading your design...");
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                // Hide all design images first
-                document.querySelectorAll('.user-design').forEach(design => {
-                    design.style.display = 'none';
-                });
+// In your image upload handler:
+reader.onload = function(e) {
+    document.querySelectorAll('.user-design').forEach(design => {
+        design.src = e.target.result;
+        design.onload = () => {
+            design.style.display = 'block';
+            // Position the design based on container attributes
+            const container = design.closest('.design-area');
+            if (container.dataset.posX) {
+                design.style.left = container.dataset.posX;
+            }
+            if (container.dataset.posY) {
+                design.style.top = container.dataset.posY;
+            }
+            if (container.dataset.width) {
+                design.style.width = container.dataset.width;
+            }
+            if (container.dataset.height) {
+                design.style.height = container.dataset.height;
+            }
+            hideLoading();
+        };
+    });
                 
                 // Update only visible designs
                 const activeCase = document.querySelector('.case-mockups:not(.hidden)');
