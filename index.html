@@ -1136,6 +1136,66 @@
                 alert('Please upload an image first');
                 return;
             }
+            <div id="controls">
+    <!-- ... existing buttons ... -->
+    
+    <div id="position-controls" style="margin-top: 20px; display: none;">
+        <h3>Design Positioning</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <div>
+                <label>View: </label>
+                <select id="view-selector">
+                    <option value="1">View 1</option>
+                    <option value="2">View 2</option>
+                    <option value="3">View 3</option>
+                    <option value="4">View 4</option>
+                    <option value="5">View 5</option>
+                    <option value="6">View 6</option>
+                    <option value="7">View 7</option>
+                    <option value="8">View 8</option>
+                    <option value="9">View 9</option>
+                    <option value="10">View 10</option>
+                    <option value="11">View 11</option>
+                    <option value="12">View 12</option>
+                    <option value="13">View 13</option>
+                    <option value="14">View 14</option>
+                    <option value="15">View 15</option>
+                    <option value="16">View 16</option>
+                    <option value="17">View 17</option>
+                    <option value="18">View 18</option>
+                    <option value="19">View 19</option>
+                    <option value="20">View 20</option>
+                    <option value="21">View 21</option>
+                    <option value="22">View 22</option>
+                    <option value="23">View 23</option>
+                    <option value="24">View 24</option>
+                </select>
+            </div>
+            <div>
+                <label>X Position (%): </label>
+                <input type="range" id="x-position" min="0" max="100" value="50" step="1">
+                <span id="x-value">50</span>
+            </div>
+            <div>
+                <label>Y Position (%): </label>
+                <input type="range" id="y-position" min="0" max="100" value="50" step="1">
+                <span id="y-value">50</span>
+            </div>
+            <div>
+                <label>Scale (%): </label>
+                <input type="range" id="scale" min="10" max="200" value="100" step="1">
+                <span id="scale-value">100</span>
+            </div>
+            <div>
+                <label>Rotation (deg): </label>
+                <input type="range" id="rotation" min="0" max="360" value="0" step="1">
+                <span id="rotation-value">0</span>
+            </div>
+            <button id="reset-position">Reset Position</button>
+            <button id="apply-all">Apply to All Views</button>
+        </div>
+    </div>
+</div>
 
             showLoading("Preparing your download...");
             
