@@ -242,45 +242,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .adjustment-panel {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 100;
-            display: none;
-        }
-        
-        .adjustment-control {
-            margin-bottom: 10px;
-        }
-        
-        .adjustment-control label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-        
-        .adjustment-control input {
-            width: 100%;
-        }
-        
-        #show-adjustments {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            z-index: 100;
-        }
     </style>
 </head>
 <body>
@@ -975,189 +936,13 @@
         const caseLinks = document.querySelectorAll('.case-material-link');
         const loadingElement = document.querySelector('.loading');
         
-
         // State variables
         let uploadedImage = new Image();
         let currentCarousel = document.querySelector('#samsung-tpu .carousel-inner');
         let currentScroll = 0;
         const itemWidth = 320; // 300px width + 20px margin
         const mockupCache = new Map();
-        
-        // New state variables for adjustments
-        let currentAdjustments = {
-            rotation: 0,
-            xPosition: 0,
-            yPosition: 0,
-            scale: 100
-        };
-        
-        let viewSpecificAdjustments = {}; // Stores adjustments per view
-        
-        // [Previous functions remain until the generateMockupImage function]
 
-        // Generate mockup image with caching and adjustments
-        async function generateMockupImage(container) {
-            const viewId = container.id || container.querySelector('.carousel-checkbox')?.dataset.view || 'main';
-            const cacheKey = `${viewId}-${uploadedImage.src}-${JSON.stringify(currentAdjustments)}`;
-            
-            if (mockupCache.has(cacheKey)) {
-                return mockupCache.get(cacheKey);
-            }
-
-            showLoading("Generating mockup...");
-            
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.width = 2000;
-                canvas.height = 2000;
-                const ctx = canvas.getContext('2d');
-
-                const bg = await loadImage(container.querySelector('.phone-case-bg').src);
-                const overlay = await loadImage(container.querySelector('.phone-case-overlay').src);
-
-                // Draw background
-                ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-                
-                // Draw design if uploaded
-                if (uploadedImage.src) {
-                    try {
-                        const design = await loadImage(uploadedImage.src);
-                        const designScale = Math.min(
-                            canvas.width / design.width,
-                            canvas.height / design.height
-                        ) * (currentAdjustments.scale / 100);
-                        
-                        const width = design.width * designScale;
-                        const height = design.height * designScale;
-                        
-                        // Calculate adjusted position
-                        const x = (canvas.width - width) / 2 * (1 + currentAdjustments.xPosition / 100);
-                        const y = (canvas.height - height) / 2 * (1 + currentAdjustments.yPosition / 100);
-                        
-                        // Apply rotation
-                        ctx.save();
-                        ctx.translate(canvas.width / 2, canvas.height / 2);
-                        ctx.rotate((currentAdjustments.rotation / 100) * Math.PI / 2);
-                        ctx.translate(-canvas.width / 2, -canvas.height / 2);
-                        
-                        ctx.drawImage(design, x, y, width, height);
-                        ctx.restore();
-                    } catch (e) {
-                        console.warn("Design image not loaded:", e.message);
-                    }
-                }
-                
-                // Draw overlay
-                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-                
-                mockupCache.set(cacheKey, canvas);
-                return canvas;
-            } finally {
-                hideLoading();
-            }
-        }
-
-        // Update design elements with current adjustments
-        function updateDesignElements() {
-            document.querySelectorAll('.user-design').forEach(design => {
-                const container = design.closest('.design-area');
-                const viewId = container.closest('[id], .secondary-mockup')?.id || 
-                              container.closest('.secondary-mockup')?.querySelector('.carousel-checkbox')?.dataset.view || 
-                              'main';
-                
-                // Get adjustments for this specific view or use defaults
-                const adjustments = viewSpecificAdjustments[viewId] || currentAdjustments;
-                
-                // Apply the transformations
-                design.style.transform = `
-                    translate(-50%, -50%) 
-                    rotate(${(adjustments.rotation / 100) * 90}deg)
-                    scale(${adjustments.scale / 100})
-                `;
-                design.style.left = `${50 + adjustments.xPosition}%`;
-                design.style.top = `${50 + adjustments.yPosition}%`;
-            });
-        }
-
-        // Setup adjustment controls
-        document.getElementById('show-adjustments').addEventListener('click', function() {
-            const panel = document.getElementById('adjustmentPanel');
-            panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Rotation adjustment
-        document.getElementById('rotation-adjustment').addEventListener('input', function(e) {
-            currentAdjustments.rotation = parseInt(e.target.value);
-            document.getElementById('rotation-value').textContent = `${currentAdjustments.rotation}%`;
-            updateDesignElements();
-        });
-
-        // X Position adjustment
-        document.getElementById('x-position-adjustment').addEventListener('input', function(e) {
-            currentAdjustments.xPosition = parseInt(e.target.value);
-            document.getElementById('x-position-value').textContent = `${currentAdjustments.xPosition}%`;
-            updateDesignElements();
-        });
-
-        // Y Position adjustment
-        document.getElementById('y-position-adjustment').addEventListener('input', function(e) {
-            currentAdjustments.yPosition = parseInt(e.target.value);
-            document.getElementById('y-position-value').textContent = `${currentAdjustments.yPosition}%`;
-            updateDesignElements();
-        });
-
-        // Scale adjustment
-        document.getElementById('scale-adjustment').addEventListener('input', function(e) {
-            currentAdjustments.scale = parseInt(e.target.value);
-            document.getElementById('scale-value').textContent = `${currentAdjustments.scale}%`;
-            updateDesignElements();
-        });
-
-        // Apply to all views
-        document.getElementById('apply-adjustments').addEventListener('click', function() {
-            // Clear all view-specific adjustments to use global ones
-            viewSpecificAdjustments = {};
-            updateDesignElements();
-            mockupCache.clear(); // Clear cache to regenerate images
-        });
-
-        // Save for current view
-        document.getElementById('save-adjustments').addEventListener('click', function() {
-            const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-            const mainContainer = activeCase.querySelector('#main-mockup-container');
-            const currentView = document.querySelector('.carousel-checkbox:checked')?.dataset.view || 'main';
-            
-            // Save current adjustments for this view
-            viewSpecificAdjustments[currentView] = {...currentAdjustments};
-            updateDesignElements();
-            mockupCache.clear(); // Clear cache to regenerate images
-        });
-
-        // Reset all adjustments
-        document.getElementById('reset-adjustments').addEventListener('click', function() {
-            currentAdjustments = {
-                rotation: 0,
-                xPosition: 0,
-                yPosition: 0,
-                scale: 100
-            };
-            
-            viewSpecificAdjustments = {};
-            
-            // Update UI
-            document.getElementById('rotation-adjustment').value = 0;
-            document.getElementById('x-position-adjustment').value = 0;
-            document.getElementById('y-position-adjustment').value = 0;
-            document.getElementById('scale-adjustment').value = 100;
-            
-            document.getElementById('rotation-value').textContent = '0%';
-            document.getElementById('x-position-value').textContent = '0%';
-            document.getElementById('y-position-value').textContent = '0%';
-            document.getElementById('scale-value').textContent = '100%';
-            
-            updateDesignElements();
-            mockupCache.clear(); // Clear cache to regenerate images
-        });
         // Initialize carousels
         document.querySelectorAll('.carousel-inner').forEach(carousel => {
             updateCarousel(carousel);
@@ -1274,66 +1059,12 @@
             ));
         }
 
+        // Generate mockup image with caching
         async function generateMockupImage(container) {
-            const viewId = container.id || container.querySelector('.carousel-checkbox')?.dataset.view || 'main';
-            const cacheKey = `${viewId}-${uploadedImage.src}-${JSON.stringify(currentAdjustments)}`;
-            
+            const cacheKey = `${container.id}-${uploadedImage.src}`;
             if (mockupCache.has(cacheKey)) {
                 return mockupCache.get(cacheKey);
             }
-
-            showLoading("Generating mockup...");
-            
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.width = 2000;
-                canvas.height = 2000;
-                const ctx = canvas.getContext('2d');
-
-                const bg = await loadImage(container.querySelector('.phone-case-bg').src);
-                const overlay = await loadImage(container.querySelector('.phone-case-overlay').src);
-
-                // Draw background
-                ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-                
-                // Draw design if uploaded
-                if (uploadedImage.src) {
-                    try {
-                        const design = await loadImage(uploadedImage.src);
-                        const designScale = Math.min(
-                            canvas.width / design.width,
-                            canvas.height / design.height
-                        ) * (currentAdjustments.scale / 100);
-                        
-                        const width = design.width * designScale;
-                        const height = design.height * designScale;
-                        
-                        // Calculate adjusted position
-                        const x = (canvas.width - width) / 2 * (1 + currentAdjustments.xPosition / 100);
-                        const y = (canvas.height - height) / 2 * (1 + currentAdjustments.yPosition / 100);
-                        
-                        // Apply rotation
-                        ctx.save();
-                        ctx.translate(canvas.width / 2, canvas.height / 2);
-                        ctx.rotate((currentAdjustments.rotation / 100) * Math.PI / 2);
-                        ctx.translate(-canvas.width / 2, -canvas.height / 2);
-                        
-                        ctx.drawImage(design, x, y, width, height);
-                        ctx.restore();
-                    } catch (e) {
-                        console.warn("Design image not loaded:", e.message);
-                    }
-                }
-                
-                // Draw overlay
-                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-                
-                mockupCache.set(cacheKey, canvas);
-                return canvas;
-            } finally {
-                hideLoading();
-            }
-        }
 
             showLoading("Generating mockup...");
             
