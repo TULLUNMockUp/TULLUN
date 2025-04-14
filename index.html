@@ -929,184 +929,471 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script>
-        // DOM Elements
-        const imageUpload = document.getElementById('image-upload');
-        const downloadBtn = document.getElementById('download-btn');
-        const downloadZipBtn = document.getElementById('download-zip-btn');
-        const caseLinks = document.querySelectorAll('.case-material-link');
-        const loadingElement = document.querySelector('.loading');
+// DOM Elements
+const imageUpload = document.getElementById('image-upload');
+const downloadBtn = document.getElementById('download-btn');
+const downloadZipBtn = document.getElementById('download-zip-btn');
+const caseLinks = document.querySelectorAll('.case-material-link');
+const loadingElement = document.querySelector('.loading');
+const controlsContainer = document.getElementById('controls');
+
+// State variables
+let uploadedImage = new Image();
+let currentCarousel = document.querySelector('#samsung-tpu .carousel-inner');
+let currentScroll = 0;
+const itemWidth = 320;
+const mockupCache = new Map();
+let currentCaseType = 'samsung-tpu';
+
+// View configurations with position, size, and rotation
+const viewConfigurations = {
+    'samsung-tpu': {
+        'main': { top: '48.5%', left: '48.5%', width: '90%', height: '90%', rotation: 0 },
+        '1': { top: '45%', left: '50%', width: '85%', height: '85%', rotation: 0 },
+        '2': { top: '50%', left: '50%', width: '80%', height: '80%', rotation: 10 },
+        '3': { top: '52%', left: '48%', width: '75%', height: '75%', rotation: -5 },
+        '4': { top: '48%', left: '52%', width: '70%', height: '70%', rotation: 15 },
+        '5': { top: '50%', left: '50%', width: '65%', height: '65%', rotation: -10 },
+        '6': { top: '47%', left: '49%', width: '60%', height: '60%', rotation: 5 },
+        '7': { top: '51%', left: '51%', width: '55%', height: '55%', rotation: -15 },
+        '8': { top: '49%', left: '50%', width: '50%', height: '50%', rotation: 20 },
+        '9': { top: '48%', left: '49%', width: '45%', height: '45%', rotation: -20 },
+        '10': { top: '50%', left: '51%', width: '40%', height: '40%', rotation: 25 }
+    },
+    'iphone-tpu': {
+        'main': { top: '48%', left: '48%', width: '92%', height: '92%', rotation: 0 },
+        '1': { top: '46%', left: '49%', width: '87%', height: '87%', rotation: 0 },
+        '2': { top: '49%', left: '51%', width: '82%', height: '82%', rotation: 12 },
+        '3': { top: '51%', left: '47%', width: '77%', height: '77%', rotation: -7 },
+        '4': { top: '47%', left: '53%', width: '72%', height: '72%', rotation: 17 },
+        '5': { top: '49%', left: '49%', width: '67%', height: '67%', rotation: -12 },
+        '6': { top: '48%', left: '48%', width: '62%', height: '62%', rotation: 7 },
+        '7': { top: '52%', left: '52%', width: '57%', height: '57%', rotation: -17 },
+        '8': { top: '48%', left: '49%', width: '52%', height: '52%', rotation: 22 },
+        '9': { top: '47%', left: '48%', width: '47%', height: '47%', rotation: -22 },
+        '10': { top: '51%', left: '52%', width: '42%', height: '42%', rotation: 27 }
+    }
+    // Add configurations for other case types similarly
+};
+
+// Initialize controls for design adjustment
+function initDesignControls() {
+    const controlsHTML = `
+        <div class="design-controls">
+            <div class="control-group">
+                <label for="position-x">Position X:</label>
+                <input type="range" id="position-x" min="0" max="100" step="1" value="50">
+                <span id="position-x-value">50%</span>
+            </div>
+            <div class="control-group">
+                <label for="position-y">Position Y:</label>
+                <input type="range" id="position-y" min="0" max="100" step="1" value="50">
+                <span id="position-y-value">50%</span>
+            </div>
+            <div class="control-group">
+                <label for="design-width">Width:</label>
+                <input type="range" id="design-width" min="10" max="100" step="1" value="90">
+                <span id="design-width-value">90%</span>
+            </div>
+            <div class="control-group">
+                <label for="design-height">Height:</label>
+                <input type="range" id="design-height" min="10" max="100" step="1" value="90">
+                <span id="design-height-value">90%</span>
+            </div>
+            <div class="control-group">
+                <label for="design-rotation">Rotation:</label>
+                <input type="range" id="design-rotation" min="-180" max="180" step="1" value="0">
+                <span id="design-rotation-value">0°</span>
+            </div>
+            <button id="apply-all-views">Apply to All Views</button>
+            <button id="reset-view">Reset Current View</button>
+        </div>
+    `;
+    controlsContainer.insertAdjacentHTML('beforeend', controlsHTML);
+
+    // Add styles for controls
+    const style = document.createElement('style');
+    style.textContent = `
+        .design-controls {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .control-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .control-group label {
+            width: 100px;
+            text-align: right;
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+        .control-group input[type="range"] {
+            flex-grow: 1;
+        }
+        .control-group span {
+            width: 50px;
+            text-align: center;
+            margin-left: 10px;
+            font-size: 0.9em;
+        }
+        #apply-all-views, #reset-view {
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 0.85em;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Set up event listeners for controls
+    setupControlListeners();
+}
+
+// Set up event listeners for design controls
+function setupControlListeners() {
+    const posX = document.getElementById('position-x');
+    const posY = document.getElementById('position-y');
+    const width = document.getElementById('design-width');
+    const height = document.getElementById('design-height');
+    const rotation = document.getElementById('design-rotation');
+    const applyAllBtn = document.getElementById('apply-all-views');
+    const resetBtn = document.getElementById('reset-view');
+
+    // Update display values
+    posX.addEventListener('input', () => {
+        document.getElementById('position-x-value').textContent = `${posX.value}%`;
+        updateCurrentDesign();
+    });
+    posY.addEventListener('input', () => {
+        document.getElementById('position-y-value').textContent = `${posY.value}%`;
+        updateCurrentDesign();
+    });
+    width.addEventListener('input', () => {
+        document.getElementById('design-width-value').textContent = `${width.value}%`;
+        updateCurrentDesign();
+    });
+    height.addEventListener('input', () => {
+        document.getElementById('design-height-value').textContent = `${height.value}%`;
+        updateCurrentDesign();
+    });
+    rotation.addEventListener('input', () => {
+        document.getElementById('design-rotation-value').textContent = `${rotation.value}°`;
+        updateCurrentDesign();
+    });
+
+    // Apply to all views
+    applyAllBtn.addEventListener('click', () => {
+        const config = {
+            top: `${posX.value}%`,
+            left: `${posY.value}%`,
+            width: `${width.value}%`,
+            height: `${height.value}%`,
+            rotation: parseInt(rotation.value)
+        };
+
+        // Update all views for current case type
+        Object.keys(viewConfigurations[currentCaseType]).forEach(view => {
+            viewConfigurations[currentCaseType][view] = {...config};
+        });
+
+        // Update all visible designs
+        updateAllDesigns();
+    });
+
+    // Reset current view
+    resetBtn.addEventListener('click', () => {
+        const activeView = getActiveView();
+        if (activeView) {
+            const defaultConfig = getDefaultConfig(currentCaseType, activeView);
+            posX.value = parseInt(defaultConfig.top);
+            posY.value = parseInt(defaultConfig.left);
+            width.value = parseInt(defaultConfig.width);
+            height.value = parseInt(defaultConfig.height);
+            rotation.value = defaultConfig.rotation;
+            
+            updateControlValues();
+            updateCurrentDesign();
+        }
+    });
+}
+
+// Get default configuration for a view
+function getDefaultConfig(caseType, view) {
+    // Return default configurations here
+    // This would be your predefined configurations for each case type and view
+    return {
+        top: '50%',
+        left: '50%',
+        width: '90%',
+        height: '90%',
+        rotation: 0
+    };
+}
+
+// Update all visible designs with current configurations
+function updateAllDesigns() {
+    const activeCase = document.querySelector(`#${currentCaseType}`);
+    if (!activeCase) return;
+
+    // Update main view
+    updateDesignElement(
+        activeCase.querySelector('#main-mockup-container .user-design'),
+        viewConfigurations[currentCaseType]['main']
+    );
+
+    // Update all secondary views
+    activeCase.querySelectorAll('.secondary-mockup .user-design').forEach(design => {
+        const view = design.closest('.secondary-mockup').querySelector('.carousel-checkbox').dataset.view;
+        updateDesignElement(design, viewConfigurations[currentCaseType][view]);
+    });
+}
+
+// Update the currently visible design with control values
+function updateCurrentDesign() {
+    const activeView = getActiveView();
+    if (!activeView) return;
+
+    const design = document.querySelector(`#${currentCaseType} [data-view="${activeView}"] .user-design`) || 
+                   document.querySelector(`#${currentCaseType} #main-mockup-container .user-design`);
+
+    if (design) {
+        const config = {
+            top: `${document.getElementById('position-x').value}%`,
+            left: `${document.getElementById('position-y').value}%`,
+            width: `${document.getElementById('design-width').value}%`,
+            height: `${document.getElementById('design-height').value}%`,
+            rotation: parseInt(document.getElementById('design-rotation').value)
+        };
+
+        // Update the configuration for this view
+        viewConfigurations[currentCaseType][activeView] = config;
+        updateDesignElement(design, config);
+    }
+}
+
+// Update a design element with given configuration
+function updateDesignElement(design, config) {
+    if (!design) return;
+
+    design.style.top = config.top;
+    design.style.left = config.left;
+    design.style.width = config.width;
+    design.style.height = config.height;
+    design.style.transform = `translate(-50%, -50%) rotate(${config.rotation}deg)`;
+}
+
+// Get the currently active view (main or secondary)
+function getActiveView() {
+    const activeCase = document.querySelector(`#${currentCaseType}`);
+    if (!activeCase) return 'main';
+
+    // Check if any secondary view is selected
+    const selectedView = activeCase.querySelector('.carousel-checkbox:checked');
+    if (selectedView) {
+        return selectedView.dataset.view;
+    }
+
+    // Default to main view
+    return 'main';
+}
+
+// Update control values based on current view
+function updateControlValues() {
+    const activeView = getActiveView();
+    const config = viewConfigurations[currentCaseType][activeView] || 
+                  { top: '50%', left: '50%', width: '90%', height: '90%', rotation: 0 };
+
+    document.getElementById('position-x').value = parseInt(config.top);
+    document.getElementById('position-y').value = parseInt(config.left);
+    document.getElementById('design-width').value = parseInt(config.width);
+    document.getElementById('design-height').value = parseInt(config.height);
+    document.getElementById('design-rotation').value = config.rotation;
+
+    document.getElementById('position-x-value').textContent = `${parseInt(config.top)}%`;
+    document.getElementById('position-y-value').textContent = `${parseInt(config.left)}%`;
+    document.getElementById('design-width-value').textContent = `${parseInt(config.width)}%`;
+    document.getElementById('design-height-value').textContent = `${parseInt(config.height)}%`;
+    document.getElementById('design-rotation-value').textContent = `${config.rotation}°`;
+}
+
+// Initialize carousels
+document.querySelectorAll('.carousel-inner').forEach(carousel => {
+    updateCarousel(carousel);
+});
+
+// Image upload handler
+imageUpload.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    showLoading("Loading your design...");
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        // Hide all design images first
+        document.querySelectorAll('.user-design').forEach(design => {
+            design.style.display = 'none';
+        });
         
-        // State variables
-        let uploadedImage = new Image();
-        let currentCarousel = document.querySelector('#samsung-tpu .carousel-inner');
-        let currentScroll = 0;
-        const itemWidth = 320; // 300px width + 20px margin
-        const mockupCache = new Map();
-
-        // Initialize carousels
-        document.querySelectorAll('.carousel-inner').forEach(carousel => {
-            updateCarousel(carousel);
-        });
-
-        // Image upload handler
-        imageUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            showLoading("Loading your design...");
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                // Hide all design images first
-                document.querySelectorAll('.user-design').forEach(design => {
-                    design.style.display = 'none';
-                });
-                
-                // Update only visible designs
-                const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-                activeCase.querySelectorAll('.user-design').forEach(design => {
-                    design.src = e.target.result;
-                    design.onload = () => {
-                        design.style.display = 'block';
-                        hideLoading();
-                    };
-                    design.onerror = () => {
-                        design.style.display = 'none';
-                        hideLoading();
-                        alert("Error loading your design. Please try another image.");
-                    };
-                });
-                
-                uploadedImage.src = e.target.result;
-                mockupCache.clear(); // Clear cache when new image is uploaded
-            };
-            reader.readAsDataURL(file);
-        });
-
-        // Case material selection
-        caseLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Update active link
-                caseLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Show selected mockups
-                const caseType = this.dataset.case;
-                document.querySelectorAll('.case-mockups').forEach(mockup => {
-                    mockup.classList.add('hidden');
-                });
-                document.getElementById(caseType).classList.remove('hidden');
-                
-                // Reset carousel scroll for the new view
-                currentScroll = 0;
-                currentCarousel = document.querySelector(`#${caseType} .carousel-inner`);
-                updateCarousel(currentCarousel);
-            });
-        });
-
-        // Carousel navigation
-        function updateCarousel(carouselInner) {
-            carouselInner.style.transform = `translateX(-${currentScroll}px)`;
-            const arrows = carouselInner.closest('.carousel-wrapper').querySelectorAll('.carousel-arrow');
-            arrows[0].style.display = currentScroll <= 0 ? 'none' : 'flex';
-            arrows[1].style.display = currentScroll >= (carouselInner.scrollWidth - carouselInner.parentElement.offsetWidth) ? 'none' : 'flex';
-        }
-
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('carousel-arrow')) {
-                const wrapper = e.target.closest('.carousel-wrapper');
-                const carouselInner = wrapper.querySelector('.carousel-inner');
-                const scrollAmount = itemWidth; // Scroll one item at a time
-                
-                if (e.target.classList.contains('left')) {
-                    currentScroll = Math.max(0, currentScroll - scrollAmount);
-                } else {
-                    currentScroll = Math.min(
-                        carouselInner.scrollWidth - wrapper.querySelector('.carousel-container').offsetWidth,
-                        currentScroll + scrollAmount
-                    );
-                }
-                updateCarousel(carouselInner);
-            }
-        });
-
-        // Optimized image loader with error handling
-        async function loadImage(src) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
-                img.src = src;
-            });
-        }
-
-        // Preload mockup assets for better performance
-        async function preloadMockupAssets(activeCase) {
-            const assets = new Set([
-                activeCase.querySelector('.phone-case-bg').src,
-                activeCase.querySelector('.phone-case-overlay').src
-            ]);
-            
-            // Add all visible secondary mockups
-            activeCase.querySelectorAll('.phone-case-bg, .phone-case-overlay').forEach(el => {
-                assets.add(el.src);
-            });
-            
-            await Promise.all(Array.from(assets).map(src => 
-                loadImage(src).catch(e => console.warn(e.message))
-            ));
-        }
-
-        // Generate mockup image with caching
-        async function generateMockupImage(container) {
-            const cacheKey = `${container.id}-${uploadedImage.src}`;
-            if (mockupCache.has(cacheKey)) {
-                return mockupCache.get(cacheKey);
-            }
-
-            showLoading("Generating mockup...");
-            
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.width = 2000;
-                canvas.height = 2000;
-                const ctx = canvas.getContext('2d');
-
-                const bg = await loadImage(container.querySelector('.phone-case-bg').src);
-                const overlay = await loadImage(container.querySelector('.phone-case-overlay').src);
-
-                // Draw background
-                ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-                
-                // Draw design if uploaded
-                if (uploadedImage.src) {
-                    try {
-                        const design = await loadImage(uploadedImage.src);
-                        const designScale = Math.min(
-                            canvas.width / design.width,
-                            canvas.height / design.height
-                        );
-                        const width = design.width * designScale;
-                        const height = design.height * designScale;
-                        const x = (canvas.width - width) / 2;
-                        const y = (canvas.height - height) / 2;
-                        ctx.drawImage(design, x, y, width, height);
-                    } catch (e) {
-                        console.warn("Design image not loaded:", e.message);
-                    }
-                }
-                
-                // Draw overlay
-                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-                
-                mockupCache.set(cacheKey, canvas);
-                return canvas;
-            } finally {
+        // Update only visible designs
+        const activeCase = document.querySelector('.case-mockups:not(.hidden)');
+        activeCase.querySelectorAll('.user-design').forEach(design => {
+            design.src = e.target.result;
+            design.onload = () => {
+                design.style.display = 'block';
+                // Apply current configuration
+                const container = design.closest('.secondary-mockup') || 
+                                 design.closest('#main-mockup-container');
+                const view = container.querySelector('.carousel-checkbox')?.dataset.view || 'main';
+                const config = viewConfigurations[currentCaseType][view];
+                updateDesignElement(design, config);
                 hideLoading();
+            };
+            design.onerror = () => {
+                design.style.display = 'none';
+                hideLoading();
+                alert("Error loading your design. Please try another image.");
+            };
+        });
+        
+        uploadedImage.src = e.target.result;
+        mockupCache.clear();
+    };
+    reader.readAsDataURL(file);
+});
+
+// Case material selection
+caseLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Update active link
+        caseLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Show selected mockups
+        currentCaseType = this.dataset.case;
+        document.querySelectorAll('.case-mockups').forEach(mockup => {
+            mockup.classList.add('hidden');
+        });
+        document.getElementById(currentCaseType).classList.remove('hidden');
+        
+        // Reset carousel scroll for the new view
+        currentScroll = 0;
+        currentCarousel = document.querySelector(`#${currentCaseType} .carousel-inner`);
+        updateCarousel(currentCarousel);
+        
+        // Update controls for the new case type
+        updateControlValues();
+    });
+});
+
+// Carousel navigation
+function updateCarousel(carouselInner) {
+    carouselInner.style.transform = `translateX(-${currentScroll}px)`;
+    const arrows = carouselInner.closest('.carousel-wrapper').querySelectorAll('.carousel-arrow');
+    arrows[0].style.display = currentScroll <= 0 ? 'none' : 'flex';
+    arrows[1].style.display = currentScroll >= (carouselInner.scrollWidth - carouselInner.parentElement.offsetWidth) ? 'none' : 'flex';
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('carousel-arrow')) {
+        const wrapper = e.target.closest('.carousel-wrapper');
+        const carouselInner = wrapper.querySelector('.carousel-inner');
+        const scrollAmount = itemWidth;
+        
+        if (e.target.classList.contains('left')) {
+            currentScroll = Math.max(0, currentScroll - scrollAmount);
+        } else {
+            currentScroll = Math.min(
+                carouselInner.scrollWidth - wrapper.querySelector('.carousel-container').offsetWidth,
+                currentScroll + scrollAmount
+            );
+        }
+        updateCarousel(carouselInner);
+    }
+    
+    // Update controls when a view is selected
+    if (e.target.classList.contains('carousel-checkbox')) {
+        updateControlValues();
+    }
+});
+
+// Initialize design controls when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initDesignControls();
+    updateControlValues();
+});
+
+// [Rest of your existing functions (loadImage, preloadMockupAssets, generateMockupImage, etc.)]
+// ... keep all your existing download and helper functions ...
+
+// Modified generateMockupImage to include rotation
+async function generateMockupImage(container) {
+    const cacheKey = `${container.id}-${uploadedImage.src}`;
+    if (mockupCache.has(cacheKey)) {
+        return mockupCache.get(cacheKey);
+    }
+
+    showLoading("Generating mockup...");
+    
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 2000;
+        canvas.height = 2000;
+        const ctx = canvas.getContext('2d');
+
+        const bg = await loadImage(container.querySelector('.phone-case-bg').src);
+        const overlay = await loadImage(container.querySelector('.phone-case-overlay').src);
+
+        // Draw background
+        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+        
+        // Draw design if uploaded
+        if (uploadedImage.src) {
+            try {
+                const design = await loadImage(uploadedImage.src);
+                const view = container.querySelector('.carousel-checkbox')?.dataset.view || 'main';
+                const config = viewConfigurations[currentCaseType][view];
+                
+                // Save the current context
+                ctx.save();
+                
+                // Move to the center of the design position
+                const x = (parseInt(config.left) / 100) * canvas.width;
+                const y = (parseInt(config.top) / 100) * canvas.height;
+                ctx.translate(x, y);
+                
+                // Apply rotation
+                ctx.rotate(config.rotation * Math.PI / 180);
+                
+                // Calculate dimensions
+                const width = (parseInt(config.width) / 100) * canvas.width;
+                const height = (parseInt(config.height) / 100) * canvas.height;
+                
+                // Draw the image centered at the translation point
+                ctx.drawImage(design, -width/2, -height/2, width, height);
+                
+                // Restore the context
+                ctx.restore();
+            } catch (e) {
+                console.warn("Design image not loaded:", e.message);
             }
         }
+        
+        // Draw overlay
+        ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
+        
+        mockupCache.set(cacheKey, canvas);
+        return canvas;
+    } finally {
+        hideLoading();
+    }
+}
 
         // Download main mockup
         downloadBtn.addEventListener('click', async function() {
