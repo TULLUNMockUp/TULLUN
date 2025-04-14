@@ -34,21 +34,28 @@ document.addEventListener('DOMContentLoaded', function() {
         designArea.style.top = `${this.naturalHeight * 0.1}px`;
     };
 
-    // Handle image upload
-    imageUpload.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                userDesign.src = event.target.result;
-                userDesign.style.display = 'block';
-                updateDesignPosition();
-
-                // Show design controls
-                designControls.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
+// In your image upload handler:
+reader.onload = function(e) {
+    document.querySelectorAll('.user-design').forEach(design => {
+        design.src = e.target.result;
+        design.onload = () => {
+            design.style.display = 'block';
+            // Position the design based on container attributes
+            const container = design.closest('.design-area');
+            if (container.dataset.posX) {
+                design.style.left = container.dataset.posX;
+            }
+            if (container.dataset.posY) {
+                design.style.top = container.dataset.posY;
+            }
+            if (container.dataset.width) {
+                design.style.width = container.dataset.width;
+            }
+            if (container.dataset.height) {
+                design.style.height = container.dataset.height;
+            }
+            hideLoading();
+        };
     });
 
     // Design adjustment controls
