@@ -242,6 +242,44 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Backend controls - hidden by default */
+        .backend-controls {
+            display: none;
+            margin: 20px auto;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .backend-controls h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .backend-control-group {
+            margin-bottom: 15px;
+        }
+
+        .backend-control-group label {
+            display: inline-block;
+            width: 120px;
+            font-weight: bold;
+        }
+
+        .backend-control-group input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .show-backend-controls {
+            background: #666 !important;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -265,18 +303,61 @@
         <input type="file" id="image-upload" accept="image/*">
         <button id="download-btn">Download Main Mockup</button>
         <button id="download-zip-btn">Download Selected Views as ZIP</button>
+        <button id="show-backend-btn" class="show-backend-controls">Backend Controls</button>
     </div>
-    
-    <!-- Samsung TPU Mockups -->
-    <div id="samsung-tpu" class="case-mockups">
-        <!-- Main Mockup -->
-        <div id="main-mockup-container">
-            <img class="phone-case-bg" src="mockups/samsung-tpu-back-main.png">
-            <div class="design-area">
-                <img class="user-design" src="" alt="">
-            </div>
-            <img class="phone-case-overlay" src="mockups/samsung-tpu-overlay-main.png">
+
+    <!-- Backend controls for design adjustment -->
+    <div id="backend-controls" class="backend-controls">
+        <h3>Design Area Adjustment (Backend Only)</h3>
+        
+        <div class="backend-control-group">
+            <label for="size-percent">Size (%):</label>
+            <input type="number" id="size-percent" value="100" min="1" max="200">
+            <button class="apply-btn" data-prop="size">Apply</button>
         </div>
+        
+        <div class="backend-control-group">
+            <label for="rotate-degrees">Rotate (deg):</label>
+            <input type="number" id="rotate-degrees" value="0" min="-180" max="180">
+            <button class="apply-btn" data-prop="rotate">Apply</button>
+        </div>
+        
+        <div class="backend-control-group">
+            <label for="x-percent">X Position (%):</label>
+            <input type="number" id="x-percent" value="0" min="-50" max="50">
+            <button class="apply-btn" data-prop="x">Apply</button>
+        </div>
+        
+        <div class="backend-control-group">
+            <label for="y-percent">Y Position (%):</label>
+            <input type="number" id="y-percent" value="0" min="-50" max="50">
+            <button class="apply-btn" data-prop="y">Apply</button>
+        </div>
+        
+        <div class="backend-control-group">
+            <label for="view-select">Apply to View:</label>
+            <select id="view-select">
+                <option value="main">Main View</option>
+                <option value="all">All Views</option>
+                <option value="1">View 1</option>
+                <option value="2">View 2</option>
+                <option value="3">View 3</option>
+                <option value="4">View 4</option>
+                <option value="5">View 5</option>
+                <option value="6">View 6</option>
+                <option value="7">View 7</option>
+                <option value="8">View 8</option>
+                <option value="9">View 9</option>
+                <option value="10">View 10</option>
+            </select>
+        </div>
+        
+        <div class="backend-control-group">
+            <button id="reset-design-btn">Reset All Adjustments</button>
+            <button id="hide-backend-btn">Hide Controls</button>
+        </div>
+    </div>
+
 
         <!-- Secondary Mockups Carousel -->
         <div class="carousel-wrapper">
@@ -1246,6 +1327,10 @@
         const downloadZipBtn = document.getElementById('download-zip-btn');
         const caseLinks = document.querySelectorAll('.case-material-link');
         const loadingElement = document.querySelector('.loading');
+        const showBackendBtn = document.getElementById('show-backend-btn');
+        const hideBackendBtn = document.getElementById('hide-backend-btn');
+        const backendControls = document.getElementById('backend-controls');
+        const resetDesignBtn = document.getElementById('reset-design-btn');
         
         // State variables
         let uploadedImage = new Image();
@@ -1253,11 +1338,125 @@
         let currentScroll = 0;
         const itemWidth = 320; // 300px width + 20px margin
         const mockupCache = new Map();
+        
+        // Design adjustment state
+        const designAdjustments = {
+            main: { size: 100, rotate: 0, x: 0, y: 0 },
+            views: {}
+        };
 
         // Initialize carousels
         document.querySelectorAll('.carousel-inner').forEach(carousel => {
             updateCarousel(carousel);
         });
+
+        // Toggle backend controls
+        showBackendBtn.addEventListener('click', function() {
+            backendControls.style.display = 'block';
+            this.style.display = 'none';
+        });
+        
+        hideBackendBtn.addEventListener('click', function() {
+            backendControls.style.display = 'none';
+            showBackendBtn.style.display = 'inline-block';
+        });
+
+        // Apply design adjustments
+        document.querySelectorAll('.apply-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const prop = this.dataset.prop;
+                const view = document.getElementById('view-select').value;
+                let value;
+                
+                switch(prop) {
+                    case 'size':
+                        value = parseInt(document.getElementById('size-percent').value);
+                        break;
+                    case 'rotate':
+                        value = parseInt(document.getElementById('rotate-degrees').value);
+                        break;
+                    case 'x':
+                        value = parseInt(document.getElementById('x-percent').value);
+                        break;
+                    case 'y':
+                        value = parseInt(document.getElementById('y-percent').value);
+                        break;
+                }
+                
+                if (view === 'all') {
+                    // Apply to all views
+                    designAdjustments.main[prop] = value;
+                    for (let i = 1; i <= 10; i++) {
+                        if (!designAdjustments.views[i]) {
+                            designAdjustments.views[i] = { ...designAdjustments.main };
+                        }
+                        designAdjustments.views[i][prop] = value;
+                    }
+                } else if (view === 'main') {
+                    // Apply to main view only
+                    designAdjustments.main[prop] = value;
+                } else {
+                    // Apply to specific view
+                    const viewNum = parseInt(view);
+                    if (!designAdjustments.views[viewNum]) {
+                        designAdjustments.views[viewNum] = { ...designAdjustments.main };
+                    }
+                    designAdjustments.views[viewNum][prop] = value;
+                }
+                
+                applyDesignAdjustments();
+            });
+        });
+
+        // Reset all design adjustments
+        resetDesignBtn.addEventListener('click', function() {
+            designAdjustments.main = { size: 100, rotate: 0, x: 0, y: 0 };
+            designAdjustments.views = {};
+            applyDesignAdjustments();
+            
+            // Reset input values
+            document.getElementById('size-percent').value = 100;
+            document.getElementById('rotate-degrees').value = 0;
+            document.getElementById('x-percent').value = 0;
+            document.getElementById('y-percent').value = 0;
+        });
+
+        // Apply current design adjustments to visible elements
+        function applyDesignAdjustments() {
+            const activeCase = document.querySelector('.case-mockups:not(.hidden)');
+            
+            // Apply to main view
+            const mainDesign = activeCase.querySelector('#main-mockup-container .user-design');
+            if (mainDesign) {
+                applyAdjustmentToElement(mainDesign, designAdjustments.main);
+            }
+            
+            // Apply to secondary views
+            for (let i = 1; i <= 10; i++) {
+                const viewDesign = activeCase.querySelector(`.carousel-checkbox[data-view="${i}"]`)?.closest('.secondary-mockup')?.querySelector('.user-design');
+                if (viewDesign) {
+                    const adjustments = designAdjustments.views[i] || designAdjustments.main;
+                    applyAdjustmentToElement(viewDesign, adjustments);
+                }
+            }
+        }
+
+        // Apply specific adjustments to a design element
+        function applyAdjustmentToElement(element, adjustments) {
+            if (!element || !element.src) return;
+            
+            const scale = adjustments.size / 100;
+            const rotate = adjustments.rotate;
+            const xOffset = adjustments.x;
+            const yOffset = adjustments.y;
+            
+            element.style.transform = `
+                translate(-50%, -50%) 
+                scale(${scale}) 
+                rotate(${rotate}deg) 
+                translate(${xOffset}%, ${yOffset}%)
+            `;
+        }
 
         // Image upload handler
         imageUpload.addEventListener('change', function(event) {
@@ -1279,6 +1478,7 @@
                     design.src = e.target.result;
                     design.onload = () => {
                         design.style.display = 'block';
+                        applyDesignAdjustments();
                         hideLoading();
                     };
                     design.onerror = () => {
@@ -1314,6 +1514,9 @@
                 currentScroll = 0;
                 currentCarousel = document.querySelector(`#${caseType} .carousel-inner`);
                 updateCarousel(currentCarousel);
+                
+                // Apply design adjustments to new case type
+                applyDesignAdjustments();
             });
         });
 
