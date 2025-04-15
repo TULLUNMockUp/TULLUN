@@ -312,11 +312,12 @@
             <a href="#" class="product-type-link" data-case="iphone-fullprint">Full print case for iPhone</a>
         </div>
         
-        <div id="controls">
-            <input type="file" id="image-upload" accept="image/*">
-            <button id="download-btn">Download Main Mockup</button>
-            <button id="download-zip-btn">Download Selected Views as ZIP</button>
-        </div>
+<div id="controls">
+    <input type="file" id="image-upload" accept="image/*">
+    <button id="remove-btn" style="display:none;">Remove Design</button>
+    <button id="download-btn">Download Main Mockup</button>
+    <button id="download-zip-btn">Download Selected Views as ZIP</button>
+</div>
     
     <!-- Samsung TPU Mockups -->
     <div id="samsung-tpu" class="case-mockups">
@@ -1143,6 +1144,56 @@
         };
         reader.readAsDataURL(file);
     });
+
+    // Remove button handler
+const removeBtn = document.getElementById('remove-btn');
+removeBtn.addEventListener('click', function() {
+    document.querySelectorAll('.user-design').forEach(design => {
+        design.src = '';
+        design.style.display = 'none';
+    });
+    uploadedImage.src = '';
+    imageUpload.value = '';
+    mockupCache.clear();
+    removeBtn.style.display = 'none';
+});
+
+// Modify the image upload handler to show the remove button when an image is uploaded
+imageUpload.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    showLoading("Loading your design...");
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        // First verify the image loads
+        const testImage = new Image();
+        testImage.onload = function() {
+            // Update all designs with the new image
+            document.querySelectorAll('.user-design').forEach(design => {
+                design.src = e.target.result;
+                design.style.display = 'block';
+                updateDesignPosition(design);
+            });
+            
+            uploadedImage.src = e.target.result;
+            mockupCache.clear();
+            removeBtn.style.display = 'inline-block'; // Show remove button
+            hideLoading();
+        };
+        testImage.onerror = function() {
+            hideLoading();
+            alert("Error: The image couldn't be loaded. Please try another file.");
+        };
+        testImage.src = e.target.result;
+    };
+    reader.onerror = function() {
+        hideLoading();
+        alert("Error reading file. Please try again.");
+    };
+    reader.readAsDataURL(file);
+});
 
     // Function to update design position based on data attributes
     function updateDesignPosition(designElement) {
