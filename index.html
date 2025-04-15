@@ -1054,18 +1054,63 @@
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-        // Hide all case mockups except the first one
-        document.querySelectorAll('.case-mockups').forEach((mockup, index) => {
-            if (index !== 0) {
+        // Restore selected category and type from localStorage
+        const savedCategory = localStorage.getItem('selectedCategory');
+        const savedCaseType = localStorage.getItem('selectedCaseType');
+        
+        if (savedCategory) {
+            // Activate the saved category
+            document.querySelectorAll('.product-category-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.category === savedCategory) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show the saved product section
+            document.querySelectorAll('.product-section').forEach(section => {
+                section.classList.remove('active');
+                if (section.id === savedCategory) {
+                    section.classList.add('active');
+                }
+            });
+        }
+
+        if (savedCaseType && savedCategory === 'phone-cases') {
+            // Activate the saved case type
+            document.querySelectorAll('.product-type-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.case === savedCaseType) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show the saved case mockup
+            document.querySelectorAll('.case-mockups').forEach(mockup => {
                 mockup.classList.add('hidden');
-            }
-        });
+                if (mockup.id === savedCaseType) {
+                    mockup.classList.remove('hidden');
+                }
+            });
+        } else {
+            // Default to first case type if none saved
+            document.querySelectorAll('.case-mockups').forEach((mockup, index) => {
+                if (index === 0) {
+                    mockup.classList.remove('hidden');
+                } else {
+                    mockup.classList.add('hidden');
+                }
+            });
+        }
     });
 
     // Product category selection
     productCategoryLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Save selected category to localStorage
+            localStorage.setItem('selectedCategory', this.dataset.category);
             
             // Update active category link
             productCategoryLinks.forEach(l => l.classList.remove('active'));
@@ -1075,13 +1120,15 @@
             const category = this.dataset.category;
             document.querySelectorAll('.product-section').forEach(section => {
                 section.classList.remove('active');
+                if (section.id === category) {
+                    section.classList.add('active');
+                }
             });
-            document.getElementById(category).classList.add('active');
             
-            // Refresh the page when switching categories
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
+            // Clear case type selection if switching away from phone cases
+            if (category !== 'phone-cases') {
+                localStorage.removeItem('selectedCaseType');
+            }
         });
     });
 
@@ -1089,6 +1136,9 @@
     productTypeLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Save selected case type to localStorage
+            localStorage.setItem('selectedCaseType', this.dataset.case);
             
             // Update active type link
             productTypeLinks.forEach(l => l.classList.remove('active'));
@@ -1098,8 +1148,10 @@
             const caseType = this.dataset.case;
             document.querySelectorAll('.case-mockups').forEach(mockup => {
                 mockup.classList.add('hidden');
+                if (mockup.id === caseType) {
+                    mockup.classList.remove('hidden');
+                }
             });
-            document.getElementById(caseType).classList.remove('hidden');
             
             // Update design positions for the new case type
             if (uploadedImage.src) {
@@ -1110,11 +1162,6 @@
                     }
                 });
             }
-            
-            // Refresh the page when switching phone case types
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
         });
     });
 
@@ -1154,92 +1201,6 @@
         reader.readAsDataURL(file);
     });
 
-    // Function to update design position based on data attributes
-    function updateDesignPosition(designElement) {
-        const x = parseFloat(designElement.dataset.x) || 50;
-        const y = parseFloat(designElement.dataset.y) || 50;
-        const scale = parseFloat(designElement.dataset.scale) || 100;
-        const rotation = parseFloat(designElement.dataset.rotation) || 0;
-        
-        designElement.style.top = `${y}%`;
-        designElement.style.left = `${x}%`;
-        designElement.style.transform = `translate(-50%, -50%) scale(${scale/100}) rotate(${rotation}deg)`;
-    }
-
-    // Optimized image loader with error handling
-    async function loadImage(src) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
-            img.src = src;
-        });
-    }
-
-    // Generate mockup image with caching
-    async function generateMockupImage(container) {
-        const cacheKey = `${container.id}-${uploadedImage.src}`;
-        if (mockupCache.has(cacheKey)) {
-            return mockupCache.get(cacheKey);
-        }
-
-        showLoading("Generating mockup...");
-        
-        try {
-            const canvas = document.createElement('canvas');
-            canvas.width = 2000;
-            canvas.height = 2000;
-            const ctx = canvas.getContext('2d');
-
-            const bg = await loadImage(container.querySelector('.phone-case-bg').src);
-            const overlay = await loadImage(container.querySelector('.phone-case-overlay').src);
-
-            // Draw background
-            ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-            
-            // Draw design if uploaded
-            if (uploadedImage.src) {
-                try {
-                    const design = await loadImage(uploadedImage.src);
-                    const designElement = container.querySelector('.user-design');
-                    const x = parseFloat(designElement.dataset.x) || 50;
-                    const y = parseFloat(designElement.dataset.y) || 50;
-                    const scale = parseFloat(designElement.dataset.scale) || 100;
-                    const rotation = parseFloat(designElement.dataset.rotation) || 0;
-                    
-                    const designScale = Math.min(
-                        canvas.width / design.width,
-                        canvas.height / design.height
-                    ) * (scale / 100);
-                    
-                    const width = design.width * designScale;
-                    const height = design.height * designScale;
-                    
-                    // Calculate position based on percentage values
-                    const posX = (canvas.width * x / 100) - (width / 2);
-                    const posY = (canvas.height * y / 100) - (height / 2);
-                    
-                    // Save context, rotate, then draw image
-                    ctx.save();
-                    ctx.translate(posX + width/2, posY + height/2);
-                    ctx.rotate(rotation * Math.PI / 180);
-                    ctx.drawImage(design, -width/2, -height/2, width, height);
-                    ctx.restore();
-                } catch (e) {
-                    console.warn("Design image not loaded:", e.message);
-                }
-            }
-            
-            // Draw overlay
-            ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-            
-            mockupCache.set(cacheKey, canvas);
-            return canvas;
-        } finally {
-            hideLoading();
-        }
-    }
-
     // Download main mockup
     downloadBtn.addEventListener('click', async function() {
         if (!uploadedImage.src) {
@@ -1254,11 +1215,6 @@
             const mainContainer = activeCase.querySelector('#main-mockup-container');
             const canvas = await generateMockupImage(mainContainer);
             downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
-            
-            // Refresh the page after download
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
         } catch (error) {
             console.error("Error generating mockup:", error);
             alert("Error generating mockup. Please try again.");
@@ -1306,12 +1262,6 @@
             // Generate and download ZIP
             const content = await zip.generateAsync({ type: 'blob' });
             downloadBlob(content, 'mockups.zip');
-            
-            // Refresh the page after download
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
-            
         } catch (error) {
             console.error("Error generating ZIP:", error);
             alert("Error generating ZIP file. Please try again.");
