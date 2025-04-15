@@ -313,12 +313,16 @@
         </div>
         
 <div id="controls">
-    <div style="display: inline-block; position: relative;">
-        <input type="file" id="image-upload" accept="image/*">
-        <button id="remove-btn" style="display: none; position: absolute; right: -30px; top: 0; background: #ff4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; padding: 0; cursor: pointer; font-size: 12px;">×</button>
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <div style="position: relative; display: inline-block;">
+            <input type="file" id="image-upload" accept="image/*">
+            <button id="remove-btn" style="display: none; position: absolute; right: -12px; top: -12px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; padding: 0; cursor: pointer; font-size: 12px; line-height: 24px;">×</button>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button id="download-btn">Download Main Mockup</button>
+            <button id="download-zip-btn">Download Selected Views as ZIP</button>
+        </div>
     </div>
-    <button id="download-btn">Download Main Mockup</button>
-    <button id="download-zip-btn">Download Selected Views as ZIP</button>
 </div>
     
     <!-- Samsung TPU Mockups -->
