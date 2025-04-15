@@ -1077,6 +1077,11 @@
                 section.classList.remove('active');
             });
             document.getElementById(category).classList.add('active');
+            
+            // Refresh the page when switching categories
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
         });
     });
 
@@ -1105,6 +1110,11 @@
                     }
                 });
             }
+            
+            // Refresh the page when switching phone case types
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
         });
     });
 
@@ -1244,6 +1254,11 @@
             const mainContainer = activeCase.querySelector('#main-mockup-container');
             const canvas = await generateMockupImage(mainContainer);
             downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
+            
+            // Refresh the page after download
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             console.error("Error generating mockup:", error);
             alert("Error generating mockup. Please try again.");
@@ -1291,6 +1306,11 @@
             // Generate and download ZIP
             const content = await zip.generateAsync({ type: 'blob' });
             downloadBlob(content, 'mockups.zip');
+            
+            // Refresh the page after download
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
             
         } catch (error) {
             console.error("Error generating ZIP:", error);
