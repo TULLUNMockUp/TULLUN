@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Case Mockup Generator</title>
+    <title>Product Mockup Generator</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -27,7 +27,8 @@
             font-weight: 300;
         }
 
-        .case-material-container {
+        /* Product Category Selection */
+        .product-category-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
@@ -35,19 +36,44 @@
             margin-bottom: 30px;
         }
 
-        .case-material-link {
+        .product-category-link {
             color: #4CAF50;
             text-decoration: none;
             font-weight: 400;
-            font-size: 0.95em;
-            padding: 10px 18px;
+            font-size: 1em;
+            padding: 12px 24px;
             border: 1px solid #4CAF50;
             border-radius: 4px;
             transition: all 0.2s ease;
         }
 
-        .case-material-link:hover, .case-material-link.active {
+        .product-category-link:hover, .product-category-link.active {
             background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Product Type Selection (nested under category) */
+        .product-type-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .product-type-link {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95em;
+            padding: 10px 18px;
+            border: 1px solid #2196F3;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .product-type-link:hover, .product-type-link.active {
+            background-color: #2196F3;
             color: white;
         }
 
@@ -78,6 +104,16 @@
             background: #3d8b40;
         }
 
+        /* Product-specific styles */
+        .product-section {
+            display: none;
+        }
+
+        .product-section.active {
+            display: block;
+        }
+
+        /* Phone Case Specific Styles */
         #main-mockup-container {
             position: relative;
             display: inline-block;
@@ -254,22 +290,33 @@
         <div>Generating your mockups...</div>
     </div>
     
-    <h1>Phone Case Mockup Generator</h1>
-    <div class="subtitle">Select Phone Case Material and Make</div>
+    <h1>Product Mockup Generator</h1>
+    <div class="subtitle">Select a product category to get started</div>
     
-    <div class="case-material-container">
-        <a href="#" class="case-material-link active" data-case="samsung-tpu">Clear TPU case for Samsung</a>
-        <a href="#" class="case-material-link" data-case="iphone-tpu">Clear TPU case for iPhone</a>
-        <a href="#" class="case-material-link" data-case="iphone-hybrid">Clear Hybrid case for iPhone</a>
-        <a href="#" class="case-material-link" data-case="pixel-tpu">Clear TPU case for Google Pixel</a>
-        <a href="#" class="case-material-link" data-case="iphone-fullprint">Full print case for iPhone</a>
+    <!-- Product Category Selection -->
+    <div class="product-category-container">
+        <a href="#" class="product-category-link active" data-category="phone-cases">Phone Cases</a>
+        <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
+        <a href="#" class="product-category-link" data-category="tshirts">T-Shirts</a>
+        <a href="#" class="product-category-link" data-category="bags">Bags</a>
     </div>
     
-    <div id="controls">
-        <input type="file" id="image-upload" accept="image/*">
-        <button id="download-btn">Download Main Mockup</button>
-        <button id="download-zip-btn">Download Selected Views as ZIP</button>
-    </div>
+    <!-- Product Sections -->
+    <div id="phone-cases" class="product-section active">
+        <!-- Phone Case Type Selection -->
+        <div class="product-type-container">
+            <a href="#" class="product-type-link active" data-case="samsung-tpu">Clear TPU case for Samsung</a>
+            <a href="#" class="product-type-link" data-case="iphone-tpu">Clear TPU case for iPhone</a>
+            <a href="#" class="product-type-link" data-case="iphone-hybrid">Clear Hybrid case for iPhone</a>
+            <a href="#" class="product-type-link" data-case="pixel-tpu">Clear TPU case for Google Pixel</a>
+            <a href="#" class="product-type-link" data-case="iphone-fullprint">Full print case for iPhone</a>
+        </div>
+        
+        <div id="controls">
+            <input type="file" id="image-upload" accept="image/*">
+            <button id="download-btn">Download Main Mockup</button>
+            <button id="download-zip-btn">Download Selected Views as ZIP</button>
+        </div>
     
     <!-- Samsung TPU Mockups -->
     <div id="samsung-tpu" class="case-mockups">
@@ -969,6 +1016,27 @@
     </div>
 </div>
 
+            <!-- Plaques Section -->
+    <div id="plaques" class="product-section">
+        <div class="subtitle">Coming Soon - Plaque Mockups</div>
+        <p>Plaque mockup generator will be available soon.</p>
+    </div>
+    
+    <!-- T-Shirts Section -->
+    <div id="tshirts" class="product-section">
+        <div class="subtitle">Coming Soon - T-Shirt Mockups</div>
+        <p>T-Shirt mockup generator will be available soon.</p>
+    </div>
+    
+    <!-- Bags Section -->
+    <div id="bags" class="product-section">
+        <div class="subtitle">Coming Soon - Bag Mockups</div>
+        <p>Bag mockup generator will be available soon.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 <script>
@@ -976,7 +1044,8 @@
     const imageUpload = document.getElementById('image-upload');
     const downloadBtn = document.getElementById('download-btn');
     const downloadZipBtn = document.getElementById('download-zip-btn');
-    const caseLinks = document.querySelectorAll('.case-material-link');
+    const productCategoryLinks = document.querySelectorAll('.product-category-link');
+    const productTypeLinks = document.querySelectorAll('.product-type-link');
     const loadingElement = document.querySelector('.loading');
     
     // State variables
@@ -985,7 +1054,58 @@
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-        // No carousel initialization needed anymore
+        // Hide all case mockups except the first one
+        document.querySelectorAll('.case-mockups').forEach((mockup, index) => {
+            if (index !== 0) {
+                mockup.classList.add('hidden');
+            }
+        });
+    });
+
+    // Product category selection
+    productCategoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update active category link
+            productCategoryLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show selected product section
+            const category = this.dataset.category;
+            document.querySelectorAll('.product-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(category).classList.add('active');
+        });
+    });
+
+    // Product type selection (for phone cases)
+    productTypeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update active type link
+            productTypeLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show selected mockups
+            const caseType = this.dataset.case;
+            document.querySelectorAll('.case-mockups').forEach(mockup => {
+                mockup.classList.add('hidden');
+            });
+            document.getElementById(caseType).classList.remove('hidden');
+            
+            // Update design positions for the new case type
+            if (uploadedImage.src) {
+                document.querySelectorAll('.user-design').forEach(design => {
+                    if (design.src) {
+                        design.style.display = 'block';
+                        updateDesignPosition(design);
+                    }
+                });
+            }
+        });
     });
 
     // Image upload handler
@@ -1035,34 +1155,6 @@
         designElement.style.left = `${x}%`;
         designElement.style.transform = `translate(-50%, -50%) scale(${scale/100}) rotate(${rotation}deg)`;
     }
-
-    // Case material selection
-    caseLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Update active link
-            caseLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show selected mockups
-            const caseType = this.dataset.case;
-            document.querySelectorAll('.case-mockups').forEach(mockup => {
-                mockup.classList.add('hidden');
-            });
-            document.getElementById(caseType).classList.remove('hidden');
-            
-            // Update design positions for the new case type
-            if (uploadedImage.src) {
-                document.querySelectorAll('.user-design').forEach(design => {
-                    if (design.src) {
-                        design.style.display = 'block';
-                        updateDesignPosition(design);
-                    }
-                });
-            }
-        });
-    });
 
     // Optimized image loader with error handling
     async function loadImage(src) {
