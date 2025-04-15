@@ -981,23 +981,14 @@
     
     // State variables
     let uploadedImage = new Image();
-    let currentCarousel = null;
-    const itemWidth = 380; // 360px width + 20px margin
     const mockupCache = new Map();
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-        // Set initial active carousel
-        currentCarousel = document.querySelector('#samsung-tpu .carousel-inner');
-        updateCarousel(currentCarousel);
-        
-        // Initialize all carousel arrows
-        document.querySelectorAll('.carousel-arrow').forEach(arrow => {
-            arrow.addEventListener('click', handleCarouselArrowClick);
-        });
+        // No carousel initialization needed anymore
     });
 
-    // Image upload handler - fixed and simplified
+    // Image upload handler
     imageUpload.addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -1061,10 +1052,6 @@
             });
             document.getElementById(caseType).classList.remove('hidden');
             
-            // Reset carousel scroll for the new view
-            currentCarousel = document.querySelector(`#${caseType} .carousel-inner`);
-            updateCarousel(currentCarousel);
-            
             // Update design positions for the new case type
             if (uploadedImage.src) {
                 document.querySelectorAll('.user-design').forEach(design => {
@@ -1076,37 +1063,6 @@
             }
         });
     });
-
-    // Carousel arrow click handler
-    function handleCarouselArrowClick(e) {
-        const wrapper = e.currentTarget.closest('.carousel-wrapper');
-        const carouselInner = wrapper.querySelector('.carousel-inner');
-        const container = wrapper.querySelector('.carousel-container');
-        
-        // Calculate scroll amount (show 3 items at a time)
-        const scrollAmount = itemWidth * 3;
-        
-        if (e.currentTarget.classList.contains('left')) {
-            currentCarousel.scrollLeft = Math.max(0, currentCarousel.scrollLeft - scrollAmount);
-        } else {
-            currentCarousel.scrollLeft = Math.min(
-                carouselInner.scrollWidth - container.offsetWidth,
-                currentCarousel.scrollLeft + scrollAmount
-            );
-        }
-    }
-
-    // Update carousel state
-    function updateCarousel(carouselInner) {
-        const wrapper = carouselInner.closest('.carousel-wrapper');
-        const container = wrapper.querySelector('.carousel-container');
-        const arrows = wrapper.querySelectorAll('.carousel-arrow');
-        
-        // Show/hide arrows based on scroll position
-        arrows[0].style.display = carouselInner.scrollLeft <= 0 ? 'none' : 'flex';
-        arrows[1].style.display = carouselInner.scrollLeft >= 
-            (carouselInner.scrollWidth - container.offsetWidth - 10) ? 'none' : 'flex';
-    }
 
     // Optimized image loader with error handling
     async function loadImage(src) {
@@ -1199,6 +1155,54 @@
         } catch (error) {
             console.error("Error generating mockup:", error);
             alert("Error generating mockup. Please try again.");
+        } finally {
+            hideLoading();
+        }
+    });
+
+    // Download selected mockups as ZIP
+    downloadZipBtn.addEventListener('click', async function() {
+        if (!uploadedImage.src) {
+            alert('Please upload an image first');
+            return;
+        }
+
+        showLoading("Preparing ZIP file...");
+        
+        try {
+            const activeCase = document.querySelector('.case-mockups:not(.hidden)');
+            const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
+            
+            if (checkedItems.length === 0) {
+                alert('Please select at least one mockup view to download');
+                return;
+            }
+
+            const zip = new JSZip();
+            const promises = [];
+            
+            // Add main mockup to ZIP
+            const mainContainer = activeCase.querySelector('#main-mockup-container');
+            const mainCanvas = await generateMockupImage(mainContainer);
+            const mainBlob = await canvasToBlob(mainCanvas);
+            zip.file('main-mockup.png', mainBlob);
+            
+            // Process selected grid items
+            for (const item of checkedItems) {
+                const mockupContainer = item.closest('.secondary-mockup');
+                const viewNumber = item.dataset.view;
+                const canvas = await generateMockupImage(mockupContainer);
+                const blob = await canvasToBlob(canvas);
+                zip.file(`view-${viewNumber}.png`, blob);
+            }
+            
+            // Generate and download ZIP
+            const content = await zip.generateAsync({ type: 'blob' });
+            downloadBlob(content, 'mockups.zip');
+            
+        } catch (error) {
+            console.error("Error generating ZIP:", error);
+            alert("Error generating ZIP file. Please try again.");
         } finally {
             hideLoading();
         }
