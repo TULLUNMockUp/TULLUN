@@ -22,7 +22,7 @@
 
         .subtitle {
             color: #666;
-            margin-bottom: 20px;a
+            margin-bottom: 20px;
             font-size: 1.1em;
             font-weight: 300;
         }
@@ -124,85 +124,66 @@
             pointer-events: none;
         }
 
-        .carousel-wrapper {
-            position: relative;
+        /* Grid View Styles */
+        .grid-wrapper {
             max-width: 1600px;
             margin: 20px auto;
+            padding: 0 20px;
         }
 
-.carousel-container {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-}
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 0 auto;
+        }
 
-.carousel-inner {
-    display: inline-block;
-    white-space: nowrap;
-    transition: transform 0.3s ease;
-    will-change: transform;
-}
-
-.carousel-item {
-    display: inline-block;
-    width: 360px;
-    margin: 0 10px;
-    vertical-align: top;
-    white-space: normal;
-}
-
-        .secondary-mockup {
+        .grid-item {
             position: relative;
-            width: 360px;
-            height: 360px;
+            background: white;
+            border-radius: 6px;
             overflow: hidden;
-            background-color: white;
-            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .carousel-checkbox {
+        .grid-item .secondary-mockup {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%; /* Square aspect ratio */
+        }
+
+        .grid-item .phone-case-bg,
+        .grid-item .phone-case-overlay,
+        .grid-item .design-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-item .design-area {
+            z-index: 2;
+        }
+
+        .grid-item .phone-case-overlay {
+            z-index: 3;
+        }
+
+        .grid-item .carousel-checkbox {
             position: absolute;
             top: 10px;
-            right: 10px;
+            left: 10px;
             z-index: 4;
-            transform: scale(1.5);
+            width: 20px;
+            height: 20px;
         }
 
         .mockup-label {
+            padding: 10px;
             font-size: 0.9em;
-            margin-top: 5px;
-            font-weight: 300;
-        }
-
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-            z-index: 5;
-            border: none;
-            transition: background-color 0.2s ease;
-        }
-
-        .carousel-arrow:hover {
-            background-color: rgba(0,0,0,0.7);
-        }
-
-        .carousel-arrow.left {
-            left: 0;
-        }
-
-        .carousel-arrow.right {
-            right: 0;
+            color: #555;
         }
 
         .hidden {
@@ -239,6 +220,31 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            #main-mockup-container {
+                width: 100%;
+                height: auto;
+                max-width: 400px;
+            }
         }
     </style>
 </head>
@@ -277,134 +283,130 @@
             <img class="phone-case-overlay" src="mockups/samsung-tpu-overlay-main.png">
         </div>
 
-        <!-- Secondary Mockups Carousel -->
-        <div class="carousel-wrapper">
-            <button class="carousel-arrow left">&#10094;</button>
-            <div class="carousel-container">
-                <div class="carousel-inner">
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="1">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view1.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="60" data-y="60" data-scale="60" data-rotation="30">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view1-overlay.png">
+        <!-- Secondary Mockups Grid -->
+        <div class="grid-wrapper">
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="1">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view1.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="60" data-y="60" data-scale="60" data-rotation="30">
                         </div>
-                        <div class="mockup-label">View 1</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view1-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="2">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view2.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view2-overlay.png">
+                    <div class="mockup-label">View 1</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="2">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view2.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 2</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view2-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="3">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view3.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view3-overlay.png">
+                    <div class="mockup-label">View 2</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="3">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view3.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 3</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view3-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="4">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view4.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view4-overlay.png">
+                    <div class="mockup-label">View 3</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="4">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view4.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 4</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view4-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="5">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view5.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view5-overlay.png">
+                    <div class="mockup-label">View 4</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="5">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view5.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 5</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view5-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="6">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view6.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view6-overlay.png">
+                    <div class="mockup-label">View 5</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="6">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view6.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 6</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view6-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="7">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view7.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view7-overlay.png">
+                    <div class="mockup-label">View 6</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="7">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view7.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 7</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view7-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="8">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view8.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view8-overlay.png">
+                    <div class="mockup-label">View 7</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="8">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view8.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 8</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view8-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="9">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view9.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view9-overlay.png">
+                    <div class="mockup-label">View 8</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="9">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view9.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 9</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view9-overlay.png">
                     </div>
-                    <div class="carousel-item">
-                        <div class="secondary-mockup">
-                            <input type="checkbox" class="carousel-checkbox" data-view="10">
-                            <img class="phone-case-bg" src="mockups/samsung-tpu-view10.png">
-                            <div class="design-area">
-                                <img class="user-design" src="" alt="" 
-                                     data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                            </div>
-                            <img class="phone-case-overlay" src="mockups/samsung-tpu-view10-overlay.png">
+                    <div class="mockup-label">View 9</div>
+                </div>
+                <div class="grid-item">
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" data-view="10">
+                        <img class="phone-case-bg" src="mockups/samsung-tpu-view10.png">
+                        <div class="design-area">
+                            <img class="user-design" src="" alt="" 
+                                 data-x="50" data-y="50" data-scale="100" data-rotation="0">
                         </div>
-                        <div class="mockup-label">View 10</div>
+                        <img class="phone-case-overlay" src="mockups/samsung-tpu-view10-overlay.png">
                     </div>
+                    <div class="mockup-label">View 10</div>
                 </div>
             </div>
-            <button class="carousel-arrow right">&#10095;</button>
         </div>
     </div>
 
