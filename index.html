@@ -1469,126 +1469,142 @@
         }
     });
 
-    // Download selected mockups as ZIP - UPDATED VERSION
-    downloadZipBtn.addEventListener('click', async function() {
-        if (!uploadedImage.src) {
-            alert('Please upload an image first');
+// Download selected mockups as ZIP - IMPROVED VERSION
+downloadZipBtn.addEventListener('click', async function() {
+    if (!uploadedImage.src) {
+        alert('Please upload an image first');
+        return;
+    }
+
+    showLoading("Preparing ZIP file...");
+    
+    try {
+        const activeCase = document.querySelector('.case-mockups:not(.hidden)');
+        const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
+        
+        if (checkedItems.length === 0) {
+            alert('Please select at least one mockup view to download');
             return;
         }
 
-        showLoading("Preparing ZIP file...");
+        const zip = new JSZip();
+        let successCount = 0;
         
+        // Add main mockup to ZIP
         try {
-            const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-            const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
-            
-            if (checkedItems.length === 0) {
-                alert('Please select at least one mockup view to download');
-                return;
-            }
-
-            const zip = new JSZip();
-            const imageLoadPromises = [];
-            
-            // Add main mockup to ZIP
             const mainContainer = activeCase.querySelector('#main-mockup-container');
             const mainCanvas = await generateMockupImage(mainContainer);
             const mainBlob = await canvasToBlob(mainCanvas);
             zip.file('main-mockup.png', mainBlob);
-            
-            // Process selected grid items with error handling
-            for (const item of checkedItems) {
-                try {
-                    const mockupContainer = item.closest('.secondary-mockup');
-                    const viewNumber = item.dataset.view;
-                    
-                    showLoading(`Generating view ${viewNumber}...`);
-                    
-                    // Create fresh canvas for each view
-                    const canvas = document.createElement('canvas');
-                    canvas.width = 2000;
-                    canvas.height = 2000;
-                    const ctx = canvas.getContext('2d');
-
-                    // Load background and overlay with error handling
-                    const bgPromise = loadImage(mockupContainer.querySelector('.phone-case-bg').src)
-                        .catch(err => {
-                            console.error(`Error loading background for view ${viewNumber}:`, err);
-                            throw err;
-                        });
-                    
-                    const overlayPromise = loadImage(mockupContainer.querySelector('.phone-case-overlay').src)
-                        .catch(err => {
-                            console.error(`Error loading overlay for view ${viewNumber}:`, err);
-                            throw err;
-                        });
-
-                    // Wait for both images to load
-                    const [bg, overlay] = await Promise.all([bgPromise, overlayPromise]);
-
-                    // Draw background
-                    ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-                    
-                    // Draw design if uploaded
-                    if (uploadedImage.src) {
-                        try {
-                            const design = await loadImage(uploadedImage.src);
-                            const designElement = mockupContainer.querySelector('.user-design');
-                            const x = parseFloat(designElement.dataset.x) || 50;
-                            const y = parseFloat(designElement.dataset.y) || 50;
-                            const scale = parseFloat(designElement.dataset.scale) || 100;
-                            const rotation = parseFloat(designElement.dataset.rotation) || 0;
-                            
-                            const designScale = Math.min(
-                                canvas.width / design.width,
-                                canvas.height / design.height
-                            ) * (scale / 100);
-                            
-                            const width = design.width * designScale;
-                            const height = design.height * designScale;
-                            
-                            const posX = (canvas.width * x / 100) - (width / 2);
-                            const posY = (canvas.height * y / 100) - (height / 2);
-                            
-                            ctx.save();
-                            ctx.translate(posX + width/2, posY + height/2);
-                            ctx.rotate(rotation * Math.PI / 180);
-                            ctx.drawImage(design, -width/2, -height/2, width, height);
-                            ctx.restore();
-                        } catch (e) {
-                            console.warn(`Design image not loaded for view ${viewNumber}:`, e.message);
-                        }
-                    }
-                    
-                    // Draw overlay
-                    ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-                    
-                    const blob = await canvasToBlob(canvas);
-                    zip.file(`view-${viewNumber}.png`, blob);
-                    
-                } catch (error) {
-                    console.error(`Error generating view ${item.dataset.view}:`, error);
-                    // Skip this view but continue with others
-                    continue;
-                }
-            }
-            
-            // Check if we successfully added any views
-            if (Object.keys(zip.files).length <= 1) { // Only main mockup was added
-                throw new Error("Failed to generate any secondary views");
-            }
-            
-            // Generate and download ZIP
-            const content = await zip.generateAsync({ type: 'blob' });
-            downloadBlob(content, 'mockups.zip');
-            
+            successCount++;
         } catch (error) {
-            console.error("Error generating ZIP:", error);
-            alert("Error generating ZIP file: " + error.message);
-        } finally {
-            hideLoading();
+            console.error("Error generating main mockup:", error);
         }
-    });
+        
+        // Process selected grid items with better error handling
+        for (const item of checkedItems) {
+            try {
+                const mockupContainer = item.closest('.secondary-mockup');
+                const viewNumber = item.dataset.view;
+                
+                showLoading(`Generating view ${viewNumber}...`);
+                
+                // Create fresh canvas
+                const canvas = document.createElement('canvas');
+                canvas.width = 2000;
+                canvas.height = 2000;
+                const ctx = canvas.getContext('2d');
+
+                // Load assets with timeout
+                const loadWithTimeout = (src) => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        const timer = setTimeout(() => {
+                            reject(new Error(`Image load timeout: ${src}`));
+                        }, 10000); // 10 second timeout
+                        
+                        img.onload = () => {
+                            clearTimeout(timer);
+                            resolve(img);
+                        };
+                        img.onerror = () => {
+                            clearTimeout(timer);
+                            reject(new Error(`Failed to load image: ${src}`));
+                        };
+                        img.src = src;
+                    });
+                };
+
+                // Load both images in parallel
+                const [bg, overlay] = await Promise.all([
+                    loadWithTimeout(mockupContainer.querySelector('.phone-case-bg').src),
+                    loadWithTimeout(mockupContainer.querySelector('.phone-case-overlay').src)
+                ]);
+
+                // Draw background
+                ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+                
+                // Draw user design if available
+                if (uploadedImage.src) {
+                    try {
+                        const design = await loadWithTimeout(uploadedImage.src);
+                        const designElement = mockupContainer.querySelector('.user-design');
+                        const x = parseFloat(designElement.dataset.x) || 50;
+                        const y = parseFloat(designElement.dataset.y) || 50;
+                        const scale = parseFloat(designElement.dataset.scale) || 100;
+                        const rotation = parseFloat(designElement.dataset.rotation) || 0;
+                        
+                        const designScale = Math.min(
+                            canvas.width / design.width,
+                            canvas.height / design.height
+                        ) * (scale / 100);
+                        
+                        const width = design.width * designScale;
+                        const height = design.height * designScale;
+                        
+                        const posX = (canvas.width * x / 100) - (width / 2);
+                        const posY = (canvas.height * y / 100) - (height / 2);
+                        
+                        ctx.save();
+                        ctx.translate(posX + width/2, posY + height/2);
+                        ctx.rotate(rotation * Math.PI / 180);
+                        ctx.drawImage(design, -width/2, -height/2, width, height);
+                        ctx.restore();
+                    } catch (e) {
+                        console.warn(`Design image error for view ${viewNumber}:`, e.message);
+                    }
+                }
+                
+                // Draw overlay
+                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
+                
+                const blob = await canvasToBlob(canvas);
+                zip.file(`view-${viewNumber}.png`, blob);
+                successCount++;
+                
+            } catch (error) {
+                console.error(`Error generating view ${item.dataset.view}:`, error);
+                // Skip this view but continue with others
+                continue;
+            }
+        }
+        
+        // Verify we have at least one secondary view
+        if (successCount <= 1) { // Only main mockup was added
+            throw new Error("Failed to generate any secondary views. Please check your internet connection and try again.");
+        }
+        
+        // Generate and download ZIP
+        const content = await zip.generateAsync({ type: 'blob' });
+        downloadBlob(content, 'mockups.zip');
+        
+    } catch (error) {
+        console.error("ZIP generation failed:", error);
+        alert(error.message);
+    } finally {
+        hideLoading();
+    }
+});
 
     // Helper functions
     function canvasToBlob(canvas) {
