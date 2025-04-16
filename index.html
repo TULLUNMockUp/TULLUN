@@ -1469,20 +1469,45 @@
         }
     });
 
-// Download selected mockups as ZIP - DEBUGGABLE VERSION
+// Download selected mockups as ZIP - COMPREHENSIVE SOLUTION
 downloadZipBtn.addEventListener('click', async function() {
     if (!uploadedImage.src) {
         alert('Please upload an image first');
         return;
     }
 
-    showLoading("Preparing ZIP file...");
-    
+    // 1. INITIAL SYSTEM CHECK
+    showLoading("Running system checks...");
+    try {
+        // Verify S3 connectivity first
+        await verifyS3Connectivity();
+    } catch (error) {
+        hideLoading();
+        showErrorDialog(`
+            Failed to access mockup images. Common issues:
+            
+            1. Slow/unstable internet connection
+            2. Incorrect S3 bucket permissions
+            3. Large files taking too long to load
+            
+            Technical details: ${error.message}
+            
+            Please check:
+            - Your internet connection
+            - S3 bucket public access settings
+            - CORS configuration
+        `);
+        return;
+    }
+
+    // 2. PROCEED WITH GENERATION
+    showLoading("Preparing to generate mockups...");
     try {
         const activeCase = document.querySelector('.case-mockups:not(.hidden)');
         const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
         
         if (checkedItems.length === 0) {
+            hideLoading();
             alert('Please select at least one mockup view to download');
             return;
         }
@@ -1490,43 +1515,25 @@ downloadZipBtn.addEventListener('click', async function() {
         const zip = new JSZip();
         let successCount = 0;
         const failedViews = [];
-        
-        // 1. First verify we can load the base images
-        try {
-            const testContainer = activeCase.querySelector('.secondary-mockup') || activeCase.querySelector('#main-mockup-container');
-            const testBg = testContainer.querySelector('.phone-case-bg').src;
-            const testOverlay = testContainer.querySelector('.phone-case-overlay').src;
-            
-            // Test loading one image to verify S3 access
-            await new Promise((resolve, reject) => {
-                const testImg = new Image();
-                testImg.onload = resolve;
-                testImg.onerror = () => reject(new Error(`Failed to load test image from S3`));
-                testImg.src = testBg;
-                setTimeout(() => reject(new Error('S3 connection timeout')), 5000);
-            });
-        } catch (e) {
-            throw new Error(`Cannot access mockup images. Please check:\n1. Your internet connection\n2. S3 bucket permissions\n3. Image URLs are correct\n\nError: ${e.message}`);
-        }
 
-        // 2. Process main mockup
+        // Process main mockup
         try {
-            const mainContainer = activeCase.querySelector('#main-mockup-container');
             showLoading("Generating main mockup...");
+            const mainContainer = activeCase.querySelector('#main-mockup-container');
             const mainCanvas = await generateMockupImage(mainContainer);
             const mainBlob = await canvasToBlob(mainCanvas);
             zip.file('main-mockup.png', mainBlob);
             successCount++;
         } catch (error) {
-            console.error("Main mockup error:", error);
+            console.error("Main mockup failed:", error);
             failedViews.push('main');
         }
 
-        // 3. Process secondary views with enhanced debugging
+        // Process secondary views
         for (const item of checkedItems) {
             const viewNumber = item.dataset.view;
             try {
-                showLoading(`Generating view ${viewNumber} (${successCount+1}/${checkedItems.length})...`);
+                showLoading(`Generating view ${viewNumber}...`);
                 
                 const mockupContainer = item.closest('.secondary-mockup');
                 const canvas = document.createElement('canvas');
@@ -1534,14 +1541,11 @@ downloadZipBtn.addEventListener('click', async function() {
                 canvas.height = 2000;
                 const ctx = canvas.getContext('2d');
 
-                // Load assets with detailed error reporting
-                let bg, overlay;
-                try {
-                    bg = await loadImageWithDebug(mockupContainer.querySelector('.phone-case-bg'), 'background');
-                    overlay = await loadImageWithDebug(mockupContainer.querySelector('.phone-case-overlay'), 'overlay');
-                } catch (e) {
-                    throw new Error(`View ${viewNumber} asset failed: ${e.message}`);
-                }
+                // Load required images
+                const [bg, overlay] = await Promise.all([
+                    loadImageWithTimeout(mockupContainer.querySelector('.phone-case-bg').src, 8000),
+                    loadImageWithTimeout(mockupContainer.querySelector('.phone-case-overlay').src, 8000)
+                ]);
 
                 // Draw background
                 ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -1549,7 +1553,7 @@ downloadZipBtn.addEventListener('click', async function() {
                 // Draw user design
                 if (uploadedImage.src) {
                     try {
-                        const design = await loadImageWithDebug({src: uploadedImage.src}, 'user design');
+                        const design = await loadImageWithTimeout(uploadedImage.src, 8000);
                         const designElement = mockupContainer.querySelector('.user-design');
                         const x = parseFloat(designElement.dataset.x) || 50;
                         const y = parseFloat(designElement.dataset.y) || 50;
@@ -1573,7 +1577,7 @@ downloadZipBtn.addEventListener('click', async function() {
                         ctx.drawImage(design, -width/2, -height/2, width, height);
                         ctx.restore();
                     } catch (e) {
-                        console.warn(`Design drawing error in view ${viewNumber}:`, e.message);
+                        console.warn(`Design drawing error:`, e);
                     }
                 }
                 
@@ -1590,83 +1594,96 @@ downloadZipBtn.addEventListener('click', async function() {
                 continue;
             }
         }
-        
+
         // Final validation
         if (successCount === 0) {
-            throw new Error(`All views failed to generate. Most common issues:\n\n1. Slow/unstable internet connection\n2. S3 bucket permissions\n3. Large image files taking too long to load\n\nFailed views: ${failedViews.join(', ')}`);
-        } else if (failedViews.length > 0) {
-            console.warn(`Partial success: Generated ${successCount} views, failed: ${failedViews.join(', ')}`);
+            throw new Error("All views failed to generate");
         }
-        
+
         // Generate ZIP
+        showLoading("Creating ZIP file...");
         const content = await zip.generateAsync({ type: 'blob' });
         downloadBlob(content, 'mockups.zip');
         
     } catch (error) {
-        console.error("ZIP generation failed:", error);
-        alert(error.message);
+        showErrorDialog(`
+            Mockup generation failed. Common issues:
+            
+            1. Slow internet connection
+            2. S3 bucket permissions
+            3. Large image files
+            
+            Failed views: ${failedViews.join(', ') || 'all'}
+            
+            Please try:
+            - Refreshing the page
+            - Checking your internet
+            - Using smaller design files
+        `);
     } finally {
         hideLoading();
     }
 });
 
-// Enhanced image loader with debugging
-async function loadImageWithDebug(imgElement, assetName) {
+// New helper functions
+async function verifyS3Connectivity() {
+    const testContainer = document.querySelector('.case-mockups:not(.hidden)');
+    if (!testContainer) throw new Error("No active mockup case found");
+    
+    const testImage = testContainer.querySelector('.phone-case-bg');
+    if (!testImage) throw new Error("No test image element found");
+    
+    await loadImageWithTimeout(testImage.src, 5000);
+}
+
+function loadImageWithTimeout(src, timeout) {
     return new Promise((resolve, reject) => {
         const img = new Image();
         const timer = setTimeout(() => {
-            reject(new Error(`${assetName} timeout (${imgElement.src})`));
-        }, 10000); // 10 second timeout
+            reject(new Error(`Image load timeout after ${timeout}ms`));
+        }, timeout);
         
         img.onload = () => {
             clearTimeout(timer);
-            console.log(`Successfully loaded ${assetName}:`, imgElement.src);
             resolve(img);
         };
         img.onerror = () => {
             clearTimeout(timer);
-            reject(new Error(`Failed to load ${assetName} from: ${imgElement.src}`));
+            reject(new Error(`Failed to load image from ${src}`));
         };
-        img.crossOrigin = "Anonymous"; // Important for S3 CORS
-        img.src = imgElement.src;
-        
-        // For debugging
-        console.log(`Attempting to load ${assetName} from:`, imgElement.src);
+        img.crossOrigin = "Anonymous";
+        img.src = src;
     });
 }
 
-    // Helper functions
-    function canvasToBlob(canvas) {
-        return new Promise(resolve => {
-            canvas.toBlob(blob => {
-                resolve(blob);
-            }, 'image/png', 0.95);
-        });
-    }
+function showErrorDialog(message) {
+    const dialog = document.createElement('div');
+    dialog.style.position = 'fixed';
+    dialog.style.top = '20px';
+    dialog.style.left = '50%';
+    dialog.style.transform = 'translateX(-50%)';
+    dialog.style.backgroundColor = '#ffebee';
+    dialog.style.padding = '20px';
+    dialog.style.borderRadius = '8px';
+    dialog.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
+    dialog.style.zIndex = '10000';
+    dialog.style.maxWidth = '80%';
+    dialog.style.whiteSpace = 'pre-line';
     
-    function downloadBlob(blob, filename) {
-        const link = document.createElement('a');
-        link.download = filename;
-        link.href = URL.createObjectURL(blob);
-        document.body.appendChild(link);
-        link.click();
-        setTimeout(() => {
-            URL.revokeObjectURL(link.href);
-            link.remove();
-        }, 100);
-    }
+    dialog.innerHTML = `
+        <h3 style="margin-top:0;color:#d32f2f">Error Generating Mockups</h3>
+        <div>${message}</div>
+        <button style="margin-top:15px;padding:8px 16px;background:#d32f2f;color:white;border:none;border-radius:4px;cursor:pointer">
+            Close
+        </button>
+    `;
     
-    function showLoading(message = "Processing...") {
-        loadingElement.innerHTML = `
-            <div class="spinner"></div>
-            <div>${message}</div>
-        `;
-        loadingElement.style.display = 'flex';
-    }
+    dialog.querySelector('button').addEventListener('click', () => {
+        document.body.removeChild(dialog);
+    });
     
-    function hideLoading() {
-        loadingElement.style.display = 'none';
-    }
+    document.body.appendChild(dialog);
+}
 </script>
 </body>
 </html>
