@@ -1469,7 +1469,7 @@
         }
     });
 
-// Download selected mockups as ZIP - IMPROVED VERSION
+// Download selected mockups as ZIP - DEBUGGABLE VERSION
 downloadZipBtn.addEventListener('click', async function() {
     if (!uploadedImage.src) {
         alert('Please upload an image first');
@@ -1489,65 +1489,67 @@ downloadZipBtn.addEventListener('click', async function() {
 
         const zip = new JSZip();
         let successCount = 0;
+        const failedViews = [];
         
-        // Add main mockup to ZIP
+        // 1. First verify we can load the base images
+        try {
+            const testContainer = activeCase.querySelector('.secondary-mockup') || activeCase.querySelector('#main-mockup-container');
+            const testBg = testContainer.querySelector('.phone-case-bg').src;
+            const testOverlay = testContainer.querySelector('.phone-case-overlay').src;
+            
+            // Test loading one image to verify S3 access
+            await new Promise((resolve, reject) => {
+                const testImg = new Image();
+                testImg.onload = resolve;
+                testImg.onerror = () => reject(new Error(`Failed to load test image from S3`));
+                testImg.src = testBg;
+                setTimeout(() => reject(new Error('S3 connection timeout')), 5000);
+            });
+        } catch (e) {
+            throw new Error(`Cannot access mockup images. Please check:\n1. Your internet connection\n2. S3 bucket permissions\n3. Image URLs are correct\n\nError: ${e.message}`);
+        }
+
+        // 2. Process main mockup
         try {
             const mainContainer = activeCase.querySelector('#main-mockup-container');
+            showLoading("Generating main mockup...");
             const mainCanvas = await generateMockupImage(mainContainer);
             const mainBlob = await canvasToBlob(mainCanvas);
             zip.file('main-mockup.png', mainBlob);
             successCount++;
         } catch (error) {
-            console.error("Error generating main mockup:", error);
+            console.error("Main mockup error:", error);
+            failedViews.push('main');
         }
-        
-        // Process selected grid items with better error handling
+
+        // 3. Process secondary views with enhanced debugging
         for (const item of checkedItems) {
+            const viewNumber = item.dataset.view;
             try {
+                showLoading(`Generating view ${viewNumber} (${successCount+1}/${checkedItems.length})...`);
+                
                 const mockupContainer = item.closest('.secondary-mockup');
-                const viewNumber = item.dataset.view;
-                
-                showLoading(`Generating view ${viewNumber}...`);
-                
-                // Create fresh canvas
                 const canvas = document.createElement('canvas');
                 canvas.width = 2000;
                 canvas.height = 2000;
                 const ctx = canvas.getContext('2d');
 
-                // Load assets with timeout
-                const loadWithTimeout = (src) => {
-                    return new Promise((resolve, reject) => {
-                        const img = new Image();
-                        const timer = setTimeout(() => {
-                            reject(new Error(`Image load timeout: ${src}`));
-                        }, 10000); // 10 second timeout
-                        
-                        img.onload = () => {
-                            clearTimeout(timer);
-                            resolve(img);
-                        };
-                        img.onerror = () => {
-                            clearTimeout(timer);
-                            reject(new Error(`Failed to load image: ${src}`));
-                        };
-                        img.src = src;
-                    });
-                };
-
-                // Load both images in parallel
-                const [bg, overlay] = await Promise.all([
-                    loadWithTimeout(mockupContainer.querySelector('.phone-case-bg').src),
-                    loadWithTimeout(mockupContainer.querySelector('.phone-case-overlay').src)
-                ]);
+                // Load assets with detailed error reporting
+                let bg, overlay;
+                try {
+                    bg = await loadImageWithDebug(mockupContainer.querySelector('.phone-case-bg'), 'background');
+                    overlay = await loadImageWithDebug(mockupContainer.querySelector('.phone-case-overlay'), 'overlay');
+                } catch (e) {
+                    throw new Error(`View ${viewNumber} asset failed: ${e.message}`);
+                }
 
                 // Draw background
                 ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
                 
-                // Draw user design if available
+                // Draw user design
                 if (uploadedImage.src) {
                     try {
-                        const design = await loadWithTimeout(uploadedImage.src);
+                        const design = await loadImageWithDebug({src: uploadedImage.src}, 'user design');
                         const designElement = mockupContainer.querySelector('.user-design');
                         const x = parseFloat(designElement.dataset.x) || 50;
                         const y = parseFloat(designElement.dataset.y) || 50;
@@ -1571,7 +1573,7 @@ downloadZipBtn.addEventListener('click', async function() {
                         ctx.drawImage(design, -width/2, -height/2, width, height);
                         ctx.restore();
                     } catch (e) {
-                        console.warn(`Design image error for view ${viewNumber}:`, e.message);
+                        console.warn(`Design drawing error in view ${viewNumber}:`, e.message);
                     }
                 }
                 
@@ -1583,18 +1585,20 @@ downloadZipBtn.addEventListener('click', async function() {
                 successCount++;
                 
             } catch (error) {
-                console.error(`Error generating view ${item.dataset.view}:`, error);
-                // Skip this view but continue with others
+                console.error(`View ${viewNumber} failed:`, error);
+                failedViews.push(viewNumber);
                 continue;
             }
         }
         
-        // Verify we have at least one secondary view
-        if (successCount <= 1) { // Only main mockup was added
-            throw new Error("Failed to generate any secondary views. Please check your internet connection and try again.");
+        // Final validation
+        if (successCount === 0) {
+            throw new Error(`All views failed to generate. Most common issues:\n\n1. Slow/unstable internet connection\n2. S3 bucket permissions\n3. Large image files taking too long to load\n\nFailed views: ${failedViews.join(', ')}`);
+        } else if (failedViews.length > 0) {
+            console.warn(`Partial success: Generated ${successCount} views, failed: ${failedViews.join(', ')}`);
         }
         
-        // Generate and download ZIP
+        // Generate ZIP
         const content = await zip.generateAsync({ type: 'blob' });
         downloadBlob(content, 'mockups.zip');
         
@@ -1605,6 +1609,31 @@ downloadZipBtn.addEventListener('click', async function() {
         hideLoading();
     }
 });
+
+// Enhanced image loader with debugging
+async function loadImageWithDebug(imgElement, assetName) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const timer = setTimeout(() => {
+            reject(new Error(`${assetName} timeout (${imgElement.src})`));
+        }, 10000); // 10 second timeout
+        
+        img.onload = () => {
+            clearTimeout(timer);
+            console.log(`Successfully loaded ${assetName}:`, imgElement.src);
+            resolve(img);
+        };
+        img.onerror = () => {
+            clearTimeout(timer);
+            reject(new Error(`Failed to load ${assetName} from: ${imgElement.src}`));
+        };
+        img.crossOrigin = "Anonymous"; // Important for S3 CORS
+        img.src = imgElement.src;
+        
+        // For debugging
+        console.log(`Attempting to load ${assetName} from:`, imgElement.src);
+    });
+}
 
     // Helper functions
     function canvasToBlob(canvas) {
