@@ -1873,6 +1873,7 @@
     const productCategoryLinks = document.querySelectorAll('.product-category-link');
     const productTypeLinks = document.querySelectorAll('.product-type-link');
     const loadingElement = document.querySelector('.loading');
+    const removeBtn = document.getElementById('remove-btn');
     
     // State variables
     let uploadedImage = new Image();
@@ -1886,6 +1887,9 @@
                 mockup.classList.add('hidden');
             }
         });
+        
+        // Initialize lazy loading for optimized images
+        initLazyLoading();
     });
 
     // Product category selection
@@ -1955,6 +1959,7 @@
                 
                 uploadedImage.src = e.target.result;
                 mockupCache.clear();
+                removeBtn.style.display = 'block';
                 hideLoading();
             };
             testImage.onerror = function() {
@@ -1970,59 +1975,44 @@
         reader.readAsDataURL(file);
     });
 
-// Remove button handler
-const removeBtn = document.getElementById('remove-btn');
-removeBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    document.querySelectorAll('.user-design').forEach(design => {
-        design.src = '';
-        design.style.display = 'none';
+    // Remove button handler
+    removeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        document.querySelectorAll('.user-design').forEach(design => {
+            design.src = '';
+            design.style.display = 'none';
+        });
+        uploadedImage.src = '';
+        imageUpload.value = '';
+        mockupCache.clear();
+        removeBtn.style.display = 'none';
     });
-    uploadedImage.src = '';
-    imageUpload.value = '';
-    mockupCache.clear();
-    removeBtn.style.display = 'none';
-});
-
-// Modify the image upload handler to show the remove button when an image is uploaded
-imageUpload.addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (!file) return;
     
-    showLoading("Loading your design...");
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        // First verify the image loads
-        const testImage = new Image();
-        testImage.onload = function() {
-            // Update all designs with the new image
-            document.querySelectorAll('.user-design').forEach(design => {
-                design.src = e.target.result;
-                design.style.display = 'block';
-                updateDesignPosition(design);
-            });
+    // Lazy loading for optimized images
+    function initLazyLoading() {
+        if ('IntersectionObserver' in window) {
+            const lazyImages = document.querySelectorAll('.phone-case-bg[data-fullres], .phone-case-overlay[data-fullres]');
             
-            uploadedImage.src = e.target.result;
-            mockupCache.clear();
-            removeBtn.style.display = 'block'; // Show remove button
-            hideLoading();
-        };
-        testImage.onerror = function() {
-            hideLoading();
-            alert("Error: The image couldn't be loaded. Please try another file.");
-        };
-        testImage.src = e.target.result;
-    };
-    reader.onerror = function() {
-        hideLoading();
-        alert("Error reading file. Please try again.");
-    };
-    reader.readAsDataURL(file);
-});
-    
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        // Load optimized version if not already loaded
+                        if (!img.src.includes('optimized')) {
+                            const optimizedSrc = img.src.replace('originals', 'optimized');
+                            img.src = optimizedSrc;
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => imageObserver.observe(img));
+        }
+    }
+
     // Function to update design position based on data attributes
     function updateDesignPosition(designElement) {
         const x = parseFloat(designElement.dataset.x) || 50;
@@ -2060,8 +2050,14 @@ imageUpload.addEventListener('change', function(event) {
             canvas.height = 2000;
             const ctx = canvas.getContext('2d');
 
-            const bg = await loadImage(container.querySelector('.phone-case-bg').src);
-            const overlay = await loadImage(container.querySelector('.phone-case-overlay').src);
+            // Load high-res originals for download
+            const bgSrc = container.querySelector('.phone-case-bg').dataset.fullres;
+            const overlaySrc = container.querySelector('.phone-case-overlay').dataset.fullres;
+            
+            const [bg, overlay] = await Promise.all([
+                loadImage(bgSrc),
+                loadImage(overlaySrc)
+            ]);
 
             // Draw background
             ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -2131,97 +2127,99 @@ imageUpload.addEventListener('change', function(event) {
         }
     });
 
-// Download selected mockups as ZIP
-downloadZipBtn.addEventListener('click', async function() {
-    if (!uploadedImage.src) {
-        alert('Please upload an image first');
-        return;
-    }
-
-    showLoading("Preparing ZIP file...");
-    
-    try {
-        const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-        const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
-        
-        if (checkedItems.length === 0) {
-            alert('Please select at least one mockup view to download');
+    // Download selected mockups as ZIP
+    downloadZipBtn.addEventListener('click', async function() {
+        if (!uploadedImage.src) {
+            alert('Please upload an image first');
             return;
         }
 
-        const zip = new JSZip();
+        showLoading("Preparing ZIP file...");
         
-        // Add main mockup to ZIP
-        const mainContainer = activeCase.querySelector('#main-mockup-container');
-        const mainCanvas = await generateMockupImage(mainContainer);
-        const mainBlob = await canvasToBlob(mainCanvas);
-        zip.file('main-mockup.png', mainBlob);
-        
-        // Process selected grid items with unique cache keys
-        for (const item of checkedItems) {
-            const mockupContainer = item.closest('.secondary-mockup');
-            const viewNumber = item.dataset.view;
+        try {
+            const activeCase = document.querySelector('.case-mockups:not(.hidden)');
+            const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
             
-            // Generate unique cache key for each view
-            const cacheKey = `view-${viewNumber}-${uploadedImage.src}`;
-            
-            // Skip cache for secondary views to ensure we get fresh renders
-            showLoading(`Generating view ${viewNumber}...`);
-            
-            const canvas = document.createElement('canvas');
-            canvas.width = 2000;
-            canvas.height = 2000;
-            const ctx = canvas.getContext('2d');
+            if (checkedItems.length === 0) {
+                alert('Please select at least one mockup view to download');
+                return;
+            }
 
-            const bg = await loadImage(mockupContainer.querySelector('.phone-case-bg').src);
-            const overlay = await loadImage(mockupContainer.querySelector('.phone-case-overlay').src);
+            const zip = new JSZip();
+            
+            // Add main mockup to ZIP
+            const mainContainer = activeCase.querySelector('#main-mockup-container');
+            const mainCanvas = await generateMockupImage(mainContainer);
+            const mainBlob = await canvasToBlob(mainCanvas);
+            zip.file('main-mockup.png', mainBlob);
+            
+            // Process selected grid items with high-res originals
+            for (const item of checkedItems) {
+                const mockupContainer = item.closest('.secondary-mockup');
+                const viewNumber = item.dataset.view;
+                
+                showLoading(`Generating view ${viewNumber}...`);
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = 2000;
+                canvas.height = 2000;
+                const ctx = canvas.getContext('2d');
 
-            // Draw background
-            ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+                // Load high-res originals for download
+                const bgSrc = mockupContainer.querySelector('.phone-case-bg').dataset.fullres;
+                const overlaySrc = mockupContainer.querySelector('.phone-case-overlay').dataset.fullres;
+                
+                const [bg, overlay] = await Promise.all([
+                    loadImage(bgSrc),
+                    loadImage(overlaySrc)
+                ]);
+
+                // Draw background
+                ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+                
+                // Draw design
+                const design = await loadImage(uploadedImage.src);
+                const designElement = mockupContainer.querySelector('.user-design');
+                const x = parseFloat(designElement.dataset.x) || 50;
+                const y = parseFloat(designElement.dataset.y) || 50;
+                const scale = parseFloat(designElement.dataset.scale) || 100;
+                const rotation = parseFloat(designElement.dataset.rotation) || 0;
+                
+                const designScale = Math.min(
+                    canvas.width / design.width,
+                    canvas.height / design.height
+                ) * (scale / 100);
+                
+                const width = design.width * designScale;
+                const height = design.height * designScale;
+                
+                const posX = (canvas.width * x / 100) - (width / 2);
+                const posY = (canvas.height * y / 100) - (height / 2);
+                
+                ctx.save();
+                ctx.translate(posX + width/2, posY + height/2);
+                ctx.rotate(rotation * Math.PI / 180);
+                ctx.drawImage(design, -width/2, -height/2, width, height);
+                ctx.restore();
+                
+                // Draw overlay
+                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
+                
+                const blob = await canvasToBlob(canvas);
+                zip.file(`view-${viewNumber}.png`, blob);
+            }
             
-            // Draw design
-            const design = await loadImage(uploadedImage.src);
-            const designElement = mockupContainer.querySelector('.user-design');
-            const x = parseFloat(designElement.dataset.x) || 50;
-            const y = parseFloat(designElement.dataset.y) || 50;
-            const scale = parseFloat(designElement.dataset.scale) || 100;
-            const rotation = parseFloat(designElement.dataset.rotation) || 0;
+            // Generate and download ZIP
+            const content = await zip.generateAsync({ type: 'blob' });
+            downloadBlob(content, 'mockups.zip');
             
-            const designScale = Math.min(
-                canvas.width / design.width,
-                canvas.height / design.height
-            ) * (scale / 100);
-            
-            const width = design.width * designScale;
-            const height = design.height * designScale;
-            
-            const posX = (canvas.width * x / 100) - (width / 2);
-            const posY = (canvas.height * y / 100) - (height / 2);
-            
-            ctx.save();
-            ctx.translate(posX + width/2, posY + height/2);
-            ctx.rotate(rotation * Math.PI / 180);
-            ctx.drawImage(design, -width/2, -height/2, width, height);
-            ctx.restore();
-            
-            // Draw overlay
-            ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-            
-            const blob = await canvasToBlob(canvas);
-            zip.file(`view-${viewNumber}.png`, blob);
+        } catch (error) {
+            console.error("Error generating ZIP:", error);
+            alert("Error generating ZIP file. Please try again.");
+        } finally {
+            hideLoading();
         }
-        
-        // Generate and download ZIP
-        const content = await zip.generateAsync({ type: 'blob' });
-        downloadBlob(content, 'mockups.zip');
-        
-    } catch (error) {
-        console.error("Error generating ZIP:", error);
-        alert("Error generating ZIP file. Please try again.");
-    } finally {
-        hideLoading();
-    }
-});
+    });
 
     // Helper functions
     function canvasToBlob(canvas) {
