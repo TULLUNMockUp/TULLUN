@@ -2535,139 +2535,114 @@
         });
     }
 
-// Download selected mockups as ZIP - improved version
+// Download selected mockups as ZIP - fixed version
 downloadZipBtn.addEventListener('click', async function() {
     if (!uploadedImage.src) {
         alert('Please upload an image first');
         return;
     }
 
-    const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-    const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
-    
-    if (checkedItems.length === 0) {
-        alert('Please select at least one mockup view to download');
-        return;
-    }
-
-    showLoading(`Preparing ZIP (0/${checkedItems.length + 1})...`);
+    showLoading("Preparing ZIP file...");
     
     try {
+        const activeCase = document.querySelector('.case-mockups:not(.hidden)');
+        const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
+        
+        if (checkedItems.length === 0) {
+            alert('Please select at least one mockup view to download');
+            return;
+        }
+
         const zip = new JSZip();
-        let processedCount = 0;
-
-        // Helper function to update progress
-        const updateProgress = () => {
-            processedCount++;
-            showLoading(`Preparing ZIP (${processedCount}/${checkedItems.length + 1})...`);
-        };
-
-        // 1. Add main mockup to ZIP
+        const folder = zip.folder("mockups"); // Create a folder for better organization
+        
+        // 1. Add main mockup to ZIP (fixed)
         try {
+            showLoading("Adding main mockup to ZIP...");
             const mainContainer = activeCase.querySelector('#main-mockup-container');
             const mainCanvas = await generateMockupImage(mainContainer);
             const mainBlob = await canvasToBlob(mainCanvas);
-            zip.file('main-mockup.png', mainBlob);
-            updateProgress();
+            folder.file('main-mockup.png', mainBlob);
         } catch (e) {
             console.error("Error with main mockup:", e);
+            // Continue even if main mockup fails
         }
 
-        // 2. Process selected grid items with error handling
+        // 2. Process selected grid items
         for (const item of checkedItems) {
             try {
-                const mockupContainer = item.closest('.secondary-mockup');
                 const viewNumber = item.dataset.view;
+                showLoading(`Adding view ${viewNumber} to ZIP...`);
                 
-                // Create a smaller canvas for ZIP (1500x1500 instead of 2000x2000)
+                const mockupContainer = item.closest('.secondary-mockup');
                 const canvas = document.createElement('canvas');
-                canvas.width = 1500;
+                canvas.width = 1500; // Reduced size for better performance
                 canvas.height = 1500;
                 const ctx = canvas.getContext('2d');
 
-                // Load images with error handling
+                // Load high-res originals
                 const bgSrc = mockupContainer.querySelector('.phone-case-bg').dataset.fullres;
                 const overlaySrc = mockupContainer.querySelector('.phone-case-overlay').dataset.fullres;
                 
                 const [bg, overlay] = await Promise.all([
-                    loadImage(bgSrc).catch(e => {
-                        console.error(`Error loading background for view ${viewNumber}:`, e);
-                        return null;
-                    }),
-                    loadImage(overlaySrc).catch(e => {
-                        console.error(`Error loading overlay for view ${viewNumber}:`, e);
-                        return null;
-                    })
+                    loadImage(bgSrc),
+                    loadImage(overlaySrc)
                 ]);
-
-                if (!bg || !overlay) continue;
 
                 // Draw background
                 ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
                 
-                // Draw design with error handling
-                try {
-                    const design = await loadImage(uploadedImage.src);
-                    const designElement = mockupContainer.querySelector('.user-design');
-                    const x = parseFloat(designElement.dataset.x) || 50;
-                    const y = parseFloat(designElement.dataset.y) || 50;
-                    const scale = parseFloat(designElement.dataset.scale) || 100;
-                    const rotation = parseFloat(designElement.dataset.rotation) || 0;
-                    
-                    const designScale = Math.min(
-                        canvas.width / design.width,
-                        canvas.height / design.height
-                    ) * (scale / 100);
-                    
-                    const width = design.width * designScale;
-                    const height = design.height * designScale;
-                    
-                    const posX = (canvas.width * x / 100) - (width / 2);
-                    const posY = (canvas.height * y / 100) - (height / 2);
-                    
-                    ctx.save();
-                    ctx.translate(posX + width/2, posY + height/2);
-                    ctx.rotate(rotation * Math.PI / 180);
-                    ctx.drawImage(design, -width/2, -height/2, width, height);
-                    ctx.restore();
-                } catch (e) {
-                    console.error(`Error drawing design for view ${viewNumber}:`, e);
-                }
+                // Draw design
+                const design = await loadImage(uploadedImage.src);
+                const designElement = mockupContainer.querySelector('.user-design');
+                const x = parseFloat(designElement.dataset.x) || 50;
+                const y = parseFloat(designElement.dataset.y) || 50;
+                const scale = parseFloat(designElement.dataset.scale) || 100;
+                const rotation = parseFloat(designElement.dataset.rotation) || 0;
+                
+                const designScale = Math.min(
+                    canvas.width / design.width,
+                    canvas.height / design.height
+                ) * (scale / 100);
+                
+                const width = design.width * designScale;
+                const height = design.height * designScale;
+                
+                const posX = (canvas.width * x / 100) - (width / 2);
+                const posY = (canvas.height * y / 100) - (height / 2);
+                
+                ctx.save();
+                ctx.translate(posX + width/2, posY + height/2);
+                ctx.rotate(rotation * Math.PI / 180);
+                ctx.drawImage(design, -width/2, -height/2, width, height);
+                ctx.restore();
                 
                 // Draw overlay
                 ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
                 
-                // Add to ZIP with lower quality to reduce size
-                const blob = await canvasToBlob(canvas, 0.8); // Reduced quality
-                zip.file(`view-${viewNumber}.png`, blob);
+                // Add to ZIP
+                const blob = await canvasToBlob(canvas);
+                folder.file(`view-${viewNumber}.png`, blob);
                 
-                updateProgress();
-                
-                // Add small delay to prevent UI freezing
-                await new Promise(resolve => setTimeout(resolve, 100));
-            } catch (e) {
-                console.error(`Error processing view ${item.dataset.view}:`, e);
-                updateProgress();
+            } catch (error) {
+                console.error(`Error processing view ${item.dataset.view}:`, error);
+                // Continue with next mockup even if one fails
             }
         }
-
-        // Generate ZIP with progress monitoring
-        showLoading("Compressing ZIP file...");
         
-        // Use lower compression level for better performance
-        const content = await zip.generateAsync({
+        // Generate and download ZIP
+        showLoading("Finalizing ZIP file...");
+        const content = await zip.generateAsync({ 
             type: 'blob',
             compression: 'DEFLATE',
             compressionOptions: { level: 6 }
-        }, (metadata) => {
-            showLoading(`Compressing: ${Math.round(metadata.percent)}% complete`);
         });
         
         downloadBlob(content, 'mockups.zip');
         
     } catch (error) {
         console.error("Error generating ZIP:", error);
-        alert("Error generating ZIP file. The file might be too large. Try selecting fewer mockups.");
+        alert("Error generating ZIP file. Please try again with fewer mockups.");
     } finally {
         hideLoading();
     }
