@@ -534,34 +534,34 @@
         </section>
         
         <!-- Controls Section (initially hidden) -->
-        <div id="controls">
-            <div class="controls-row">
-                <div class="file-upload-wrapper">
-                    <input type="file" id="image-upload" accept="image/*">
-                    <button class="file-upload-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
-                            <path d="M20 18H4V11H2V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V11H20V18Z" fill="currentColor"/>
-                        </svg>
-                        Upload Design
-                    </button>
-                    <button id="remove-btn">×</button>
-                </div>
-            </div>
-            <div class="controls-row">
-                <button id="download-btn" disabled>Download Main Mockup</button>
-                <button id="download-zip-btn" disabled>Download Selected Views</button>
-            </div>
+<div id="controls">
+    <div class="controls-row">
+        <div class="file-upload-wrapper">
+            <input type="file" id="image-upload" accept="image/*">
+            <button class="file-upload-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
+                    <path d="M20 18H4V11H2V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V11H20V18Z" fill="currentColor"/>
+                </svg>
+                Upload Design
+            </button>
+            <button id="remove-btn">×</button>
         </div>
+        <button id="download-btn" disabled>Download Main Mockup</button>
+        <button id="download-zip-btn" disabled>Download Selected Views</button>
+    </div>
+</div>
         
         <!-- Main Mockup Container (initially hidden) -->
-        <div id="main-mockup-container">
-            <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
-            <div class="design-area">
-                <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
-            </div>
-            <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+<div style="text-align: center;">
+    <div id="main-mockup-container">
+        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
+        <div class="design-area">
+            <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
         </div>
+        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+    </div>
+</div>
         
         <!-- Secondary Mockups Grid (initially hidden) -->
         <div class="grid-wrapper">
@@ -958,54 +958,57 @@
             }
         });
 
-        // Download selected mockups as ZIP
-        downloadZipBtn.addEventListener('click', async function() {
-            if (!uploadedImage.src) {
-                alert('Please upload an image first');
-                return;
-            }
-
-            showLoading("Preparing ZIP file...");
-            
-            try {
-                const checkedItems = document.querySelectorAll('.carousel-checkbox:checked');
-                
-                if (checkedItems.length === 0) {
-                    alert('Please select at least one mockup view to download');
-                    return;
-                }
-
-                const zip = new JSZip();
-                
-                // Add main mockup to ZIP
-                const mainCanvas = await generateMockupImage(mainMockupContainer);
-                const mainBlob = await canvasToBlob(mainCanvas);
-                zip.file('main-mockup.png', mainBlob);
-                
-                // Process selected grid items
-                for (const item of checkedItems) {
-                    const viewNumber = item.dataset.view;
-                    const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
-                    
-                    showLoading(`Generating view ${viewNumber}...`);
-                    
-                    const canvas = await generateMockupImage(mockupContainer);
-                    const blob = await canvasToBlob(canvas);
-                    zip.file(`view-${viewNumber}.png`, blob);
-                }
-                
-                // Generate and download ZIP
-                const content = await zip.generateAsync({ type: 'blob' });
-                downloadBlob(content, 'mockups.zip');
-                
-            } catch (error) {
-                console.error("Error generating ZIP:", error);
-                alert("Error generating ZIP file. Please try again.");
-            } finally {
-                hideLoading();
-            }
-        });
+// Download selected mockups as ZIP
+downloadZipBtn.addEventListener('click', async function() {
+    if (!uploadedImage.src) {
+        alert('Please upload an image first');
+        return;
     }
+
+    showLoading("Preparing ZIP file...");
+    
+    try {
+        const checkedItems = document.querySelectorAll('.carousel-checkbox:checked');
+        
+        if (checkedItems.length === 0) {
+            alert('Please select at least one mockup view to download');
+            return;
+        }
+
+        const zip = new JSZip();
+        const caseData = mockupData[currentCaseType];
+        
+        // Add main mockup to ZIP
+        const mainCanvas = await generateMockupImage(mainMockupContainer);
+        const mainBlob = await canvasToBlob(mainCanvas);
+        zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main.png`, mainBlob);
+        
+        // Process selected grid items
+        for (const item of checkedItems) {
+            const viewNumber = item.dataset.view;
+            const viewData = caseData.views.find(v => v.id == viewNumber);
+            
+            if (!viewData) continue;
+            
+            showLoading(`Generating view ${viewNumber}...`);
+            
+            const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
+            const canvas = await generateMockupImage(mockupContainer);
+            const blob = await canvasToBlob(canvas);
+            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
+        }
+        
+        // Generate and download ZIP
+        const content = await zip.generateAsync({ type: 'blob' });
+        downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
+        
+    } catch (error) {
+        console.error("Error generating ZIP:", error);
+        alert("Error generating ZIP file. Please try again.");
+    } finally {
+        hideLoading();
+    }
+});
 
     // Initialize grid for a specific case type
     function initializeGrid(caseType) {
