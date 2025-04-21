@@ -3,117 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Mockup Generator</title>
+    <title>TullunPrint - Product Mockup Generator</title>
     <style>
+        :root {
+            --primary-color: #0071e3;
+            --primary-hover: #0077ed;
+            --text-color: #1d1d1f;
+            --light-text: #86868b;
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            background-color: var(--card-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            opacity: 0.8;
+        }
+        
+        /* Hero Section */
+        .hero {
             text-align: center;
-            padding: 20px;
-            background-color: #f5f5f5;
-            color: #333;
+            padding: 60px 0 40px;
         }
-
-        h1 {
-            color: #222;
-            margin-bottom: 10px;
-            font-weight: 300;
-            font-size: 2.2em;
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
-
-        .subtitle {
-            color: #666;
-            margin-bottom: 20px;
-            font-size: 1.1em;
-            font-weight: 300;
+        
+        .hero p {
+            font-size: 24px;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 40px;
         }
-
+        
         /* Product Category Selection */
         .product-category-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 30px;
+            gap: 16px;
+            margin-bottom: 40px;
         }
-
+        
         .product-category-link {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 1em;
+            display: inline-block;
             padding: 12px 24px;
-            border: 1px solid #4CAF50;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 17px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 113, 227, 0.2);
         }
-
-        .product-category-link:hover, .product-category-link.active {
-            background-color: #4CAF50;
+        
+        .product-category-link:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+        
+        .product-category-link.active {
+            background-color: var(--primary-color);
             color: white;
+            border-color: var(--primary-color);
         }
-
-        /* Product Type Selection (nested under category) */
+        
+        /* Product Type Selection */
         .product-type-container {
-            display: flex;
+            display: none; /* Hidden by default */
             justify-content: center;
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 30px;
+            animation: fadeIn 0.3s ease-out;
         }
-
+        
         .product-type-link {
-            color: #2196F3;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--card-bg);
+            border-radius: 20px;
             text-decoration: none;
-            font-weight: 400;
-            font-size: 0.95em;
-            padding: 10px 18px;
-            border: 1px solid #2196F3;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.08);
         }
-
-        .product-type-link:hover, .product-type-link.active {
-            background-color: #2196F3;
+        
+        .product-type-link:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-1px);
+        }
+        
+        .product-type-link.active {
+            background-color: var(--primary-color);
             color: white;
+            border-color: var(--primary-color);
         }
-
+        
+        /* Controls Section */
         #controls {
-            margin: 20px auto;
-            padding: 15px;
-            background: white;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin: 0 auto 40px;
             max-width: 800px;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.3s ease-out;
         }
-
-        button {
-            background: #4CAF50;
+        
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .file-upload-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 18px;
-            margin: 5px;
-            border-radius: 4px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 15px;
             cursor: pointer;
-            font-size: 0.95em;
-            font-weight: 400;
-            transition: background-color 0.2s ease;
-            letter-spacing: 0.5px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
-
-        button:hover {
-            background: #3d8b40;
+        
+        .file-upload-btn:hover {
+            background-color: var(--primary-hover);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-1px);
         }
-
-        /* Product-specific styles */
-        .product-section {
+        
+        #remove-btn {
+            position: absolute;
+            right: -8px;
+            top: -8px;
+            background: #ff3b30;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 24px;
             display: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
         }
-
-        .product-section.active {
-            display: block;
+        
+        #remove-btn:hover {
+            transform: scale(1.1);
         }
-
-        /* Phone Case Specific Styles */
+        
+        button {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        button:hover {
+            background-color: var(--primary-hover);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-1px);
+        }
+        
+        button:disabled {
+            background-color: #d2d2d7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: var(--shadow);
+        }
+        
+        /* Mockup Container */
         #main-mockup-container {
             position: relative;
             display: inline-block;
@@ -122,8 +272,12 @@
             height: 600px;
             overflow: hidden;
             background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.3s ease-out;
         }
-
+        
         .phone-case-bg, .phone-case-overlay {
             position: absolute;
             top: 0;
@@ -131,11 +285,11 @@
             width: 100%;
             height: auto;
         }
-
+        
         .phone-case-bg {
             z-index: 1;
         }
-
+        
         .design-area {
             position: absolute;
             z-index: 2;
@@ -143,7 +297,7 @@
             height: 100%;
             overflow: hidden;
         }
-
+        
         .user-design {
             position: absolute;
             max-width: 100%;
@@ -152,43 +306,51 @@
             left: 48.5%;
             transform: translate(-50%, -50%);
             object-fit: contain;
-            display: none; /* Hidden by default */
+            display: none;
         }
-
+        
         .phone-case-overlay {
             z-index: 3;
             pointer-events: none;
         }
-
-        /* Grid View Styles */
+        
+        /* Grid View */
         .grid-wrapper {
             max-width: 1600px;
-            margin: 20px auto;
+            margin: 40px auto;
             padding: 0 20px;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.3s ease-out;
         }
-
+        
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 24px;
             margin: 0 auto;
         }
-
+        
         .grid-item {
             position: relative;
-            background: white;
-            border-radius: 6px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
-
+        
+        .grid-item:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-4px);
+        }
+        
         .grid-item .secondary-mockup {
             position: relative;
             width: 100%;
             height: 0;
-            padding-bottom: 100%; /* Square aspect ratio */
+            padding-bottom: 100%;
         }
-
+        
         .grid-item .phone-case-bg,
         .grid-item .phone-case-overlay,
         .grid-item .design-area {
@@ -198,34 +360,55 @@
             width: 100%;
             height: 100%;
         }
-
+        
         .grid-item .design-area {
             z-index: 2;
         }
-
+        
         .grid-item .phone-case-overlay {
             z-index: 3;
         }
-
+        
         .grid-item .carousel-checkbox {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 12px;
+            left: 12px;
             z-index: 4;
             width: 20px;
             height: 20px;
+            cursor: pointer;
         }
-
+        
         .mockup-label {
-            padding: 10px;
-            font-size: 0.9em;
-            color: #555;
+            padding: 16px;
+            font-size: 15px;
+            color: var(--text-color);
+            text-align: center;
         }
-
-        .hidden {
-            display: none;
+        
+        /* Coming Soon Sections */
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
         }
-
+        
+        .coming-soon h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        
+        .coming-soon p {
+            font-size: 18px;
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Loading Overlay */
         .loading {
             display: none;
             position: fixed;
@@ -233,47 +416,45 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             color: white;
             font-size: 1.2em;
             flex-direction: column;
-            font-weight: 300;
+            font-weight: 400;
         }
-
+        
         .spinner {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #4CAF50;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid var(--primary-color);
             border-radius: 50%;
             width: 50px;
             height: 50px;
             animation: spin 1s linear infinite;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-
+        
+        /* Animations */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
         /* Responsive adjustments */
-        @media (max-width: 1200px) {
-            .grid-container {
-                grid-template-columns: repeat(3, 1fr);
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
             }
-        }
-
-        @media (max-width: 900px) {
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .grid-container {
-                grid-template-columns: 1fr;
+            
+            .hero p {
+                font-size: 20px;
             }
             
             #main-mockup-container {
@@ -281,2088 +462,142 @@
                 height: auto;
                 max-width: 400px;
             }
+            
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .product-category-link {
+                padding: 10px 16px;
+                font-size: 15px;
+            }
+            
+            .product-type-link {
+                padding: 8px 14px;
+                font-size: 14px;
+            }
+            
+            button, .file-upload-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .coming-soon h2 {
+                font-size: 24px;
+            }
+            
+            .coming-soon p {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">TullunPrint</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h1>Product Mockup Generator</h1>
+            <p>Upload your design to see it on our premium products</p>
+            
+            <!-- Product Category Selection -->
+            <div class="product-category-container">
+                <a href="#" class="product-category-link active" data-category="phone-cases">Phone Cases</a>
+                <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
+                <a href="#" class="product-category-link" data-category="tshirts">T-Shirts</a>
+                <a href="#" class="product-category-link" data-category="bags">Bags</a>
+            </div>
+            
+            <!-- Product Type Selection (initially hidden) -->
+            <div id="phone-cases-types" class="product-type-container">
+                <a href="#" class="product-type-link active" data-case="samsung-tpu">Samsung TPU Case</a>
+                <a href="#" class="product-type-link" data-case="iphone-tpu">iPhone TPU Case</a>
+                <a href="#" class="product-type-link" data-case="iphone-hybrid">iPhone Hybrid Case</a>
+                <a href="#" class="product-type-link" data-case="pixel-tpu">Pixel TPU Case</a>
+                <a href="#" class="product-type-link" data-case="iphone-fullprint">iPhone Fullprint Case</a>
+            </div>
+        </section>
+        
+        <!-- Controls Section (initially hidden) -->
+        <div id="controls">
+            <div class="controls-row">
+                <div class="file-upload-wrapper">
+                    <input type="file" id="image-upload" accept="image/*">
+                    <button class="file-upload-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
+                            <path d="M20 18H4V11H2V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V11H20V18Z" fill="currentColor"/>
+                        </svg>
+                        Upload Design
+                    </button>
+                    <button id="remove-btn">×</button>
+                </div>
+            </div>
+            <div class="controls-row">
+                <button id="download-btn" disabled>Download Main Mockup</button>
+                <button id="download-zip-btn" disabled>Download Selected Views</button>
+            </div>
+        </div>
+        
+        <!-- Main Mockup Container (initially hidden) -->
+        <div id="main-mockup-container">
+            <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
+            <div class="design-area">
+                <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
+            </div>
+            <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+        </div>
+        
+        <!-- Secondary Mockups Grid (initially hidden) -->
+        <div class="grid-wrapper">
+            <div class="grid-container">
+                <!-- Grid items will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Other Product Sections (initially hidden) -->
+        <div id="plaques" class="product-section">
+            <div class="coming-soon">
+                <h2>Coming Soon - Plaque Mockups</h2>
+                <p>Plaque mockup generator will be available soon.</p>
+            </div>
+        </div>
+        
+        <div id="tshirts" class="product-section">
+            <div class="coming-soon">
+                <h2>Coming Soon - T-Shirt Mockups</h2>
+                <p>T-Shirt mockup generator will be available soon.</p>
+            </div>
+        </div>
+        
+        <div id="bags" class="product-section">
+            <div class="coming-soon">
+                <h2>Coming Soon - Bag Mockups</h2>
+                <p>Bag mockup generator will be available soon.</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Loading Overlay -->
     <div class="loading">
         <div class="spinner"></div>
         <div>Generating your mockups...</div>
     </div>
-    
-    <h1>Product Mockup Generator</h1>
-    <div class="subtitle">Select a product category to get started</div>
-    
-    <!-- Product Category Selection -->
-    <div class="product-category-container">
-        <a href="#" class="product-category-link active" data-category="phone-cases">Phone Cases</a>
-        <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
-        <a href="#" class="product-category-link" data-category="tshirts">T-Shirts</a>
-        <a href="#" class="product-category-link" data-category="bags">Bags</a>
-    </div>
-    
-    <!-- Product Sections -->
-    <div id="phone-cases" class="product-section active">
-        <!-- Phone Case Type Selection -->
-        <div class="product-type-container">
-            <a href="#" class="product-type-link active" data-case="samsung-tpu">Clear TPU case for Samsung</a>
-            <a href="#" class="product-type-link" data-case="iphone-tpu">Clear TPU case for iPhone</a>
-            <a href="#" class="product-type-link" data-case="iphone-hybrid">Clear Hybrid case for iPhone</a>
-            <a href="#" class="product-type-link" data-case="pixel-tpu">Clear TPU case for Google Pixel</a>
-            <a href="#" class="product-type-link" data-case="iphone-fullprint">Full print case for iPhone</a>
-        </div>
-        
-<div id="controls">
-    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-        <div style="position: relative; display: inline-block;">
-            <input type="file" id="image-upload" accept="image/*">
-            <button id="remove-btn" style="display: none; position: absolute; right: -12px; top: -12px; background: #ff4444; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; padding: 0; cursor: pointer; font-size: 12px; line-height: 24px;">×</button>
-        </div>
-        <div style="display: flex; gap: 10px;">
-            <button id="download-btn">Download Main Mockup</button>
-            <button id="download-zip-btn">Download Selected Views as ZIP</button>
-        </div>
-    </div>
-</div>
-    
-<!-- Samsung TPU Mockups -->
-<div id="samsung-tpu" class="case-mockups">
-    <!-- Main Mockup -->
-    <div id="main-mockup-container">
-        <img class="phone-case-bg" 
-             src="mockups/optimized/samsung-tpu-back-main.png" 
-             data-fullres="mockups/originals/samsung-tpu-back-main.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" 
-                 data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
-        </div>
-        <img class="phone-case-overlay" 
-             src="mockups/optimized/samsung-tpu-overlay-main.png"
-             data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
-    </div>
-
-    <!-- Secondary Mockups Grid -->
-    <div class="grid-wrapper">
-        <div class="grid-container">
-            <!-- View 1 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="1">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view1.png"
-                         data-fullres="mockups/originals/samsung-tpu-view1.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47" data-y="50" data-scale="54" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view1-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view1-overlay.png">
-                </div>
-                <div class="mockup-label">View 1</div>
-            </div>
-            
-            <!-- View 2 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="2">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view2.png"
-                         data-fullres="mockups/originals/samsung-tpu-view2.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="60" data-scale="70" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view2-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view2-overlay.png">
-                </div>
-                <div class="mockup-label">View 2</div>
-            </div>
-            
-            <!-- View 3 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="3">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view3.png"
-                         data-fullres="mockups/originals/samsung-tpu-view3.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.48" data-y="49.84" data-scale="85" data-rotation="-24.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view3-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view3-overlay.png">
-                </div>
-                <div class="mockup-label">View 3</div>
-            </div>
-            
-            <!-- View 4 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="4">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view4.png"
-                         data-fullres="mockups/originals/samsung-tpu-view4.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.97" data-y="48.08" data-scale="68.59" data-rotation="-1.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view4-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view4-overlay.png">
-                </div>
-                <div class="mockup-label">View 4</div>
-            </div>
-            
-            <!-- View 5 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="5">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view5.png"
-                         data-fullres="mockups/originals/samsung-tpu-view5.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50.75" data-scale="75.02" data-rotation="0.27">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view5-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view5-overlay.png">
-                </div>
-                <div class="mockup-label">View 5</div>
-            </div>
-            
-            <!-- View 6 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="6">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view6.png"
-                         data-fullres="mockups/originals/samsung-tpu-view6.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.05" data-y="51.7" data-scale="70.08" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view6-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view6-overlay.png">
-                </div>
-                <div class="mockup-label">View 6</div>
-            </div>
-            
-            <!-- View 7 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="7">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view7.png"
-                         data-fullres="mockups/originals/samsung-tpu-view7.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.3" data-y="49.05" data-scale="78.64" data-rotation="8.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view7-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view7-overlay.png">
-                </div>
-                <div class="mockup-label">View 7</div>
-            </div>
-            
-            <!-- View 8 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="8">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view8.png"
-                         data-fullres="mockups/originals/samsung-tpu-view8.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.8" data-y="54.84" data-scale="73.54" data-rotation="37.3">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view8-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view8-overlay.png">
-                </div>
-                <div class="mockup-label">View 8</div>
-            </div>
-            
-            <!-- View 9 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="9">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view9.png"
-                         data-fullres="mockups/originals/samsung-tpu-view9.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="67.95" data-y="46.7" data-scale="65.08" data-rotation="0.69">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view9-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view9-overlay.png">
-                </div>
-                <div class="mockup-label">View 9</div>
-            </div>
-            
-            <!-- View 10 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="10">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view10.png"
-                         data-fullres="mockups/originals/samsung-tpu-view10.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.74" data-y="41.38" data-scale="72.01" data-rotation="-0.35">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view10-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view10-overlay.png">
-                </div>
-                <div class="mockup-label">View 10</div>
-            </div>
-            
-            <!-- View 11 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="11">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view11.png"
-                         data-fullres="mockups/originals/samsung-tpu-view11.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.2" data-y="57.65" data-scale="69.94" data-rotation="-0.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view11-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view11-overlay.png">
-                </div>
-                <div class="mockup-label">View 11</div>
-            </div>
-            
-            <!-- View 12 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="12">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view12.png"
-                         data-fullres="mockups/originals/samsung-tpu-view12.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="44.34" data-y="49.52" data-scale="71.08" data-rotation="-0.49">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view12-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view12-overlay.png">
-                </div>
-                <div class="mockup-label">View 12</div>
-            </div>
-            
-            <!-- View 13 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="13">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view13.png"
-                         data-fullres="mockups/originals/samsung-tpu-view13.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.78" data-y="40.55" data-scale="56.25" data-rotation="25.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view13-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view13-overlay.png">
-                </div>
-                <div class="mockup-label">View 13</div>
-            </div>
-            
-            <!-- View 14 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="14">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view14.png"
-                         data-fullres="mockups/originals/samsung-tpu-view14.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.27" data-y="58.16" data-scale="59.14" data-rotation="-0.24">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view14-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view14-overlay.png">
-                </div>
-                <div class="mockup-label">View 14</div>
-            </div>
-            
-            <!-- View 15 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="15">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view15.png"
-                         data-fullres="mockups/originals/samsung-tpu-view15.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.66" data-y="52.18" data-scale="77.73" data-rotation="0.46">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view15-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view15-overlay.png">
-                </div>
-                <div class="mockup-label">View 15</div>
-            </div>
-            
-            <!-- View 16 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="16">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view16.png"
-                         data-fullres="mockups/originals/samsung-tpu-view16.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.26" data-y="48.78" data-scale="63.63" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view16-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view16-overlay.png">
-                </div>
-                <div class="mockup-label">View 16</div>
-            </div>
-            
-            <!-- View 17 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="17">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view17.png"
-                         data-fullres="mockups/originals/samsung-tpu-view17.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.31" data-y="52.23" data-scale="56.52" data-rotation="17.92">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view17-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view17-overlay.png">
-                </div>
-                <div class="mockup-label">View 17</div>
-            </div>
-            
-            <!-- View 18 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="18">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view18.png"
-                         data-fullres="mockups/originals/samsung-tpu-view18.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="45.47" data-y="59.15" data-scale="77.82" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view18-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view18-overlay.png">
-                </div>
-                <div class="mockup-label">View 18</div>
-            </div>
-            
-            <!-- View 19 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="19">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view19.png"
-                         data-fullres="mockups/originals/samsung-tpu-view19.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="52.16" data-y="40.91" data-scale="66.08" data-rotation="-16.74">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view19-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view19-overlay.png">
-                </div>
-                <div class="mockup-label">View 19</div>
-            </div>
-            
-            <!-- View 20 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="20">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view20.png"
-                         data-fullres="mockups/originals/samsung-tpu-view20.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="54.68" data-y="44.52" data-scale="59.37" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view20-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view20-overlay.png">
-                </div>
-                <div class="mockup-label">View 20</div>
-            </div>
-            
-            <!-- View 21 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="21">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view21.png"
-                         data-fullres="mockups/originals/samsung-tpu-view21.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.6" data-y="50.4" data-scale="66.77" data-rotation="-0.6">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view21-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view21-overlay.png">
-                </div>
-                <div class="mockup-label">View 21</div>
-            </div>
-            
-            <!-- View 22 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="22">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view22.png"
-                         data-fullres="mockups/originals/samsung-tpu-view22.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="43.48" data-y="30.44" data-scale="136.41" data-rotation="157.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view22-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view22-overlay.png">
-                </div>
-                <div class="mockup-label">View 22</div>
-            </div>
-            
-            <!-- View 23 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="23">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view23.png"
-                         data-fullres="mockups/originals/samsung-tpu-view23.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view23-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view23-overlay.png">
-                </div>
-                <div class="mockup-label">View 23</div>
-            </div>
-            
-            <!-- View 24 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="24">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/samsung-tpu-view24.png"
-                         data-fullres="mockups/originals/samsung-tpu-view24.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/samsung-tpu-view24-overlay.png"
-                         data-fullres="mockups/originals/samsung-tpu-view24-overlay.png">
-                </div>
-                <div class="mockup-label">View 24</div>
-            </div>
-        </div>
-    </div>
-</div>
-        
-<!-- iPhone TPU Mockups -->
-<div id="iphone-tpu" class="case-mockups">
-    <!-- Main Mockup -->
-    <div id="main-mockup-container">
-        <img class="phone-case-bg" 
-             src="mockups/optimized/iphone-tpu-back-main.png" 
-             data-fullres="mockups/originals/iphone-tpu-back-main.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" 
-                 data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0">
-        </div>
-        <img class="phone-case-overlay" 
-             src="mockups/optimized/iphone-tpu-overlay-main.png"
-             data-fullres="mockups/originals/iphone-tpu-overlay-main.png">
-    </div>
-
-    <!-- Secondary Mockups Grid -->
-    <div class="grid-wrapper">
-        <div class="grid-container">
-            <!-- View 1 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="1">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view1.png"
-                         data-fullres="mockups/originals/iphone-tpu-view1.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47" data-y="50" data-scale="56" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view1-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view1-overlay.png">
-                </div>
-                <div class="mockup-label">View 1</div>
-            </div>
-            
-            <!-- View 2 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="2">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view2.png"
-                         data-fullres="mockups/originals/iphone-tpu-view2.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="60" data-scale="68" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view2-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view2-overlay.png">
-                </div>
-                <div class="mockup-label">View 2</div>
-            </div>
-            
-            <!-- View 3 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="3">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view3.png"
-                         data-fullres="mockups/originals/iphone-tpu-view3.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.48" data-y="49.84" data-scale="83" data-rotation="-24.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view3-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view3-overlay.png">
-                </div>
-                <div class="mockup-label">View 3</div>
-            </div>
-            
-            <!-- View 4 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="4">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view4.png"
-                         data-fullres="mockups/originals/iphone-tpu-view4.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.97" data-y="48.08" data-scale="68.59" data-rotation="-1.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view4-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view4-overlay.png">
-                </div>
-                <div class="mockup-label">View 4</div>
-            </div>
-            
-            <!-- View 5 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="5">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view5.png"
-                         data-fullres="mockups/originals/iphone-tpu-view5.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.2" data-y="50.75" data-scale="71.02" data-rotation="0.27">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view5-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view5-overlay.png">
-                </div>
-                <div class="mockup-label">View 5</div>
-            </div>
-            
-            <!-- View 6 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="6">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view6.png"
-                         data-fullres="mockups/originals/iphone-tpu-view6.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.05" data-y="51.7" data-scale="70.08" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view6-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view6-overlay.png">
-                </div>
-                <div class="mockup-label">View 6</div>
-            </div>
-            
-            <!-- View 7 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="7">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view7.png"
-                         data-fullres="mockups/originals/iphone-tpu-view7.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.3" data-y="49.05" data-scale="78.64" data-rotation="8.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view7-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view7-overlay.png">
-                </div>
-                <div class="mockup-label">View 7</div>
-            </div>
-            
-            <!-- View 8 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="8">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view8.png"
-                         data-fullres="mockups/originals/iphone-tpu-view8.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.8" data-y="54.84" data-scale="73.54" data-rotation="37.3">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view8-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view8-overlay.png">
-                </div>
-                <div class="mockup-label">View 8</div>
-            </div>
-            
-            <!-- View 9 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="9">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view9.png"
-                         data-fullres="mockups/originals/iphone-tpu-view9.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="67.95" data-y="46.7" data-scale="67.08" data-rotation="0.69">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view9-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view9-overlay.png">
-                </div>
-                <div class="mockup-label">View 9</div>
-            </div>
-            
-            <!-- View 10 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="10">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view10.png"
-                         data-fullres="mockups/originals/iphone-tpu-view10.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.74" data-y="41.38" data-scale="72.01" data-rotation="-0.35">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view10-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view10-overlay.png">
-                </div>
-                <div class="mockup-label">View 10</div>
-            </div>
-            
-            <!-- View 11 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="11">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view11.png"
-                         data-fullres="mockups/originals/iphone-tpu-view11.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.2" data-y="57.65" data-scale="69.94" data-rotation="-0.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view11-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view11-overlay.png">
-                </div>
-                <div class="mockup-label">View 11</div>
-            </div>
-            
-            <!-- View 12 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="12">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view12.png"
-                         data-fullres="mockups/originals/iphone-tpu-view12.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="44.34" data-y="49.52" data-scale="71.08" data-rotation="-0.49">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view12-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view12-overlay.png">
-                </div>
-                <div class="mockup-label">View 12</div>
-            </div>
-            
-            <!-- View 13 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="13">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view13.png"
-                         data-fullres="mockups/originals/iphone-tpu-view13.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.78" data-y="40.55" data-scale="56.25" data-rotation="25.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view13-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view13-overlay.png">
-                </div>
-                <div class="mockup-label">View 13</div>
-            </div>
-            
-            <!-- View 14 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="14">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view14.png"
-                         data-fullres="mockups/originals/iphone-tpu-view14.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.27" data-y="58.16" data-scale="61.14" data-rotation="-0.24">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view14-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view14-overlay.png">
-                </div>
-                <div class="mockup-label">View 14</div>
-            </div>
-            
-            <!-- View 15 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="15">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view15.png"
-                         data-fullres="mockups/originals/iphone-tpu-view15.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.66" data-y="52.18" data-scale="77.73" data-rotation="0.46">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view15-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view15-overlay.png">
-                </div>
-                <div class="mockup-label">View 15</div>
-            </div>
-            
-            <!-- View 16 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="16">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view16.png"
-                         data-fullres="mockups/originals/iphone-tpu-view16.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.26" data-y="48.78" data-scale="63.63" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view16-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view16-overlay.png">
-                </div>
-                <div class="mockup-label">View 16</div>
-            </div>
-            
-            <!-- View 17 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="17">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view17.png"
-                         data-fullres="mockups/originals/iphone-tpu-view17.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.31" data-y="52.23" data-scale="58.52" data-rotation="17.92">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view17-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view17-overlay.png">
-                </div>
-                <div class="mockup-label">View 17</div>
-            </div>
-            
-            <!-- View 18 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="18">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view18.png"
-                         data-fullres="mockups/originals/iphone-tpu-view18.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="45.47" data-y="59.15" data-scale="77.82" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view18-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view18-overlay.png">
-                </div>
-                <div class="mockup-label">View 18</div>
-            </div>
-            
-            <!-- View 19 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="19">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view19.png"
-                         data-fullres="mockups/originals/iphone-tpu-view19.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="52.16" data-y="40.91" data-scale="66.08" data-rotation="-16.74">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view19-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view19-overlay.png">
-                </div>
-                <div class="mockup-label">View 19</div>
-            </div>
-            
-            <!-- View 20 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="20">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view20.png"
-                         data-fullres="mockups/originals/iphone-tpu-view20.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="54.68" data-y="44.52" data-scale="57.37" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view20-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view20-overlay.png">
-                </div>
-                <div class="mockup-label">View 20</div>
-            </div>
-            
-            <!-- View 21 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="21">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view21.png"
-                         data-fullres="mockups/originals/iphone-tpu-view21.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.6" data-y="50.4" data-scale="68.77" data-rotation="-0.6">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view21-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view21-overlay.png">
-                </div>
-                <div class="mockup-label">View 21</div>
-            </div>
-            
-            <!-- View 22 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="22">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view22.png"
-                         data-fullres="mockups/originals/iphone-tpu-view22.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="43.48" data-y="30.44" data-scale="136.41" data-rotation="157.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view22-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view22-overlay.png">
-                </div>
-                <div class="mockup-label">View 22</div>
-            </div>
-            
-            <!-- View 23 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="23">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view23.png"
-                         data-fullres="mockups/originals/iphone-tpu-view23.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view23-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view23-overlay.png">
-                </div>
-                <div class="mockup-label">View 23</div>
-            </div>
-            
-            <!-- View 24 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="24">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-tpu-view24.png"
-                         data-fullres="mockups/originals/iphone-tpu-view24.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-tpu-view24-overlay.png"
-                         data-fullres="mockups/originals/iphone-tpu-view24-overlay.png">
-                </div>
-                <div class="mockup-label">View 24</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- iPhone Hybrid Mockups -->
-<div id="iphone-hybrid" class="case-mockups">
-    <!-- Main Mockup -->
-    <div id="main-mockup-container">
-        <img class="phone-case-bg" 
-             src="mockups/optimized/iphone-hybrid-back-main.png" 
-             data-fullres="mockups/originals/iphone-hybrid-back-main.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" 
-                 data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0">
-        </div>
-        <img class="phone-case-overlay" 
-             src="mockups/optimized/iphone-hybrid-overlay-main.png"
-             data-fullres="mockups/originals/iphone-hybrid-overlay-main.png">
-    </div>
-
-    <!-- Secondary Mockups Grid -->
-    <div class="grid-wrapper">
-        <div class="grid-container">
-            <!-- View 1 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="1">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view1.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view1.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47" data-y="50" data-scale="56" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view1-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view1-overlay.png">
-                </div>
-                <div class="mockup-label">View 1</div>
-            </div>
-            
-            <!-- View 2 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="2">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view2.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view2.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="60" data-scale="68" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view2-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view2-overlay.png">
-                </div>
-                <div class="mockup-label">View 2</div>
-            </div>
-            
-            <!-- View 3 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="3">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view3.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view3.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.48" data-y="49.84" data-scale="83" data-rotation="-24.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view3-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view3-overlay.png">
-                </div>
-                <div class="mockup-label">View 3</div>
-            </div>
-            
-            <!-- View 4 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="4">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view4.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view4.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.97" data-y="48.08" data-scale="68.59" data-rotation="-1.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view4-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view4-overlay.png">
-                </div>
-                <div class="mockup-label">View 4</div>
-            </div>
-            
-            <!-- View 5 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="5">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view5.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view5.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.2" data-y="50.75" data-scale="73.02" data-rotation="0.27">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view5-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view5-overlay.png">
-                </div>
-                <div class="mockup-label">View 5</div>
-            </div>
-            
-            <!-- View 6 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="6">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view6.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view6.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.05" data-y="51.7" data-scale="70.08" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view6-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view6-overlay.png">
-                </div>
-                <div class="mockup-label">View 6</div>
-            </div>
-            
-            <!-- View 7 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="7">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view7.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view7.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.3" data-y="49.05" data-scale="78.64" data-rotation="8.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view7-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view7-overlay.png">
-                </div>
-                <div class="mockup-label">View 7</div>
-            </div>
-            
-            <!-- View 8 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="8">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view8.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view8.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.8" data-y="54.84" data-scale="73.54" data-rotation="37.3">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view8-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view8-overlay.png">
-                </div>
-                <div class="mockup-label">View 8</div>
-            </div>
-            
-            <!-- View 9 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="9">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view9.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view9.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="67.95" data-y="46.7" data-scale="65.08" data-rotation="0.69">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view9-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view9-overlay.png">
-                </div>
-                <div class="mockup-label">View 9</div>
-            </div>
-            
-            <!-- View 10 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="10">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view10.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view10.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.74" data-y="41.38" data-scale="72.01" data-rotation="-0.35">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view10-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view10-overlay.png">
-                </div>
-                <div class="mockup-label">View 10</div>
-            </div>
-            
-            <!-- View 11 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="11">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view11.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view11.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.2" data-y="57.65" data-scale="69.94" data-rotation="-0.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view11-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view11-overlay.png">
-                </div>
-                <div class="mockup-label">View 11</div>
-            </div>
-            
-            <!-- View 12 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="12">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view12.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view12.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="44.34" data-y="49.52" data-scale="71.08" data-rotation="-0.49">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view12-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view12-overlay.png">
-                </div>
-                <div class="mockup-label">View 12</div>
-            </div>
-            
-            <!-- View 13 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="13">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view13.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view13.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.78" data-y="40.55" data-scale="58.25" data-rotation="25.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view13-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view13-overlay.png">
-                </div>
-                <div class="mockup-label">View 13</div>
-            </div>
-            
-            <!-- View 14 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="14">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view14.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view14.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.27" data-y="58.16" data-scale="61.14" data-rotation="-0.24">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view14-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view14-overlay.png">
-                </div>
-                <div class="mockup-label">View 14</div>
-            </div>
-            
-            <!-- View 15 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="15">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view15.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view15.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.66" data-y="52.18" data-scale="77.73" data-rotation="0.46">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view15-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view15-overlay.png">
-                </div>
-                <div class="mockup-label">View 15</div>
-            </div>
-            
-            <!-- View 16 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="16">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view16.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view16.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.26" data-y="48.78" data-scale="63.63" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view16-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view16-overlay.png">
-                </div>
-                <div class="mockup-label">View 16</div>
-            </div>
-            
-            <!-- View 17 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="17">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view17.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view17.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.31" data-y="52.23" data-scale="56.52" data-rotation="17.92">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view17-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view17-overlay.png">
-                </div>
-                <div class="mockup-label">View 17</div>
-            </div>
-            
-            <!-- View 18 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="18">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view18.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view18.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="45.47" data-y="59.15" data-scale="77.82" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view18-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view18-overlay.png">
-                </div>
-                <div class="mockup-label">View 18</div>
-            </div>
-            
-            <!-- View 19 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="19">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view19.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view19.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="52.16" data-y="40.91" data-scale="66.08" data-rotation="-16.74">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view19-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view19-overlay.png">
-                </div>
-                <div class="mockup-label">View 19</div>
-            </div>
-            
-            <!-- View 20 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="20">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view20.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view20.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="54.68" data-y="44.52" data-scale="55.37" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view20-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view20-overlay.png">
-                </div>
-                <div class="mockup-label">View 20</div>
-            </div>
-            
-            <!-- View 21 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="21">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view21.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view21.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.6" data-y="50.4" data-scale="66.77" data-rotation="-0.6">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view21-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view21-overlay.png">
-                </div>
-                <div class="mockup-label">View 21</div>
-            </div>
-            
-            <!-- View 22 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="22">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view22.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view22.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="43.48" data-y="30.44" data-scale="136.41" data-rotation="157.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view22-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view22-overlay.png">
-                </div>
-                <div class="mockup-label">View 22</div>
-            </div>
-            
-            <!-- View 23 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="23">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view23.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view23.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view23-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view23-overlay.png">
-                </div>
-                <div class="mockup-label">View 23</div>
-            </div>
-            
-            <!-- View 24 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="24">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-hybrid-view24.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view24.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-hybrid-view24-overlay.png"
-                         data-fullres="mockups/originals/iphone-hybrid-view24-overlay.png">
-                </div>
-                <div class="mockup-label">View 24</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Pixel TPU Mockups -->
-<div id="pixel-tpu" class="case-mockups">
-    <!-- Main Mockup -->
-    <div id="main-mockup-container">
-        <img class="phone-case-bg" 
-             src="mockups/optimized/pixel-tpu-back-main.png" 
-             data-fullres="mockups/originals/pixel-tpu-back-main.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" 
-                 data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0">
-        </div>
-        <img class="phone-case-overlay" 
-             src="mockups/optimized/pixel-tpu-overlay-main.png"
-             data-fullres="mockups/originals/pixel-tpu-overlay-main.png">
-    </div>
-
-    <!-- Secondary Mockups Grid -->
-    <div class="grid-wrapper">
-        <div class="grid-container">
-            <!-- View 1 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="1">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view1.png"
-                         data-fullres="mockups/originals/pixel-tpu-view1.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47" data-y="50" data-scale="56" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view1-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view1-overlay.png">
-                </div>
-                <div class="mockup-label">View 1</div>
-            </div>
-            
-            <!-- View 2 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="2">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view2.png"
-                         data-fullres="mockups/originals/pixel-tpu-view2.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="60" data-scale="70" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view2-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view2-overlay.png">
-                </div>
-                <div class="mockup-label">View 2</div>
-            </div>
-            
-            <!-- View 3 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="3">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view3.png"
-                         data-fullres="mockups/originals/pixel-tpu-view3.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.48" data-y="49.84" data-scale="83" data-rotation="-24.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view3-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view3-overlay.png">
-                </div>
-                <div class="mockup-label">View 3</div>
-            </div>
-            
-            <!-- View 4 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="4">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view4.png"
-                         data-fullres="mockups/originals/pixel-tpu-view4.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.97" data-y="48.08" data-scale="68.59" data-rotation="-1.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view4-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view4-overlay.png">
-                </div>
-                <div class="mockup-label">View 4</div>
-            </div>
-            
-            <!-- View 5 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="5">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view5.png"
-                         data-fullres="mockups/originals/pixel-tpu-view5.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.2" data-y="50.75" data-scale="73.02" data-rotation="0.27">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view5-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view5-overlay.png">
-                </div>
-                <div class="mockup-label">View 5</div>
-            </div>
-            
-            <!-- View 6 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="6">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view6.png"
-                         data-fullres="mockups/originals/pixel-tpu-view6.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.05" data-y="51.7" data-scale="72.08" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view6-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view6-overlay.png">
-                </div>
-                <div class="mockup-label">View 6</div>
-            </div>
-            
-            <!-- View 7 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="7">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view7.png"
-                         data-fullres="mockups/originals/pixel-tpu-view7.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.3" data-y="49.05" data-scale="78.64" data-rotation="8.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view7-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view7-overlay.png">
-                </div>
-                <div class="mockup-label">View 7</div>
-            </div>
-            
-            <!-- View 8 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="8">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view8.png"
-                         data-fullres="mockups/originals/pixel-tpu-view8.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.8" data-y="54.84" data-scale="73.54" data-rotation="37.3">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view8-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view8-overlay.png">
-                </div>
-                <div class="mockup-label">View 8</div>
-            </div>
-            
-            <!-- View 9 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="9">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view9.png"
-                         data-fullres="mockups/originals/pixel-tpu-view9.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="67.95" data-y="46.7" data-scale="65.08" data-rotation="0.69">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view9-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view9-overlay.png">
-                </div>
-                <div class="mockup-label">View 9</div>
-            </div>
-            
-            <!-- View 10 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="10">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view10.png"
-                         data-fullres="mockups/originals/pixel-tpu-view10.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.74" data-y="41.38" data-scale="72.01" data-rotation="-0.35">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view10-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view10-overlay.png">
-                </div>
-                <div class="mockup-label">View 10</div>
-            </div>
-            
-            <!-- View 11 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="11">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view11.png"
-                         data-fullres="mockups/originals/pixel-tpu-view11.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.2" data-y="57.65" data-scale="69.94" data-rotation="-0.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view11-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view11-overlay.png">
-                </div>
-                <div class="mockup-label">View 11</div>
-            </div>
-            
-            <!-- View 12 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="12">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view12.png"
-                         data-fullres="mockups/originals/pixel-tpu-view12.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="44.34" data-y="49.52" data-scale="71.08" data-rotation="-0.49">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view12-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view12-overlay.png">
-                </div>
-                <div class="mockup-label">View 12</div>
-            </div>
-            
-            <!-- View 13 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="13">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view13.png"
-                         data-fullres="mockups/originals/pixel-tpu-view13.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.78" data-y="40.55" data-scale="56.25" data-rotation="25.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view13-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view13-overlay.png">
-                </div>
-                <div class="mockup-label">View 13</div>
-            </div>
-            
-            <!-- View 14 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="14">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view14.png"
-                         data-fullres="mockups/originals/pixel-tpu-view14.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="51.27" data-y="58.16" data-scale="59.14" data-rotation="-0.24">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view14-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view14-overlay.png">
-                </div>
-                <div class="mockup-label">View 14</div>
-            </div>
-            
-            <!-- View 15 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="15">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view15.png"
-                         data-fullres="mockups/originals/pixel-tpu-view15.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.66" data-y="52.18" data-scale="79.73" data-rotation="0.46">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view15-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view15-overlay.png">
-                </div>
-                <div class="mockup-label">View 15</div>
-            </div>
-            
-            <!-- View 16 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="16">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view16.png"
-                         data-fullres="mockups/originals/pixel-tpu-view16.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.26" data-y="48.78" data-scale="63.63" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view16-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view16-overlay.png">
-                </div>
-                <div class="mockup-label">View 16</div>
-            </div>
-            
-            <!-- View 17 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="17">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view17.png"
-                         data-fullres="mockups/originals/pixel-tpu-view17.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.31" data-y="52.23" data-scale="56.52" data-rotation="17.92">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view17-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view17-overlay.png">
-                </div>
-                <div class="mockup-label">View 17</div>
-            </div>
-            
-            <!-- View 18 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="18">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view18.png"
-                         data-fullres="mockups/originals/pixel-tpu-view18.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="45.47" data-y="59.15" data-scale="77.82" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view18-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view18-overlay.png">
-                </div>
-                <div class="mockup-label">View 18</div>
-            </div>
-            
-            <!-- View 19 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="19">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view19.png"
-                         data-fullres="mockups/originals/pixel-tpu-view19.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="52.16" data-y="40.91" data-scale="66.08" data-rotation="-16.74">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view19-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view19-overlay.png">
-                </div>
-                <div class="mockup-label">View 19</div>
-            </div>
-            
-            <!-- View 20 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="20">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view20.png"
-                         data-fullres="mockups/originals/pixel-tpu-view20.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="54.68" data-y="44.52" data-scale="57.37" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view20-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view20-overlay.png">
-                </div>
-                <div class="mockup-label">View 20</div>
-            </div>
-            
-            <!-- View 21 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="21">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view21.png"
-                         data-fullres="mockups/originals/pixel-tpu-view21.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47.6" data-y="50.4" data-scale="68.77" data-rotation="-0.6">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view21-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view21-overlay.png">
-                </div>
-                <div class="mockup-label">View 21</div>
-            </div>
-            
-            <!-- View 22 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="22">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view22.png"
-                         data-fullres="mockups/originals/pixel-tpu-view22.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="43.48" data-y="30.44" data-scale="136.41" data-rotation="157.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view22-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view22-overlay.png">
-                </div>
-                <div class="mockup-label">View 22</div>
-            </div>
-            
-            <!-- View 23 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="23">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view23.png"
-                         data-fullres="mockups/originals/pixel-tpu-view23.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view23-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view23-overlay.png">
-                </div>
-                <div class="mockup-label">View 23</div>
-            </div>
-            
-            <!-- View 24 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="24">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/pixel-tpu-view24.png"
-                         data-fullres="mockups/originals/pixel-tpu-view24.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="50" data-scale="100" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/pixel-tpu-view24-overlay.png"
-                         data-fullres="mockups/originals/pixel-tpu-view24-overlay.png">
-                </div>
-                <div class="mockup-label">View 24</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- iPhone Fullprint Mockups -->
-<div id="iphone-fullprint" class="case-mockups">
-    <!-- Main Mockup -->
-    <div id="main-mockup-container">
-        <img class="phone-case-bg" 
-             src="mockups/optimized/iphone-fullprint-back-main.png" 
-             data-fullres="mockups/originals/iphone-fullprint-back-main.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" 
-                 data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0">
-        </div>
-        <img class="phone-case-overlay" 
-             src="mockups/optimized/iphone-fullprint-overlay-main.png"
-             data-fullres="mockups/originals/iphone-fullprint-overlay-main.png">
-    </div>
-
-    <!-- Secondary Mockups Grid -->
-    <div class="grid-wrapper">
-        <div class="grid-container">
-            <!-- View 1 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="1">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view1.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view1.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="47" data-y="50" data-scale="56" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view1-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view1-overlay.png">
-                </div>
-                <div class="mockup-label">View 1</div>
-            </div>
-            
-            <!-- View 2 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="2">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view2.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view2.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50" data-y="60" data-scale="68" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view2-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view2-overlay.png">
-                </div>
-                <div class="mockup-label">View 2</div>
-            </div>
-            
-            <!-- View 3 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="3">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view3.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view3.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.48" data-y="49.84" data-scale="83" data-rotation="-24.42">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view3-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view3-overlay.png">
-                </div>
-                <div class="mockup-label">View 3</div>
-            </div>
-            
-            <!-- View 4 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="4">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view4.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view4.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.97" data-y="48.08" data-scale="70.59" data-rotation="-1.04">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view4-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view4-overlay.png">
-                </div>
-                <div class="mockup-label">View 4</div>
-            </div>
-            
-            <!-- View 5 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="5">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view5.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view5.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.2" data-y="50.75" data-scale="75.02" data-rotation="0.27">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view5-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view5-overlay.png">
-                </div>
-                <div class="mockup-label">View 5</div>
-            </div>
-            
-            <!-- View 6 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="6">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view6.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view6.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="53.05" data-y="51.7" data-scale="70.08" data-rotation="0">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view6-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view6-overlay.png">
-                </div>
-                <div class="mockup-label">View 6</div>
-            </div>
-            
-            <!-- View 7 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="7">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view7.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view7.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="49.3" data-y="49.05" data-scale="80.64" data-rotation="8.41">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view7-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view7-overlay.png">
-                </div>
-                <div class="mockup-label">View 7</div>
-            </div>
-            
-            <!-- View 8 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="8">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view8.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view8.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="50.8" data-y="54.84" data-scale="75.54" data-rotation="37.3">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view8-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view8-overlay.png">
-                </div>
-                <div class="mockup-label">View 8</div>
-            </div>
-            
-            <!-- View 9 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="9">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view9.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view9.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="67.95" data-y="46.7" data-scale="65.08" data-rotation="0.69">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view9-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view9-overlay.png">
-                </div>
-                <div class="mockup-label">View 9</div>
-            </div>
-            
-            <!-- View 10 -->
-            <div class="grid-item">
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="10">
-                    <img class="phone-case-bg" 
-                         src="mockups/optimized/iphone-fullprint-view10.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view10.png">
-                    <div class="design-area">
-                        <img class="user-design" src="" alt="" 
-                             data-x="48.6" data-y="50.4" data-scale="68.77" data-rotation="-0.6">
-                    </div>
-                    <img class="phone-case-overlay" 
-                         src="mockups/optimized/iphone-fullprint-view10-overlay.png"
-                         data-fullres="mockups/originals/iphone-fullprint-view10-overlay.png">
-                </div>
-                <div class="mockup-label">View 10</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-            <!-- Plaques Section -->
-    <div id="plaques" class="product-section">
-        <div class="subtitle">Coming Soon - Plaque Mockups</div>
-        <p>Plaque mockup generator will be available soon.</p>
-    </div>
-    
-    <!-- T-Shirts Section -->
-    <div id="tshirts" class="product-section">
-        <div class="subtitle">Coming Soon - T-Shirt Mockups</div>
-        <p>T-Shirt mockup generator will be available soon.</p>
-    </div>
-    
-    <!-- Bags Section -->
-    <div id="bags" class="product-section">
-        <div class="subtitle">Coming Soon - Bag Mockups</div>
-        <p>Bag mockup generator will be available soon.</p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 <script>
@@ -2374,142 +609,470 @@
     const productTypeLinks = document.querySelectorAll('.product-type-link');
     const loadingElement = document.querySelector('.loading');
     const removeBtn = document.getElementById('remove-btn');
+    const mainMockupContainer = document.getElementById('main-mockup-container');
+    const gridWrapper = document.querySelector('.grid-wrapper');
+    const controlsSection = document.getElementById('controls');
+    const phoneCasesTypes = document.getElementById('phone-cases-types');
+    const gridContainer = document.querySelector('.grid-container');
     
     // State variables
     let uploadedImage = new Image();
     const mockupCache = new Map();
+    let currentCaseType = 'samsung-tpu';
+
+    // Mockup data structure for all products
+    const mockupData = {
+        'samsung-tpu': {
+            name: "Samsung TPU Case",
+            main: {
+                bg: 'mockups/optimized/samsung-tpu-back-main.png',
+                overlay: 'mockups/optimized/samsung-tpu-overlay-main.png',
+                fullresBg: 'mockups/originals/samsung-tpu-back-main.png',
+                fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main.png',
+                designX: 48.5,
+                designY: 48.5,
+                designScale: 98,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0 },
+                { id: 2, bg: 'mockups/optimized/samsung-tpu-view2.png', overlay: 'mockups/optimized/samsung-tpu-view2-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view2.png', fullresOverlay: 'mockups/originals/samsung-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0 },
+                { id: 3, bg: 'mockups/optimized/samsung-tpu-view3.png', overlay: 'mockups/optimized/samsung-tpu-view3-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view3.png', fullresOverlay: 'mockups/originals/samsung-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42 },
+                { id: 4, bg: 'mockups/optimized/samsung-tpu-view4.png', overlay: 'mockups/optimized/samsung-tpu-view4-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view4.png', fullresOverlay: 'mockups/originals/samsung-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
+                { id: 5, bg: 'mockups/optimized/samsung-tpu-view5.png', overlay: 'mockups/optimized/samsung-tpu-view5-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view5.png', fullresOverlay: 'mockups/originals/samsung-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27 },
+                { id: 6, bg: 'mockups/optimized/samsung-tpu-view6.png', overlay: 'mockups/optimized/samsung-tpu-view6-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view6.png', fullresOverlay: 'mockups/originals/samsung-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
+                { id: 7, bg: 'mockups/optimized/samsung-tpu-view7.png', overlay: 'mockups/optimized/samsung-tpu-view7-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view7.png', fullresOverlay: 'mockups/originals/samsung-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
+                { id: 8, bg: 'mockups/optimized/samsung-tpu-view8.png', overlay: 'mockups/optimized/samsung-tpu-view8-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view8.png', fullresOverlay: 'mockups/originals/samsung-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
+                { id: 9, bg: 'mockups/optimized/samsung-tpu-view9.png', overlay: 'mockups/optimized/samsung-tpu-view9-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view9.png', fullresOverlay: 'mockups/originals/samsung-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
+                { id: 10, bg: 'mockups/optimized/samsung-tpu-view10.png', overlay: 'mockups/optimized/samsung-tpu-view10-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view10.png', fullresOverlay: 'mockups/originals/samsung-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
+                { id: 11, bg: 'mockups/optimized/samsung-tpu-view11.png', overlay: 'mockups/optimized/samsung-tpu-view11-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view11.png', fullresOverlay: 'mockups/originals/samsung-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
+                { id: 12, bg: 'mockups/optimized/samsung-tpu-view12.png', overlay: 'mockups/optimized/samsung-tpu-view12-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view12.png', fullresOverlay: 'mockups/originals/samsung-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
+                { id: 13, bg: 'mockups/optimized/samsung-tpu-view13.png', overlay: 'mockups/optimized/samsung-tpu-view13-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view13.png', fullresOverlay: 'mockups/originals/samsung-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42 },
+                { id: 14, bg: 'mockups/optimized/samsung-tpu-view14.png', overlay: 'mockups/optimized/samsung-tpu-view14-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view14.png', fullresOverlay: 'mockups/originals/samsung-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24 },
+                { id: 15, bg: 'mockups/optimized/samsung-tpu-view15.png', overlay: 'mockups/optimized/samsung-tpu-view15-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view15.png', fullresOverlay: 'mockups/originals/samsung-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46 },
+                { id: 16, bg: 'mockups/optimized/samsung-tpu-view16.png', overlay: 'mockups/optimized/samsung-tpu-view16-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view16.png', fullresOverlay: 'mockups/originals/samsung-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
+                { id: 17, bg: 'mockups/optimized/samsung-tpu-view17.png', overlay: 'mockups/optimized/samsung-tpu-view17-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view17.png', fullresOverlay: 'mockups/originals/samsung-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92 },
+                { id: 18, bg: 'mockups/optimized/samsung-tpu-view18.png', overlay: 'mockups/optimized/samsung-tpu-view18-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view18.png', fullresOverlay: 'mockups/originals/samsung-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
+                { id: 19, bg: 'mockups/optimized/samsung-tpu-view19.png', overlay: 'mockups/optimized/samsung-tpu-view19-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view19.png', fullresOverlay: 'mockups/originals/samsung-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
+                { id: 20, bg: 'mockups/optimized/samsung-tpu-view20.png', overlay: 'mockups/optimized/samsung-tpu-view20-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view20.png', fullresOverlay: 'mockups/originals/samsung-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0 },
+                { id: 21, bg: 'mockups/optimized/samsung-tpu-view21.png', overlay: 'mockups/optimized/samsung-tpu-view21-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view21.png', fullresOverlay: 'mockups/originals/samsung-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6 },
+                { id: 22, bg: 'mockups/optimized/samsung-tpu-view22.png', overlay: 'mockups/optimized/samsung-tpu-view22-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view22.png', fullresOverlay: 'mockups/originals/samsung-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
+                { id: 23, bg: 'mockups/optimized/samsung-tpu-view23.png', overlay: 'mockups/optimized/samsung-tpu-view23-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view23.png', fullresOverlay: 'mockups/originals/samsung-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
+                { id: 24, bg: 'mockups/optimized/samsung-tpu-view24.png', overlay: 'mockups/optimized/samsung-tpu-view24-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view24.png', fullresOverlay: 'mockups/originals/samsung-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
+            ]
+        },
+        'iphone-tpu': {
+            name: "iPhone TPU Case",
+            main: {
+                bg: 'mockups/optimized/iphone-tpu-back-main.png',
+                overlay: 'mockups/optimized/iphone-tpu-overlay-main.png',
+                fullresBg: 'mockups/originals/iphone-tpu-back-main.png',
+                fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main.png',
+                designX: 48.5,
+                designY: 48.5,
+                designScale: 100,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/optimized/iphone-tpu-view1.png', overlay: 'mockups/optimized/iphone-tpu-view1-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view1.png', fullresOverlay: 'mockups/originals/iphone-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
+                { id: 2, bg: 'mockups/optimized/iphone-tpu-view2.png', overlay: 'mockups/optimized/iphone-tpu-view2-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view2.png', fullresOverlay: 'mockups/originals/iphone-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 68, designRotation: 0 },
+                { id: 3, bg: 'mockups/optimized/iphone-tpu-view3.png', overlay: 'mockups/optimized/iphone-tpu-view3-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view3.png', fullresOverlay: 'mockups/originals/iphone-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
+                { id: 4, bg: 'mockups/optimized/iphone-tpu-view4.png', overlay: 'mockups/optimized/iphone-tpu-view4-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view4.png', fullresOverlay: 'mockups/originals/iphone-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
+                { id: 5, bg: 'mockups/optimized/iphone-tpu-view5.png', overlay: 'mockups/optimized/iphone-tpu-view5-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view5.png', fullresOverlay: 'mockups/originals/iphone-tpu-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 71.02, designRotation: 0.27 },
+                { id: 6, bg: 'mockups/optimized/iphone-tpu-view6.png', overlay: 'mockups/optimized/iphone-tpu-view6-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view6.png', fullresOverlay: 'mockups/originals/iphone-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
+                { id: 7, bg: 'mockups/optimized/iphone-tpu-view7.png', overlay: 'mockups/optimized/iphone-tpu-view7-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view7.png', fullresOverlay: 'mockups/originals/iphone-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
+                { id: 8, bg: 'mockups/optimized/iphone-tpu-view8.png', overlay: 'mockups/optimized/iphone-tpu-view8-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view8.png', fullresOverlay: 'mockups/originals/iphone-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
+                { id: 9, bg: 'mockups/optimized/iphone-tpu-view9.png', overlay: 'mockups/optimized/iphone-tpu-view9-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view9.png', fullresOverlay: 'mockups/originals/iphone-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 67.08, designRotation: 0.69 },
+                { id: 10, bg: 'mockups/optimized/iphone-tpu-view10.png', overlay: 'mockups/optimized/iphone-tpu-view10-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view10.png', fullresOverlay: 'mockups/originals/iphone-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
+                { id: 11, bg: 'mockups/optimized/iphone-tpu-view11.png', overlay: 'mockups/optimized/iphone-tpu-view11-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view11.png', fullresOverlay: 'mockups/originals/iphone-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
+                { id: 12, bg: 'mockups/optimized/iphone-tpu-view12.png', overlay: 'mockups/optimized/iphone-tpu-view12-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view12.png', fullresOverlay: 'mockups/originals/iphone-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
+                { id: 13, bg: 'mockups/optimized/iphone-tpu-view13.png', overlay: 'mockups/optimized/iphone-tpu-view13-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view13.png', fullresOverlay: 'mockups/originals/iphone-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42 },
+                { id: 14, bg: 'mockups/optimized/iphone-tpu-view14.png', overlay: 'mockups/optimized/iphone-tpu-view14-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view14.png', fullresOverlay: 'mockups/originals/iphone-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 61.14, designRotation: -0.24 },
+                { id: 15, bg: 'mockups/optimized/iphone-tpu-view15.png', overlay: 'mockups/optimized/iphone-tpu-view15-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view15.png', fullresOverlay: 'mockups/originals/iphone-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46 },
+                { id: 16, bg: 'mockups/optimized/iphone-tpu-view16.png', overlay: 'mockups/optimized/iphone-tpu-view16-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view16.png', fullresOverlay: 'mockups/originals/iphone-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
+                { id: 17, bg: 'mockups/optimized/iphone-tpu-view17.png', overlay: 'mockups/optimized/iphone-tpu-view17-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view17.png', fullresOverlay: 'mockups/originals/iphone-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 58.52, designRotation: 17.92 },
+                { id: 18, bg: 'mockups/optimized/iphone-tpu-view18.png', overlay: 'mockups/optimized/iphone-tpu-view18-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view18.png', fullresOverlay: 'mockups/originals/iphone-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
+                { id: 19, bg: 'mockups/optimized/iphone-tpu-view19.png', overlay: 'mockups/optimized/iphone-tpu-view19-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view19.png', fullresOverlay: 'mockups/originals/iphone-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
+                { id: 20, bg: 'mockups/optimized/iphone-tpu-view20.png', overlay: 'mockups/optimized/iphone-tpu-view20-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view20.png', fullresOverlay: 'mockups/originals/iphone-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 57.37, designRotation: 0 },
+                { id: 21, bg: 'mockups/optimized/iphone-tpu-view21.png', overlay: 'mockups/optimized/iphone-tpu-view21-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view21.png', fullresOverlay: 'mockups/originals/iphone-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 68.77, designRotation: -0.6 },
+                { id: 22, bg: 'mockups/optimized/iphone-tpu-view22.png', overlay: 'mockups/optimized/iphone-tpu-view22-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view22.png', fullresOverlay: 'mockups/originals/iphone-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
+                { id: 23, bg: 'mockups/optimized/iphone-tpu-view23.png', overlay: 'mockups/optimized/iphone-tpu-view23-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view23.png', fullresOverlay: 'mockups/originals/iphone-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
+                { id: 24, bg: 'mockups/optimized/iphone-tpu-view24.png', overlay: 'mockups/optimized/iphone-tpu-view24-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view24.png', fullresOverlay: 'mockups/originals/iphone-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
+            ]
+        },
+        'iphone-hybrid': {
+            name: "iPhone Hybrid Case",
+            main: {
+                bg: 'mockups/optimized/iphone-hybrid-back-main.png',
+                overlay: 'mockups/optimized/iphone-hybrid-overlay-main.png',
+                fullresBg: 'mockups/originals/iphone-hybrid-back-main.png',
+                fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main.png',
+                designX: 48.5,
+                designY: 48.5,
+                designScale: 100,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/optimized/iphone-hybrid-view1.png', overlay: 'mockups/optimized/iphone-hybrid-view1-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view1.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
+                { id: 2, bg: 'mockups/optimized/iphone-hybrid-view2.png', overlay: 'mockups/optimized/iphone-hybrid-view2-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view2.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view2-overlay.png', designX: 50, designY: 60, designScale: 68, designRotation: 0 },
+                { id: 3, bg: 'mockups/optimized/iphone-hybrid-view3.png', overlay: 'mockups/optimized/iphone-hybrid-view3-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view3.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
+                { id: 4, bg: 'mockups/optimized/iphone-hybrid-view4.png', overlay: 'mockups/optimized/iphone-hybrid-view4-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view4.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
+                { id: 5, bg: 'mockups/optimized/iphone-hybrid-view5.png', overlay: 'mockups/optimized/iphone-hybrid-view5-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view5.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 73.02, designRotation: 0.27 },
+                { id: 6, bg: 'mockups/optimized/iphone-hybrid-view6.png', overlay: 'mockups/optimized/iphone-hybrid-view6-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view6.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
+                { id: 7, bg: 'mockups/optimized/iphone-hybrid-view7.png', overlay: 'mockups/optimized/iphone-hybrid-view7-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view7.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
+                { id: 8, bg: 'mockups/optimized/iphone-hybrid-view8.png', overlay: 'mockups/optimized/iphone-hybrid-view8-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view8.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
+                { id: 9, bg: 'mockups/optimized/iphone-hybrid-view9.png', overlay: 'mockups/optimized/iphone-hybrid-view9-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view9.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
+                { id: 10, bg: 'mockups/optimized/iphone-hybrid-view10.png', overlay: 'mockups/optimized/iphone-hybrid-view10-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view10.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
+                { id: 11, bg: 'mockups/optimized/iphone-hybrid-view11.png', overlay: 'mockups/optimized/iphone-hybrid-view11-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view11.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
+                { id: 12, bg: 'mockups/optimized/iphone-hybrid-view12.png', overlay: 'mockups/optimized/iphone-hybrid-view12-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view12.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
+                { id: 13, bg: 'mockups/optimized/iphone-hybrid-view13.png', overlay: 'mockups/optimized/iphone-hybrid-view13-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view13.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 58.25, designRotation: 25.42 },
+                { id: 14, bg: 'mockups/optimized/iphone-hybrid-view14.png', overlay: 'mockups/optimized/iphone-hybrid-view14-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view14.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 61.14, designRotation: -0.24 },
+                { id: 15, bg: 'mockups/optimized/iphone-hybrid-view15.png', overlay: 'mockups/optimized/iphone-hybrid-view15-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view15.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46 },
+                { id: 16, bg: 'mockups/optimized/iphone-hybrid-view16.png', overlay: 'mockups/optimized/iphone-hybrid-view16-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view16.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
+                { id: 17, bg: 'mockups/optimized/iphone-hybrid-view17.png', overlay: 'mockups/optimized/iphone-hybrid-view17-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view17.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92 },
+                { id: 18, bg: 'mockups/optimized/iphone-hybrid-view18.png', overlay: 'mockups/optimized/iphone-hybrid-view18-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view18.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
+                { id: 19, bg: 'mockups/optimized/iphone-hybrid-view19.png', overlay: 'mockups/optimized/iphone-hybrid-view19-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view19.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
+                { id: 20, bg: 'mockups/optimized/iphone-hybrid-view20.png', overlay: 'mockups/optimized/iphone-hybrid-view20-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view20.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 55.37, designRotation: 0 },
+                { id: 21, bg: 'mockups/optimized/iphone-hybrid-view21.png', overlay: 'mockups/optimized/iphone-hybrid-view21-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view21.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6 },
+                { id: 22, bg: 'mockups/optimized/iphone-hybrid-view22.png', overlay: 'mockups/optimized/iphone-hybrid-view22-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view22.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
+                { id: 23, bg: 'mockups/optimized/iphone-hybrid-view23.png', overlay: 'mockups/optimized/iphone-hybrid-view23-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view23.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
+                { id: 24, bg: 'mockups/optimized/iphone-hybrid-view24.png', overlay: 'mockups/optimized/iphone-hybrid-view24-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view24.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
+            ]
+        },
+        'pixel-tpu': {
+            name: "Pixel TPU Case",
+            main: {
+                bg: 'mockups/optimized/pixel-tpu-back-main.png',
+                overlay: 'mockups/optimized/pixel-tpu-overlay-main.png',
+                fullresBg: 'mockups/originals/pixel-tpu-back-main.png',
+                fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main.png',
+                designX: 48.5,
+                designY: 48.5,
+                designScale: 100,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/optimized/pixel-tpu-view1.png', overlay: 'mockups/optimized/pixel-tpu-view1-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view1.png', fullresOverlay: 'mockups/originals/pixel-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
+                { id: 2, bg: 'mockups/optimized/pixel-tpu-view2.png', overlay: 'mockups/optimized/pixel-tpu-view2-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view2.png', fullresOverlay: 'mockups/originals/pixel-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0 },
+                { id: 3, bg: 'mockups/optimized/pixel-tpu-view3.png', overlay: 'mockups/optimized/pixel-tpu-view3-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view3.png', fullresOverlay: 'mockups/originals/pixel-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
+                { id: 4, bg: 'mockups/optimized/pixel-tpu-view4.png', overlay: 'mockups/optimized/pixel-tpu-view4-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view4.png', fullresOverlay: 'mockups/originals/pixel-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
+                { id: 5, bg: 'mockups/optimized/pixel-tpu-view5.png', overlay: 'mockups/optimized/pixel-tpu-view5-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view5.png', fullresOverlay: 'mockups/originals/pixel-tpu-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 73.02, designRotation: 0.27 },
+                { id: 6, bg: 'mockups/optimized/pixel-tpu-view6.png', overlay: 'mockups/optimized/pixel-tpu-view6-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view6.png', fullresOverlay: 'mockups/originals/pixel-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 72.08, designRotation: 0 },
+                { id: 7, bg: 'mockups/optimized/pixel-tpu-view7.png', overlay: 'mockups/optimized/pixel-tpu-view7-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view7.png', fullresOverlay: 'mockups/originals/pixel-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
+                { id: 8, bg: 'mockups/optimized/pixel-tpu-view8.png', overlay: 'mockups/optimized/pixel-tpu-view8-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view8.png', fullresOverlay: 'mockups/originals/pixel-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
+                { id: 9, bg: 'mockups/optimized/pixel-tpu-view9.png', overlay: 'mockups/optimized/pixel-tpu-view9-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view9.png', fullresOverlay: 'mockups/originals/pixel-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
+                { id: 10, bg: 'mockups/optimized/pixel-tpu-view10.png', overlay: 'mockups/optimized/pixel-tpu-view10-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view10.png', fullresOverlay: 'mockups/originals/pixel-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
+                { id: 11, bg: 'mockups/optimized/pixel-tpu-view11.png', overlay: 'mockups/optimized/pixel-tpu-view11-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view11.png', fullresOverlay: 'mockups/originals/pixel-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
+                { id: 12, bg: 'mockups/optimized/pixel-tpu-view12.png', overlay: 'mockups/optimized/pixel-tpu-view12-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view12.png', fullresOverlay: 'mockups/originals/pixel-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
+                { id: 13, bg: 'mockups/optimized/pixel-tpu-view13.png', overlay: 'mockups/optimized/pixel-tpu-view13-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view13.png', fullresOverlay: 'mockups/originals/pixel-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42 },
+                { id: 14, bg: 'mockups/optimized/pixel-tpu-view14.png', overlay: 'mockups/optimized/pixel-tpu-view14-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view14.png', fullresOverlay: 'mockups/originals/pixel-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24 },
+                { id: 15, bg: 'mockups/optimized/pixel-tpu-view15.png', overlay: 'mockups/optimized/pixel-tpu-view15-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view15.png', fullresOverlay: 'mockups/originals/pixel-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 79.73, designRotation: 0.46 },
+                { id: 16, bg: 'mockups/optimized/pixel-tpu-view16.png', overlay: 'mockups/optimized/pixel-tpu-view16-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view16.png', fullresOverlay: 'mockups/originals/pixel-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
+                { id: 17, bg: 'mockups/optimized/pixel-tpu-view17.png', overlay: 'mockups/optimized/pixel-tpu-view17-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view17.png', fullresOverlay: 'mockups/originals/pixel-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92 },
+                { id: 18, bg: 'mockups/optimized/pixel-tpu-view18.png', overlay: 'mockups/optimized/pixel-tpu-view18-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view18.png', fullresOverlay: 'mockups/originals/pixel-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
+                { id: 19, bg: 'mockups/optimized/pixel-tpu-view19.png', overlay: 'mockups/optimized/pixel-tpu-view19-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view19.png', fullresOverlay: 'mockups/originals/pixel-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
+                { id: 20, bg: 'mockups/optimized/pixel-tpu-view20.png', overlay: 'mockups/optimized/pixel-tpu-view20-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view20.png', fullresOverlay: 'mockups/originals/pixel-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 57.37, designRotation: 0 },
+                { id: 21, bg: 'mockups/optimized/pixel-tpu-view21.png', overlay: 'mockups/optimized/pixel-tpu-view21-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view21.png', fullresOverlay: 'mockups/originals/pixel-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 68.77, designRotation: -0.6 },
+                { id: 22, bg: 'mockups/optimized/pixel-tpu-view22.png', overlay: 'mockups/optimized/pixel-tpu-view22-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view22.png', fullresOverlay: 'mockups/originals/pixel-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
+                { id: 23, bg: 'mockups/optimized/pixel-tpu-view23.png', overlay: 'mockups/optimized/pixel-tpu-view23-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view23.png', fullresOverlay: 'mockups/originals/pixel-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
+                { id: 24, bg: 'mockups/optimized/pixel-tpu-view24.png', overlay: 'mockups/optimized/pixel-tpu-view24-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view24.png', fullresOverlay: 'mockups/originals/pixel-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
+            ]
+        },
+        'iphone-fullprint': {
+            name: "iPhone Fullprint Case",
+            main: {
+                bg: 'mockups/optimized/iphone-fullprint-back-main.png',
+                overlay: 'mockups/optimized/iphone-fullprint-overlay-main.png',
+                fullresBg: 'mockups/originals/iphone-fullprint-back-main.png',
+                fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main.png',
+                designX: 48.5,
+                designY: 48.5,
+                designScale: 100,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/optimized/iphone-fullprint-view1.png', overlay: 'mockups/optimized/iphone-fullprint-view1-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view1.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
+                { id: 2, bg: 'mockups/optimized/iphone-fullprint-view2.png', overlay: 'mockups/optimized/iphone-fullprint-view2-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view2.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view2-overlay.png', designX: 50, designY: 60, designScale: 68, designRotation: 0 },
+                { id: 3, bg: 'mockups/optimized/iphone-fullprint-view3.png', overlay: 'mockups/optimized/iphone-fullprint-view3-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view3.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
+                { id: 4, bg: 'mockups/optimized/iphone-fullprint-view4.png', overlay: 'mockups/optimized/iphone-fullprint-view4-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view4.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 70.59, designRotation: -1.04 },
+                { id: 5, bg: 'mockups/optimized/iphone-fullprint-view5.png', overlay: 'mockups/optimized/iphone-fullprint-view5-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view5.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 75.02, designRotation: 0.27 },
+                { id: 6, bg: 'mockups/optimized/iphone-fullprint-view6.png', overlay: 'mockups/optimized/iphone-fullprint-view6-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view6.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
+                { id: 7, bg: 'mockups/optimized/iphone-fullprint-view7.png', overlay: 'mockups/optimized/iphone-fullprint-view7-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view7.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 80.64, designRotation: 8.41 },
+                { id: 8, bg: 'mockups/optimized/iphone-fullprint-view8.png', overlay: 'mockups/optimized/iphone-fullprint-view8-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view8.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 75.54, designRotation: 37.3 },
+                { id: 9, bg: 'mockups/optimized/iphone-fullprint-view9.png', overlay: 'mockups/optimized/iphone-fullprint-view9-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view9.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
+                { id: 10, bg: 'mockups/optimized/iphone-fullprint-view10.png', overlay: 'mockups/optimized/iphone-fullprint-view10-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view10.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view10-overlay.png', designX: 48.6, designY: 50.4, designScale: 68.77, designRotation: -0.6 }
+            ]
+        }
+    };
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-        // Hide all case mockups except the first one
-        document.querySelectorAll('.case-mockups').forEach((mockup, index) => {
-            if (index !== 0) {
-                mockup.classList.add('hidden');
-            }
-        });
+        // Set up event listeners
+        setupEventListeners();
         
-        // Initialize lazy loading for optimized images
-        initLazyLoading();
+        // Initialize the grid for the default case type
+        initializeGrid(currentCaseType);
     });
 
-    // Product category selection
-    productCategoryLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Update active category link
-            productCategoryLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show selected product section
-            const category = this.dataset.category;
-            document.querySelectorAll('.product-section').forEach(section => {
-                section.classList.remove('active');
+    // Set up all event listeners
+    function setupEventListeners() {
+        // Product category selection
+        productCategoryLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active category link
+                productCategoryLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                // Show/hide product type selection based on category
+                if (category === 'phone-cases') {
+                    phoneCasesTypes.style.display = 'flex';
+                    controlsSection.style.display = 'block';
+                    mainMockupContainer.style.display = 'inline-block';
+                    gridWrapper.style.display = 'block';
+                } else {
+                    phoneCasesTypes.style.display = 'none';
+                    controlsSection.style.display = 'none';
+                    mainMockupContainer.style.display = 'none';
+                    gridWrapper.style.display = 'none';
+                }
+                
+                // Show selected product section
+                document.querySelectorAll('.product-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(category).classList.add('active');
             });
-            document.getElementById(category).classList.add('active');
         });
-    });
 
-    // Product type selection (for phone cases)
-    productTypeLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Update active type link
-            productTypeLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show selected mockups
-            const caseType = this.dataset.case;
-            document.querySelectorAll('.case-mockups').forEach(mockup => {
-                mockup.classList.add('hidden');
+        // Product type selection (for phone cases)
+        productTypeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active type link
+                productTypeLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentCaseType = this.dataset.case;
+                
+                // Update main mockup
+                updateMainMockup(currentCaseType);
+                
+                // Update grid for the selected case type
+                initializeGrid(currentCaseType);
+                
+                // Update design positions if an image is already uploaded
+                if (uploadedImage.src) {
+                    document.querySelectorAll('.user-design').forEach(design => {
+                        if (design.src) {
+                            design.style.display = 'block';
+                            updateDesignPosition(design);
+                        }
+                    });
+                }
             });
-            document.getElementById(caseType).classList.remove('hidden');
+        });
+
+        // Image upload handler
+        imageUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
             
-            // Update design positions for the new case type
-            if (uploadedImage.src) {
-                document.querySelectorAll('.user-design').forEach(design => {
-                    if (design.src) {
+            showLoading("Loading your design...");
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const testImage = new Image();
+                testImage.onload = function() {
+                    // Update all designs with the new image
+                    document.querySelectorAll('.user-design').forEach(design => {
+                        design.src = e.target.result;
                         design.style.display = 'block';
                         updateDesignPosition(design);
-                    }
-                });
+                    });
+                    
+                    uploadedImage.src = e.target.result;
+                    mockupCache.clear();
+                    removeBtn.style.display = 'block';
+                    
+                    // Enable download buttons
+                    downloadBtn.disabled = false;
+                    downloadZipBtn.disabled = false;
+                    
+                    hideLoading();
+                };
+                testImage.onerror = function() {
+                    hideLoading();
+                    alert("Error: The image couldn't be loaded. Please try another file.");
+                };
+                testImage.src = e.target.result;
+            };
+            reader.onerror = function() {
+                hideLoading();
+                alert("Error reading file. Please try again.");
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Remove button handler
+        removeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            document.querySelectorAll('.user-design').forEach(design => {
+                design.src = '';
+                design.style.display = 'none';
+            });
+            
+            uploadedImage.src = '';
+            imageUpload.value = '';
+            mockupCache.clear();
+            removeBtn.style.display = 'none';
+            
+            // Disable download buttons
+            downloadBtn.disabled = true;
+            downloadZipBtn.disabled = true;
+        });
+        
+        // Download main mockup
+        downloadBtn.addEventListener('click', async function() {
+            if (!uploadedImage.src) {
+                alert('Please upload an image first');
+                return;
+            }
+
+            showLoading("Generating main mockup...");
+            
+            try {
+                const canvas = await generateMockupImage(mainMockupContainer);
+                downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
+            } catch (error) {
+                console.error("Error generating mockup:", error);
+                alert("Error generating mockup. Please try again.");
+            } finally {
+                hideLoading();
             }
         });
-    });
 
-    // Image upload handler
-    imageUpload.addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        
-        showLoading("Loading your design...");
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            // First verify the image loads
-            const testImage = new Image();
-            testImage.onload = function() {
-                // Update all designs with the new image
-                document.querySelectorAll('.user-design').forEach(design => {
-                    design.src = e.target.result;
-                    design.style.display = 'block';
-                    updateDesignPosition(design);
-                });
-                
-                uploadedImage.src = e.target.result;
-                mockupCache.clear();
-                removeBtn.style.display = 'block';
-                hideLoading();
-            };
-            testImage.onerror = function() {
-                hideLoading();
-                alert("Error: The image couldn't be loaded. Please try another file.");
-            };
-            testImage.src = e.target.result;
-        };
-        reader.onerror = function() {
-            hideLoading();
-            alert("Error reading file. Please try again.");
-        };
-        reader.readAsDataURL(file);
-    });
+        // Download selected mockups as ZIP
+        downloadZipBtn.addEventListener('click', async function() {
+            if (!uploadedImage.src) {
+                alert('Please upload an image first');
+                return;
+            }
 
-    // Remove button handler
-    removeBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        document.querySelectorAll('.user-design').forEach(design => {
-            design.src = '';
-            design.style.display = 'none';
-        });
-        uploadedImage.src = '';
-        imageUpload.value = '';
-        mockupCache.clear();
-        removeBtn.style.display = 'none';
-    });
-    
-    // Lazy loading for optimized images
-    function initLazyLoading() {
-        if ('IntersectionObserver' in window) {
-            const lazyImages = document.querySelectorAll('.phone-case-bg[data-fullres], .phone-case-overlay[data-fullres]');
+            showLoading("Preparing ZIP file...");
             
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        // Load optimized version if not already loaded
-                        if (!img.src.includes('optimized')) {
-                            const optimizedSrc = img.src.replace('originals', 'optimized');
-                            img.src = optimizedSrc;
-                        }
-                        observer.unobserve(img);
-                    }
-                });
-            });
+            try {
+                const checkedItems = document.querySelectorAll('.carousel-checkbox:checked');
+                
+                if (checkedItems.length === 0) {
+                    alert('Please select at least one mockup view to download');
+                    return;
+                }
 
-            lazyImages.forEach(img => imageObserver.observe(img));
+                const zip = new JSZip();
+                
+                // Add main mockup to ZIP
+                const mainCanvas = await generateMockupImage(mainMockupContainer);
+                const mainBlob = await canvasToBlob(mainCanvas);
+                zip.file('main-mockup.png', mainBlob);
+                
+                // Process selected grid items
+                for (const item of checkedItems) {
+                    const viewNumber = item.dataset.view;
+                    const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
+                    
+                    showLoading(`Generating view ${viewNumber}...`);
+                    
+                    const canvas = await generateMockupImage(mockupContainer);
+                    const blob = await canvasToBlob(canvas);
+                    zip.file(`view-${viewNumber}.png`, blob);
+                }
+                
+                // Generate and download ZIP
+                const content = await zip.generateAsync({ type: 'blob' });
+                downloadBlob(content, 'mockups.zip');
+                
+            } catch (error) {
+                console.error("Error generating ZIP:", error);
+                alert("Error generating ZIP file. Please try again.");
+            } finally {
+                hideLoading();
+            }
+        });
+    }
+
+    // Initialize grid for a specific case type
+    function initializeGrid(caseType) {
+        gridContainer.innerHTML = '';
+        
+        const caseData = mockupData[caseType];
+        if (!caseData) return;
+        
+        caseData.views.forEach(view => {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'grid-item';
+            gridItem.dataset.view = view.id;
+            
+            gridItem.innerHTML = `
+                <div class="secondary-mockup">
+                    <input type="checkbox" class="carousel-checkbox" data-view="${view.id}">
+                    <img class="phone-case-bg" src="${view.bg}" data-fullres="${view.fullresBg}">
+                    <div class="design-area">
+                        <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
+                             data-x="${view.designX}" data-y="${view.designY}" 
+                             data-scale="${view.designScale}" data-rotation="${view.designRotation}"
+                             style="display: ${uploadedImage.src ? 'block' : 'none'}">
+                    </div>
+                    <img class="phone-case-overlay" src="${view.overlay}" data-fullres="${view.fullresOverlay}">
+                </div>
+                <div class="mockup-label">View ${view.id}</div>
+            `;
+            
+            gridContainer.appendChild(gridItem);
+            
+            // Update design position if image is already uploaded
+            if (uploadedImage.src) {
+                const design = gridItem.querySelector('.user-design');
+                updateDesignPosition(design);
+            }
+        });
+    }
+
+    // Update main mockup for a specific case type
+    function updateMainMockup(caseType) {
+        const caseData = mockupData[caseType];
+        if (!caseData) return;
+        
+        const mainMockup = caseData.main;
+        
+        const bgImg = mainMockupContainer.querySelector('.phone-case-bg');
+        const overlayImg = mainMockupContainer.querySelector('.phone-case-overlay');
+        const designImg = mainMockupContainer.querySelector('.user-design');
+        
+        bgImg.src = mainMockup.bg;
+        bgImg.dataset.fullres = mainMockup.fullresBg;
+        overlayImg.src = mainMockup.overlay;
+        overlayImg.dataset.fullres = mainMockup.fullresOverlay;
+        
+        // Update design position attributes
+        designImg.dataset.x = mainMockup.designX;
+        designImg.dataset.y = mainMockup.designY;
+        designImg.dataset.scale = mainMockup.designScale;
+        designImg.dataset.rotation = mainMockup.designRotation;
+        
+        if (uploadedImage.src) {
+            designImg.src = uploadedImage.src;
+            designImg.style.display = 'block';
+            updateDesignPosition(designImg);
+        } else {
+            designImg.src = '';
+            designImg.style.display = 'none';
         }
     }
 
@@ -2523,16 +1086,6 @@
         designElement.style.top = `${y}%`;
         designElement.style.left = `${x}%`;
         designElement.style.transform = `translate(-50%, -50%) scale(${scale/100}) rotate(${rotation}deg)`;
-    }
-
-    // Optimized image loader with error handling
-    async function loadImage(src) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
-            img.src = src;
-        });
     }
 
     // Generate mockup image with caching
@@ -2605,123 +1158,16 @@
         }
     }
 
-    // Download main mockup
-    downloadBtn.addEventListener('click', async function() {
-        if (!uploadedImage.src) {
-            alert('Please upload an image first');
-            return;
-        }
-
-        showLoading("Generating main mockup...");
-        
-        try {
-            const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-            const mainContainer = activeCase.querySelector('#main-mockup-container');
-            const canvas = await generateMockupImage(mainContainer);
-            downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
-        } catch (error) {
-            console.error("Error generating mockup:", error);
-            alert("Error generating mockup. Please try again.");
-        } finally {
-            hideLoading();
-        }
-    });
-
-    // Download selected mockups as ZIP
-    downloadZipBtn.addEventListener('click', async function() {
-        if (!uploadedImage.src) {
-            alert('Please upload an image first');
-            return;
-        }
-
-        showLoading("Preparing ZIP file...");
-        
-        try {
-            const activeCase = document.querySelector('.case-mockups:not(.hidden)');
-            const checkedItems = activeCase.querySelectorAll('.carousel-checkbox:checked');
-            
-            if (checkedItems.length === 0) {
-                alert('Please select at least one mockup view to download');
-                return;
-            }
-
-            const zip = new JSZip();
-            
-            // Add main mockup to ZIP
-            const mainContainer = activeCase.querySelector('#main-mockup-container');
-            const mainCanvas = await generateMockupImage(mainContainer);
-            const mainBlob = await canvasToBlob(mainCanvas);
-            zip.file('main-mockup.png', mainBlob);
-            
-            // Process selected grid items with high-res originals
-            for (const item of checkedItems) {
-                const mockupContainer = item.closest('.secondary-mockup');
-                const viewNumber = item.dataset.view;
-                
-                showLoading(`Generating view ${viewNumber}...`);
-                
-                const canvas = document.createElement('canvas');
-                canvas.width = 2000;
-                canvas.height = 2000;
-                const ctx = canvas.getContext('2d');
-
-                // Load high-res originals for download
-                const bgSrc = mockupContainer.querySelector('.phone-case-bg').dataset.fullres;
-                const overlaySrc = mockupContainer.querySelector('.phone-case-overlay').dataset.fullres;
-                
-                const [bg, overlay] = await Promise.all([
-                    loadImage(bgSrc),
-                    loadImage(overlaySrc)
-                ]);
-
-                // Draw background
-                ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-                
-                // Draw design
-                const design = await loadImage(uploadedImage.src);
-                const designElement = mockupContainer.querySelector('.user-design');
-                const x = parseFloat(designElement.dataset.x) || 50;
-                const y = parseFloat(designElement.dataset.y) || 50;
-                const scale = parseFloat(designElement.dataset.scale) || 100;
-                const rotation = parseFloat(designElement.dataset.rotation) || 0;
-                
-                const designScale = Math.min(
-                    canvas.width / design.width,
-                    canvas.height / design.height
-                ) * (scale / 100);
-                
-                const width = design.width * designScale;
-                const height = design.height * designScale;
-                
-                const posX = (canvas.width * x / 100) - (width / 2);
-                const posY = (canvas.height * y / 100) - (height / 2);
-                
-                ctx.save();
-                ctx.translate(posX + width/2, posY + height/2);
-                ctx.rotate(rotation * Math.PI / 180);
-                ctx.drawImage(design, -width/2, -height/2, width, height);
-                ctx.restore();
-                
-                // Draw overlay
-                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-                
-                const blob = await canvasToBlob(canvas);
-                zip.file(`view-${viewNumber}.png`, blob);
-            }
-            
-            // Generate and download ZIP
-            const content = await zip.generateAsync({ type: 'blob' });
-            downloadBlob(content, 'mockups.zip');
-            
-        } catch (error) {
-            console.error("Error generating ZIP:", error);
-            alert("Error generating ZIP file. Please try again.");
-        } finally {
-            hideLoading();
-        }
-    });
-
     // Helper functions
+    function loadImage(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+            img.src = src;
+        });
+    }
+    
     function canvasToBlob(canvas) {
         return new Promise(resolve => {
             canvas.toBlob(blob => {
