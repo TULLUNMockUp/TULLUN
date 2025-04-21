@@ -263,20 +263,20 @@
             box-shadow: var(--shadow);
         }
         
-        /* Mockup Container */
-        #main-mockup-container {
-            position: relative;
-            display: inline-block;
-            margin: 20px auto;
-            width: 600px;
-            height: 600px;
-            overflow: hidden;
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            display: none; /* Hidden by default */
-            animation: fadeIn 0.3s ease-out;
-        }
+/* Mockup Container */
+#main-mockup-container {
+    position: relative;
+    display: inline-block; /* Changed from inline-block to block */
+    margin: 20px auto; /* This centers the container horizontally */
+    width: 600px;
+    height: 600px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: none; /* Hidden by default */
+    animation: fadeIn 0.3s ease-out;
+}
         
         .phone-case-bg, .phone-case-overlay {
             position: absolute;
@@ -555,13 +555,15 @@
         </div>
         
         <!-- Main Mockup Container (initially hidden) -->
-        <div id="main-mockup-container">
-            <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
-            <div class="design-area">
-                <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
-            </div>
-            <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+<div style="text-align: center; width: 100%;">
+    <div id="main-mockup-container">
+        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
+        <div class="design-area">
+            <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
         </div>
+        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+    </div>
+</div>
         
         <!-- Secondary Mockups Grid (initially hidden) -->
         <div class="grid-wrapper">
