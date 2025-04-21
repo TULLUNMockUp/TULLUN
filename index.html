@@ -968,7 +968,7 @@ downloadZipBtn.addEventListener('click', async function() {
     showLoading("Preparing ZIP file...");
     
     try {
-        const checkedItems = document.querySelectorAll('.carousel-checkbox:checked');
+        const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
         
         if (checkedItems.length === 0) {
             alert('Please select at least one mockup view to download');
@@ -977,11 +977,15 @@ downloadZipBtn.addEventListener('click', async function() {
 
         const zip = new JSZip();
         const caseData = mockupData[currentCaseType];
+        const promises = [];
         
         // Add main mockup to ZIP
-        const mainCanvas = await generateMockupImage(mainMockupContainer);
-        const mainBlob = await canvasToBlob(mainCanvas);
-        zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main.png`, mainBlob);
+        promises.push((async () => {
+            showLoading("Generating main mockup...");
+            const mainCanvas = await generateMockupImage(mainMockupContainer);
+            const mainBlob = await canvasToBlob(mainCanvas);
+            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main.png`, mainBlob);
+        })());
         
         // Process selected grid items
         for (const item of checkedItems) {
@@ -990,15 +994,20 @@ downloadZipBtn.addEventListener('click', async function() {
             
             if (!viewData) continue;
             
-            showLoading(`Generating view ${viewNumber}...`);
-            
-            const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
-            const canvas = await generateMockupImage(mockupContainer);
-            const blob = await canvasToBlob(canvas);
-            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
+            promises.push((async () => {
+                showLoading(`Generating view ${viewNumber}...`);
+                const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
+                const canvas = await generateMockupImage(mockupContainer);
+                const blob = await canvasToBlob(canvas);
+                zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
+            })());
         }
         
+        // Wait for all mockups to be generated
+        await Promise.all(promises);
+        
         // Generate and download ZIP
+        showLoading("Creating ZIP file...");
         const content = await zip.generateAsync({ type: 'blob' });
         downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
         
