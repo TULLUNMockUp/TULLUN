@@ -541,6 +541,16 @@
                 <a href="#" class="product-type-link" data-case="pixel-tpu">Google Pixel TPU Case</a>
                 <a href="#" class="product-type-link" data-case="iphone-fullprint">iPhone Fullprint Case</a>
             </div>
+
+            <!-- Product Type Selection for Plaques (initially hidden) -->
+           <div id="plaques-types" class="product-type-container">
+             <a href="#" class="product-type-link" data-case="slate-10x10">Slate Plaque 10x10cm</a>
+             <a href="#" class="product-type-link" data-case="slate-15x15">Slate Plaque 15x15cm</a>
+             <a href="#" class="product-type-link" data-case="slate-20x30">Slate Plaque 20x30cm</a>
+             <a href="#" class="product-type-link" data-case="slate-heart-10x10">Slate Heart Plaque 10x10cm</a>
+             <a href="#" class="product-type-link" data-case="slate-heart-25x25">Slate Heart Plaque 25x25cm</a>
+             <a href="#" class="product-type-link" data-case="acrylic-block-10x10">Acrylic Block 10x10cm</a>
+        </div>
         </section>
         
         <!-- Controls Section (initially hidden) -->
@@ -817,7 +827,89 @@
                 { id: 9, bg: 'mockups/optimized/iphone-fullprint-view9.png', overlay: 'mockups/optimized/iphone-fullprint-view9-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view9.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
                 { id: 10, bg: 'mockups/optimized/iphone-fullprint-view10.png', overlay: 'mockups/optimized/iphone-fullprint-view10-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view10.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view10-overlay.png', designX: 48.6, designY: 50.4, designScale: 68.77, designRotation: -0.6 }
             ]
+        },
+            // Plaque Products
+    'slate-10x10': {
+        name: "Slate Plaque 10x10cm",
+        main: {
+            bg: 'mockups/optimized/slate-10x10-main.png',
+            overlay: 'mockups/optimized/slate-10x10-overlay.png',
+            fullresBg: 'mockups/originals/slate-10x10-main.png',
+            fullresOverlay: 'mockups/originals/slate-10x10-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 85,
+            designRotation: 0
+        },
+        views: [
+            // Add different views if available
+        ]
+    },
+    'slate-15x15': {
+        name: "Slate Plaque 15x15cm",
+        main: {
+            bg: 'mockups/optimized/slate-15x15-main.png',
+            overlay: 'mockups/optimized/slate-15x15-overlay.png',
+            fullresBg: 'mockups/originals/slate-15x15-main.png',
+            fullresOverlay: 'mockups/originals/slate-15x15-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 85,
+            designRotation: 0
         }
+    },
+    'slate-20x30': {
+        name: "Slate Plaque 20x30cm",
+        main: {
+            bg: 'mockups/optimized/slate-20x30-main.png',
+            overlay: 'mockups/optimized/slate-20x30-overlay.png',
+            fullresBg: 'mockups/originals/slate-20x30-main.png',
+            fullresOverlay: 'mockups/originals/slate-20x30-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 85,
+            designRotation: 0
+        }
+    },
+    'slate-heart-10x10': {
+        name: "Slate Heart Plaque 10x10cm",
+        main: {
+            bg: 'mockups/optimized/slate-heart-10x10-main.png',
+            overlay: 'mockups/optimized/slate-heart-10x10-overlay.png',
+            fullresBg: 'mockups/originals/slate-heart-10x10-main.png',
+            fullresOverlay: 'mockups/originals/slate-heart-10x10-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 85,
+            designRotation: 0
+        }
+    },
+    'slate-heart-25x25': {
+        name: "Slate Heart Plaque 25x25cm",
+        main: {
+            bg: 'mockups/optimized/slate-heart-25x25-main.png',
+            overlay: 'mockups/optimized/slate-heart-25x25-overlay.png',
+            fullresBg: 'mockups/originals/slate-heart-25x25-main.png',
+            fullresOverlay: 'mockups/originals/slate-heart-25x25-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 85,
+            designRotation: 0
+        }
+    },
+    'acrylic-block-10x10': {
+        name: "Acrylic Block 10x10cm",
+        main: {
+            bg: 'mockups/optimized/acrylic-block-10x10-main.png',
+            overlay: 'mockups/optimized/acrylic-block-10x10-overlay.png',
+            fullresBg: 'mockups/originals/acrylic-block-10x10-main.png',
+            fullresOverlay: 'mockups/originals/acrylic-block-10x10-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 85,
+            designRotation: 0
+        }
+    }
     };
 
     // Initialize on page load
@@ -839,29 +931,56 @@
                 
                 const category = this.dataset.category;
                 
-                // Show/hide product type selection based on category
-                if (category === 'phone-cases') {
-                    phoneCasesTypes.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize the grid for the default case type
-                    initializeGrid(currentCaseType);
-                } else {
-                    phoneCasesTypes.style.display = 'none';
-                    controlsSection.style.display = 'none';
-                    mainMockupContainer.style.display = 'none';
-                    gridWrapper.style.display = 'none';
-                }
-                
-                // Show selected product section
-                document.querySelectorAll('.product-section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                document.getElementById(category).classList.add('active');
-            });
+// Product category selection
+productCategoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Update active category link
+        productCategoryLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.dataset.category;
+        
+        // Show/hide product type selection based on category
+        if (category === 'phone-cases') {
+            phoneCasesTypes.style.display = 'flex';
+            plaquesTypes.style.display = 'none';
+            controlsSection.style.display = 'block';
+            mainMockupContainer.style.display = 'inline-block';
+            gridWrapper.style.display = 'block';
+            document.getElementById('plaques').classList.remove('active');
+        } else if (category === 'plaques') {
+            plaquesTypes.style.display = 'flex';
+            phoneCasesTypes.style.display = 'none';
+            controlsSection.style.display = 'block';
+            mainMockupContainer.style.display = 'inline-block';
+            gridWrapper.style.display = 'block';
+            document.getElementById('phone-cases').classList.remove('active');
+            
+            // Initialize with first plaque type if none selected
+            if (!currentCaseType.startsWith('slate') && !currentCaseType.startsWith('acrylic')) {
+                currentCaseType = 'slate-10x10';
+                document.querySelector(`[data-case="${currentCaseType}"]`).classList.add('active');
+                updateMainMockup(currentCaseType);
+                initializeGrid(currentCaseType);
+            }
+        } else {
+            // For other categories (tshirts, bags)
+            phoneCasesTypes.style.display = 'none';
+            plaquesTypes.style.display = 'none';
+            controlsSection.style.display = 'none';
+            mainMockupContainer.style.display = 'none';
+            gridWrapper.style.display = 'none';
+        }
+        
+        // Show selected product section
+        document.querySelectorAll('.product-section').forEach(section => {
+            section.classList.remove('active');
         });
+        document.getElementById(category).classList.add('active');
+    });
+});
 
         // Product type selection (for phone cases)
         productTypeLinks.forEach(link => {
@@ -891,6 +1010,35 @@
                 }
             });
         });
+
+                // Plaque type selection
+document.querySelectorAll('#plaques-types .product-type-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Update active type link
+        document.querySelectorAll('#plaques-types .product-type-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        currentCaseType = this.dataset.case;
+        
+        // Update main mockup
+        updateMainMockup(currentCaseType);
+        
+        // Update grid for the selected plaque type
+        initializeGrid(currentCaseType);
+        
+        // Update design positions if an image is already uploaded
+        if (uploadedImage.src) {
+            document.querySelectorAll('.user-design').forEach(design => {
+                if (design.src) {
+                    design.style.display = 'block';
+                    updateDesignPosition(design);
+                }
+            });
+        }
+    });
+});
 
         // Image upload handler
         imageUpload.addEventListener('change', function(event) {
