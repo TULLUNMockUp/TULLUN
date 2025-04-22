@@ -263,6 +263,15 @@
             box-shadow: var(--shadow);
         }
         
+        /* Upload requirements */
+        .upload-requirements {
+            font-size: 14px;
+            color: var(--light-text);
+            margin-top: 8px;
+            text-align: center;
+            width: 100%;
+        }
+
 /* Mockup Container */
 #main-mockup-container {
     position: relative;
@@ -337,6 +346,7 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            cursor: pointer;
         }
         
         .grid-item:hover {
@@ -517,7 +527,7 @@
             
             <!-- Product Category Selection -->
             <div class="product-category-container">
-                <a href="#" class="product-category-link active" data-category="phone-cases">Phone Cases</a>
+                <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
                 <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
                 <a href="#" class="product-category-link" data-category="tshirts">T-Shirts</a>
                 <a href="#" class="product-category-link" data-category="bags">Bags</a>
@@ -525,7 +535,7 @@
             
             <!-- Product Type Selection (initially hidden) -->
             <div id="phone-cases-types" class="product-type-container">
-                <a href="#" class="product-type-link active" data-case="samsung-tpu">Samsung TPU Case</a>
+                <a href="#" class="product-type-link" data-case="samsung-tpu">Samsung TPU Case</a>
                 <a href="#" class="product-type-link" data-case="iphone-tpu">iPhone TPU Case</a>
                 <a href="#" class="product-type-link" data-case="iphone-hybrid">iPhone Hybrid Case</a>
                 <a href="#" class="product-type-link" data-case="pixel-tpu">Pixel TPU Case</a>
@@ -537,7 +547,7 @@
         <div id="controls">
             <div class="controls-row">
                 <div class="file-upload-wrapper">
-                    <input type="file" id="image-upload" accept="image/*">
+                    <input type="file" id="image-upload" accept="image/png">
                     <button class="file-upload-btn">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
@@ -547,6 +557,9 @@
                     </button>
                     <button id="remove-btn">×</button>
                 </div>
+            </div>
+            <div class="upload-requirements">
+                For best results, upload a PNG file with dimensions 750x1590 pixels at 300 PPI
             </div>
             <div class="controls-row">
                 <button id="download-btn" disabled>Download Main Mockup</button>
@@ -811,9 +824,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Set up event listeners
         setupEventListeners();
-        
-        // Initialize the grid for the default case type
-        initializeGrid(currentCaseType);
     });
 
     // Set up all event listeners
@@ -835,6 +845,9 @@
                     controlsSection.style.display = 'block';
                     mainMockupContainer.style.display = 'inline-block';
                     gridWrapper.style.display = 'block';
+                    
+                    // Initialize the grid for the default case type
+                    initializeGrid(currentCaseType);
                 } else {
                     phoneCasesTypes.style.display = 'none';
                     controlsSection.style.display = 'none';
@@ -884,12 +897,25 @@
             const file = event.target.files[0];
             if (!file) return;
             
+            // Check file type
+            if (!file.type.match('image/png')) {
+                alert('Please upload a PNG file');
+                return;
+            }
+            
             showLoading("Loading your design...");
             
             const reader = new FileReader();
             reader.onload = function(e) {
                 const testImage = new Image();
                 testImage.onload = function() {
+                    // Check image dimensions
+                    if (this.width !== 750 || this.height !== 1590) {
+                        hideLoading();
+                        alert('Image dimensions should be 750x1590 pixels');
+                        return;
+                    }
+                    
                     // Update all designs with the new image
                     document.querySelectorAll('.user-design').forEach(design => {
                         design.src = e.target.result;
@@ -960,66 +986,78 @@
             }
         });
 
-// Download selected mockups as ZIP
-downloadZipBtn.addEventListener('click', async function() {
-    if (!uploadedImage.src) {
-        alert('Please upload an image first');
-        return;
-    }
+        // Download selected mockups as ZIP
+        downloadZipBtn.addEventListener('click', async function() {
+            if (!uploadedImage.src) {
+                alert('Please upload an image first');
+                return;
+            }
 
-    showLoading("Preparing ZIP file...");
-    
-    try {
-        const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
-        
-        if (checkedItems.length === 0) {
-            alert('Please select at least one mockup view to download');
-            return;
-        }
+            showLoading("Preparing ZIP file...");
+            
+            try {
+                const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
+                
+                if (checkedItems.length === 0) {
+                    alert('Please select at least one mockup view to download');
+                    return;
+                }
 
-        const zip = new JSZip();
-        const caseData = mockupData[currentCaseType];
-        const promises = [];
+                const zip = new JSZip();
+                const caseData = mockupData[currentCaseType];
+                const promises = [];
+                
+                // Add main mockup to ZIP
+                promises.push((async () => {
+                    showLoading("Generating main mockup...");
+                    const mainCanvas = await generateMockupImage(mainMockupContainer);
+                    const mainBlob = await canvasToBlob(mainCanvas);
+                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main.png`, mainBlob);
+                })());
+                
+                // Process selected grid items
+                for (const item of checkedItems) {
+                    const viewNumber = item.dataset.view;
+                    const viewData = caseData.views.find(v => v.id == viewNumber);
+                    
+                    if (!viewData) continue;
+                    
+                    promises.push((async () => {
+                        showLoading(`Generating view ${viewNumber}...`);
+                        const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
+                        const canvas = await generateMockupImage(mockupContainer);
+                        const blob = await canvasToBlob(canvas);
+                        zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
+                    })());
+                }
+                
+                // Wait for all mockups to be generated
+                await Promise.all(promises);
+                
+                // Generate and download ZIP
+                showLoading("Creating ZIP file...");
+                const content = await zip.generateAsync({ type: 'blob' });
+                downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
+                
+            } catch (error) {
+                console.error("Error generating ZIP:", error);
+                alert("Error generating ZIP file. Please try again.");
+            } finally {
+                hideLoading();
+            }
+        });
         
-        // Add main mockup to ZIP
-        promises.push((async () => {
-            showLoading("Generating main mockup...");
-            const mainCanvas = await generateMockupImage(mainMockupContainer);
-            const mainBlob = await canvasToBlob(mainCanvas);
-            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main.png`, mainBlob);
-        })());
-        
-        // Process selected grid items
-        for (const item of checkedItems) {
-            const viewNumber = item.dataset.view;
-            const viewData = caseData.views.find(v => v.id == viewNumber);
-            
-            if (!viewData) continue;
-            
-            promises.push((async () => {
-                showLoading(`Generating view ${viewNumber}...`);
-                const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
-                const canvas = await generateMockupImage(mockupContainer);
-                const blob = await canvasToBlob(canvas);
-                zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
-            })());
-        }
-        
-        // Wait for all mockups to be generated
-        await Promise.all(promises);
-        
-        // Generate and download ZIP
-        showLoading("Creating ZIP file...");
-        const content = await zip.generateAsync({ type: 'blob' });
-        downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
-        
-    } catch (error) {
-        console.error("Error generating ZIP:", error);
-        alert("Error generating ZIP file. Please try again.");
-    } finally {
-        hideLoading();
-    }
-});
+        // Make grid items clickable to toggle selection
+        document.addEventListener('click', function(e) {
+            const gridItem = e.target.closest('.grid-item');
+            if (gridItem) {
+                const checkbox = gridItem.querySelector('.carousel-checkbox');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    e.preventDefault();
+                }
+            }
+        });
     }
 
     // Initialize grid for a specific case type
