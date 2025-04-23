@@ -462,6 +462,15 @@
             box-shadow: var(--shadow);
             margin-bottom: 40px;
         }
+
+    /* Product Sections */
+    .product-section {
+        display: none;
+    }
+    
+    .product-section.active {
+        display: block;
+    }
         
         .coming-soon h2 {
             font-size: 32px;
@@ -630,7 +639,6 @@
                 <div class="stand-option" data-stand="heart">Heart</div>
                 <div class="stand-option" data-stand="fold">Fold</div>
              </div>
-            </div>
         </section>
         
         <!-- Controls Section (initially hidden) -->
@@ -1067,11 +1075,13 @@
         }
     };
 
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        // Set up event listeners
-        setupEventListeners();
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Show phone cases by default
+    document.querySelector('.product-category-link[data-category="phone-cases"]').click();
+});
 
     // Set up all event listeners
     function setupEventListeners() {
@@ -1093,7 +1103,6 @@
                 cottonBagsTypes.style.display = 'none';
                 acrylicBlocksTypes.style.display = 'none';
                 plaquesStandSelection.style.display = 'none';
-                cottonBagColorSelection.style.display = 'none';
                 
                 if (category === 'phone-cases') {
                     phoneCasesTypes.style.display = 'flex';
@@ -1129,7 +1138,6 @@
                 }
                 else if (category === 'cotton-bags') {
                     cottonBagsTypes.style.display = 'flex';
-                    cottonBagColorSelection.style.display = 'flex';
                     controlsSection.style.display = 'block';
                     mainMockupContainer.style.display = 'inline-block';
                     gridWrapper.style.display = 'block';
