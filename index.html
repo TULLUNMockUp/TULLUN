@@ -682,35 +682,6 @@
                 <!-- Grid items will be populated by JavaScript -->
             </div>
         </div>
-        
-        <!-- Other Product Sections (initially hidden) -->
-        <div id="plaques" class="product-section">
-            <div class="coming-soon">
-                <h2>Plaque Mockups</h2>
-                <p>Select a plaque type from the options above to see mockups.</p>
-            </div>
-        </div>
-        
-        <div id="airpods-cases" class="product-section">
-            <div class="coming-soon">
-                <h2>AirPods Case Mockups</h2>
-                <p>Select an AirPods case type from the options above to see mockups.</p>
-            </div>
-        </div>
-        
-        <div id="cotton-bags" class="product-section">
-            <div class="coming-soon">
-                <h2>Cotton Bag Mockups</h2>
-                <p>Select a color from the options above to see mockups.</p>
-            </div>
-        </div>
-        
-        <div id="acrylic-blocks" class="product-section">
-            <div class="coming-soon">
-                <h2>Acrylic Block Mockups</h2>
-                <p>Select an acrylic block type from the options above to see mockups.</p>
-            </div>
-        </div>
     </main>
     
     <!-- Loading Overlay -->
@@ -738,7 +709,6 @@
     const cottonBagsTypes = document.getElementById('cotton-bags-types');
     const acrylicBlocksTypes = document.getElementById('acrylic-blocks-types');
     const plaquesStandSelection = document.getElementById('plaques-stand-selection');
-    const cottonBagColorSelection = document.getElementById('cotton-bag-color-selection');
     const gridContainer = document.querySelector('.grid-container');
     
     // State variables
@@ -1078,31 +1048,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners
     setupEventListeners();
-    
-    // Show phone cases by default
-    document.querySelector('.product-category-link[data-category="phone-cases"]').click();
 });
 
     // Set up all event listeners
     function setupEventListeners() {
         // Product category selection
-        productCategoryLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Update active category link
-                productCategoryLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                const category = this.dataset.category;
-                
-                // Show/hide product type selection based on category
-                phoneCasesTypes.style.display = 'none';
-                plaquesTypes.style.display = 'none';
-                airpodsCasesTypes.style.display = 'none';
-                cottonBagsTypes.style.display = 'none';
-                acrylicBlocksTypes.style.display = 'none';
-                plaquesStandSelection.style.display = 'none';
+ productCategoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Update active category link
+        productCategoryLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.dataset.category;
+        
+        // Show/hide product type selection based on category
+        phoneCasesTypes.style.display = 'none';
+        plaquesTypes.style.display = 'none';
+        airpodsCasesTypes.style.display = 'none';
+        cottonBagsTypes.style.display = 'none';
+        acrylicBlocksTypes.style.display = 'none';
+        plaquesStandSelection.style.display = 'none';
                 
                 if (category === 'phone-cases') {
                     phoneCasesTypes.style.display = 'flex';
