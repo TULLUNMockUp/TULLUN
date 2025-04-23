@@ -621,6 +621,21 @@
             .coming-soon p {
                 font-size: 16px;
             }
+
+    #main-mockup-container {
+        display: none; /* Keep hidden by default */
+        margin: 20px auto;
+    }
+    
+    .grid-wrapper {
+        display: none; /* Keep hidden by default */
+    }
+    
+    #controls {
+        display: none; /* Keep hidden by default */
+    }
+</style>
+
         }
     </style>
 </head>
@@ -1179,35 +1194,42 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Product type selection (for all product types)
-        productTypeLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Update active type link
-                const container = this.closest('.product-type-container');
-                container.querySelectorAll('.product-type-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                currentCaseType = this.dataset.case;
-                
-                // Update main mockup
-                updateMainMockup(currentCaseType);
-                
-                // Update grid for the selected case type
-                initializeGrid(currentCaseType);
-                
-                // Update design positions if an image is already uploaded
-                if (uploadedImage.src) {
-                    document.querySelectorAll('.user-design').forEach(design => {
-                        if (design.src) {
-                            design.style.display = 'block';
-                            updateDesignPosition(design);
-                        }
-                    });
-                }
-            });
+    // Modify the product type click handler in the setupEventListeners function
+    productTypeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Update active type link
+            const container = this.closest('.product-type-container');
+            container.querySelectorAll('.product-type-link').forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            
+            currentCaseType = this.dataset.case;
+            
+            // Show controls and main mockup
+            controlsSection.style.display = 'block';
+            mainMockupContainer.style.display = 'inline-block';
+            
+            // Hide grid wrapper initially
+            gridWrapper.style.display = 'none';
+            
+            // Update main mockup
+            updateMainMockup(currentCaseType);
+            
+            // Update grid for the selected case type (but keep hidden)
+            initializeGrid(currentCaseType);
+            
+            // Update design positions if an image is already uploaded
+            if (uploadedImage.src) {
+                document.querySelectorAll('.user-design').forEach(design => {
+                    if (design.src) {
+                        design.style.display = 'block';
+                        updateDesignPosition(design);
+                    }
+                });
+            }
         });
+    });
 
         // Plaque stand selection
         plaquesStandSelection.querySelectorAll('.stand-option').forEach(option => {
