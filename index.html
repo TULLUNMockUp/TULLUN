@@ -587,8 +587,8 @@
                 <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
                 <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
                 <a href="#" class="product-category-link" data-category="airpods-cases">AirPods Cases</a>
-                <a href="#" class="product-category-link" data-category="tshirts">T-Shirts</a>
-                <a href="#" class="product-category-link" data-category="bags">Bags</a>
+                <a href="#" class="product-category-link" data-category="cotton-bags">Cotton Bags</a>
+                <a href="#" class="product-category-link" data-category="acrylic-blocks">Acrylic Blocks</a>
             </div>
             
             <!-- Product Type Selection (initially hidden) -->
@@ -611,23 +611,17 @@
 
             <!-- AirPods Cases Type Selection -->
             <div id="airpods-cases-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="airpods-1-2">AirPods 1 / 2</a>
-                <a href="#" class="product-type-link" data-case="airpods-3">AirPods 3</a>
-                <a href="#" class="product-type-link" data-case="airpods-4">AirPods 4</a>
-                <a href="#" class="product-type-link" data-case="airpods-pro">AirPods Pro</a>
-                <a href="#" class="product-type-link" data-case="airpods-pro-2">AirPods Pro 2</a>
+                <a href="#" class="product-type-link" data-case="airpods-cases">AirPods Cases</a>
             </div>
 
-            <!-- T-Shirts Type Selection -->
-            <div id="tshirts-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="tshirt-unisex">Unisex T-Shirt</a>
+            <!-- Cotton Bags Type Selection -->
+            <div id="cotton-bags-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="cotton-bag-50x75">Cotton Bag 50x75cm</a>
             </div>
 
-            <!-- Bags Type Selection -->
-            <div id="bags-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="makeup-bag-s">Makeup Bag S</a>
-                <a href="#" class="product-type-link" data-case="makeup-bag-m">Makeup Bag M</a>
-                <a href="#" class="product-type-link" data-case="makeup-bag-l">Makeup Bag L</a>
+            <!-- Acrylic Blocks Type Selection -->
+            <div id="acrylic-blocks-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="acrylic-block-10x10">Acrylic Block 10x10cm</a>
             </div>
 
             <!-- Plaques Stand Selection -->
@@ -635,58 +629,7 @@
                 <div class="stand-option" data-stand="paw">Paw</div>
                 <div class="stand-option" data-stand="heart">Heart</div>
                 <div class="stand-option" data-stand="fold">Fold</div>
-            </div>
-
-            <!-- T-Shirt Color Selection -->
-            <div id="tshirt-color-selection" class="color-size-container">
-                <div class="color-option" data-color="black">
-                    <span class="color-preview" style="background-color: #000;"></span>
-                    Black
-                </div>
-                <div class="color-option" data-color="white">
-                    <span class="color-preview" style="background-color: #fff;"></span>
-                    White
-                </div>
-                <div class="color-option" data-color="melange">
-                    <span class="color-preview" style="background-color: #ccc;"></span>
-                    Melange
-                </div>
-                <div class="color-option" data-color="navy">
-                    <span class="color-preview" style="background-color: #001f3f;"></span>
-                    Navy
-                </div>
-                <div class="color-option" data-color="fuchsia-pink">
-                    <span class="color-preview" style="background-color: #ff66b2;"></span>
-                    Fuchsia Pink
-                </div>
-                <div class="color-option" data-color="dark-heather">
-                    <span class="color-preview" style="background-color: #616161;"></span>
-                    Dark Heather
-                </div>
-                <div class="color-option" data-color="military-green">
-                    <span class="color-preview" style="background-color: #4b5320;"></span>
-                    Military Green
-                </div>
-                <div class="color-option" data-color="light-royal-blue">
-                    <span class="color-preview" style="background-color: #5d8aa8;"></span>
-                    Light Royal Blue
-                </div>
-            </div>
-
-            <!-- Bag Color and Size Selection -->
-            <div id="bag-color-selection" class="color-size-container">
-                <div class="color-option" data-color="black">
-                    <span class="color-preview" style="background-color: #000;"></span>
-                    Black
-                </div>
-                <div class="color-option" data-color="navy">
-                    <span class="color-preview" style="background-color: #001f3f;"></span>
-                    Navy
-                </div>
-                <div class="color-option" data-color="natural">
-                    <span class="color-preview" style="background-color: #f5f5dc;"></span>
-                    Natural
-                </div>
+             </div>
             </div>
         </section>
         
@@ -694,7 +637,7 @@
         <div id="controls">
             <div class="controls-row">
                 <div class="file-upload-wrapper">
-                    <input type="file" id="image-upload" accept="image/png">
+                    <input type="file" id="image-upload" accept="image/*">
                     <button class="file-upload-btn">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
@@ -747,17 +690,17 @@
             </div>
         </div>
         
-        <div id="tshirts" class="product-section">
+        <div id="cotton-bags" class="product-section">
             <div class="coming-soon">
-                <h2>T-Shirt Mockups</h2>
+                <h2>Cotton Bag Mockups</h2>
                 <p>Select a color from the options above to see mockups.</p>
             </div>
         </div>
         
-        <div id="bags" class="product-section">
+        <div id="acrylic-blocks" class="product-section">
             <div class="coming-soon">
-                <h2>Bag Mockups</h2>
-                <p>Select a bag type and color from the options above to see mockups.</p>
+                <h2>Acrylic Block Mockups</h2>
+                <p>Select an acrylic block type from the options above to see mockups.</p>
             </div>
         </div>
     </main>
@@ -784,11 +727,10 @@
     const phoneCasesTypes = document.getElementById('phone-cases-types');
     const plaquesTypes = document.getElementById('plaques-types');
     const airpodsCasesTypes = document.getElementById('airpods-cases-types');
-    const tshirtsTypes = document.getElementById('tshirts-types');
-    const bagsTypes = document.getElementById('bags-types');
+    const cottonBagsTypes = document.getElementById('cotton-bags-types');
+    const acrylicBlocksTypes = document.getElementById('acrylic-blocks-types');
     const plaquesStandSelection = document.getElementById('plaques-stand-selection');
-    const tshirtColorSelection = document.getElementById('tshirt-color-selection');
-    const bagColorSelection = document.getElementById('bag-color-selection');
+    const cottonBagColorSelection = document.getElementById('cotton-bag-color-selection');
     const gridContainer = document.querySelector('.grid-container');
     
     // State variables
@@ -796,8 +738,6 @@
     const mockupCache = new Map();
     let currentCaseType = 'samsung-tpu';
     let currentStandType = 'paw';
-    let currentTshirtColor = 'black';
-    let currentBagColor = 'black';
 
     // Mockup data structure for all products
     const mockupData = {
@@ -1089,177 +1029,39 @@
         },
 
         // AirPods Cases
-        'airpods-1-2': {
-            name: "AirPods 1 / 2 Case",
+        'airpods-cases': {
+            name: "AirPods Cases",
             main: {
-                bg: 'mockups/airpods/airpods-1-2-main.png',
-                overlay: 'mockups/airpods/airpods-1-2-overlay.png',
-                fullresBg: 'mockups/airpods/originals/airpods-1-2-main.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-1-2-overlay.png',
+                bg: 'mockups/airpods/airpods-main.png',
+                overlay: 'mockups/airpods/airpods-overlay.png',
+                fullresBg: 'mockups/airpods/originals/airpods-main.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-overlay.png',
                 designX: 50,
                 designY: 50,
                 designScale: 90,
                 designRotation: 0
             },
             views: [
-                { id: 1, bg: 'mockups/airpods/airpods-1-2-view1.png', overlay: 'mockups/airpods/airpods-1-2-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-1-2-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-1-2-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
-            ]
-        },
-        'airpods-3': {
-            name: "AirPods 3 Case",
-            main: {
-                bg: 'mockups/airpods/airpods-3-main.png',
-                overlay: 'mockups/airpods/airpods-3-overlay.png',
-                fullresBg: 'mockups/airpods/originals/airpods-3-main.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-3-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/airpods/airpods-3-view1.png', overlay: 'mockups/airpods/airpods-3-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-3-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-3-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
-            ]
-        },
-        'airpods-4': {
-            name: "AirPods 4 Case",
-            main: {
-                bg: 'mockups/airpods/airpods-4-main.png',
-                overlay: 'mockups/airpods/airpods-4-overlay.png',
-                fullresBg: 'mockups/airpods/originals/airpods-4-main.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-4-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/airpods/airpods-4-view1.png', overlay: 'mockups/airpods/airpods-4-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-4-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-4-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
-            ]
-        },
-        'airpods-pro': {
-            name: "AirPods Pro Case",
-            main: {
-                bg: 'mockups/airpods/airpods-pro-main.png',
-                overlay: 'mockups/airpods/airpods-pro-overlay.png',
-                fullresBg: 'mockups/airpods/originals/airpods-pro-main.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-pro-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/airpods/airpods-pro-view1.png', overlay: 'mockups/airpods/airpods-pro-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-pro-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-pro-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
-            ]
-        },
-        'airpods-pro-2': {
-            name: "AirPods Pro 2 Case",
-            main: {
-                bg: 'mockups/airpods/airpods-pro-2-main.png',
-                overlay: 'mockups/airpods/airpods-pro-2-overlay.png',
-                fullresBg: 'mockups/airpods/originals/airpods-pro-2-main.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-pro-2-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/airpods/airpods-pro-2-view1.png', overlay: 'mockups/airpods/airpods-pro-2-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-pro-2-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-pro-2-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 // ... up to 10 views
             ]
         },
 
-        // T-Shirts
-        'tshirt-classic': {
-            name: "Classic T-Shirt",
-            main: {
-                bg: 'mockups/tshirts/black-main.png',
-                overlay: 'mockups/tshirts/black-overlay.png',
-                fullresBg: 'mockups/tshirts/originals/black-main.png',
-                fullresOverlay: 'mockups/tshirts/originals/black-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/tshirts/black-view1.png', overlay: 'mockups/tshirts/black-view1-overlay.png', fullresBg: 'mockups/tshirts/originals/black-view1.png', fullresOverlay: 'mockups/tshirts/originals/black-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views (same for all colors)
-            ]
-        },
-
-        // Bags
+        // Cotton Bags
         'cotton-bag-50x75': {
             name: "Cotton Bag 50x75cm",
             main: {
-                bg: 'mockups/bags/cotton-black-main.png',
-                overlay: 'mockups/bags/cotton-black-overlay.png',
-                fullresBg: 'mockups/bags/originals/cotton-black-main.png',
-                fullresOverlay: 'mockups/bags/originals/cotton-black-overlay.png',
+                bg: 'mockups/bags/cotton-main.png',
+                overlay: 'mockups/bags/cotton-overlay.png',
+                fullresBg: 'mockups/bags/originals/cotton-main.png',
+                fullresOverlay: 'mockups/bags/originals/cotton-overlay.png',
                 designX: 50,
                 designY: 50,
                 designScale: 90,
                 designRotation: 0
             },
             views: [
-                { id: 1, bg: 'mockups/bags/cotton-black-view1.png', overlay: 'mockups/bags/cotton-black-view1-overlay.png', fullresBg: 'mockups/bags/originals/cotton-black-view1.png', fullresOverlay: 'mockups/bags/originals/cotton-black-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views (same for all colors)
-            ]
-        },
-        'makeup-bag-s': {
-            name: "Makeup Bag S",
-            main: {
-                bg: 'mockups/bags/makeup-black-s-main.png',
-                overlay: 'mockups/bags/makeup-black-s-overlay.png',
-                fullresBg: 'mockups/bags/originals/makeup-black-s-main.png',
-                fullresOverlay: 'mockups/bags/originals/makeup-black-s-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/bags/makeup-black-s-view1.png', overlay: 'mockups/bags/makeup-black-s-view1-overlay.png', fullresBg: 'mockups/bags/originals/makeup-black-s-view1.png', fullresOverlay: 'mockups/bags/originals/makeup-black-s-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views (same for all colors)
-            ]
-        },
-        'makeup-bag-m': {
-            name: "Makeup Bag M",
-            main: {
-                bg: 'mockups/bags/makeup-black-m-main.png',
-                overlay: 'mockups/bags/makeup-black-m-overlay.png',
-                fullresBg: 'mockups/bags/originals/makeup-black-m-main.png',
-                fullresOverlay: 'mockups/bags/originals/makeup-black-m-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/bags/makeup-black-m-view1.png', overlay: 'mockups/bags/makeup-black-m-view1-overlay.png', fullresBg: 'mockups/bags/originals/makeup-black-m-view1.png', fullresOverlay: 'mockups/bags/originals/makeup-black-m-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views (same for all colors)
-            ]
-        },
-        'makeup-bag-l': {
-            name: "Makeup Bag L",
-            main: {
-                bg: 'mockups/bags/makeup-black-l-main.png',
-                overlay: 'mockups/bags/makeup-black-l-overlay.png',
-                fullresBg: 'mockups/bags/originals/makeup-black-l-main.png',
-                fullresOverlay: 'mockups/bags/originals/makeup-black-l-overlay.png',
-                designX: 50,
-                designY: 50,
-                designScale: 90,
-                designRotation: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/bags/makeup-black-l-view1.png', overlay: 'mockups/bags/makeup-black-l-view1-overlay.png', fullresBg: 'mockups/bags/originals/makeup-black-l-view1.png', fullresOverlay: 'mockups/bags/originals/makeup-black-l-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 1, bg: 'mockups/bags/cotton-view1.png', overlay: 'mockups/bags/cotton-view1-overlay.png', fullresBg: 'mockups/bags/originals/cotton-view1.png', fullresOverlay: 'mockups/bags/originals/cotton-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 // ... up to 10 views (same for all colors)
             ]
         }
@@ -1288,11 +1090,10 @@
                 phoneCasesTypes.style.display = 'none';
                 plaquesTypes.style.display = 'none';
                 airpodsCasesTypes.style.display = 'none';
-                tshirtsTypes.style.display = 'none';
-                bagsTypes.style.display = 'none';
+                cottonBagsTypes.style.display = 'none';
+                acrylicBlocksTypes.style.display = 'none';
                 plaquesStandSelection.style.display = 'none';
-                tshirtColorSelection.style.display = 'none';
-                bagColorSelection.style.display = 'none';
+                cottonBagColorSelection.style.display = 'none';
                 
                 if (category === 'phone-cases') {
                     phoneCasesTypes.style.display = 'flex';
@@ -1321,34 +1122,31 @@
                     mainMockupContainer.style.display = 'inline-block';
                     gridWrapper.style.display = 'block';
                     
-                    // Initialize with first AirPods case type
-                    currentCaseType = 'airpods-1-2';
+                    // Initialize with AirPods case type
+                    currentCaseType = 'airpods-cases';
                     updateMainMockup(currentCaseType);
                     initializeGrid(currentCaseType);
                 }
-                else if (category === 'tshirts') {
-                    tshirtsTypes.style.display = 'flex';
-                    tshirtColorSelection.style.display = 'flex';
+                else if (category === 'cotton-bags') {
+                    cottonBagsTypes.style.display = 'flex';
+                    cottonBagColorSelection.style.display = 'flex';
                     controlsSection.style.display = 'block';
                     mainMockupContainer.style.display = 'inline-block';
                     gridWrapper.style.display = 'block';
                     
-                    // Initialize with first T-Shirt type and default color
-                    currentCaseType = 'tshirt-classic';
-                    currentTshirtColor = 'black';
-                    updateMainMockup(currentCaseType);
-                    initializeGrid(currentCaseType);
-                }
-                else if (category === 'bags') {
-                    bagsTypes.style.display = 'flex';
-                    bagColorSelection.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize with first bag type and default color
+                    // Initialize with cotton bag type and default color
                     currentCaseType = 'cotton-bag-50x75';
-                    currentBagColor = 'black';
+                    updateMainMockup(currentCaseType);
+                    initializeGrid(currentCaseType);
+                }
+                else if (category === 'acrylic-blocks') {
+                    acrylicBlocksTypes.style.display = 'flex';
+                    controlsSection.style.display = 'block';
+                    mainMockupContainer.style.display = 'inline-block';
+                    gridWrapper.style.display = 'block';
+                    
+                    // Initialize with acrylic block type
+                    currentCaseType = 'acrylic-block-10x10';
                     updateMainMockup(currentCaseType);
                     initializeGrid(currentCaseType);
                 }
@@ -1404,42 +1202,10 @@
             });
         });
 
-        // T-Shirt color selection
-        tshirtColorSelection.querySelectorAll('.color-option').forEach(option => {
-            option.addEventListener('click', function() {
-                tshirtColorSelection.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-                currentTshirtColor = this.dataset.color;
-                
-                // Update mockups with new color
-                updateMainMockup(currentCaseType);
-                initializeGrid(currentCaseType);
-            });
-        });
-
-        // Bag color selection
-        bagColorSelection.querySelectorAll('.color-option').forEach(option => {
-            option.addEventListener('click', function() {
-                bagColorSelection.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-                currentBagColor = this.dataset.color;
-                
-                // Update mockups with new color
-                updateMainMockup(currentCaseType);
-                initializeGrid(currentCaseType);
-            });
-        });
-
         // Image upload handler
         imageUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
-            // Check file type
-            if (!file.type.match('image/png')) {
-                alert('Please upload a PNG file');
-                return;
-            }
             
             showLoading("Loading your design...");
             
@@ -1447,13 +1213,6 @@
             reader.onload = function(e) {
                 const testImage = new Image();
                 testImage.onload = function() {
-                    // Check image dimensions
-                    if (this.width !== 750 || this.height !== 1590) {
-                        hideLoading();
-                        alert('Image dimensions should be 750x1590 pixels');
-                        return;
-                    }
-                    
                     // Update all designs with the new image
                     document.querySelectorAll('.user-design').forEach(design => {
                         design.src = e.target.result;
@@ -1623,27 +1382,8 @@
                 fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
                 fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
             }
-            // Handle T-Shirt colors
-            else if (caseType.includes('tshirt')) {
-                bgPath = view.bg.replace('black', currentTshirtColor);
-                overlayPath = view.overlay.replace('black', currentTshirtColor);
-                fullresBgPath = view.fullresBg.replace('black', currentTshirtColor);
-                fullresOverlayPath = view.fullresOverlay.replace('black', currentTshirtColor);
-            }
-            // Handle bag colors
-            else if (caseType.includes('bag')) {
-                if (caseType.includes('cotton')) {
-                    bgPath = view.bg.replace('black', currentBagColor);
-                    overlayPath = view.overlay.replace('black', currentBagColor);
-                    fullresBgPath = view.fullresBg.replace('black', currentBagColor);
-                    fullresOverlayPath = view.fullresOverlay.replace('black', currentBagColor);
-                } else if (caseType.includes('makeup')) {
-                    const size = caseType.split('-').pop();
-                    bgPath = view.bg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-                    overlayPath = view.overlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-                    fullresBgPath = view.fullresBg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-                    fullresOverlayPath = view.fullresOverlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-                }
+            // Handle cotton bag colors
+            else if (caseType.includes('cotton-bag')) {
             }
             
             gridItem.innerHTML = `
@@ -1679,10 +1419,10 @@
             return 'plaque';
         } else if (caseType.includes('airpods')) {
             return 'airpods';
-        } else if (caseType.includes('tshirt')) {
-            return 'tshirt';
-        } else if (caseType.includes('bag')) {
+        } else if (caseType.includes('cotton-bag')) {
             return 'bag';
+        } else if (caseType.includes('acrylic-block')) {
+            return 'plaque'; // Using same class as plaques since they're similar
         }
         return 'phone-case'; // default
     }
@@ -1707,27 +1447,8 @@
             fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
             fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
         }
-        // Handle T-Shirt colors
-        else if (caseType.includes('tshirt')) {
-            bgPath = mainMockup.bg.replace('black', currentTshirtColor);
-            overlayPath = mainMockup.overlay.replace('black', currentTshirtColor);
-            fullresBgPath = mainMockup.fullresBg.replace('black', currentTshirtColor);
-            fullresOverlayPath = mainMockup.fullresOverlay.replace('black', currentTshirtColor);
-        }
-        // Handle bag colors
-        else if (caseType.includes('bag')) {
-            if (caseType.includes('cotton')) {
-                bgPath = mainMockup.bg.replace('black', currentBagColor);
-                overlayPath = mainMockup.overlay.replace('black', currentBagColor);
-                fullresBgPath = mainMockup.fullresBg.replace('black', currentBagColor);
-                fullresOverlayPath = mainMockup.fullresOverlay.replace('black', currentBagColor);
-            } else if (caseType.includes('makeup')) {
-                const size = caseType.split('-').pop();
-                bgPath = mainMockup.bg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-                overlayPath = mainMockup.overlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-                fullresBgPath = mainMockup.fullresBg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-                fullresOverlayPath = mainMockup.fullresOverlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
-            }
+        // Handle cotton bag colors
+        else if (caseType.includes('cotton-bag')) {
         }
         
         // Clear the mockup container and recreate with correct classes
@@ -1797,8 +1518,8 @@
             const ctx = canvas.getContext('2d');
 
             // Load high-res originals for download
-            const bgElement = container.querySelector('.phone-case-bg, .tshirt-bg, .bag-bg, .plaque-bg, .airpods-bg');
-            const overlayElement = container.querySelector('.phone-case-overlay, .tshirt-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay');
+            const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg');
+            const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay');
             
             if (!bgElement || !overlayElement) {
                 throw new Error("Could not find required elements for mockup generation");
