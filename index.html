@@ -446,6 +446,51 @@
             cursor: pointer;
         }
         
+/* Add this to your CSS */
+.carousel-checkbox {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 4;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    opacity: 0; /* Make checkbox invisible but still clickable */
+}
+
+/* Style for the custom checkbox indicator */
+.carousel-checkbox-indicator {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+    width: 20px;
+    height: 20px;
+    background-color: var(--card-bg);
+    border-radius: 4px;
+    border: 2px solid var(--primary-color);
+    pointer-events: none; /* Don't interfere with checkbox clicks */
+}
+
+.carousel-checkbox:checked + .carousel-checkbox-indicator {
+    background-color: var(--primary-color);
+}
+
+.carousel-checkbox:checked + .carousel-checkbox-indicator::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+}
+
+/* Add border to selected grid items */
+.grid-item.selected {
+    box-shadow: 0 0 0 3px var(--primary-color);
+}
+
         .mockup-label {
             padding: 16px;
             font-size: 15px;
@@ -1318,73 +1363,83 @@ document.addEventListener('DOMContentLoaded', function() {
                 hideLoading();
             }
         });
-        
-        // Make grid items clickable to toggle selection
-        document.addEventListener('click', function(e) {
-            const gridItem = e.target.closest('.grid-item');
-            if (gridItem) {
-                const checkbox = gridItem.querySelector('.carousel-checkbox');
-                if (checkbox) {
-                    checkbox.checked = !checkbox.checked;
-                    e.preventDefault();
-                }
-            }
-        });
     }
 
     // Initialize grid for a specific case type
-    function initializeGrid(caseType) {
-        gridContainer.innerHTML = '';
+function initializeGrid(caseType) {
+    gridContainer.innerHTML = '';
+    
+    const caseData = mockupData[caseType];
+    if (!caseData) return;
+    
+    caseData.views.forEach(view => {
+        const gridItem = document.createElement('div');
+        gridItem.className = 'grid-item';
+        gridItem.dataset.view = view.id;
         
-        const caseData = mockupData[caseType];
-        if (!caseData) return;
+        // Determine the correct image paths based on product type and selections
+        let bgPath = view.bg;
+        let overlayPath = view.overlay;
+        let fullresBgPath = view.fullresBg;
+        let fullresOverlayPath = view.fullresOverlay;
         
-        caseData.views.forEach(view => {
-            const gridItem = document.createElement('div');
-            gridItem.className = 'grid-item';
-            gridItem.dataset.view = view.id;
-            
-            // Determine the correct image paths based on product type and selections
-            let bgPath = view.bg;
-            let overlayPath = view.overlay;
-            let fullresBgPath = view.fullresBg;
-            let fullresOverlayPath = view.fullresOverlay;
-            
-            // Handle plaques with different stands
-            if (caseType.includes('plaque')) {
-                bgPath = bgPath.replace('slate-', `slate-${currentStandType}-`);
-                overlayPath = overlayPath.replace('slate-', `slate-${currentStandType}-`);
-                fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
-                fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
-            }
-            // Handle cotton bag colors
-            else if (caseType.includes('cotton-bag')) {
-            }
-            
-            gridItem.innerHTML = `
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" data-view="${view.id}">
-                    <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
-                    <div class="design-area">
-                        <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
-                             data-x="${view.designX}" data-y="${view.designY}" 
-                             data-scale="${view.designScale}" data-rotation="${view.designRotation}"
-                             style="display: ${uploadedImage.src ? 'block' : 'none'}">
-                    </div>
-                    <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
+        // Handle plaques with different stands
+        if (caseType.includes('plaque')) {
+            bgPath = bgPath.replace('slate-', `slate-${currentStandType}-`);
+            overlayPath = overlayPath.replace('slate-', `slate-${currentStandType}-`);
+            fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
+            fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
+        }
+        
+        gridItem.innerHTML = `
+            <div class="secondary-mockup">
+                <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}">
+                <div class="carousel-checkbox-indicator"></div>
+                <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
+                <div class="design-area">
+                    <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
+                         data-x="${view.designX}" data-y="${view.designY}" 
+                         data-scale="${view.designScale}" data-rotation="${view.designRotation}"
+                         style="display: ${uploadedImage.src ? 'block' : 'none'}">
                 </div>
-                <div class="mockup-label">View ${view.id}</div>
-            `;
+                <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
+            </div>
+            <div class="mockup-label">View ${view.id}</div>
+        `;
+        
+        gridContainer.appendChild(gridItem);
+        
+        // Update design position if image is already uploaded
+        if (uploadedImage.src) {
+            const design = gridItem.querySelector('.user-design');
+            updateDesignPosition(design);
+        }
+        
+        // Add click handler for the entire grid item
+        gridItem.addEventListener('click', function(e) {
+            // Don't toggle if clicking directly on the checkbox (it will handle itself)
+            if (e.target.classList.contains('carousel-checkbox')) {
+                return;
+            }
             
-            gridContainer.appendChild(gridItem);
-            
-            // Update design position if image is already uploaded
-            if (uploadedImage.src) {
-                const design = gridItem.querySelector('.user-design');
-                updateDesignPosition(design);
+            const checkbox = this.querySelector('.carousel-checkbox');
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected', checkbox.checked);
+                
+                // Trigger change event manually since we're changing checked state programmatically
+                const event = new Event('change');
+                checkbox.dispatchEvent(event);
             }
         });
-    }
+        
+        // Add change handler for the checkbox
+        const checkbox = gridItem.querySelector('.carousel-checkbox');
+        checkbox.addEventListener('change', function() {
+            gridItem.classList.toggle('selected', this.checked);
+        });
+    });
+}
 
     // Helper function to get the appropriate image class based on product type
     function getImageClass(caseType) {
