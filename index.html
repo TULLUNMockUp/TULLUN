@@ -317,29 +317,6 @@
             width: 100%;
         }
 
-        /* Add to the existing CSS */
-.toggle-btn {
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.toggle-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.controls-row label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-}
-
-.controls-row input[type="range"] {
-    width: 100px;
-}
-
         /* Mockup Container */
         #main-mockup-container {
             position: relative;
@@ -469,51 +446,6 @@
             cursor: pointer;
         }
         
-/* Add this to your CSS */
-.carousel-checkbox {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 4;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    opacity: 0; /* Make checkbox invisible but still clickable */
-}
-
-/* Style for the custom checkbox indicator */
-.carousel-checkbox-indicator {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 3;
-    width: 20px;
-    height: 20px;
-    background-color: var(--card-bg);
-    border-radius: 4px;
-    border: 2px solid var(--primary-color);
-    pointer-events: none; /* Don't interfere with checkbox clicks */
-}
-
-.carousel-checkbox:checked + .carousel-checkbox-indicator {
-    background-color: var(--primary-color);
-}
-
-.carousel-checkbox:checked + .carousel-checkbox-indicator::after {
-    content: "✓";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 14px;
-}
-
-/* Add border to selected grid items */
-.grid-item.selected {
-    box-shadow: 0 0 0 3px var(--primary-color);
-}
-
         .mockup-label {
             padding: 16px;
             font-size: 15px;
@@ -530,15 +462,6 @@
             box-shadow: var(--shadow);
             margin-bottom: 40px;
         }
-
-    /* Product Sections */
-    .product-section {
-        display: none;
-    }
-    
-    .product-section.active {
-        display: block;
-    }
         
         .coming-soon h2 {
             font-size: 32px;
@@ -644,21 +567,6 @@
             .coming-soon p {
                 font-size: 16px;
             }
-
-    #main-mockup-container {
-        display: none; /* Keep hidden by default */
-        margin: 20px auto;
-    }
-    
-    .grid-wrapper {
-        display: none; /* Keep hidden by default */
-    }
-    
-    #controls {
-        display: none; /* Keep hidden by default */
-    }
-</style>
-
         }
     </style>
 </head>
@@ -679,8 +587,8 @@
                 <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
                 <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
                 <a href="#" class="product-category-link" data-category="airpods-cases">AirPods Cases</a>
-                <a href="#" class="product-category-link" data-category="cotton-bags">Cotton Bags</a>
-                <a href="#" class="product-category-link" data-category="acrylic-blocks">Acrylic Blocks</a>
+                <a href="#" class="product-category-link" data-category="tshirts">T-Shirts</a>
+                <a href="#" class="product-category-link" data-category="bags">Bags</a>
             </div>
             
             <!-- Product Type Selection (initially hidden) -->
@@ -703,17 +611,82 @@
 
             <!-- AirPods Cases Type Selection -->
             <div id="airpods-cases-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="airpods-cases">AirPods Cases</a>
+                <a href="#" class="product-type-link" data-case="airpods-1-2">AirPods 1 / 2</a>
+                <a href="#" class="product-type-link" data-case="airpods-3">AirPods 3</a>
+                <a href="#" class="product-type-link" data-case="airpods-4">AirPods 4</a>
+                <a href="#" class="product-type-link" data-case="airpods-pro">AirPods Pro</a>
+                <a href="#" class="product-type-link" data-case="airpods-pro-2">AirPods Pro 2</a>
             </div>
 
-            <!-- Cotton Bags Type Selection -->
-            <div id="cotton-bags-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="cotton-bag-50x75">Cotton Bag 50x75cm</a>
+            <!-- T-Shirts Type Selection -->
+            <div id="tshirts-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="tshirt-unisex">Unisex T-Shirt</a>
             </div>
 
-            <!-- Acrylic Blocks Type Selection -->
-            <div id="acrylic-blocks-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="acrylic-block-10x10">Acrylic Block 10x10cm</a>
+            <!-- Bags Type Selection -->
+            <div id="bags-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="makeup-bag-s">Makeup Bag S</a>
+                <a href="#" class="product-type-link" data-case="makeup-bag-m">Makeup Bag M</a>
+                <a href="#" class="product-type-link" data-case="makeup-bag-l">Makeup Bag L</a>
+            </div>
+
+            <!-- Plaques Stand Selection -->
+            <div id="plaques-stand-selection" class="color-size-container">
+                <div class="stand-option" data-stand="paw">Paw</div>
+                <div class="stand-option" data-stand="heart">Heart</div>
+                <div class="stand-option" data-stand="fold">Fold</div>
+            </div>
+
+            <!-- T-Shirt Color Selection -->
+            <div id="tshirt-color-selection" class="color-size-container">
+                <div class="color-option" data-color="black">
+                    <span class="color-preview" style="background-color: #000;"></span>
+                    Black
+                </div>
+                <div class="color-option" data-color="white">
+                    <span class="color-preview" style="background-color: #fff;"></span>
+                    White
+                </div>
+                <div class="color-option" data-color="melange">
+                    <span class="color-preview" style="background-color: #ccc;"></span>
+                    Melange
+                </div>
+                <div class="color-option" data-color="navy">
+                    <span class="color-preview" style="background-color: #001f3f;"></span>
+                    Navy
+                </div>
+                <div class="color-option" data-color="fuchsia-pink">
+                    <span class="color-preview" style="background-color: #ff66b2;"></span>
+                    Fuchsia Pink
+                </div>
+                <div class="color-option" data-color="dark-heather">
+                    <span class="color-preview" style="background-color: #616161;"></span>
+                    Dark Heather
+                </div>
+                <div class="color-option" data-color="military-green">
+                    <span class="color-preview" style="background-color: #4b5320;"></span>
+                    Military Green
+                </div>
+                <div class="color-option" data-color="light-royal-blue">
+                    <span class="color-preview" style="background-color: #5d8aa8;"></span>
+                    Light Royal Blue
+                </div>
+            </div>
+
+            <!-- Bag Color and Size Selection -->
+            <div id="bag-color-selection" class="color-size-container">
+                <div class="color-option" data-color="black">
+                    <span class="color-preview" style="background-color: #000;"></span>
+                    Black
+                </div>
+                <div class="color-option" data-color="navy">
+                    <span class="color-preview" style="background-color: #001f3f;"></span>
+                    Navy
+                </div>
+                <div class="color-option" data-color="natural">
+                    <span class="color-preview" style="background-color: #f5f5dc;"></span>
+                    Natural
+                </div>
             </div>
         </section>
         
@@ -721,7 +694,7 @@
         <div id="controls">
             <div class="controls-row">
                 <div class="file-upload-wrapper">
-                    <input type="file" id="image-upload" accept="image/*">
+                    <input type="file" id="image-upload" accept="image/png">
                     <button class="file-upload-btn">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
@@ -739,24 +712,11 @@
                 <button id="download-btn" disabled>Download Main Mockup</button>
                 <button id="download-zip-btn" disabled>Download Selected Views</button>
             </div>
-            <!-- Add these new controls in the controls section -->
-<div class="controls-row">
-    <button id="move-together-btn" class="toggle-btn active">Move Together</button>
-    <button id="undo-btn">Undo</button>
-</div>
-<div class="controls-row">
-    <label>Position X: <input type="range" id="pos-x" min="0" max="100" step="0.1"></label>
-    <label>Position Y: <input type="range" id="pos-y" min="0" max="100" step="0.1"></label>
-</div>
-<div class="controls-row">
-    <label>Scale: <input type="range" id="scale" min="10" max="200" step="0.1"></label>
-    <label>Rotation: <input type="range" id="rotation" min="-180" max="180" step="0.1"></label>
-</div>
         </div>
         
         <!-- Main Mockup Container (initially hidden) -->
-<div style="text-align: center; width: 100%;">
-    <div id="main-mockups-row" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+        <div style="text-align: center; width: 100%;">
+            <div id="main-mockup-container">
                 <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
@@ -769,6 +729,35 @@
         <div class="grid-wrapper">
             <div class="grid-container">
                 <!-- Grid items will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Other Product Sections (initially hidden) -->
+        <div id="plaques" class="product-section">
+            <div class="coming-soon">
+                <h2>Plaque Mockups</h2>
+                <p>Select a plaque type from the options above to see mockups.</p>
+            </div>
+        </div>
+        
+        <div id="airpods-cases" class="product-section">
+            <div class="coming-soon">
+                <h2>AirPods Case Mockups</h2>
+                <p>Select an AirPods case type from the options above to see mockups.</p>
+            </div>
+        </div>
+        
+        <div id="tshirts" class="product-section">
+            <div class="coming-soon">
+                <h2>T-Shirt Mockups</h2>
+                <p>Select a color from the options above to see mockups.</p>
+            </div>
+        </div>
+        
+        <div id="bags" class="product-section">
+            <div class="coming-soon">
+                <h2>Bag Mockups</h2>
+                <p>Select a bag type and color from the options above to see mockups.</p>
             </div>
         </div>
     </main>
@@ -795,17 +784,20 @@
     const phoneCasesTypes = document.getElementById('phone-cases-types');
     const plaquesTypes = document.getElementById('plaques-types');
     const airpodsCasesTypes = document.getElementById('airpods-cases-types');
-    const cottonBagsTypes = document.getElementById('cotton-bags-types');
-    const acrylicBlocksTypes = document.getElementById('acrylic-blocks-types');
+    const tshirtsTypes = document.getElementById('tshirts-types');
+    const bagsTypes = document.getElementById('bags-types');
+    const plaquesStandSelection = document.getElementById('plaques-stand-selection');
+    const tshirtColorSelection = document.getElementById('tshirt-color-selection');
+    const bagColorSelection = document.getElementById('bag-color-selection');
     const gridContainer = document.querySelector('.grid-container');
     
     // State variables
     let uploadedImage = new Image();
     const mockupCache = new Map();
     let currentCaseType = 'samsung-tpu';
-    let moveTogether = true;
-    let designHistory = [];
-    const MAX_HISTORY = 20;
+    let currentStandType = 'paw';
+    let currentTshirtColor = 'black';
+    let currentBagColor = 'black';
 
     // Mockup data structure for all products
     const mockupData = {
@@ -991,87 +983,37 @@
             ]
         },
 
-// Update the plaques in mockupData to include multiple main mockups
-'slate-plaque-10x10': {
-    name: "Slate Plaque 10x10cm",
-    main: [
-        {
-            id: 'main1',
-            bg: 'mockups/plaques/slate-10x10-main1.png',
-            overlay: 'mockups/plaques/slate-10x10-overlay1.png',
-            fullresBg: 'mockups/plaques/originals/slate-10x10-main1.png',
-            fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay1.png',
-            designX: 50,
-            designY: 50,
-            designScale: 90,
-            designRotation: 0
-        },
-        {
-            id: 'main2',
-            bg: 'mockups/plaques/slate-10x10-main2.png',
-            overlay: 'mockups/plaques/slate-10x10-overlay2.png',
-            fullresBg: 'mockups/plaques/originals/slate-10x10-main2.png',
-            fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay2.png',
-            designX: 50,
-            designY: 50,
-            designScale: 90,
-            designRotation: 0
-        },
-        {
-            id: 'main3',
-            bg: 'mockups/plaques/slate-10x10-main3.png',
-            overlay: 'mockups/plaques/slate-10x10-overlay3.png',
-            fullresBg: 'mockups/plaques/originals/slate-10x10-main3.png',
-            fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay3.png',
-            designX: 50,
-            designY: 50,
-            designScale: 90,
-            designRotation: 0
-        }
-    ],
+        // Plaques
+        'slate-plaque-10x10': {
+            name: "Slate Plaque 10x10cm",
+            main: {
+                bg: 'mockups/plaques/slate-10x10-main.png',
+                overlay: 'mockups/plaques/slate-10x10-overlay.png',
+                fullresBg: 'mockups/plaques/originals/slate-10x10-main.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
             views: [
                 { id: 1, bg: 'mockups/plaques/slate-10x10-view1.png', overlay: 'mockups/plaques/slate-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 { id: 2, bg: 'mockups/plaques/slate-10x10-view2.png', overlay: 'mockups/plaques/slate-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 // ... up to 10 views
             ]
         },
-'slate-plaque-15x15': {
-    name: "Slate Plaque 15x15cm",
-    main: [
-        {
-            id: 'main1',
-            bg: 'mockups/plaques/slate-15x15-main1.png',
-            overlay: 'mockups/plaques/slate-15x15-overlay1.png',
-            fullresBg: 'mockups/plaques/originals/slate-15x15-main1.png',
-            fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay1.png',
-            designX: 50,
-            designY: 50,
-            designScale: 90,
-            designRotation: 0
-        },
-        {
-            id: 'main2',
-            bg: 'mockups/plaques/slate-15x15-main2.png',
-            overlay: 'mockups/plaques/slate-15x15-overlay2.png',
-            fullresBg: 'mockups/plaques/originals/slate-15x15-main2.png',
-            fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay2.png',
-            designX: 50,
-            designY: 50,
-            designScale: 90,
-            designRotation: 0
-        },
-        {
-            id: 'main3',
-            bg: 'mockups/plaques/slate-15x15-main3.png',
-            overlay: 'mockups/plaques/slate-15x15-overlay3.png',
-            fullresBg: 'mockups/plaques/originals/slate-15x15-main3.png',
-            fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay3.png',
-            designX: 50,
-            designY: 50,
-            designScale: 90,
-            designRotation: 0
-        }
-    ],
+        'slate-plaque-15x15': {
+            name: "Slate Plaque 15x15cm",
+            main: {
+                bg: 'mockups/plaques/slate-15x15-main.png',
+                overlay: 'mockups/plaques/slate-15x15-overlay.png',
+                fullresBg: 'mockups/plaques/originals/slate-15x15-main.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
             views: [
                 { id: 1, bg: 'mockups/plaques/slate-15x15-view1.png', overlay: 'mockups/plaques/slate-15x15-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 // ... up to 10 views
@@ -1147,44 +1089,183 @@
         },
 
         // AirPods Cases
-        'airpods-cases': {
-            name: "AirPods Cases",
+        'airpods-1-2': {
+            name: "AirPods 1 / 2 Case",
             main: {
-                bg: 'mockups/airpods/airpods-main.png',
-                overlay: 'mockups/airpods/airpods-overlay.png',
-                fullresBg: 'mockups/airpods/originals/airpods-main.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-overlay.png',
+                bg: 'mockups/airpods/airpods-1-2-main.png',
+                overlay: 'mockups/airpods/airpods-1-2-overlay.png',
+                fullresBg: 'mockups/airpods/originals/airpods-1-2-main.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-1-2-overlay.png',
                 designX: 50,
                 designY: 50,
                 designScale: 90,
                 designRotation: 0
             },
             views: [
-                { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 1, bg: 'mockups/airpods/airpods-1-2-view1.png', overlay: 'mockups/airpods/airpods-1-2-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-1-2-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-1-2-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views
+            ]
+        },
+        'airpods-3': {
+            name: "AirPods 3 Case",
+            main: {
+                bg: 'mockups/airpods/airpods-3-main.png',
+                overlay: 'mockups/airpods/airpods-3-overlay.png',
+                fullresBg: 'mockups/airpods/originals/airpods-3-main.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-3-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/airpods/airpods-3-view1.png', overlay: 'mockups/airpods/airpods-3-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-3-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-3-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views
+            ]
+        },
+        'airpods-4': {
+            name: "AirPods 4 Case",
+            main: {
+                bg: 'mockups/airpods/airpods-4-main.png',
+                overlay: 'mockups/airpods/airpods-4-overlay.png',
+                fullresBg: 'mockups/airpods/originals/airpods-4-main.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-4-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/airpods/airpods-4-view1.png', overlay: 'mockups/airpods/airpods-4-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-4-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-4-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views
+            ]
+        },
+        'airpods-pro': {
+            name: "AirPods Pro Case",
+            main: {
+                bg: 'mockups/airpods/airpods-pro-main.png',
+                overlay: 'mockups/airpods/airpods-pro-overlay.png',
+                fullresBg: 'mockups/airpods/originals/airpods-pro-main.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-pro-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/airpods/airpods-pro-view1.png', overlay: 'mockups/airpods/airpods-pro-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-pro-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-pro-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views
+            ]
+        },
+        'airpods-pro-2': {
+            name: "AirPods Pro 2 Case",
+            main: {
+                bg: 'mockups/airpods/airpods-pro-2-main.png',
+                overlay: 'mockups/airpods/airpods-pro-2-overlay.png',
+                fullresBg: 'mockups/airpods/originals/airpods-pro-2-main.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-pro-2-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/airpods/airpods-pro-2-view1.png', overlay: 'mockups/airpods/airpods-pro-2-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-pro-2-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-pro-2-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 // ... up to 10 views
             ]
         },
 
-        // Cotton Bags
-        'cotton-bag-50x75': {
-            name: "Cotton Bag 50x75cm",
+        // T-Shirts
+        'tshirt-classic': {
+            name: "Classic T-Shirt",
             main: {
-                bg: 'mockups/bags/cotton-main.png',
-                overlay: 'mockups/bags/cotton-overlay.png',
-                fullresBg: 'mockups/bags/originals/cotton-main.png',
-                fullresOverlay: 'mockups/bags/originals/cotton-overlay.png',
+                bg: 'mockups/tshirts/black-main.png',
+                overlay: 'mockups/tshirts/black-overlay.png',
+                fullresBg: 'mockups/tshirts/originals/black-main.png',
+                fullresOverlay: 'mockups/tshirts/originals/black-overlay.png',
                 designX: 50,
                 designY: 50,
                 designScale: 90,
                 designRotation: 0
             },
             views: [
-                { id: 1, bg: 'mockups/bags/cotton-view1.png', overlay: 'mockups/bags/cotton-view1-overlay.png', fullresBg: 'mockups/bags/originals/cotton-view1.png', fullresOverlay: 'mockups/bags/originals/cotton-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 1, bg: 'mockups/tshirts/black-view1.png', overlay: 'mockups/tshirts/black-view1-overlay.png', fullresBg: 'mockups/tshirts/originals/black-view1.png', fullresOverlay: 'mockups/tshirts/originals/black-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views (same for all colors)
+            ]
+        },
+
+        // Bags
+        'cotton-bag-50x75': {
+            name: "Cotton Bag 50x75cm",
+            main: {
+                bg: 'mockups/bags/cotton-black-main.png',
+                overlay: 'mockups/bags/cotton-black-overlay.png',
+                fullresBg: 'mockups/bags/originals/cotton-black-main.png',
+                fullresOverlay: 'mockups/bags/originals/cotton-black-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/bags/cotton-black-view1.png', overlay: 'mockups/bags/cotton-black-view1-overlay.png', fullresBg: 'mockups/bags/originals/cotton-black-view1.png', fullresOverlay: 'mockups/bags/originals/cotton-black-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views (same for all colors)
+            ]
+        },
+        'makeup-bag-s': {
+            name: "Makeup Bag S",
+            main: {
+                bg: 'mockups/bags/makeup-black-s-main.png',
+                overlay: 'mockups/bags/makeup-black-s-overlay.png',
+                fullresBg: 'mockups/bags/originals/makeup-black-s-main.png',
+                fullresOverlay: 'mockups/bags/originals/makeup-black-s-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/bags/makeup-black-s-view1.png', overlay: 'mockups/bags/makeup-black-s-view1-overlay.png', fullresBg: 'mockups/bags/originals/makeup-black-s-view1.png', fullresOverlay: 'mockups/bags/originals/makeup-black-s-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views (same for all colors)
+            ]
+        },
+        'makeup-bag-m': {
+            name: "Makeup Bag M",
+            main: {
+                bg: 'mockups/bags/makeup-black-m-main.png',
+                overlay: 'mockups/bags/makeup-black-m-overlay.png',
+                fullresBg: 'mockups/bags/originals/makeup-black-m-main.png',
+                fullresOverlay: 'mockups/bags/originals/makeup-black-m-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/bags/makeup-black-m-view1.png', overlay: 'mockups/bags/makeup-black-m-view1-overlay.png', fullresBg: 'mockups/bags/originals/makeup-black-m-view1.png', fullresOverlay: 'mockups/bags/originals/makeup-black-m-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                // ... up to 10 views (same for all colors)
+            ]
+        },
+        'makeup-bag-l': {
+            name: "Makeup Bag L",
+            main: {
+                bg: 'mockups/bags/makeup-black-l-main.png',
+                overlay: 'mockups/bags/makeup-black-l-overlay.png',
+                fullresBg: 'mockups/bags/originals/makeup-black-l-main.png',
+                fullresOverlay: 'mockups/bags/originals/makeup-black-l-overlay.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            views: [
+                { id: 1, bg: 'mockups/bags/makeup-black-l-view1.png', overlay: 'mockups/bags/makeup-black-l-view1-overlay.png', fullresBg: 'mockups/bags/originals/makeup-black-l-view1.png', fullresOverlay: 'mockups/bags/originals/makeup-black-l-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 // ... up to 10 views (same for all colors)
             ]
         }
     };
 
+    // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
         // Set up event listeners
         setupEventListeners();
@@ -1207,8 +1288,11 @@
                 phoneCasesTypes.style.display = 'none';
                 plaquesTypes.style.display = 'none';
                 airpodsCasesTypes.style.display = 'none';
-                cottonBagsTypes.style.display = 'none';
-                acrylicBlocksTypes.style.display = 'none';
+                tshirtsTypes.style.display = 'none';
+                bagsTypes.style.display = 'none';
+                plaquesStandSelection.style.display = 'none';
+                tshirtColorSelection.style.display = 'none';
+                bagColorSelection.style.display = 'none';
                 
                 if (category === 'phone-cases') {
                     phoneCasesTypes.style.display = 'flex';
@@ -1221,6 +1305,7 @@
                 } 
                 else if (category === 'plaques') {
                     plaquesTypes.style.display = 'flex';
+                    plaquesStandSelection.style.display = 'flex';
                     controlsSection.style.display = 'block';
                     mainMockupContainer.style.display = 'inline-block';
                     gridWrapper.style.display = 'block';
@@ -1236,37 +1321,47 @@
                     mainMockupContainer.style.display = 'inline-block';
                     gridWrapper.style.display = 'block';
                     
-                    // Initialize with AirPods case type
-                    currentCaseType = 'airpods-cases';
+                    // Initialize with first AirPods case type
+                    currentCaseType = 'airpods-1-2';
                     updateMainMockup(currentCaseType);
                     initializeGrid(currentCaseType);
                 }
-                else if (category === 'cotton-bags') {
-                    cottonBagsTypes.style.display = 'flex';
+                else if (category === 'tshirts') {
+                    tshirtsTypes.style.display = 'flex';
+                    tshirtColorSelection.style.display = 'flex';
                     controlsSection.style.display = 'block';
                     mainMockupContainer.style.display = 'inline-block';
                     gridWrapper.style.display = 'block';
                     
-                    // Initialize with cotton bag type and default color
+                    // Initialize with first T-Shirt type and default color
+                    currentCaseType = 'tshirt-classic';
+                    currentTshirtColor = 'black';
+                    updateMainMockup(currentCaseType);
+                    initializeGrid(currentCaseType);
+                }
+                else if (category === 'bags') {
+                    bagsTypes.style.display = 'flex';
+                    bagColorSelection.style.display = 'flex';
+                    controlsSection.style.display = 'block';
+                    mainMockupContainer.style.display = 'inline-block';
+                    gridWrapper.style.display = 'block';
+                    
+                    // Initialize with first bag type and default color
                     currentCaseType = 'cotton-bag-50x75';
+                    currentBagColor = 'black';
                     updateMainMockup(currentCaseType);
                     initializeGrid(currentCaseType);
                 }
-                else if (category === 'acrylic-blocks') {
-                    acrylicBlocksTypes.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize with acrylic block type
-                    currentCaseType = 'acrylic-block-10x10';
-                    updateMainMockup(currentCaseType);
-                    initializeGrid(currentCaseType);
-                }
+                
+                // Show selected product section
+                document.querySelectorAll('.product-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(category).classList.add('active');
             });
         });
 
-        // Product type selection
+        // Product type selection (for all product types)
         productTypeLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1277,13 +1372,6 @@
                 this.classList.add('active');
                 
                 currentCaseType = this.dataset.case;
-                
-                // Show controls and main mockup
-                controlsSection.style.display = 'block';
-                mainMockupContainer.style.display = 'inline-block';
-                
-                // Show grid wrapper by default
-                gridWrapper.style.display = 'block';
                 
                 // Update main mockup
                 updateMainMockup(currentCaseType);
@@ -1303,10 +1391,55 @@
             });
         });
 
+        // Plaque stand selection
+        plaquesStandSelection.querySelectorAll('.stand-option').forEach(option => {
+            option.addEventListener('click', function() {
+                plaquesStandSelection.querySelectorAll('.stand-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                currentStandType = this.dataset.stand;
+                
+                // Update mockups with new stand type
+                updateMainMockup(currentCaseType);
+                initializeGrid(currentCaseType);
+            });
+        });
+
+        // T-Shirt color selection
+        tshirtColorSelection.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                tshirtColorSelection.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                currentTshirtColor = this.dataset.color;
+                
+                // Update mockups with new color
+                updateMainMockup(currentCaseType);
+                initializeGrid(currentCaseType);
+            });
+        });
+
+        // Bag color selection
+        bagColorSelection.querySelectorAll('.color-option').forEach(option => {
+            option.addEventListener('click', function() {
+                bagColorSelection.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
+                this.classList.add('active');
+                currentBagColor = this.dataset.color;
+                
+                // Update mockups with new color
+                updateMainMockup(currentCaseType);
+                initializeGrid(currentCaseType);
+            });
+        });
+
         // Image upload handler
         imageUpload.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (!file) return;
+            
+            // Check file type
+            if (!file.type.match('image/png')) {
+                alert('Please upload a PNG file');
+                return;
+            }
             
             showLoading("Loading your design...");
             
@@ -1314,6 +1447,13 @@
             reader.onload = function(e) {
                 const testImage = new Image();
                 testImage.onload = function() {
+                    // Check image dimensions
+                    if (this.width !== 750 || this.height !== 1590) {
+                        hideLoading();
+                        alert('Image dimensions should be 750x1590 pixels');
+                        return;
+                    }
+                    
                     // Update all designs with the new image
                     document.querySelectorAll('.user-design').forEach(design => {
                         design.src = e.target.result;
@@ -1444,27 +1584,17 @@
                 hideLoading();
             }
         });
-
-        // New controls for design manipulation
-        document.getElementById('move-together-btn').addEventListener('click', function() {
-            moveTogether = !moveTogether;
-            this.classList.toggle('active', moveTogether);
-        });
-
-        document.getElementById('undo-btn').addEventListener('click', undoDesignChange);
-
-        // Range input listeners
-        document.getElementById('pos-x').addEventListener('input', function() {
-            updateDesignProperty('x', this.value);
-        });
-        document.getElementById('pos-y').addEventListener('input', function() {
-            updateDesignProperty('y', this.value);
-        });
-        document.getElementById('scale').addEventListener('input', function() {
-            updateDesignProperty('scale', this.value);
-        });
-        document.getElementById('rotation').addEventListener('input', function() {
-            updateDesignProperty('rotation', this.value);
+        
+        // Make grid items clickable to toggle selection
+        document.addEventListener('click', function(e) {
+            const gridItem = e.target.closest('.grid-item');
+            if (gridItem) {
+                const checkbox = gridItem.querySelector('.carousel-checkbox');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    e.preventDefault();
+                }
+            }
         });
     }
 
@@ -1480,18 +1610,53 @@
             gridItem.className = 'grid-item';
             gridItem.dataset.view = view.id;
             
+            // Determine the correct image paths based on product type and selections
+            let bgPath = view.bg;
+            let overlayPath = view.overlay;
+            let fullresBgPath = view.fullresBg;
+            let fullresOverlayPath = view.fullresOverlay;
+            
+            // Handle plaques with different stands
+            if (caseType.includes('plaque')) {
+                bgPath = bgPath.replace('slate-', `slate-${currentStandType}-`);
+                overlayPath = overlayPath.replace('slate-', `slate-${currentStandType}-`);
+                fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
+                fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
+            }
+            // Handle T-Shirt colors
+            else if (caseType.includes('tshirt')) {
+                bgPath = view.bg.replace('black', currentTshirtColor);
+                overlayPath = view.overlay.replace('black', currentTshirtColor);
+                fullresBgPath = view.fullresBg.replace('black', currentTshirtColor);
+                fullresOverlayPath = view.fullresOverlay.replace('black', currentTshirtColor);
+            }
+            // Handle bag colors
+            else if (caseType.includes('bag')) {
+                if (caseType.includes('cotton')) {
+                    bgPath = view.bg.replace('black', currentBagColor);
+                    overlayPath = view.overlay.replace('black', currentBagColor);
+                    fullresBgPath = view.fullresBg.replace('black', currentBagColor);
+                    fullresOverlayPath = view.fullresOverlay.replace('black', currentBagColor);
+                } else if (caseType.includes('makeup')) {
+                    const size = caseType.split('-').pop();
+                    bgPath = view.bg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
+                    overlayPath = view.overlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
+                    fullresBgPath = view.fullresBg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
+                    fullresOverlayPath = view.fullresOverlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
+                }
+            }
+            
             gridItem.innerHTML = `
                 <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}">
-                    <div class="carousel-checkbox-indicator"></div>
-                    <img class="${getImageClass(caseType)}-bg" src="${view.bg}" data-fullres="${view.fullresBg}">
+                    <input type="checkbox" class="carousel-checkbox" data-view="${view.id}">
+                    <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
                     <div class="design-area">
                         <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
                              data-x="${view.designX}" data-y="${view.designY}" 
                              data-scale="${view.designScale}" data-rotation="${view.designRotation}"
                              style="display: ${uploadedImage.src ? 'block' : 'none'}">
                     </div>
-                    <img class="${getImageClass(caseType)}-overlay" src="${view.overlay}" data-fullres="${view.fullresOverlay}">
+                    <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
                 </div>
                 <div class="mockup-label">View ${view.id}</div>
             `;
@@ -1503,28 +1668,6 @@
                 const design = gridItem.querySelector('.user-design');
                 updateDesignPosition(design);
             }
-            
-            // Add click handler for the entire grid item
-            gridItem.addEventListener('click', function(e) {
-                if (e.target.classList.contains('carousel-checkbox')) {
-                    return;
-                }
-                
-                const checkbox = this.querySelector('.carousel-checkbox');
-                if (checkbox) {
-                    checkbox.checked = !checkbox.checked;
-                    this.classList.toggle('selected', checkbox.checked);
-                    
-                    const event = new Event('change');
-                    checkbox.dispatchEvent(event);
-                }
-            });
-            
-            // Add change handler for the checkbox
-            const checkbox = gridItem.querySelector('.carousel-checkbox');
-            checkbox.addEventListener('change', function() {
-                gridItem.classList.toggle('selected', this.checked);
-            });
         });
     }
 
@@ -1536,12 +1679,12 @@
             return 'plaque';
         } else if (caseType.includes('airpods')) {
             return 'airpods';
-        } else if (caseType.includes('cotton-bag')) {
+        } else if (caseType.includes('tshirt')) {
+            return 'tshirt';
+        } else if (caseType.includes('bag')) {
             return 'bag';
-        } else if (caseType.includes('acrylic-block')) {
-            return 'plaque';
         }
-        return 'phone-case';
+        return 'phone-case'; // default
     }
 
     // Update main mockup for a specific case type
@@ -1549,90 +1692,81 @@
         const caseData = mockupData[caseType];
         if (!caseData) return;
         
-        const mainMockupsContainer = document.getElementById('main-mockups-row');
-        if (!mainMockupsContainer) return;
+        const mainMockup = caseData.main;
         
-        mainMockupsContainer.innerHTML = '';
+        // Determine the correct image paths based on product type and selections
+        let bgPath = mainMockup.bg;
+        let overlayPath = mainMockup.overlay;
+        let fullresBgPath = mainMockup.fullresBg;
+        let fullresOverlayPath = mainMockup.fullresOverlay;
         
-        // Handle products with single main mockup
-        if (!Array.isArray(caseData.main)) {
-            const mainMockup = caseData.main;
-            
-            const imageClass = getImageClass(caseType);
-            const bgImg = document.createElement('img');
-            bgImg.className = `${imageClass}-bg`;
-            bgImg.src = mainMockup.bg;
-            bgImg.dataset.fullres = mainMockup.fullresBg;
-            
-            const designArea = document.createElement('div');
-            designArea.className = 'design-area';
-            const designImg = document.createElement('img');
-            designImg.className = 'user-design';
-            designImg.alt = '';
-            designImg.dataset.x = mainMockup.designX;
-            designImg.dataset.y = mainMockup.designY;
-            designImg.dataset.scale = mainMockup.designScale;
-            designImg.dataset.rotation = mainMockup.designRotation;
-            designImg.style.display = uploadedImage.src ? 'block' : 'none';
-            if (uploadedImage.src) {
-                designImg.src = uploadedImage.src;
+        // Handle plaques with different stands
+        if (caseType.includes('plaque')) {
+            bgPath = bgPath.replace('slate-', `slate-${currentStandType}-`);
+            overlayPath = overlayPath.replace('slate-', `slate-${currentStandType}-`);
+            fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
+            fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
+        }
+        // Handle T-Shirt colors
+        else if (caseType.includes('tshirt')) {
+            bgPath = mainMockup.bg.replace('black', currentTshirtColor);
+            overlayPath = mainMockup.overlay.replace('black', currentTshirtColor);
+            fullresBgPath = mainMockup.fullresBg.replace('black', currentTshirtColor);
+            fullresOverlayPath = mainMockup.fullresOverlay.replace('black', currentTshirtColor);
+        }
+        // Handle bag colors
+        else if (caseType.includes('bag')) {
+            if (caseType.includes('cotton')) {
+                bgPath = mainMockup.bg.replace('black', currentBagColor);
+                overlayPath = mainMockup.overlay.replace('black', currentBagColor);
+                fullresBgPath = mainMockup.fullresBg.replace('black', currentBagColor);
+                fullresOverlayPath = mainMockup.fullresOverlay.replace('black', currentBagColor);
+            } else if (caseType.includes('makeup')) {
+                const size = caseType.split('-').pop();
+                bgPath = mainMockup.bg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
+                overlayPath = mainMockup.overlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
+                fullresBgPath = mainMockup.fullresBg.replace('black', currentBagColor).replace('-s-', `-${size}-`);
+                fullresOverlayPath = mainMockup.fullresOverlay.replace('black', currentBagColor).replace('-s-', `-${size}-`);
             }
-            designArea.appendChild(designImg);
-            
-            const overlayImg = document.createElement('img');
-            overlayImg.className = `${imageClass}-overlay`;
-            overlayImg.src = mainMockup.overlay;
-            overlayImg.dataset.fullres = mainMockup.fullresOverlay;
-            
-            mainMockupContainer.innerHTML = '';
-            mainMockupContainer.appendChild(bgImg);
-            mainMockupContainer.appendChild(designArea);
-            mainMockupContainer.appendChild(overlayImg);
-            
-            // Update design position if image is already uploaded
-            if (uploadedImage.src) {
-                updateDesignPosition(designImg);
-            }
-            
-            // Initialize control values
-            updateControlValues();
-            return;
         }
         
-        // Handle plaques with multiple main mockups
-        caseData.main.forEach((mockup, index) => {
-            const mockupContainer = document.createElement('div');
-            mockupContainer.className = 'main-mockup-container';
-            mockupContainer.style.position = 'relative';
-            mockupContainer.style.display = 'inline-block';
-            mockupContainer.style.width = '30%';
-            
-            const imageClass = getImageClass(caseType);
-            
-            mockupContainer.innerHTML = `
-                <input type="checkbox" class="main-mockup-checkbox" id="main-checkbox-${index}" data-main="${mockup.id}">
-                <div class="main-mockup-checkbox-indicator"></div>
-                <img class="${imageClass}-bg" src="${mockup.bg}" data-fullres="${mockup.fullresBg}">
-                <div class="design-area">
-                    <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
-                         data-x="${mockup.designX}" data-y="${mockup.designY}" 
-                         data-scale="${mockup.designScale}" data-rotation="${mockup.designRotation}"
-                         style="display: ${uploadedImage.src ? 'block' : 'none'}">
-                </div>
-                <img class="${imageClass}-overlay" src="${mockup.overlay}" data-fullres="${mockup.fullresOverlay}">
-            `;
-            
-            mainMockupsContainer.appendChild(mockupContainer);
-            
-            // Update design position if image is already uploaded
-            if (uploadedImage.src) {
-                const design = mockupContainer.querySelector('.user-design');
-                updateDesignPosition(design);
-            }
-        });
+        // Clear the mockup container and recreate with correct classes
+        mainMockupContainer.innerHTML = '';
         
-        // Update control values based on first main mockup
-        updateControlValues();
+        const imageClass = getImageClass(caseType);
+        const bgImg = document.createElement('img');
+        bgImg.className = `${imageClass}-bg`;
+        bgImg.src = bgPath;
+        bgImg.dataset.fullres = fullresBgPath;
+        
+        const designArea = document.createElement('div');
+        designArea.className = 'design-area';
+        const designImg = document.createElement('img');
+        designImg.className = 'user-design';
+        designImg.alt = '';
+        designImg.dataset.x = mainMockup.designX;
+        designImg.dataset.y = mainMockup.designY;
+        designImg.dataset.scale = mainMockup.designScale;
+        designImg.dataset.rotation = mainMockup.designRotation;
+        designImg.style.display = uploadedImage.src ? 'block' : 'none';
+        if (uploadedImage.src) {
+            designImg.src = uploadedImage.src;
+        }
+        designArea.appendChild(designImg);
+        
+        const overlayImg = document.createElement('img');
+        overlayImg.className = `${imageClass}-overlay`;
+        overlayImg.src = overlayPath;
+        overlayImg.dataset.fullres = fullresOverlayPath;
+        
+        mainMockupContainer.appendChild(bgImg);
+        mainMockupContainer.appendChild(designArea);
+        mainMockupContainer.appendChild(overlayImg);
+        
+        // Update design position if image is already uploaded
+        if (uploadedImage.src) {
+            updateDesignPosition(designImg);
+        }
     }
 
     // Function to update design position based on data attributes
@@ -1645,9 +1779,6 @@
         designElement.style.top = `${y}%`;
         designElement.style.left = `${x}%`;
         designElement.style.transform = `translate(-50%, -50%) scale(${scale/100}) rotate(${rotation}deg)`;
-        
-        // Make design draggable
-        makeDraggable(designElement);
     }
 
     // Generate mockup image with caching
@@ -1666,8 +1797,8 @@
             const ctx = canvas.getContext('2d');
 
             // Load high-res originals for download
-            const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg');
-            const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay');
+            const bgElement = container.querySelector('.phone-case-bg, .tshirt-bg, .bag-bg, .plaque-bg, .airpods-bg');
+            const overlayElement = container.querySelector('.phone-case-overlay, .tshirt-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay');
             
             if (!bgElement || !overlayElement) {
                 throw new Error("Could not find required elements for mockup generation");
@@ -1725,131 +1856,6 @@
         } finally {
             hideLoading();
         }
-    }
-
-    // New design manipulation functions
-    function updateDesignProperty(property, value) {
-        // Save current state to history before making changes
-        saveDesignState();
-        
-        if (moveTogether) {
-            // Update all designs
-            document.querySelectorAll('.user-design').forEach(design => {
-                design.dataset[property] = value;
-                updateDesignPosition(design);
-            });
-        } else {
-            // Update only the main design
-            const mainDesign = mainMockupContainer.querySelector('.user-design');
-            if (mainDesign) {
-                mainDesign.dataset[property] = value;
-                updateDesignPosition(mainDesign);
-            }
-        }
-        
-        // Update range inputs to match current values
-        updateControlValues();
-    }
-
-    function saveDesignState() {
-        const mainDesign = mainMockupContainer.querySelector('.user-design');
-        if (!mainDesign) return;
-        
-        // Save current state
-        const state = {
-            x: mainDesign.dataset.x,
-            y: mainDesign.dataset.y,
-            scale: mainDesign.dataset.scale,
-            rotation: mainDesign.dataset.rotation
-        };
-        
-        // Add to history (limit size)
-        designHistory.push(state);
-        if (designHistory.length > MAX_HISTORY) {
-            designHistory.shift();
-        }
-    }
-
-    function undoDesignChange() {
-        if (designHistory.length === 0) return;
-        
-        const previousState = designHistory.pop();
-        if (!previousState) return;
-        
-        document.querySelectorAll('.user-design').forEach(design => {
-            design.dataset.x = previousState.x;
-            design.dataset.y = previousState.y;
-            design.dataset.scale = previousState.scale;
-            design.dataset.rotation = previousState.rotation;
-            updateDesignPosition(design);
-        });
-        
-        updateControlValues();
-    }
-
-    function updateControlValues() {
-        const mainDesign = mainMockupContainer.querySelector('.user-design');
-        if (!mainDesign) return;
-        
-        document.getElementById('pos-x').value = mainDesign.dataset.x;
-        document.getElementById('pos-y').value = mainDesign.dataset.y;
-        document.getElementById('scale').value = mainDesign.dataset.scale;
-        document.getElementById('rotation').value = mainDesign.dataset.rotation;
-    }
-
-    function makeDraggable(element) {
-        let isDragging = false;
-        let startX, startY, startLeft, startTop;
-        
-        element.addEventListener('mousedown', function(e) {
-            if (!moveTogether) {
-                isDragging = true;
-                startX = e.clientX;
-                startY = e.clientY;
-                startLeft = parseFloat(element.dataset.x) || 50;
-                startTop = parseFloat(element.dataset.y) || 50;
-                e.preventDefault();
-            }
-        });
-        
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                const container = element.closest('.design-area');
-                const containerRect = container.getBoundingClientRect();
-                
-                const deltaX = e.clientX - startX;
-                const deltaY = e.clientY - startY;
-                
-                const percentX = (deltaX / containerRect.width) * 100;
-                const percentY = (deltaY / containerRect.height) * 100;
-                
-                const newX = Math.max(0, Math.min(100, startLeft + percentX));
-                const newY = Math.max(0, Math.min(100, startTop + percentY));
-                
-                element.dataset.x = newX;
-                element.dataset.y = newY;
-                updateDesignPosition(element);
-                
-                if (moveTogether) {
-                    document.querySelectorAll('.user-design').forEach(design => {
-                        if (design !== element) {
-                            design.dataset.x = newX;
-                            design.dataset.y = newY;
-                            updateDesignPosition(design);
-                        }
-                    });
-                }
-                
-                updateControlValues();
-            }
-        });
-        
-        document.addEventListener('mouseup', function() {
-            if (isDragging) {
-                isDragging = false;
-                saveDesignState();
-            }
-        });
     }
 
     // Helper functions
