@@ -644,6 +644,7 @@
             .coming-soon p {
                 font-size: 16px;
             }
+      }
 
 </head>
 <body>
@@ -741,14 +742,13 @@
         <!-- Main Mockup Container (initially hidden) -->
 <div style="text-align: center; width: 100%;">
     <div id="main-mockups-row" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
-                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
-                </div>
-                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
-               </div>
-            </div>
+        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
+        <div class="design-area">
+            <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
         </div>
+        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+    </div>
+</div>
         
         <!-- Secondary Mockups Grid (initially hidden) -->
         <div class="grid-wrapper">
@@ -783,6 +783,9 @@
     const cottonBagsTypes = document.getElementById('cotton-bags-types');
     const acrylicBlocksTypes = document.getElementById('acrylic-blocks-types');
     const gridContainer = document.querySelector('.grid-container');
+    const mainMockupContainer = document.getElementById('main-mockup-container') || document.createElement('div');
+    const gridWrapper = document.querySelector('.grid-wrapper') || document.createElement('div');
+    const controlsSection = document.getElementById('controls') || document.createElement('div');
     
     // State variables
     let uploadedImage = new Image();
