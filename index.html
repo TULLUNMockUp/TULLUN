@@ -318,10 +318,10 @@
         }
 
         /* Mockup Container */
-        #main-mockup-container {
+        .main-mockup-container {
             position: relative;
-            display: inline-block; /* Changed from inline-block to block */
-            margin: 20px auto; /* This centers the container horizontally */
+            display: inline-block;
+            margin: 20px auto;
             width: 600px;
             height: 600px;
             overflow: hidden;
@@ -436,7 +436,8 @@
             z-index: 3;
         }
         
-        .grid-item .carousel-checkbox {
+        /* Checkbox styles */
+        .carousel-checkbox {
             position: absolute;
             top: 12px;
             left: 12px;
@@ -444,53 +445,108 @@
             width: 20px;
             height: 20px;
             cursor: pointer;
+            opacity: 0; /* Make checkbox invisible but still clickable */
         }
         
-/* Add this to your CSS */
-.carousel-checkbox {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 4;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    opacity: 0; /* Make checkbox invisible but still clickable */
-}
+        /* Style for the custom checkbox indicator */
+        .carousel-checkbox-indicator {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 3;
+            width: 20px;
+            height: 20px;
+            background-color: var(--card-bg);
+            border-radius: 4px;
+            border: 2px solid var(--primary-color);
+            pointer-events: none; /* Don't interfere with checkbox clicks */
+        }
+        
+        .carousel-checkbox:checked + .carousel-checkbox-indicator {
+            background-color: var(--primary-color);
+        }
+        
+        .carousel-checkbox:checked + .carousel-checkbox-indicator::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+        }
+        
+        /* Add border to selected grid items */
+        .grid-item.selected {
+            box-shadow: 0 0 0 3px var(--primary-color);
+        }
 
-/* Style for the custom checkbox indicator */
-.carousel-checkbox-indicator {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 3;
-    width: 20px;
-    height: 20px;
-    background-color: var(--card-bg);
-    border-radius: 4px;
-    border: 2px solid var(--primary-color);
-    pointer-events: none; /* Don't interfere with checkbox clicks */
-}
+        /* Main mockup selector */
+        .main-mockup-selector {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .main-mockup-option {
+            padding: 8px 16px;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .main-mockup-option:hover {
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .main-mockup-option.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
 
-.carousel-checkbox:checked + .carousel-checkbox-indicator {
-    background-color: var(--primary-color);
-}
-
-.carousel-checkbox:checked + .carousel-checkbox-indicator::after {
-    content: "✓";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 14px;
-}
-
-/* Add border to selected grid items */
-.grid-item.selected {
-    box-shadow: 0 0 0 3px var(--primary-color);
-}
-
+        /* Design positioning controls */
+        .position-controls {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 16px;
+            margin-top: 20px;
+        }
+        
+        .position-controls h3 {
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .control-label {
+            font-size: 14px;
+            margin-bottom: 4px;
+            display: block;
+        }
+        
+        .control-input {
+            width: 100%;
+        }
+        
+        .control-select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
         .mockup-label {
             padding: 16px;
             font-size: 15px;
@@ -508,14 +564,14 @@
             margin-bottom: 40px;
         }
 
-    /* Product Sections */
-    .product-section {
-        display: none;
-    }
-    
-    .product-section.active {
-        display: block;
-    }
+        /* Product Sections */
+        .product-section {
+            display: none;
+        }
+        
+        .product-section.active {
+            display: block;
+        }
         
         .coming-soon h2 {
             font-size: 32px;
@@ -578,7 +634,7 @@
                 font-size: 20px;
             }
             
-            #main-mockup-container {
+            .main-mockup-container {
                 width: 100%;
                 height: auto;
                 max-width: 400px;
@@ -621,21 +677,6 @@
             .coming-soon p {
                 font-size: 16px;
             }
-
-    #main-mockup-container {
-        display: none; /* Keep hidden by default */
-        margin: 20px auto;
-    }
-    
-    .grid-wrapper {
-        display: none; /* Keep hidden by default */
-    }
-    
-    #controls {
-        display: none; /* Keep hidden by default */
-    }
-</style>
-
         }
     </style>
 </head>
@@ -656,8 +697,6 @@
                 <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
                 <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
                 <a href="#" class="product-category-link" data-category="airpods-cases">AirPods Cases</a>
-                <a href="#" class="product-category-link" data-category="cotton-bags">Cotton Bags</a>
-                <a href="#" class="product-category-link" data-category="acrylic-blocks">Acrylic Blocks</a>
             </div>
             
             <!-- Product Type Selection (initially hidden) -->
@@ -682,23 +721,6 @@
             <div id="airpods-cases-types" class="product-type-container">
                 <a href="#" class="product-type-link" data-case="airpods-cases">AirPods Cases</a>
             </div>
-
-            <!-- Cotton Bags Type Selection -->
-            <div id="cotton-bags-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="cotton-bag-50x75">Cotton Bag 50x75cm</a>
-            </div>
-
-            <!-- Acrylic Blocks Type Selection -->
-            <div id="acrylic-blocks-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="acrylic-block-10x10">Acrylic Block 10x10cm</a>
-            </div>
-
-            <!-- Plaques Stand Selection -->
-            <div id="plaques-stand-selection" class="color-size-container">
-                <div class="stand-option" data-stand="paw">Paw</div>
-                <div class="stand-option" data-stand="heart">Heart</div>
-                <div class="stand-option" data-stand="fold">Fold</div>
-             </div>
         </section>
         
         <!-- Controls Section (initially hidden) -->
@@ -723,16 +745,87 @@
                 <button id="download-btn" disabled>Download Main Mockup</button>
                 <button id="download-zip-btn" disabled>Download Selected Views</button>
             </div>
+
+            <!-- Design positioning controls -->
+            <div class="position-controls">
+                <h3>Design Positioning</h3>
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">View</label>
+                        <select id="view-selector" class="control-select">
+                            <option value="all">All Views</option>
+                            <option value="main">Main View</option>
+                            <!-- Secondary views will be added dynamically -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">Horizontal Position</label>
+                        <input type="range" id="position-x" class="control-input" min="0" max="100" step="1" value="50">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Vertical Position</label>
+                        <input type="range" id="position-y" class="control-input" min="0" max="100" step="1" value="50">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">Scale</label>
+                        <input type="range" id="scale" class="control-input" min="10" max="200" step="1" value="100">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Rotation</label>
+                        <input type="range" id="rotation" class="control-input" min="-180" max="180" step="1" value="0">
+                    </div>
+                </div>
+                
+                <div class="controls-row">
+                    <button id="reset-position-btn">Reset Position</button>
+                </div>
+            </div>
         </div>
         
-        <!-- Main Mockup Container (initially hidden) -->
+        <!-- Main Mockup Selector -->
+        <div class="main-mockup-selector" style="display: none;">
+            <div class="main-mockup-option active" data-view="main1">Main View 1</div>
+            <div class="main-mockup-option" data-view="main2">Main View 2</div>
+            <div class="main-mockup-option" data-view="main3">Main View 3</div>
+        </div>
+        
+        <!-- Main Mockup Containers (initially hidden) -->
         <div style="text-align: center; width: 100%;">
-            <div id="main-mockup-container">
+            <div id="main-mockup-container-1" class="main-mockup-container">
+                <input type="checkbox" class="carousel-checkbox" id="checkbox-main1" data-view="main1">
+                <div class="carousel-checkbox-indicator"></div>
                 <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
                 <div class="design-area">
                     <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
                 </div>
                 <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+            </div>
+            
+            <div id="main-mockup-container-2" class="main-mockup-container" style="display: none;">
+                <input type="checkbox" class="carousel-checkbox" id="checkbox-main2" data-view="main2">
+                <div class="carousel-checkbox-indicator"></div>
+                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main2.png" data-fullres="mockups/originals/samsung-tpu-back-main2.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0">
+                </div>
+                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main2.png" data-fullres="mockups/originals/samsung-tpu-overlay-main2.png">
+            </div>
+            
+            <div id="main-mockup-container-3" class="main-mockup-container" style="display: none;">
+                <input type="checkbox" class="carousel-checkbox" id="checkbox-main3" data-view="main3">
+                <div class="carousel-checkbox-indicator"></div>
+                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main3.png" data-fullres="mockups/originals/samsung-tpu-back-main3.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5">
+                </div>
+                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main3.png" data-fullres="mockups/originals/samsung-tpu-overlay-main3.png">
             </div>
         </div>
         
@@ -760,28 +853,34 @@
     const productTypeLinks = document.querySelectorAll('.product-type-link');
     const loadingElement = document.querySelector('.loading');
     const removeBtn = document.getElementById('remove-btn');
-    const mainMockupContainer = document.getElementById('main-mockup-container');
+    const mainMockupSelector = document.querySelector('.main-mockup-selector');
     const gridWrapper = document.querySelector('.grid-wrapper');
     const controlsSection = document.getElementById('controls');
     const phoneCasesTypes = document.getElementById('phone-cases-types');
     const plaquesTypes = document.getElementById('plaques-types');
     const airpodsCasesTypes = document.getElementById('airpods-cases-types');
-    const cottonBagsTypes = document.getElementById('cotton-bags-types');
-    const acrylicBlocksTypes = document.getElementById('acrylic-blocks-types');
-    const plaquesStandSelection = document.getElementById('plaques-stand-selection');
     const gridContainer = document.querySelector('.grid-container');
+    
+    // Positioning controls
+    const viewSelector = document.getElementById('view-selector');
+    const positionX = document.getElementById('position-x');
+    const positionY = document.getElementById('position-y');
+    const scaleInput = document.getElementById('scale');
+    const rotationInput = document.getElementById('rotation');
+    const resetPositionBtn = document.getElementById('reset-position-btn');
     
     // State variables
     let uploadedImage = new Image();
     const mockupCache = new Map();
     let currentCaseType = 'samsung-tpu';
-    let currentStandType = 'paw';
+    let currentMainView = 'main1'; // Track which main view is active
+    let currentStandType = 'none'; // No longer used since stands are removed
 
     // Mockup data structure for all products
     const mockupData = {
         'samsung-tpu': {
             name: "Samsung TPU Case",
-            main: {
+            main1: {
                 bg: 'mockups/optimized/samsung-tpu-back-main.png',
                 overlay: 'mockups/optimized/samsung-tpu-overlay-main.png',
                 fullresBg: 'mockups/originals/samsung-tpu-back-main.png',
@@ -790,6 +889,26 @@
                 designY: 48.5,
                 designScale: 98,
                 designRotation: 0
+            },
+            main2: {
+                bg: 'mockups/optimized/samsung-tpu-back-main2.png',
+                overlay: 'mockups/optimized/samsung-tpu-overlay-main2.png',
+                fullresBg: 'mockups/originals/samsung-tpu-back-main2.png',
+                fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/optimized/samsung-tpu-back-main3.png',
+                overlay: 'mockups/optimized/samsung-tpu-overlay-main3.png',
+                fullresBg: 'mockups/originals/samsung-tpu-back-main3.png',
+                fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main3.png',
+                designX: 52,
+                designY: 48,
+                designScale: 85,
+                designRotation: 5
             },
             views: [
                 { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0 },
@@ -820,7 +939,7 @@
         },
         'iphone-tpu': {
             name: "iPhone TPU Case",
-            main: {
+            main1: {
                 bg: 'mockups/optimized/iphone-tpu-back-main.png',
                 overlay: 'mockups/optimized/iphone-tpu-overlay-main.png',
                 fullresBg: 'mockups/originals/iphone-tpu-back-main.png',
@@ -829,6 +948,26 @@
                 designY: 48.5,
                 designScale: 100,
                 designRotation: 0
+            },
+            main2: {
+                bg: 'mockups/optimized/iphone-tpu-back-main2.png',
+                overlay: 'mockups/optimized/iphone-tpu-overlay-main2.png',
+                fullresBg: 'mockups/originals/iphone-tpu-back-main2.png',
+                fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/optimized/iphone-tpu-back-main3.png',
+                overlay: 'mockups/optimized/iphone-tpu-overlay-main3.png',
+                fullresBg: 'mockups/originals/iphone-tpu-back-main3.png',
+                fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main3.png',
+                designX: 52,
+                designY: 48,
+                designScale: 85,
+                designRotation: 5
             },
             views: [
                 { id: 1, bg: 'mockups/optimized/iphone-tpu-view1.png', overlay: 'mockups/optimized/iphone-tpu-view1-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view1.png', fullresOverlay: 'mockups/originals/iphone-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
@@ -859,7 +998,7 @@
         },
         'iphone-hybrid': {
             name: "iPhone Hybrid Case",
-            main: {
+            main1: {
                 bg: 'mockups/optimized/iphone-hybrid-back-main.png',
                 overlay: 'mockups/optimized/iphone-hybrid-overlay-main.png',
                 fullresBg: 'mockups/originals/iphone-hybrid-back-main.png',
@@ -868,6 +1007,26 @@
                 designY: 48.5,
                 designScale: 100,
                 designRotation: 0
+            },
+            main2: {
+                bg: 'mockups/optimized/iphone-hybrid-back-main2.png',
+                overlay: 'mockups/optimized/iphone-hybrid-overlay-main2.png',
+                fullresBg: 'mockups/originals/iphone-hybrid-back-main2.png',
+                fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/optimized/iphone-hybrid-back-main3.png',
+                overlay: 'mockups/optimized/iphone-hybrid-overlay-main3.png',
+                fullresBg: 'mockups/originals/iphone-hybrid-back-main3.png',
+                fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main3.png',
+                designX: 52,
+                designY: 48,
+                designScale: 85,
+                designRotation: 5
             },
             views: [
                 { id: 1, bg: 'mockups/optimized/iphone-hybrid-view1.png', overlay: 'mockups/optimized/iphone-hybrid-view1-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view1.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
@@ -898,7 +1057,7 @@
         },
         'pixel-tpu': {
             name: "Google Pixel TPU Case",
-            main: {
+            main1: {
                 bg: 'mockups/optimized/pixel-tpu-back-main.png',
                 overlay: 'mockups/optimized/pixel-tpu-overlay-main.png',
                 fullresBg: 'mockups/originals/pixel-tpu-back-main.png',
@@ -907,6 +1066,26 @@
                 designY: 48.5,
                 designScale: 100,
                 designRotation: 0
+            },
+            main2: {
+                bg: 'mockups/optimized/pixel-tpu-back-main2.png',
+                overlay: 'mockups/optimized/pixel-tpu-overlay-main2.png',
+                fullresBg: 'mockups/originals/pixel-tpu-back-main2.png',
+                fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/optimized/pixel-tpu-back-main3.png',
+                overlay: 'mockups/optimized/pixel-tpu-overlay-main3.png',
+                fullresBg: 'mockups/originals/pixel-tpu-back-main3.png',
+                fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main3.png',
+                designX: 52,
+                designY: 48,
+                designScale: 85,
+                designRotation: 5
             },
             views: [
                 { id: 1, bg: 'mockups/optimized/pixel-tpu-view1.png', overlay: 'mockups/optimized/pixel-tpu-view1-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view1.png', fullresOverlay: 'mockups/originals/pixel-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
@@ -937,7 +1116,7 @@
         },
         'iphone-fullprint': {
             name: "iPhone Fullprint Case",
-            main: {
+            main1: {
                 bg: 'mockups/optimized/iphone-fullprint-back-main.png',
                 overlay: 'mockups/optimized/iphone-fullprint-overlay-main.png',
                 fullresBg: 'mockups/originals/iphone-fullprint-back-main.png',
@@ -946,6 +1125,26 @@
                 designY: 48.5,
                 designScale: 100,
                 designRotation: 0
+            },
+            main2: {
+                bg: 'mockups/optimized/iphone-fullprint-back-main2.png',
+                overlay: 'mockups/optimized/iphone-fullprint-overlay-main2.png',
+                fullresBg: 'mockups/originals/iphone-fullprint-back-main2.png',
+                fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/optimized/iphone-fullprint-back-main3.png',
+                overlay: 'mockups/optimized/iphone-fullprint-overlay-main3.png',
+                fullresBg: 'mockups/originals/iphone-fullprint-back-main3.png',
+                fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main3.png',
+                designX: 52,
+                designY: 48,
+                designScale: 85,
+                designRotation: 5
             },
             views: [
                 { id: 1, bg: 'mockups/optimized/iphone-fullprint-view1.png', overlay: 'mockups/optimized/iphone-fullprint-view1-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view1.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
@@ -964,7 +1163,7 @@
         // Plaques
         'slate-plaque-10x10': {
             name: "Slate Plaque 10x10cm",
-            main: {
+            main1: {
                 bg: 'mockups/plaques/slate-10x10-main.png',
                 overlay: 'mockups/plaques/slate-10x10-overlay.png',
                 fullresBg: 'mockups/plaques/originals/slate-10x10-main.png',
@@ -974,15 +1173,37 @@
                 designScale: 90,
                 designRotation: 0
             },
+            main2: {
+                bg: 'mockups/plaques/slate-10x10-main2.png',
+                overlay: 'mockups/plaques/slate-10x10-overlay2.png',
+                fullresBg: 'mockups/plaques/originals/slate-10x10-main2.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 85,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/plaques/slate-10x10-main3.png',
+                overlay: 'mockups/plaques/slate-10x10-overlay3.png',
+                fullresBg: 'mockups/plaques/originals/slate-10x10-main3.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay3.png',
+                designX: 50,
+                designY: 50,
+                designScale: 80,
+                designRotation: 0
+            },
             views: [
                 { id: 1, bg: 'mockups/plaques/slate-10x10-view1.png', overlay: 'mockups/plaques/slate-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
                 { id: 2, bg: 'mockups/plaques/slate-10x10-view2.png', overlay: 'mockups/plaques/slate-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
+                { id: 3, bg: 'mockups/plaques/slate-10x10-view3.png', overlay: 'mockups/plaques/slate-10x10-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view3-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 4, bg: 'mockups/plaques/slate-10x10-view4.png', overlay: 'mockups/plaques/slate-10x10-view4-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view4.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view4-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 5, bg: 'mockups/plaques/slate-10x10-view5.png', overlay: 'mockups/plaques/slate-10x10-view5-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view5.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view5-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
             ]
         },
         'slate-plaque-15x15': {
             name: "Slate Plaque 15x15cm",
-            main: {
+            main1: {
                 bg: 'mockups/plaques/slate-15x15-main.png',
                 overlay: 'mockups/plaques/slate-15x15-overlay.png',
                 fullresBg: 'mockups/plaques/originals/slate-15x15-main.png',
@@ -992,14 +1213,35 @@
                 designScale: 90,
                 designRotation: 0
             },
+            main2: {
+                bg: 'mockups/plaques/slate-15x15-main2.png',
+                overlay: 'mockups/plaques/slate-15x15-overlay2.png',
+                fullresBg: 'mockups/plaques/originals/slate-15x15-main2.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 85,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/plaques/slate-15x15-main3.png',
+                overlay: 'mockups/plaques/slate-15x15-overlay3.png',
+                fullresBg: 'mockups/plaques/originals/slate-15x15-main3.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay3.png',
+                designX: 50,
+                designY: 50,
+                designScale: 80,
+                designRotation: 0
+            },
             views: [
                 { id: 1, bg: 'mockups/plaques/slate-15x15-view1.png', overlay: 'mockups/plaques/slate-15x15-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
+                { id: 2, bg: 'mockups/plaques/slate-15x15-view2.png', overlay: 'mockups/plaques/slate-15x15-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 3, bg: 'mockups/plaques/slate-15x15-view3.png', overlay: 'mockups/plaques/slate-15x15-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view3-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
             ]
         },
         'slate-plaque-20x30': {
             name: "Slate Plaque 20x30cm",
-            main: {
+            main1: {
                 bg: 'mockups/plaques/slate-20x30-main.png',
                 overlay: 'mockups/plaques/slate-20x30-overlay.png',
                 fullresBg: 'mockups/plaques/originals/slate-20x30-main.png',
@@ -1009,14 +1251,34 @@
                 designScale: 90,
                 designRotation: 0
             },
+            main2: {
+                bg: 'mockups/plaques/slate-20x30-main2.png',
+                overlay: 'mockups/plaques/slate-20x30-overlay2.png',
+                fullresBg: 'mockups/plaques/originals/slate-20x30-main2.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 85,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/plaques/slate-20x30-main3.png',
+                overlay: 'mockups/plaques/slate-20x30-overlay3.png',
+                fullresBg: 'mockups/plaques/originals/slate-20x30-main3.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay3.png',
+                designX: 50,
+                designY: 50,
+                designScale: 80,
+                designRotation: 0
+            },
             views: [
                 { id: 1, bg: 'mockups/plaques/slate-20x30-view1.png', overlay: 'mockups/plaques/slate-20x30-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
+                { id: 2, bg: 'mockups/plaques/slate-20x30-view2.png', overlay: 'mockups/plaques/slate-20x30-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
             ]
         },
         'slate-plaque-heart-10x10': {
             name: "Slate Plaque Heart 10x10cm",
-            main: {
+            main1: {
                 bg: 'mockups/plaques/slate-heart-10x10-main.png',
                 overlay: 'mockups/plaques/slate-heart-10x10-overlay.png',
                 fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main.png',
@@ -1026,14 +1288,34 @@
                 designScale: 90,
                 designRotation: 0
             },
+            main2: {
+                bg: 'mockups/plaques/slate-heart-10x10-main2.png',
+                overlay: 'mockups/plaques/slate-heart-10x10-overlay2.png',
+                fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main2.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay2.png',
+                designX: 50,
+                designY: 50,
+                designScale: 85,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/plaques/slate-heart-10x10-main3.png',
+                overlay: 'mockups/plaques/slate-heart-10x10-overlay3.png',
+                fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main3.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay3.png',
+                designX: 50,
+                designY: 50,
+                designScale: 80,
+                designRotation: 0
+            },
             views: [
                 { id: 1, bg: 'mockups/plaques/slate-heart-10x10-view1.png', overlay: 'mockups/plaques/slate-heart-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
+                { id: 2, bg: 'mockups/plaques/slate-heart-10x10-view2.png', overlay: 'mockups/plaques/slate-heart-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
             ]
         },
         'slate-plaque-heart-25x25': {
             name: "Slate Plaque Heart 25x25cm",
-            main: {
+            main1: {
                 bg: 'mockups/plaques/slate-heart-25x25-main.png',
                 overlay: 'mockups/plaques/slate-heart-25x25-overlay.png',
                 fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main.png',
@@ -1043,33 +1325,36 @@
                 designScale: 90,
                 designRotation: 0
             },
-            views: [
-                { id: 1, bg: 'mockups/plaques/slate-heart-25x25-view1.png', overlay: 'mockups/plaques/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
-            ]
-        },
-        'acrylic-block-10x10': {
-            name: "Acrylic Block 10x10cm",
-            main: {
-                bg: 'mockups/plaques/acrylic-10x10-main.png',
-                overlay: 'mockups/plaques/acrylic-10x10-overlay.png',
-                fullresBg: 'mockups/plaques/originals/acrylic-10x10-main.png',
-                fullresOverlay: 'mockups/plaques/originals/acrylic-10x10-overlay.png',
+            main2: {
+                bg: 'mockups/plaques/slate-heart-25x25-main2.png',
+                overlay: 'mockups/plaques/slate-heart-25x25-overlay2.png',
+                fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main2.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay2.png',
                 designX: 50,
                 designY: 50,
-                designScale: 90,
+                designScale: 85,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/plaques/slate-heart-25x25-main3.png',
+                overlay: 'mockups/plaques/slate-heart-25x25-overlay3.png',
+                fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main3.png',
+                fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay3.png',
+                designX: 50,
+                designY: 50,
+                designScale: 80,
                 designRotation: 0
             },
             views: [
-                { id: 1, bg: 'mockups/plaques/acrylic-10x10-view1.png', overlay: 'mockups/plaques/acrylic-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/acrylic-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/acrylic-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
+                { id: 1, bg: 'mockups/plaques/slate-heart-25x25-view1.png', overlay: 'mockups/plaques/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 2, bg: 'mockups/plaques/slate-heart-25x25-view2.png', overlay: 'mockups/plaques/slate-heart-25x25-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
             ]
         },
 
         // AirPods Cases
         'airpods-cases': {
             name: "AirPods Cases",
-            main: {
+            main1: {
                 bg: 'mockups/airpods/airpods-main.png',
                 overlay: 'mockups/airpods/airpods-overlay.png',
                 fullresBg: 'mockups/airpods/originals/airpods-main.png',
@@ -1079,28 +1364,30 @@
                 designScale: 90,
                 designRotation: 0
             },
-            views: [
-                { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views
-            ]
-        },
-
-        // Cotton Bags
-        'cotton-bag-50x75': {
-            name: "Cotton Bag 50x75cm",
-            main: {
-                bg: 'mockups/bags/cotton-main.png',
-                overlay: 'mockups/bags/cotton-overlay.png',
-                fullresBg: 'mockups/bags/originals/cotton-main.png',
-                fullresOverlay: 'mockups/bags/originals/cotton-overlay.png',
+            main2: {
+                bg: 'mockups/airpods/airpods-main2.png',
+                overlay: 'mockups/airpods/airpods-overlay2.png',
+                fullresBg: 'mockups/airpods/originals/airpods-main2.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-overlay2.png',
                 designX: 50,
                 designY: 50,
-                designScale: 90,
+                designScale: 85,
+                designRotation: 0
+            },
+            main3: {
+                bg: 'mockups/airpods/airpods-main3.png',
+                overlay: 'mockups/airpods/airpods-overlay3.png',
+                fullresBg: 'mockups/airpods/originals/airpods-main3.png',
+                fullresOverlay: 'mockups/airpods/originals/airpods-overlay3.png',
+                designX: 50,
+                designY: 50,
+                designScale: 80,
                 designRotation: 0
             },
             views: [
-                { id: 1, bg: 'mockups/bags/cotton-view1.png', overlay: 'mockups/bags/cotton-view1-overlay.png', fullresBg: 'mockups/bags/originals/cotton-view1.png', fullresOverlay: 'mockups/bags/originals/cotton-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                // ... up to 10 views (same for all colors)
+                { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 2, bg: 'mockups/airpods/airpods-view2.png', overlay: 'mockups/airpods/airpods-view2-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view2.png', fullresOverlay: 'mockups/airpods/originals/airpods-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
+                { id: 3, bg: 'mockups/airpods/airpods-view3.png', overlay: 'mockups/airpods/airpods-view3-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view3.png', fullresOverlay: 'mockups/airpods/originals/airpods-view3-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
             ]
         }
     };
@@ -1113,28 +1400,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set up all event listeners
     function setupEventListeners() {
         // Product category selection
- productCategoryLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Update active category link
-        productCategoryLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        
-        const category = this.dataset.category;
-        
-        // Show/hide product type selection based on category
-        phoneCasesTypes.style.display = 'none';
-        plaquesTypes.style.display = 'none';
-        airpodsCasesTypes.style.display = 'none';
-        cottonBagsTypes.style.display = 'none';
-        acrylicBlocksTypes.style.display = 'none';
-        plaquesStandSelection.style.display = 'none';
+        productCategoryLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active category link
+                productCategoryLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                // Show/hide product type selection based on category
+                phoneCasesTypes.style.display = 'none';
+                plaquesTypes.style.display = 'none';
+                airpodsCasesTypes.style.display = 'none';
                 
                 if (category === 'phone-cases') {
                     phoneCasesTypes.style.display = 'flex';
                     controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
+                    mainMockupSelector.style.display = 'flex';
+                    showMainMockup('main1');
                     gridWrapper.style.display = 'block';
                     
                     // Initialize the grid for the default case type
@@ -1142,47 +1427,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 } 
                 else if (category === 'plaques') {
                     plaquesTypes.style.display = 'flex';
-                    plaquesStandSelection.style.display = 'flex';
                     controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
+                    mainMockupSelector.style.display = 'flex';
+                    showMainMockup('main1');
                     gridWrapper.style.display = 'block';
                     
                     // Initialize with first plaque type
                     currentCaseType = 'slate-plaque-10x10';
-                    updateMainMockup(currentCaseType);
+                    updateMainMockup(currentCaseType, 'main1');
                     initializeGrid(currentCaseType);
                 }
                 else if (category === 'airpods-cases') {
                     airpodsCasesTypes.style.display = 'flex';
                     controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
+                    mainMockupSelector.style.display = 'flex';
+                    showMainMockup('main1');
                     gridWrapper.style.display = 'block';
                     
                     // Initialize with AirPods case type
                     currentCaseType = 'airpods-cases';
-                    updateMainMockup(currentCaseType);
-                    initializeGrid(currentCaseType);
-                }
-                else if (category === 'cotton-bags') {
-                    cottonBagsTypes.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize with cotton bag type and default color
-                    currentCaseType = 'cotton-bag-50x75';
-                    updateMainMockup(currentCaseType);
-                    initializeGrid(currentCaseType);
-                }
-                else if (category === 'acrylic-blocks') {
-                    acrylicBlocksTypes.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    mainMockupContainer.style.display = 'inline-block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize with acrylic block type
-                    currentCaseType = 'acrylic-block-10x10';
-                    updateMainMockup(currentCaseType);
+                    updateMainMockup(currentCaseType, 'main1');
                     initializeGrid(currentCaseType);
                 }
                 
@@ -1194,54 +1458,65 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-// Modify the product type click handler in the setupEventListeners function
-productTypeLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Update active type link
-        const container = this.closest('.product-type-container');
-        container.querySelectorAll('.product-type-link').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        
-        currentCaseType = this.dataset.case;
-        
-        // Show controls and main mockup
-        controlsSection.style.display = 'block';
-        mainMockupContainer.style.display = 'inline-block';
-        
-        // Show grid wrapper by default
-        gridWrapper.style.display = 'block';
-        
-        // Update main mockup
-        updateMainMockup(currentCaseType);
-        
-        // Update grid for the selected case type
-        initializeGrid(currentCaseType);
-        
-        // Update design positions if an image is already uploaded
-        if (uploadedImage.src) {
-            document.querySelectorAll('.user-design').forEach(design => {
-                if (design.src) {
-                    design.style.display = 'block';
-                    updateDesignPosition(design);
+        // Product type click handler
+        productTypeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active type link
+                const container = this.closest('.product-type-container');
+                container.querySelectorAll('.product-type-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentCaseType = this.dataset.case;
+                
+                // Show controls and main mockup
+                controlsSection.style.display = 'block';
+                mainMockupSelector.style.display = 'flex';
+                showMainMockup('main1');
+                
+                // Show grid wrapper by default
+                gridWrapper.style.display = 'block';
+                
+                // Update main mockup
+                updateMainMockup(currentCaseType, 'main1');
+                
+                // Update grid for the selected case type
+                initializeGrid(currentCaseType);
+                
+                // Update view selector options
+                updateViewSelectorOptions();
+                
+                // Update design positions if an image is already uploaded
+                if (uploadedImage.src) {
+                    document.querySelectorAll('.user-design').forEach(design => {
+                        if (design.src) {
+                            design.style.display = 'block';
+                            updateDesignPosition(design);
+                        }
+                    });
                 }
             });
-        }
-    });
-});
+        });
 
-
-        // Plaque stand selection
-        plaquesStandSelection.querySelectorAll('.stand-option').forEach(option => {
+        // Main mockup selector
+        document.querySelectorAll('.main-mockup-option').forEach(option => {
             option.addEventListener('click', function() {
-                plaquesStandSelection.querySelectorAll('.stand-option').forEach(o => o.classList.remove('active'));
-                this.classList.add('active');
-                currentStandType = this.dataset.stand;
+                const view = this.dataset.view;
+                currentMainView = view;
                 
-                // Update mockups with new stand type
-                updateMainMockup(currentCaseType);
-                initializeGrid(currentCaseType);
+                // Update active option
+                document.querySelectorAll('.main-mockup-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show the selected mockup
+                showMainMockup(view);
+                
+                // Update the mockup with current design
+                updateMainMockup(currentCaseType, view);
+                
+                // Update positioning controls with current values
+                updatePositioningControls();
             });
         });
 
@@ -1316,6 +1591,7 @@ productTypeLinks.forEach(link => {
             showLoading("Generating main mockup...");
             
             try {
+                const mainMockupContainer = document.getElementById(`main-mockup-container-${currentMainView.slice(-1)}`);
                 const canvas = await generateMockupImage(mainMockupContainer);
                 downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
             } catch (error) {
@@ -1347,17 +1623,34 @@ productTypeLinks.forEach(link => {
                 const caseData = mockupData[currentCaseType];
                 const promises = [];
                 
-                // Add main mockup to ZIP
+                // Add all main mockups to ZIP
                 promises.push((async () => {
-                    showLoading("Generating main mockup...");
-                    const mainCanvas = await generateMockupImage(mainMockupContainer);
-                    const mainBlob = await canvasToBlob(mainCanvas);
-                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main.png`, mainBlob);
+                    showLoading("Generating main mockup 1...");
+                    const mainCanvas1 = await generateMockupImage(document.getElementById('main-mockup-container-1'));
+                    const mainBlob1 = await canvasToBlob(mainCanvas1);
+                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main1.png`, mainBlob1);
+                })());
+                
+                promises.push((async () => {
+                    showLoading("Generating main mockup 2...");
+                    const mainCanvas2 = await generateMockupImage(document.getElementById('main-mockup-container-2'));
+                    const mainBlob2 = await canvasToBlob(mainCanvas2);
+                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main2.png`, mainBlob2);
+                })());
+                
+                promises.push((async () => {
+                    showLoading("Generating main mockup 3...");
+                    const mainCanvas3 = await generateMockupImage(document.getElementById('main-mockup-container-3'));
+                    const mainBlob3 = await canvasToBlob(mainCanvas3);
+                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main3.png`, mainBlob3);
                 })());
                 
                 // Process selected grid items
                 for (const item of checkedItems) {
                     const viewNumber = item.dataset.view;
+                    // Skip main mockups as we already added them
+                    if (viewNumber === 'main1' || viewNumber === 'main2' || viewNumber === 'main3') continue;
+                    
                     const viewData = caseData.views.find(v => v.id == viewNumber);
                     
                     if (!viewData) continue;
@@ -1386,83 +1679,189 @@ productTypeLinks.forEach(link => {
                 hideLoading();
             }
         });
+
+        // Positioning controls
+        positionX.addEventListener('input', function() {
+            updateDesignPositionFromControls();
+        });
+        
+        positionY.addEventListener('input', function() {
+            updateDesignPositionFromControls();
+        });
+        
+        scaleInput.addEventListener('input', function() {
+            updateDesignPositionFromControls();
+        });
+        
+        rotationInput.addEventListener('input', function() {
+            updateDesignPositionFromControls();
+        });
+        
+        // Reset position button
+        resetPositionBtn.addEventListener('click', function() {
+            const selectedView = viewSelector.value;
+            const caseData = mockupData[currentCaseType];
+            
+            if (selectedView === 'all') {
+                // Reset all views to their default positions
+                document.querySelectorAll('.user-design').forEach(design => {
+                    const viewId = design.closest('.main-mockup-container') ? 
+                        design.closest('.main-mockup-container').id.replace('main-mockup-container-', 'main') :
+                        design.closest('.grid-item').dataset.view;
+                    
+                    let viewData;
+                    
+                    if (viewId.startsWith('main')) {
+                        const viewNum = viewId.replace('main', '');
+                        viewData = caseData[`main${viewNum}`];
+                    } else {
+                        viewData = caseData.views.find(v => v.id == viewId);
+                    }
+                    
+                    if (viewData) {
+                        design.dataset.x = viewData.designX;
+                        design.dataset.y = viewData.designY;
+                        design.dataset.scale = viewData.designScale;
+                        design.dataset.rotation = viewData.designRotation;
+                        updateDesignPosition(design);
+                    }
+                });
+            } else {
+                // Reset only the selected view
+                const designs = getDesignElementsForView(selectedView);
+                designs.forEach(design => {
+                    let viewData;
+                    
+                    if (selectedView.startsWith('main')) {
+                        const viewNum = selectedView.replace('main', '');
+                        viewData = caseData[`main${viewNum}`];
+                    } else {
+                        viewData = caseData.views.find(v => v.id == selectedView);
+                    }
+                    
+                    if (viewData) {
+                        design.dataset.x = viewData.designX;
+                        design.dataset.y = viewData.designY;
+                        design.dataset.scale = viewData.designScale;
+                        design.dataset.rotation = viewData.designRotation;
+                        updateDesignPosition(design);
+                    }
+                });
+            }
+            
+            // Update controls to reflect the reset values
+            updatePositioningControls();
+        });
+    }
+
+    // Show the selected main mockup and hide others
+    function showMainMockup(view) {
+        for (let i = 1; i <= 3; i++) {
+            const container = document.getElementById(`main-mockup-container-${i}`);
+            if (container) {
+                container.style.display = view === `main${i}` ? 'inline-block' : 'none';
+            }
+        }
     }
 
     // Initialize grid for a specific case type
-function initializeGrid(caseType) {
-    gridContainer.innerHTML = '';
-    
-    const caseData = mockupData[caseType];
-    if (!caseData) return;
-    
-    caseData.views.forEach(view => {
-        const gridItem = document.createElement('div');
-        gridItem.className = 'grid-item';
-        gridItem.dataset.view = view.id;
+    function initializeGrid(caseType) {
+        gridContainer.innerHTML = '';
         
-        // Determine the correct image paths based on product type and selections
-        let bgPath = view.bg;
-        let overlayPath = view.overlay;
-        let fullresBgPath = view.fullresBg;
-        let fullresOverlayPath = view.fullresOverlay;
+        const caseData = mockupData[caseType];
+        if (!caseData) return;
         
-        // Handle plaques with different stands
-        if (caseType.includes('plaque')) {
-            bgPath = bgPath.replace('slate-', `slate-${currentStandType}-`);
-            overlayPath = overlayPath.replace('slate-', `slate-${currentStandType}-`);
-            fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
-            fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
-        }
-        
-        gridItem.innerHTML = `
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}">
-                <div class="carousel-checkbox-indicator"></div>
-                <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
-                <div class="design-area">
-                    <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
-                         data-x="${view.designX}" data-y="${view.designY}" 
-                         data-scale="${view.designScale}" data-rotation="${view.designRotation}"
-                         style="display: ${uploadedImage.src ? 'block' : 'none'}">
+        caseData.views.forEach(view => {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'grid-item';
+            gridItem.dataset.view = view.id;
+            
+            const bgPath = view.bg;
+            const overlayPath = view.overlay;
+            const fullresBgPath = view.fullresBg;
+            const fullresOverlayPath = view.fullresOverlay;
+            
+            gridItem.innerHTML = `
+                <div class="secondary-mockup">
+                    <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}">
+                    <div class="carousel-checkbox-indicator"></div>
+                    <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
+                    <div class="design-area">
+                        <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
+                             data-x="${view.designX}" data-y="${view.designY}" 
+                             data-scale="${view.designScale}" data-rotation="${view.designRotation}"
+                             style="display: ${uploadedImage.src ? 'block' : 'none'}">
+                    </div>
+                    <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
                 </div>
-                <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
-            </div>
-            <div class="mockup-label">View ${view.id}</div>
-        `;
-        
-        gridContainer.appendChild(gridItem);
-        
-        // Update design position if image is already uploaded
-        if (uploadedImage.src) {
-            const design = gridItem.querySelector('.user-design');
-            updateDesignPosition(design);
-        }
-        
-        // Add click handler for the entire grid item
-        gridItem.addEventListener('click', function(e) {
-            // Don't toggle if clicking directly on the checkbox (it will handle itself)
-            if (e.target.classList.contains('carousel-checkbox')) {
-                return;
+                <div class="mockup-label">View ${view.id}</div>
+            `;
+            
+            gridContainer.appendChild(gridItem);
+            
+            // Update design position if image is already uploaded
+            if (uploadedImage.src) {
+                const design = gridItem.querySelector('.user-design');
+                updateDesignPosition(design);
             }
             
-            const checkbox = this.querySelector('.carousel-checkbox');
-            if (checkbox) {
-                checkbox.checked = !checkbox.checked;
-                this.classList.toggle('selected', checkbox.checked);
+            // Add click handler for the entire grid item
+            gridItem.addEventListener('click', function(e) {
+                // Don't toggle if clicking directly on the checkbox (it will handle itself)
+                if (e.target.classList.contains('carousel-checkbox')) {
+                    return;
+                }
                 
-                // Trigger change event manually since we're changing checked state programmatically
-                const event = new Event('change');
-                checkbox.dispatchEvent(event);
-            }
+                const checkbox = this.querySelector('.carousel-checkbox');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    this.classList.toggle('selected', checkbox.checked);
+                    
+                    // Trigger change event manually since we're changing checked state programmatically
+                    const event = new Event('change');
+                    checkbox.dispatchEvent(event);
+                }
+            });
+            
+            // Add change handler for the checkbox
+            const checkbox = gridItem.querySelector('.carousel-checkbox');
+            checkbox.addEventListener('change', function() {
+                gridItem.classList.toggle('selected', this.checked);
+            });
         });
         
-        // Add change handler for the checkbox
-        const checkbox = gridItem.querySelector('.carousel-checkbox');
-        checkbox.addEventListener('change', function() {
-            gridItem.classList.toggle('selected', this.checked);
+        // Update view selector options
+        updateViewSelectorOptions();
+    }
+
+    // Update view selector dropdown with available views
+    function updateViewSelectorOptions() {
+        const caseData = mockupData[currentCaseType];
+        if (!caseData) return;
+        
+        // Clear existing options except "All Views"
+        while (viewSelector.options.length > 1) {
+            viewSelector.remove(1);
+        }
+        
+        // Add main views
+        for (let i = 1; i <= 3; i++) {
+            if (caseData[`main${i}`]) {
+                const option = document.createElement('option');
+                option.value = `main${i}`;
+                option.textContent = `Main View ${i}`;
+                viewSelector.appendChild(option);
+            }
+        }
+        
+        // Add secondary views
+        caseData.views.forEach(view => {
+            const option = document.createElement('option');
+            option.value = view.id;
+            option.textContent = `View ${view.id}`;
+            viewSelector.appendChild(option);
         });
-    });
-}
+    }
 
     // Helper function to get the appropriate image class based on product type
     function getImageClass(caseType) {
@@ -1472,46 +1871,28 @@ function initializeGrid(caseType) {
             return 'plaque';
         } else if (caseType.includes('airpods')) {
             return 'airpods';
-        } else if (caseType.includes('cotton-bag')) {
-            return 'bag';
-        } else if (caseType.includes('acrylic-block')) {
-            return 'plaque'; // Using same class as plaques since they're similar
         }
         return 'phone-case'; // default
     }
 
-    // Update main mockup for a specific case type
-    function updateMainMockup(caseType) {
+    // Update main mockup for a specific case type and view
+    function updateMainMockup(caseType, view) {
         const caseData = mockupData[caseType];
-        if (!caseData) return;
+        if (!caseData || !caseData[view]) return;
         
-        const mainMockup = caseData.main;
-        
-        // Determine the correct image paths based on product type and selections
-        let bgPath = mainMockup.bg;
-        let overlayPath = mainMockup.overlay;
-        let fullresBgPath = mainMockup.fullresBg;
-        let fullresOverlayPath = mainMockup.fullresOverlay;
-        
-        // Handle plaques with different stands
-        if (caseType.includes('plaque')) {
-            bgPath = bgPath.replace('slate-', `slate-${currentStandType}-`);
-            overlayPath = overlayPath.replace('slate-', `slate-${currentStandType}-`);
-            fullresBgPath = fullresBgPath.replace('slate-', `slate-${currentStandType}-`);
-            fullresOverlayPath = fullresOverlayPath.replace('slate-', `slate-${currentStandType}-`);
-        }
-        // Handle cotton bag colors
-        else if (caseType.includes('cotton-bag')) {
-        }
+        const mainMockup = caseData[view];
+        const containerId = `main-mockup-container-${view.replace('main', '')}`;
+        const container = document.getElementById(containerId);
+        if (!container) return;
         
         // Clear the mockup container and recreate with correct classes
-        mainMockupContainer.innerHTML = '';
+        container.innerHTML = '';
         
         const imageClass = getImageClass(caseType);
         const bgImg = document.createElement('img');
         bgImg.className = `${imageClass}-bg`;
-        bgImg.src = bgPath;
-        bgImg.dataset.fullres = fullresBgPath;
+        bgImg.src = mainMockup.bg;
+        bgImg.dataset.fullres = mainMockup.fullresBg;
         
         const designArea = document.createElement('div');
         designArea.className = 'design-area';
@@ -1530,17 +1911,34 @@ function initializeGrid(caseType) {
         
         const overlayImg = document.createElement('img');
         overlayImg.className = `${imageClass}-overlay`;
-        overlayImg.src = overlayPath;
-        overlayImg.dataset.fullres = fullresOverlayPath;
+        overlayImg.src = mainMockup.overlay;
+        overlayImg.dataset.fullres = mainMockup.fullresOverlay;
         
-        mainMockupContainer.appendChild(bgImg);
-        mainMockupContainer.appendChild(designArea);
-        mainMockupContainer.appendChild(overlayImg);
+        // Add checkbox
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'carousel-checkbox';
+        checkbox.id = `checkbox-${view}`;
+        checkbox.dataset.view = view;
+        
+        const checkboxIndicator = document.createElement('div');
+        checkboxIndicator.className = 'carousel-checkbox-indicator';
+        
+        container.appendChild(checkbox);
+        container.appendChild(checkboxIndicator);
+        container.appendChild(bgImg);
+        container.appendChild(designArea);
+        container.appendChild(overlayImg);
         
         // Update design position if image is already uploaded
         if (uploadedImage.src) {
             updateDesignPosition(designImg);
         }
+        
+        // Add checkbox event listener
+        checkbox.addEventListener('change', function() {
+            container.classList.toggle('selected', this.checked);
+        });
     }
 
     // Function to update design position based on data attributes
@@ -1555,8 +1953,83 @@ function initializeGrid(caseType) {
         designElement.style.transform = `translate(-50%, -50%) scale(${scale/100}) rotate(${rotation}deg)`;
     }
 
+    // Update design position from control inputs
+    function updateDesignPositionFromControls() {
+        const selectedView = viewSelector.value;
+        const x = parseFloat(positionX.value);
+        const y = parseFloat(positionY.value);
+        const scale = parseFloat(scaleInput.value);
+        const rotation = parseFloat(rotationInput.value);
+        
+        if (selectedView === 'all') {
+            // Update all views
+            document.querySelectorAll('.user-design').forEach(design => {
+                design.dataset.x = x;
+                design.dataset.y = y;
+                design.dataset.scale = scale;
+                design.dataset.rotation = rotation;
+                updateDesignPosition(design);
+            });
+        } else {
+            // Update only the selected view
+            const designs = getDesignElementsForView(selectedView);
+            designs.forEach(design => {
+                design.dataset.x = x;
+                design.dataset.y = y;
+                design.dataset.scale = scale;
+                design.dataset.rotation = rotation;
+                updateDesignPosition(design);
+            });
+        }
+    }
+
+    // Get design elements for a specific view
+    function getDesignElementsForView(view) {
+        if (view.startsWith('main')) {
+            const viewNum = view.replace('main', '');
+            const container = document.getElementById(`main-mockup-container-${viewNum}`);
+            if (container) {
+                return Array.from(container.querySelectorAll('.user-design'));
+            }
+        } else {
+            const gridItem = document.querySelector(`.grid-item[data-view="${view}"]`);
+            if (gridItem) {
+                return Array.from(gridItem.querySelectorAll('.user-design'));
+            }
+        }
+        return [];
+    }
+
+    // Update positioning controls with current values for the selected view
+    function updatePositioningControls() {
+        const selectedView = viewSelector.value;
+        
+        if (selectedView === 'all') {
+            // For "All Views", we'll use the main view's values
+            const designs = getDesignElementsForView(currentMainView);
+            if (designs.length > 0) {
+                const design = designs[0];
+                positionX.value = design.dataset.x || 50;
+                positionY.value = design.dataset.y || 50;
+                scaleInput.value = design.dataset.scale || 100;
+                rotationInput.value = design.dataset.rotation || 0;
+            }
+        } else {
+            const designs = getDesignElementsForView(selectedView);
+            if (designs.length > 0) {
+                const design = designs[0];
+                positionX.value = design.dataset.x || 50;
+                positionY.value = design.dataset.y || 50;
+                scaleInput.value = design.dataset.scale || 100;
+                rotationInput.value = design.dataset.rotation || 0;
+            }
+        }
+    }
+
     // Generate mockup image with caching
     async function generateMockupImage(container) {
+        if (!container) return;
+        
         const cacheKey = `${container.id}-${uploadedImage.src}`;
         if (mockupCache.has(cacheKey)) {
             return mockupCache.get(cacheKey);
