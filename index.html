@@ -723,28 +723,29 @@
             </div>
         </section>
         
-        <!-- Controls Section (initially hidden) -->
-        <div id="controls">
-            <div class="controls-row">
-                <div class="file-upload-wrapper">
-                    <input type="file" id="image-upload" accept="image/*">
-                    <button class="file-upload-btn">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
-                            <path d="M20 18H4V11H2V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V11H20V18Z" fill="currentColor"/>
-                        </svg>
-                        Upload Design
-                    </button>
-                    <button id="remove-btn">×</button>
-                </div>
-            </div>
-            <div class="upload-requirements">
-                For best results, upload a PNG file with dimensions 750x1590 pixels at 300 PPI
-            </div>
-            <div class="controls-row">
-                <button id="download-btn" disabled>Download Main Mockup</button>
-                <button id="download-zip-btn" disabled>Download Selected Views</button>
-            </div>
+<!-- Controls Section (initially hidden) -->
+<div id="controls">
+    <div class="controls-row">
+        <div class="file-upload-wrapper">
+            <input type="file" id="image-upload" accept="image/*">
+            <button class="file-upload-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
+                    <path d="M20 18H4V11H2V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V11H20V18Z" fill="currentColor"/>
+                </svg>
+                Upload Design
+            </button>
+            <button id="remove-btn">×</button>
+        </div>
+    </div>
+    <div class="upload-requirements">
+        For best results, upload a PNG file with dimensions 750x1590 pixels at 300 PPI
+    </div>
+    <div class="controls-row">
+        <button id="download-btn" disabled>Download Main Mockup</button>
+        <button id="download-zip-btn" disabled>Download Selected Views</button>
+    </div>
+</div>
 
             <!-- Design positioning controls -->
             <div class="position-controls">
@@ -796,38 +797,80 @@
             <div class="main-mockup-option" data-view="main3">Main View 3</div>
         </div>
         
-        <!-- Main Mockup Containers (initially hidden) -->
-        <div style="text-align: center; width: 100%;">
-            <div id="main-mockup-container-1" class="main-mockup-container">
-                <input type="checkbox" class="carousel-checkbox" id="checkbox-main1" data-view="main1">
-                <div class="carousel-checkbox-indicator"></div>
-                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
-                </div>
-                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
-            </div>
-            
-            <div id="main-mockup-container-2" class="main-mockup-container" style="display: none;">
-                <input type="checkbox" class="carousel-checkbox" id="checkbox-main2" data-view="main2">
-                <div class="carousel-checkbox-indicator"></div>
-                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main2.png" data-fullres="mockups/originals/samsung-tpu-back-main2.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0">
-                </div>
-                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main2.png" data-fullres="mockups/originals/samsung-tpu-overlay-main2.png">
-            </div>
-            
-            <div id="main-mockup-container-3" class="main-mockup-container" style="display: none;">
-                <input type="checkbox" class="carousel-checkbox" id="checkbox-main3" data-view="main3">
-                <div class="carousel-checkbox-indicator"></div>
-                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main3.png" data-fullres="mockups/originals/samsung-tpu-back-main3.png">
-                <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5">
-                </div>
-                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main3.png" data-fullres="mockups/originals/samsung-tpu-overlay-main3.png">
+<!-- Main Mockup Containers (initially hidden) -->
+<div style="text-align: center; width: 100%;">
+    <div id="main-mockup-container-1" class="main-mockup-container">
+        <input type="checkbox" class="carousel-checkbox" id="checkbox-main1" data-view="main1">
+        <div class="carousel-checkbox-indicator"></div>
+        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
+        <div class="design-area">
+            <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
+        </div>
+        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+    </div>
+    
+    <div id="main-mockup-container-2" class="main-mockup-container" style="display: none;">
+        <input type="checkbox" class="carousel-checkbox" id="checkbox-main2" data-view="main2">
+        <div class="carousel-checkbox-indicator"></div>
+        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main2.png" data-fullres="mockups/originals/samsung-tpu-back-main2.png">
+        <div class="design-area">
+            <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0">
+        </div>
+        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main2.png" data-fullres="mockups/originals/samsung-tpu-overlay-main2.png">
+    </div>
+    
+    <div id="main-mockup-container-3" class="main-mockup-container" style="display: none;">
+        <input type="checkbox" class="carousel-checkbox" id="checkbox-main3" data-view="main3">
+        <div class="carousel-checkbox-indicator"></div>
+        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main3.png" data-fullres="mockups/originals/samsung-tpu-back-main3.png">
+        <div class="design-area">
+            <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5">
+        </div>
+        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main3.png" data-fullres="mockups/originals/samsung-tpu-overlay-main3.png">
+    </div>
+
+    <!-- Design positioning controls -->
+    <div class="position-controls">
+        <h3>Design Positioning</h3>
+        
+        <div class="control-group">
+            <div style="flex: 1;">
+                <label class="control-label">View</label>
+                <select id="view-selector" class="control-select">
+                    <option value="all">All Views</option>
+                    <option value="main">Main View</option>
+                    <!-- Secondary views will be added dynamically -->
+                </select>
             </div>
         </div>
+        
+        <div class="control-group">
+            <div style="flex: 1;">
+                <label class="control-label">Horizontal Position</label>
+                <input type="range" id="position-x" class="control-input" min="0" max="100" step="1" value="50">
+            </div>
+            <div style="flex: 1;">
+                <label class="control-label">Vertical Position</label>
+                <input type="range" id="position-y" class="control-input" min="0" max="100" step="1" value="50">
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div style="flex: 1;">
+                <label class="control-label">Scale</label>
+                <input type="range" id="scale" class="control-input" min="10" max="200" step="1" value="100">
+            </div>
+            <div style="flex: 1;">
+                <label class="control-label">Rotation</label>
+                <input type="range" id="rotation" class="control-input" min="-180" max="180" step="1" value="0">
+            </div>
+        </div>
+        
+        <div class="controls-row">
+            <button id="reset-position-btn">Reset Position</button>
+        </div>
+    </div>
+</div>
         
         <!-- Secondary Mockups Grid (initially hidden) -->
         <div class="grid-wrapper">
