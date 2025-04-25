@@ -1414,6 +1414,34 @@ let currentStandType = 'none'; // No longer used since stands are removed
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners
     setupEventListeners();
+    
+    // Simulate click on the first category to load initial content
+    if (productCategoryLinks.length > 0) {
+        // Set the first category as active
+        productCategoryLinks[0].classList.add('active');
+        
+        const category = productCategoryLinks[0].dataset.category;
+        
+        // Show the corresponding product types
+        phoneCasesTypes.style.display = category === 'phone-cases' ? 'flex' : 'none';
+        plaquesTypes.style.display = category === 'plaques' ? 'flex' : 'none';
+        airpodsCasesTypes.style.display = category === 'airpods-cases' ? 'flex' : 'none';
+        
+        // Show controls and main mockup
+        controlsSection.style.display = 'block';
+        mainMockupSelector.style.display = 'flex';
+        showMainMockup('main1');
+        gridWrapper.style.display = 'block';
+        
+        // Click the first product type in this category
+        if (category === 'phone-cases' && phoneCasesTypes.querySelector('.product-type-link')) {
+            phoneCasesTypes.querySelector('.product-type-link').click();
+        } else if (category === 'plaques' && plaquesTypes.querySelector('.product-type-link')) {
+            plaquesTypes.querySelector('.product-type-link').click();
+        } else if (category === 'airpods-cases' && airpodsCasesTypes.querySelector('.product-type-link')) {
+            airpodsCasesTypes.querySelector('.product-type-link').click();
+        }
+    }
 });
 
     // Set up all event listeners
