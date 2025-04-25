@@ -746,58 +746,48 @@
                 <button id="download-zip-btn" disabled>Download Selected Views</button>
             </div>
 
-<!-- Design positioning controls -->
-<div class="position-controls">
-    <h3>Design Positioning</h3>
-    
-    <div class="control-group">
-        <div style="flex: 1;">
-            <label class="control-label">View</label>
-            <select id="view-selector" class="control-select">
-                <option value="all">All Views</option>
-                <option value="main">Main View</option>
-                <!-- Secondary views will be added dynamically -->
-            </select>
+            <!-- Design positioning controls -->
+            <div class="position-controls">
+                <h3>Design Positioning</h3>
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">View</label>
+                        <select id="view-selector" class="control-select">
+                            <option value="all">All Views</option>
+                            <option value="main">Main View</option>
+                            <!-- Secondary views will be added dynamically -->
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">Horizontal Position</label>
+                        <input type="range" id="position-x" class="control-input" min="0" max="100" step="1" value="50">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Vertical Position</label>
+                        <input type="range" id="position-y" class="control-input" min="0" max="100" step="1" value="50">
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">Scale</label>
+                        <input type="range" id="scale" class="control-input" min="10" max="200" step="1" value="100">
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Rotation</label>
+                        <input type="range" id="rotation" class="control-input" min="-180" max="180" step="1" value="0">
+                    </div>
+                </div>
+                
+                <div class="controls-row">
+                    <button id="reset-position-btn">Reset Position</button>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <div class="control-group">
-        <div style="flex: 1;">
-            <label class="control-label">Horizontal Position</label>
-            <input type="range" id="position-x" class="control-input" min="0" max="100" step="1" value="50">
-        </div>
-        <div style="flex: 1;">
-            <label class="control-label">Vertical Position</label>
-            <input type="range" id="position-y" class="control-input" min="0" max="100" step="1" value="50">
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <div style="flex: 1;">
-            <label class="control-label">Scale</label>
-            <input type="range" id="scale" class="control-input" min="10" max="200" step="1" value="100">
-        </div>
-        <div style="flex: 1;">
-            <label class="control-label">Rotation</label>
-            <input type="range" id="rotation" class="control-input" min="-180" max="180" step="1" value="0">
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <div style="flex: 1;">
-            <label class="control-label">Skew X</label>
-            <input type="range" id="skew-x" class="control-input" min="-50" max="50" step="1" value="0">
-        </div>
-        <div style="flex: 1;">
-            <label class="control-label">Skew Y</label>
-            <input type="range" id="skew-y" class="control-input" min="-50" max="50" step="1" value="0">
-        </div>
-    </div>
-    
-    <div class="controls-row">
-        <button id="reset-position-btn">Reset Position</button>
-    </div>
-</div>
         
         <!-- Main Mockup Selector -->
         <div class="main-mockup-selector" style="display: none;">
@@ -839,12 +829,12 @@
             </div>
         </div>
         
-<!-- Secondary Mockups Grid -->
-<div class="grid-wrapper">
-    <div class="grid-container">
-        <!-- Grid items will be populated by JavaScript -->
-    </div>
-</div>
+        <!-- Secondary Mockups Grid (initially hidden) -->
+        <div class="grid-wrapper">
+            <div class="grid-container">
+                <!-- Grid items will be populated by JavaScript -->
+            </div>
+        </div>
     </main>
     
     <!-- Loading Overlay -->
@@ -855,39 +845,36 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 <script>
-// DOM Elements
-const imageUpload = document.getElementById('image-upload');
-const downloadBtn = document.getElementById('download-btn');
-const downloadZipBtn = document.getElementById('download-zip-btn');
-const productCategoryLinks = document.querySelectorAll('.product-category-link');
-const productTypeLinks = document.querySelectorAll('.product-type-link');
-const loadingElement = document.querySelector('.loading');
-const removeBtn = document.getElementById('remove-btn');
-const mainMockupSelector = document.querySelector('.main-mockup-selector');
-const gridWrapper = document.querySelector('.grid-wrapper');
-const controlsSection = document.getElementById('controls');
-const phoneCasesTypes = document.getElementById('phone-cases-types');
-const plaquesTypes = document.getElementById('plaques-types');
-const airpodsCasesTypes = document.getElementById('airpods-cases-types');
-const gridContainer = document.querySelector('.grid-container');
-
-// Positioning controls
-const viewSelector = document.getElementById('view-selector');
-const positionX = document.getElementById('position-x');
-const positionY = document.getElementById('position-y');
-const scaleInput = document.getElementById('scale');
-const rotationInput = document.getElementById('rotation');
-const resetPositionBtn = document.getElementById('reset-position-btn');
-// Add skew controls here:
-const skewX = document.getElementById('skew-x');
-const skewY = document.getElementById('skew-y');
-
-// State variables
-let uploadedImage = new Image();
-const mockupCache = new Map();
-let currentCaseType = 'samsung-tpu';
-let currentMainView = 'main1'; // Track which main view is active
-let currentStandType = 'none'; // No longer used since stands are removed
+    // DOM Elements
+    const imageUpload = document.getElementById('image-upload');
+    const downloadBtn = document.getElementById('download-btn');
+    const downloadZipBtn = document.getElementById('download-zip-btn');
+    const productCategoryLinks = document.querySelectorAll('.product-category-link');
+    const productTypeLinks = document.querySelectorAll('.product-type-link');
+    const loadingElement = document.querySelector('.loading');
+    const removeBtn = document.getElementById('remove-btn');
+    const mainMockupSelector = document.querySelector('.main-mockup-selector');
+    const gridWrapper = document.querySelector('.grid-wrapper');
+    const controlsSection = document.getElementById('controls');
+    const phoneCasesTypes = document.getElementById('phone-cases-types');
+    const plaquesTypes = document.getElementById('plaques-types');
+    const airpodsCasesTypes = document.getElementById('airpods-cases-types');
+    const gridContainer = document.querySelector('.grid-container');
+    
+    // Positioning controls
+    const viewSelector = document.getElementById('view-selector');
+    const positionX = document.getElementById('position-x');
+    const positionY = document.getElementById('position-y');
+    const scaleInput = document.getElementById('scale');
+    const rotationInput = document.getElementById('rotation');
+    const resetPositionBtn = document.getElementById('reset-position-btn');
+    
+    // State variables
+    let uploadedImage = new Image();
+    const mockupCache = new Map();
+    let currentCaseType = 'samsung-tpu';
+    let currentMainView = 'main1'; // Track which main view is active
+    let currentStandType = 'none'; // No longer used since stands are removed
 
     // Mockup data structure for all products
     const mockupData = {
@@ -901,9 +888,7 @@ let currentStandType = 'none'; // No longer used since stands are removed
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 98,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+                designRotation: 0
             },
             main2: {
                 bg: 'mockups/optimized/samsung-tpu-back-main2.png',
@@ -913,9 +898,7 @@ let currentStandType = 'none'; // No longer used since stands are removed
                 designX: 50,
                 designY: 50,
                 designScale: 90,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+                designRotation: 0
             },
             main3: {
                 bg: 'mockups/optimized/samsung-tpu-back-main3.png',
@@ -925,12 +908,10 @@ let currentStandType = 'none'; // No longer used since stands are removed
                 designX: 52,
                 designY: 48,
                 designScale: 85,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+                designRotation: 5
             },
             views: [
-                { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0 },
                 { id: 2, bg: 'mockups/optimized/samsung-tpu-view2.png', overlay: 'mockups/optimized/samsung-tpu-view2-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view2.png', fullresOverlay: 'mockups/originals/samsung-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0 },
                 { id: 3, bg: 'mockups/optimized/samsung-tpu-view3.png', overlay: 'mockups/optimized/samsung-tpu-view3-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view3.png', fullresOverlay: 'mockups/originals/samsung-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42 },
                 { id: 4, bg: 'mockups/optimized/samsung-tpu-view4.png', overlay: 'mockups/optimized/samsung-tpu-view4-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view4.png', fullresOverlay: 'mockups/originals/samsung-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
@@ -1414,34 +1395,6 @@ let currentStandType = 'none'; // No longer used since stands are removed
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners
     setupEventListeners();
-    
-    // Simulate click on the first category to load initial content
-    if (productCategoryLinks.length > 0) {
-        // Set the first category as active
-        productCategoryLinks[0].classList.add('active');
-        
-        const category = productCategoryLinks[0].dataset.category;
-        
-        // Show the corresponding product types
-        phoneCasesTypes.style.display = category === 'phone-cases' ? 'flex' : 'none';
-        plaquesTypes.style.display = category === 'plaques' ? 'flex' : 'none';
-        airpodsCasesTypes.style.display = category === 'airpods-cases' ? 'flex' : 'none';
-        
-        // Show controls and main mockup
-        controlsSection.style.display = 'block';
-        mainMockupSelector.style.display = 'flex';
-        showMainMockup('main1');
-        gridWrapper.style.display = 'block';
-        
-        // Click the first product type in this category
-        if (category === 'phone-cases' && phoneCasesTypes.querySelector('.product-type-link')) {
-            phoneCasesTypes.querySelector('.product-type-link').click();
-        } else if (category === 'plaques' && plaquesTypes.querySelector('.product-type-link')) {
-            plaquesTypes.querySelector('.product-type-link').click();
-        } else if (category === 'airpods-cases' && airpodsCasesTypes.querySelector('.product-type-link')) {
-            airpodsCasesTypes.querySelector('.product-type-link').click();
-        }
-    }
 });
 
     // Set up all event listeners
@@ -1744,67 +1697,61 @@ document.addEventListener('DOMContentLoaded', function() {
             updateDesignPositionFromControls();
         });
         
-// Update the reset position handler
-resetPositionBtn.addEventListener('click', function() {
-    const selectedView = viewSelector.value;
-    const caseData = mockupData[currentCaseType];
-    
-    if (selectedView === 'all') {
-        // Reset all views to their default positions
-        document.querySelectorAll('.user-design').forEach(design => {
-            const viewId = design.closest('.main-mockup-container') ? 
-                design.closest('.main-mockup-container').id.replace('main-mockup-container-', 'main') :
-                design.closest('.grid-item').dataset.view;
+        // Reset position button
+        resetPositionBtn.addEventListener('click', function() {
+            const selectedView = viewSelector.value;
+            const caseData = mockupData[currentCaseType];
             
-            let viewData;
-            
-            if (viewId.startsWith('main')) {
-                const viewNum = viewId.replace('main', '');
-                viewData = caseData[`main${viewNum}`];
+            if (selectedView === 'all') {
+                // Reset all views to their default positions
+                document.querySelectorAll('.user-design').forEach(design => {
+                    const viewId = design.closest('.main-mockup-container') ? 
+                        design.closest('.main-mockup-container').id.replace('main-mockup-container-', 'main') :
+                        design.closest('.grid-item').dataset.view;
+                    
+                    let viewData;
+                    
+                    if (viewId.startsWith('main')) {
+                        const viewNum = viewId.replace('main', '');
+                        viewData = caseData[`main${viewNum}`];
+                    } else {
+                        viewData = caseData.views.find(v => v.id == viewId);
+                    }
+                    
+                    if (viewData) {
+                        design.dataset.x = viewData.designX;
+                        design.dataset.y = viewData.designY;
+                        design.dataset.scale = viewData.designScale;
+                        design.dataset.rotation = viewData.designRotation;
+                        updateDesignPosition(design);
+                    }
+                });
             } else {
-                viewData = caseData.views.find(v => v.id == viewId);
+                // Reset only the selected view
+                const designs = getDesignElementsForView(selectedView);
+                designs.forEach(design => {
+                    let viewData;
+                    
+                    if (selectedView.startsWith('main')) {
+                        const viewNum = selectedView.replace('main', '');
+                        viewData = caseData[`main${viewNum}`];
+                    } else {
+                        viewData = caseData.views.find(v => v.id == selectedView);
+                    }
+                    
+                    if (viewData) {
+                        design.dataset.x = viewData.designX;
+                        design.dataset.y = viewData.designY;
+                        design.dataset.scale = viewData.designScale;
+                        design.dataset.rotation = viewData.designRotation;
+                        updateDesignPosition(design);
+                    }
+                });
             }
             
-            if (viewData) {
-                design.dataset.x = viewData.designX;
-                design.dataset.y = viewData.designY;
-                design.dataset.scale = viewData.designScale;
-                design.dataset.rotation = viewData.designRotation;
-                design.dataset.skewX = 0;
-                design.dataset.skewY = 0;
-                updateDesignPosition(design);
-            }
+            // Update controls to reflect the reset values
+            updatePositioningControls();
         });
-    } else {
-        
-        // Reset only the selected view
-        const designs = getDesignElementsForView(selectedView);
-        designs.forEach(design => {
-            let viewData;
-            
-            if (selectedView.startsWith('main')) {
-                const viewNum = selectedView.replace('main', '');
-                viewData = caseData[`main${viewNum}`];
-            } else {
-                viewData = caseData.views.find(v => v.id == selectedView);
-            }
-            
-            if (viewData) {
-                design.dataset.x = viewData.designX;
-                design.dataset.y = viewData.designY;
-                design.dataset.scale = viewData.designScale;
-                design.dataset.rotation = viewData.designRotation;
-                design.dataset.skewX = 0;
-                design.dataset.skewY = 0;
-                updateDesignPosition(design);
-            }
-        });
-    }
-            
-    // Update controls to reflect the reset values
-    updatePositioningControls();
-});
-
     }
 
     // Show the selected main mockup and hide others
@@ -1817,75 +1764,63 @@ resetPositionBtn.addEventListener('click', function() {
         }
     }
 
-// Initialize grid for a specific case type
-function initializeGrid(caseType) {
-    gridContainer.innerHTML = '';
-    
-    const caseData = mockupData[caseType];
-    if (!caseData) return;
-    
-    caseData.views.forEach(view => {
-        const gridItem = document.createElement('div');
-        gridItem.className = 'grid-item';
-        gridItem.dataset.view = view.id;
+    // Initialize grid for a specific case type
+    function initializeGrid(caseType) {
+        gridContainer.innerHTML = '';
         
-        const bgPath = view.bg;
-        const overlayPath = view.overlay;
-        const fullresBgPath = view.fullresBg;
-        const fullresOverlayPath = view.fullresOverlay;
+        const caseData = mockupData[caseType];
+        if (!caseData) return;
         
-        gridItem.innerHTML = `
-            <div class="secondary-mockup">
-                <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}" checked>
-                <div class="carousel-checkbox-indicator"></div>
-                <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
-                <div class="design-area">
-                    <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
-                         data-x="${view.designX}" data-y="${view.designY}" 
-                         data-scale="${view.designScale}" data-rotation="${view.designRotation}"
-                         style="display: ${uploadedImage.src ? 'block' : 'none'}">
+        caseData.views.forEach(view => {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'grid-item';
+            gridItem.dataset.view = view.id;
+            
+            const bgPath = view.bg;
+            const overlayPath = view.overlay;
+            const fullresBgPath = view.fullresBg;
+            const fullresOverlayPath = view.fullresOverlay;
+            
+            gridItem.innerHTML = `
+                <div class="secondary-mockup">
+                    <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}">
+                    <div class="carousel-checkbox-indicator"></div>
+                    <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
+                    <div class="design-area">
+                        <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
+                             data-x="${view.designX}" data-y="${view.designY}" 
+                             data-scale="${view.designScale}" data-rotation="${view.designRotation}"
+                             style="display: ${uploadedImage.src ? 'block' : 'none'}">
+                    </div>
+                    <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
                 </div>
-                <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
-            </div>
-            <div class="mockup-label">View ${view.id}</div>
-        `;
-        
-        gridContainer.appendChild(gridItem);
-        
-        // Update design position if image is already uploaded
-        if (uploadedImage.src) {
-            const design = gridItem.querySelector('.user-design');
-            updateDesignPosition(design);
-        }
-        
-        // Add click handler for the entire grid item
-        gridItem.addEventListener('click', function(e) {
-            // Don't toggle if clicking directly on the checkbox (it will handle itself)
-            if (e.target.classList.contains('carousel-checkbox')) {
-                return;
+                <div class="mockup-label">View ${view.id}</div>
+            `;
+            
+            gridContainer.appendChild(gridItem);
+            
+            // Update design position if image is already uploaded
+            if (uploadedImage.src) {
+                const design = gridItem.querySelector('.user-design');
+                updateDesignPosition(design);
             }
             
-            const checkbox = this.querySelector('.carousel-checkbox');
-            if (checkbox) {
-                checkbox.checked = !checkbox.checked;
-                this.classList.toggle('selected', checkbox.checked);
+            // Add click handler for the entire grid item
+            gridItem.addEventListener('click', function(e) {
+                // Don't toggle if clicking directly on the checkbox (it will handle itself)
+                if (e.target.classList.contains('carousel-checkbox')) {
+                    return;
+                }
                 
-                // Trigger change event manually since we're changing checked state programmatically
-                const event = new Event('change');
-                checkbox.dispatchEvent(event);
-            }
-        });
-        
-        // Add change handler for the checkbox
-        const checkbox = gridItem.querySelector('.carousel-checkbox');
-        checkbox.addEventListener('change', function() {
-            gridItem.classList.toggle('selected', this.checked);
-        });
-    });
-    
-    // Update view selector options
-    updateViewSelectorOptions();
-}
+                const checkbox = this.querySelector('.carousel-checkbox');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    this.classList.toggle('selected', checkbox.checked);
+                    
+                    // Trigger change event manually since we're changing checked state programmatically
+                    const event = new Event('change');
+                    checkbox.dispatchEvent(event);
+                }
             });
             
             // Add change handler for the checkbox
@@ -1942,39 +1877,37 @@ function initializeGrid(caseType) {
 
     // Update main mockup for a specific case type and view
     function updateMainMockup(caseType, view) {
-    const caseData = mockupData[caseType];
-    if (!caseData || !caseData[view]) return;
-    
-    const mainMockup = caseData[view];
-    const containerId = `main-mockup-container-${view.replace('main', '')}`;
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    
-    // Clear the mockup container and recreate with correct classes
-    container.innerHTML = '';
-    
-    const imageClass = getImageClass(caseType);
-    const bgImg = document.createElement('img');
-    bgImg.className = `${imageClass}-bg`;
-    bgImg.src = mainMockup.bg;
-    bgImg.dataset.fullres = mainMockup.fullresBg;
-    
-    const designArea = document.createElement('div');
-    designArea.className = 'design-area';
-    const designImg = document.createElement('img');
-    designImg.className = 'user-design';
-    designImg.alt = '';
-    designImg.dataset.x = mainMockup.designX;
-    designImg.dataset.y = mainMockup.designY;
-    designImg.dataset.scale = mainMockup.designScale;
-    designImg.dataset.rotation = mainMockup.designRotation;
-    designImg.dataset.skewX = mainMockup.designSkewX || 0;  // Added skew
-    designImg.dataset.skewY = mainMockup.designSkewY || 0;  // Added skew
-    designImg.style.display = uploadedImage.src ? 'block' : 'none';
-    if (uploadedImage.src) {
-        designImg.src = uploadedImage.src;
-    }
-    designArea.appendChild(designImg);
+        const caseData = mockupData[caseType];
+        if (!caseData || !caseData[view]) return;
+        
+        const mainMockup = caseData[view];
+        const containerId = `main-mockup-container-${view.replace('main', '')}`;
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        // Clear the mockup container and recreate with correct classes
+        container.innerHTML = '';
+        
+        const imageClass = getImageClass(caseType);
+        const bgImg = document.createElement('img');
+        bgImg.className = `${imageClass}-bg`;
+        bgImg.src = mainMockup.bg;
+        bgImg.dataset.fullres = mainMockup.fullresBg;
+        
+        const designArea = document.createElement('div');
+        designArea.className = 'design-area';
+        const designImg = document.createElement('img');
+        designImg.className = 'user-design';
+        designImg.alt = '';
+        designImg.dataset.x = mainMockup.designX;
+        designImg.dataset.y = mainMockup.designY;
+        designImg.dataset.scale = mainMockup.designScale;
+        designImg.dataset.rotation = mainMockup.designRotation;
+        designImg.style.display = uploadedImage.src ? 'block' : 'none';
+        if (uploadedImage.src) {
+            designImg.src = uploadedImage.src;
+        }
+        designArea.appendChild(designImg);
         
         const overlayImg = document.createElement('img');
         overlayImg.className = `${imageClass}-overlay`;
@@ -2009,60 +1942,46 @@ function initializeGrid(caseType) {
     }
 
     // Function to update design position based on data attributes
-// Update the updateDesignPosition function
-function updateDesignPosition(designElement) {
-    const x = parseFloat(designElement.dataset.x) || 50;
-    const y = parseFloat(designElement.dataset.y) || 50;
-    const scale = parseFloat(designElement.dataset.scale) || 100;
-    const rotation = parseFloat(designElement.dataset.rotation) || 0;
-    const skewX = parseFloat(designElement.dataset.skewX) || 0;
-    const skewY = parseFloat(designElement.dataset.skewY) || 0;
-    
-    designElement.style.top = `${y}%`;
-    designElement.style.left = `${x}%`;
-    designElement.style.transform = `
-        translate(-50%, -50%) 
-        scale(${scale/100}) 
-        rotate(${rotation}deg)
-        skew(${skewX}deg, ${skewY}deg)
-    `;
-}
-
-// Update the updateDesignPositionFromControls function
-function updateDesignPositionFromControls() {
-    const selectedView = viewSelector.value;
-    const x = parseFloat(positionX.value);
-    const y = parseFloat(positionY.value);
-    const scale = parseFloat(scaleInput.value);
-    const rotation = parseFloat(rotationInput.value);
-    const skewXVal = parseFloat(skewX.value);
-    const skewYVal = parseFloat(skewY.value);
-    
-    if (selectedView === 'all') {
-        // Update all views
-        document.querySelectorAll('.user-design').forEach(design => {
-            design.dataset.x = x;
-            design.dataset.y = y;
-            design.dataset.scale = scale;
-            design.dataset.rotation = rotation;
-            design.dataset.skewX = skewXVal;
-            design.dataset.skewY = skewYVal;
-            updateDesignPosition(design);
-        });
-    } else {
-        // Update only the selected view
-        const designs = getDesignElementsForView(selectedView);
-        designs.forEach(design => {
-            design.dataset.x = x;
-            design.dataset.y = y;
-            design.dataset.scale = scale;
-            design.dataset.rotation = rotation;
-            design.dataset.skewX = skewXVal;
-            design.dataset.skewY = skewYVal;
-            updateDesignPosition(design);
-        });
+    function updateDesignPosition(designElement) {
+        const x = parseFloat(designElement.dataset.x) || 50;
+        const y = parseFloat(designElement.dataset.y) || 50;
+        const scale = parseFloat(designElement.dataset.scale) || 100;
+        const rotation = parseFloat(designElement.dataset.rotation) || 0;
+        
+        designElement.style.top = `${y}%`;
+        designElement.style.left = `${x}%`;
+        designElement.style.transform = `translate(-50%, -50%) scale(${scale/100}) rotate(${rotation}deg)`;
     }
-}
+
+    // Update design position from control inputs
+    function updateDesignPositionFromControls() {
+        const selectedView = viewSelector.value;
+        const x = parseFloat(positionX.value);
+        const y = parseFloat(positionY.value);
+        const scale = parseFloat(scaleInput.value);
+        const rotation = parseFloat(rotationInput.value);
+        
+        if (selectedView === 'all') {
+            // Update all views
+            document.querySelectorAll('.user-design').forEach(design => {
+                design.dataset.x = x;
+                design.dataset.y = y;
+                design.dataset.scale = scale;
+                design.dataset.rotation = rotation;
+                updateDesignPosition(design);
+            });
+        } else {
+            // Update only the selected view
+            const designs = getDesignElementsForView(selectedView);
+            designs.forEach(design => {
+                design.dataset.x = x;
+                design.dataset.y = y;
+                design.dataset.scale = scale;
+                design.dataset.rotation = rotation;
+                updateDesignPosition(design);
+            });
+        }
+    }
 
     // Get design elements for a specific view
     function getDesignElementsForView(view) {
@@ -2081,35 +2000,31 @@ function updateDesignPositionFromControls() {
         return [];
     }
 
-// Update the updatePositioningControls function
-function updatePositioningControls() {
-    const selectedView = viewSelector.value;
-    
-    if (selectedView === 'all') {
-        // For "All Views", we'll use the main view's values
-        const designs = getDesignElementsForView(currentMainView);
-        if (designs.length > 0) {
-            const design = designs[0];
-            positionX.value = design.dataset.x || 50;
-            positionY.value = design.dataset.y || 50;
-            scaleInput.value = design.dataset.scale || 100;
-            rotationInput.value = design.dataset.rotation || 0;
-            skewX.value = design.dataset.skewX || 0;
-            skewY.value = design.dataset.skewY || 0;
-        }
-    } else {
-        const designs = getDesignElementsForView(selectedView);
-        if (designs.length > 0) {
-            const design = designs[0];
-            positionX.value = design.dataset.x || 50;
-            positionY.value = design.dataset.y || 50;
-            scaleInput.value = design.dataset.scale || 100;
-            rotationInput.value = design.dataset.rotation || 0;
-            skewX.value = design.dataset.skewX || 0;
-            skewY.value = design.dataset.skewY || 0;
+    // Update positioning controls with current values for the selected view
+    function updatePositioningControls() {
+        const selectedView = viewSelector.value;
+        
+        if (selectedView === 'all') {
+            // For "All Views", we'll use the main view's values
+            const designs = getDesignElementsForView(currentMainView);
+            if (designs.length > 0) {
+                const design = designs[0];
+                positionX.value = design.dataset.x || 50;
+                positionY.value = design.dataset.y || 50;
+                scaleInput.value = design.dataset.scale || 100;
+                rotationInput.value = design.dataset.rotation || 0;
+            }
+        } else {
+            const designs = getDesignElementsForView(selectedView);
+            if (designs.length > 0) {
+                const design = designs[0];
+                positionX.value = design.dataset.x || 50;
+                positionY.value = design.dataset.y || 50;
+                scaleInput.value = design.dataset.scale || 100;
+                rotationInput.value = design.dataset.rotation || 0;
+            }
         }
     }
-}
 
     // Generate mockup image with caching
     async function generateMockupImage(container) {
