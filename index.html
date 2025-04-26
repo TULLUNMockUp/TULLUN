@@ -317,19 +317,20 @@
             width: 100%;
         }
 
-        /* Mockup Container */
+        /* Main Mockup Container */
         .main-mockup-container {
             position: relative;
             display: inline-block;
-            margin: 20px auto;
-            width: 600px;
-            height: 600px;
+            margin: 20px 10px;
+            width: 300px;
+            height: 300px;
             overflow: hidden;
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             display: none; /* Hidden by default */
             animation: fadeIn 0.3s ease-out;
+            vertical-align: top;
         }
         
         .phone-case-bg, .phone-case-overlay, .tshirt-bg, .bag-bg, .plaque-bg, .plaque-overlay, .airpods-bg, .airpods-overlay {
@@ -481,32 +482,16 @@
             box-shadow: 0 0 0 3px var(--primary-color);
         }
 
-        /* Main mockup selector */
+        /* Main mockup selector - removed since we're showing all views */
         .main-mockup-selector {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 20px;
+            display: none;
         }
         
-        .main-mockup-option {
-            padding: 8px 16px;
-            background-color: var(--card-bg);
-            border-radius: 20px;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
-        
-        .main-mockup-option:hover {
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .main-mockup-option.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
+        /* Main mockup wrapper */
+        .main-mockups-wrapper {
+            text-align: center;
+            width: 100%;
+            margin: 20px 0;
         }
 
         /* Design positioning controls */
@@ -636,9 +621,8 @@
             }
             
             .main-mockup-container {
-                width: 100%;
-                height: auto;
-                max-width: 400px;
+                width: 250px;
+                height: 250px;
             }
             
             .grid-container {
@@ -677,6 +661,12 @@
             
             .coming-soon p {
                 font-size: 16px;
+            }
+            
+            .main-mockup-container {
+                width: 200px;
+                height: 200px;
+                margin: 10px 5px;
             }
         }
     </style>
@@ -724,69 +714,62 @@
             </div>
         </section>
         
-<!-- Controls Section (initially hidden) -->
-<div id="controls">
-    <div class="controls-row">
-        <div class="file-upload-wrapper">
-            <input type="file" id="image-upload" accept="image/*">
-            <button class="file-upload-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
-                    <path d="M20 18H4V11H2V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V11H20V18Z" fill="currentColor"/>
-                </svg>
-                Upload Design
-            </button>
-            <button id="remove-btn">×</button>
-        </div>
-    </div>
-    <div class="upload-requirements">
-        For best results, upload a PNG file with dimensions 750x1590 pixels at 300 PPI
-    </div>
-    <div class="controls-row">
-        <button id="download-btn" disabled>Download Main Mockup</button>
-        <button id="download-zip-btn" disabled>Download Selected Views</button>
-    </div>
-</div>
-
-        <!-- Main Mockup Selector -->
-        <div class="main-mockup-selector" style="display: none;">
-            <div class="main-mockup-option active" data-view="main1">Main View 1</div>
-            <div class="main-mockup-option" data-view="main2">Main View 2</div>
-            <div class="main-mockup-option" data-view="main3">Main View 3</div>
+        <!-- Controls Section (initially hidden) -->
+        <div id="controls">
+            <div class="controls-row">
+                <div class="file-upload-wrapper">
+                    <input type="file" id="image-upload" accept="image/*">
+                    <button class="file-upload-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 15H13V8H16L12 3L8 8H11V15Z" fill="currentColor"/>
+                            <path d="M20 18H4V11H2V18C2 19.103 2.897 20 4 20H20C21.103 20 22 19.103 22 18V11H20V18Z" fill="currentColor"/>
+                        </svg>
+                        Upload Design
+                    </button>
+                    <button id="remove-btn">×</button>
+                </div>
+            </div>
+            <div class="upload-requirements">
+                For best results, upload a PNG file with dimensions 750x1590 pixels at 300 PPI
+            </div>
+            <div class="controls-row">
+                <button id="download-btn" disabled>Download Main Mockup</button>
+                <button id="download-zip-btn" disabled>Download Selected Views</button>
+            </div>
         </div>
         
-<!-- Main Mockup Containers (initially hidden) -->
-<div style="text-align: center; width: 100%;">
-    <div id="main-mockup-container-1" class="main-mockup-container">
-        <input type="checkbox" class="carousel-checkbox" id="checkbox-main1" data-view="main1">
-        <div class="carousel-checkbox-indicator"></div>
-        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
+        <!-- Main Mockup Containers (initially hidden) -->
+        <div class="main-mockups-wrapper">
+            <div id="main-mockup-container-1" class="main-mockup-container">
+                <input type="checkbox" class="carousel-checkbox" id="checkbox-main1" data-view="main1" checked>
+                <div class="carousel-checkbox-indicator"></div>
+                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
+                </div>
+                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+            </div>
+            
+            <div id="main-mockup-container-2" class="main-mockup-container">
+                <input type="checkbox" class="carousel-checkbox" id="checkbox-main2" data-view="main2" checked>
+                <div class="carousel-checkbox-indicator"></div>
+                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main2.png" data-fullres="mockups/originals/samsung-tpu-back-main2.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0">
+                </div>
+                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main2.png" data-fullres="mockups/originals/samsung-tpu-overlay-main2.png">
+            </div>
+            
+            <div id="main-mockup-container-3" class="main-mockup-container">
+                <input type="checkbox" class="carousel-checkbox" id="checkbox-main3" data-view="main3" checked>
+                <div class="carousel-checkbox-indicator"></div>
+                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main3.png" data-fullres="mockups/originals/samsung-tpu-back-main3.png">
+                <div class="design-area">
+                    <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5">
+                </div>
+                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main3.png" data-fullres="mockups/originals/samsung-tpu-overlay-main3.png">
+            </div>
         </div>
-        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
-    </div>
-    
-    <div id="main-mockup-container-2" class="main-mockup-container" style="display: none;">
-        <input type="checkbox" class="carousel-checkbox" id="checkbox-main2" data-view="main2">
-        <div class="carousel-checkbox-indicator"></div>
-        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main2.png" data-fullres="mockups/originals/samsung-tpu-back-main2.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0">
-        </div>
-        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main2.png" data-fullres="mockups/originals/samsung-tpu-overlay-main2.png">
-    </div>
-    
-    <div id="main-mockup-container-3" class="main-mockup-container" style="display: none;">
-        <input type="checkbox" class="carousel-checkbox" id="checkbox-main3" data-view="main3">
-        <div class="carousel-checkbox-indicator"></div>
-        <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main3.png" data-fullres="mockups/originals/samsung-tpu-back-main3.png">
-        <div class="design-area">
-            <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5">
-        </div>
-        <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main3.png" data-fullres="mockups/originals/samsung-tpu-overlay-main3.png">
-    </div>
-</div>
         
         <!-- Design positioning controls -->
         <div class="position-controls" style="display: none;">
@@ -796,9 +779,7 @@
                 <div style="flex: 1;">
                     <label class="control-label">View</label>
                     <select id="view-selector" class="control-select">
-                        <option value="all">All Views</option>
-                        <option value="main">Main View</option>
-                        <!-- Secondary views will be added dynamically -->
+                        <!-- Options will be added dynamically -->
                     </select>
                 </div>
             </div>
@@ -854,7 +835,7 @@
     const productTypeLinks = document.querySelectorAll('.product-type-link');
     const loadingElement = document.querySelector('.loading');
     const removeBtn = document.getElementById('remove-btn');
-    const mainMockupSelector = document.querySelector('.main-mockup-selector');
+    const mainMockupsWrapper = document.querySelector('.main-mockups-wrapper');
     const gridWrapper = document.querySelector('.grid-wrapper');
     const controlsSection = document.getElementById('controls');
     const phoneCasesTypes = document.getElementById('phone-cases-types');
@@ -875,7 +856,7 @@
     let uploadedImage = new Image();
     const mockupCache = new Map();
     let currentCaseType = 'samsung-tpu';
-    let currentMainView = 'main1'; // Track which main view is active
+    let currentMainView = 'main1'; // Track which main view is active (for positioning controls)
     let currentStandType = 'none'; // No longer used since stands are removed
 
     // Mockup data structure for all products
@@ -1393,6 +1374,7 @@
             ]
         }
     };
+
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners
     setupEventListeners();
@@ -1419,9 +1401,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (category === 'phone-cases') {
                     phoneCasesTypes.style.display = 'flex';
                     controlsSection.style.display = 'block';
-                    mainMockupSelector.style.display = 'flex';
                     positionControls.style.display = 'block';
-                    showMainMockup('main1');
+                    mainMockupsWrapper.style.display = 'block';
                     gridWrapper.style.display = 'block';
                     
                     // Initialize the grid for the default case type
@@ -1430,27 +1411,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 else if (category === 'plaques') {
                     plaquesTypes.style.display = 'flex';
                     controlsSection.style.display = 'block';
-                    mainMockupSelector.style.display = 'flex';
                     positionControls.style.display = 'block';
-                    showMainMockup('main1');
+                    mainMockupsWrapper.style.display = 'block';
                     gridWrapper.style.display = 'block';
                     
                     // Initialize with first plaque type
                     currentCaseType = 'slate-plaque-10x10';
-                    updateMainMockup(currentCaseType, 'main1');
+                    updateMainMockups(currentCaseType);
                     initializeGrid(currentCaseType);
                 }
                 else if (category === 'airpods-cases') {
                     airpodsCasesTypes.style.display = 'flex';
                     controlsSection.style.display = 'block';
-                    mainMockupSelector.style.display = 'flex';
                     positionControls.style.display = 'block';
-                    showMainMockup('main1');
+                    mainMockupsWrapper.style.display = 'block';
                     gridWrapper.style.display = 'block';
                     
                     // Initialize with AirPods case type
                     currentCaseType = 'airpods-cases';
-                    updateMainMockup(currentCaseType, 'main1');
+                    updateMainMockups(currentCaseType);
                     initializeGrid(currentCaseType);
                 }
                 
@@ -1476,15 +1455,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Show controls and main mockup
                 controlsSection.style.display = 'block';
-                mainMockupSelector.style.display = 'flex';
                 positionControls.style.display = 'block';
-                showMainMockup('main1');
+                mainMockupsWrapper.style.display = 'block';
                 
                 // Show grid wrapper by default
                 gridWrapper.style.display = 'block';
                 
-                // Update main mockup
-                updateMainMockup(currentCaseType, 'main1');
+                // Update main mockups
+                updateMainMockups(currentCaseType);
                 
                 // Update grid for the selected case type
                 initializeGrid(currentCaseType);
@@ -1501,27 +1479,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     });
                 }
-            });
-        });
-
-        // Main mockup selector
-        document.querySelectorAll('.main-mockup-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const view = this.dataset.view;
-                currentMainView = view;
-                
-                // Update active option
-                document.querySelectorAll('.main-mockup-option').forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Show the selected mockup
-                showMainMockup(view);
-                
-                // Update the mockup with current design
-                updateMainMockup(currentCaseType, view);
-                
-                // Update positioning controls with current values
-                updatePositioningControls();
             });
         });
 
@@ -1593,15 +1550,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            showLoading("Generating main mockup...");
+            // Check if at least one main view is selected
+            const mainCheckboxes = document.querySelectorAll('.main-mockup-container .carousel-checkbox');
+            const atLeastOneSelected = Array.from(mainCheckboxes).some(cb => cb.checked);
+            
+            if (!atLeastOneSelected) {
+                alert('Please select at least one main view to download');
+                return;
+            }
+
+            showLoading("Generating main mockups...");
             
             try {
-                const mainMockupContainer = document.getElementById(`main-mockup-container-${currentMainView.slice(-1)}`);
-                const canvas = await generateMockupImage(mainMockupContainer);
-                downloadBlob(await canvasToBlob(canvas), 'main-mockup.png');
+                // Create a ZIP file containing all selected main mockups
+                const zip = new JSZip();
+                const caseData = mockupData[currentCaseType];
+                const promises = [];
+                
+                // Add selected main mockups to ZIP
+                for (let i = 1; i <= 3; i++) {
+                    const checkbox = document.getElementById(`checkbox-main${i}`);
+                    if (checkbox && checkbox.checked) {
+                        promises.push((async () => {
+                            showLoading(`Generating main mockup ${i}...`);
+                            const mainCanvas = await generateMockupImage(document.getElementById(`main-mockup-container-${i}`));
+                            const mainBlob = await canvasToBlob(mainCanvas);
+                            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main${i}.png`, mainBlob);
+                        })());
+                    }
+                }
+                
+                // Wait for all mockups to be generated
+                await Promise.all(promises);
+                
+                // Generate and download ZIP
+                showLoading("Creating ZIP file...");
+                const content = await zip.generateAsync({ type: 'blob' });
+                downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main-mockups.zip`);
+                
             } catch (error) {
-                console.error("Error generating mockup:", error);
-                alert("Error generating mockup. Please try again.");
+                console.error("Error generating ZIP:", error);
+                alert("Error generating mockups. Please try again.");
             } finally {
                 hideLoading();
             }
@@ -1614,41 +1603,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            // Check if at least one view is selected (main or secondary)
+            const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
+            
+            if (checkedItems.length === 0) {
+                alert('Please select at least one mockup view to download');
+                return;
+            }
+
             showLoading("Preparing ZIP file...");
             
             try {
-                const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
-                
-                if (checkedItems.length === 0) {
-                    alert('Please select at least one mockup view to download');
-                    return;
-                }
-
                 const zip = new JSZip();
                 const caseData = mockupData[currentCaseType];
                 const promises = [];
                 
-                // Add all main mockups to ZIP
-                promises.push((async () => {
-                    showLoading("Generating main mockup 1...");
-                    const mainCanvas1 = await generateMockupImage(document.getElementById('main-mockup-container-1'));
-                    const mainBlob1 = await canvasToBlob(mainCanvas1);
-                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main1.png`, mainBlob1);
-                })());
-                
-                promises.push((async () => {
-                    showLoading("Generating main mockup 2...");
-                    const mainCanvas2 = await generateMockupImage(document.getElementById('main-mockup-container-2'));
-                    const mainBlob2 = await canvasToBlob(mainCanvas2);
-                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main2.png`, mainBlob2);
-                })());
-                
-                promises.push((async () => {
-                    showLoading("Generating main mockup 3...");
-                    const mainCanvas3 = await generateMockupImage(document.getElementById('main-mockup-container-3'));
-                    const mainBlob3 = await canvasToBlob(mainCanvas3);
-                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main3.png`, mainBlob3);
-                })());
+                // Add selected main mockups to ZIP
+                for (let i = 1; i <= 3; i++) {
+                    const checkbox = document.getElementById(`checkbox-main${i}`);
+                    if (checkbox && checkbox.checked) {
+                        promises.push((async () => {
+                            showLoading(`Generating main mockup ${i}...`);
+                            const mainCanvas = await generateMockupImage(document.getElementById(`main-mockup-container-${i}`));
+                            const mainBlob = await canvasToBlob(mainCanvas);
+                            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main${i}.png`, mainBlob);
+                        })());
+                    }
+                }
                 
                 // Process selected grid items
                 for (const item of checkedItems) {
@@ -1707,64 +1688,108 @@ document.addEventListener('DOMContentLoaded', function() {
             const selectedView = viewSelector.value;
             const caseData = mockupData[currentCaseType];
             
-            if (selectedView === 'all') {
-                // Reset all views to their default positions
-                document.querySelectorAll('.user-design').forEach(design => {
-                    const viewId = design.closest('.main-mockup-container') ? 
-                        design.closest('.main-mockup-container').id.replace('main-mockup-container-', 'main') :
-                        design.closest('.grid-item').dataset.view;
-                    
-                    let viewData;
-                    
-                    if (viewId.startsWith('main')) {
-                        const viewNum = viewId.replace('main', '');
-                        viewData = caseData[`main${viewNum}`];
-                    } else {
-                        viewData = caseData.views.find(v => v.id == viewId);
-                    }
-                    
-                    if (viewData) {
-                        design.dataset.x = viewData.designX;
-                        design.dataset.y = viewData.designY;
-                        design.dataset.scale = viewData.designScale;
-                        design.dataset.rotation = viewData.designRotation;
-                        updateDesignPosition(design);
-                    }
-                });
-            } else {
-                // Reset only the selected view
-                const designs = getDesignElementsForView(selectedView);
-                designs.forEach(design => {
-                    let viewData;
-                    
-                    if (selectedView.startsWith('main')) {
-                        const viewNum = selectedView.replace('main', '');
-                        viewData = caseData[`main${viewNum}`];
-                    } else {
-                        viewData = caseData.views.find(v => v.id == selectedView);
-                    }
-                    
-                    if (viewData) {
-                        design.dataset.x = viewData.designX;
-                        design.dataset.y = viewData.designY;
-                        design.dataset.scale = viewData.designScale;
-                        design.dataset.rotation = viewData.designRotation;
-                        updateDesignPosition(design);
-                    }
-                });
-            }
+            // Reset only the selected view
+            const designs = getDesignElementsForView(selectedView);
+            designs.forEach(design => {
+                let viewData;
+                
+                if (selectedView.startsWith('main')) {
+                    const viewNum = selectedView.replace('main', '');
+                    viewData = caseData[`main${viewNum}`];
+                } else {
+                    viewData = caseData.views.find(v => v.id == selectedView);
+                }
+                
+                if (viewData) {
+                    design.dataset.x = viewData.designX;
+                    design.dataset.y = viewData.designY;
+                    design.dataset.scale = viewData.designScale;
+                    design.dataset.rotation = viewData.designRotation;
+                    updateDesignPosition(design);
+                }
+            });
             
             // Update controls to reflect the reset values
             updatePositioningControls();
         });
+
+        // View selector change handler
+        viewSelector.addEventListener('change', function() {
+            updatePositioningControls();
+        });
     }
 
-    // Show the selected main mockup and hide others
-    function showMainMockup(view) {
+    // Update all main mockups for a specific case type
+    function updateMainMockups(caseType) {
+        const caseData = mockupData[caseType];
+        if (!caseData) return;
+        
+        // Update all three main mockups
         for (let i = 1; i <= 3; i++) {
-            const container = document.getElementById(`main-mockup-container-${i}`);
-            if (container) {
-                container.style.display = view === `main${i}` ? 'inline-block' : 'none';
+            const view = `main${i}`;
+            if (caseData[view]) {
+                const container = document.getElementById(`main-mockup-container-${i}`);
+                if (container) {
+                    container.style.display = 'inline-block';
+                    
+                    // Clear the mockup container and recreate with correct classes
+                    container.innerHTML = '';
+                    
+                    const imageClass = getImageClass(caseType);
+                    const mainMockup = caseData[view];
+                    
+                    const bgImg = document.createElement('img');
+                    bgImg.className = `${imageClass}-bg`;
+                    bgImg.src = mainMockup.bg;
+                    bgImg.dataset.fullres = mainMockup.fullresBg;
+                    
+                    const designArea = document.createElement('div');
+                    designArea.className = 'design-area';
+                    const designImg = document.createElement('img');
+                    designImg.className = 'user-design';
+                    designImg.alt = '';
+                    designImg.dataset.x = mainMockup.designX;
+                    designImg.dataset.y = mainMockup.designY;
+                    designImg.dataset.scale = mainMockup.designScale;
+                    designImg.dataset.rotation = mainMockup.designRotation;
+                    designImg.style.display = uploadedImage.src ? 'block' : 'none';
+                    if (uploadedImage.src) {
+                        designImg.src = uploadedImage.src;
+                    }
+                    designArea.appendChild(designImg);
+                    
+                    const overlayImg = document.createElement('img');
+                    overlayImg.className = `${imageClass}-overlay`;
+                    overlayImg.src = mainMockup.overlay;
+                    overlayImg.dataset.fullres = mainMockup.fullresOverlay;
+                    
+                    // Add checkbox
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'carousel-checkbox';
+                    checkbox.id = `checkbox-${view}`;
+                    checkbox.dataset.view = view;
+                    checkbox.checked = true; // Default to checked
+                    
+                    const checkboxIndicator = document.createElement('div');
+                    checkboxIndicator.className = 'carousel-checkbox-indicator';
+                    
+                    container.appendChild(checkbox);
+                    container.appendChild(checkboxIndicator);
+                    container.appendChild(bgImg);
+                    container.appendChild(designArea);
+                    container.appendChild(overlayImg);
+                    
+                    // Update design position if image is already uploaded
+                    if (uploadedImage.src) {
+                        updateDesignPosition(designImg);
+                    }
+                    
+                    // Add checkbox event listener
+                    checkbox.addEventListener('change', function() {
+                        container.classList.toggle('selected', this.checked);
+                    });
+                }
             }
         }
     }
@@ -1844,10 +1869,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const caseData = mockupData[currentCaseType];
         if (!caseData) return;
         
-        // Clear existing options except "All Views"
-        while (viewSelector.options.length > 1) {
-            viewSelector.remove(1);
-        }
+        // Clear existing options
+        viewSelector.innerHTML = '';
         
         // Add main views
         for (let i = 1; i <= 3; i++) {
@@ -1880,72 +1903,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'phone-case'; // default
     }
 
-    // Update main mockup for a specific case type and view
-    function updateMainMockup(caseType, view) {
-        const caseData = mockupData[caseType];
-        if (!caseData || !caseData[view]) return;
-        
-        const mainMockup = caseData[view];
-        const containerId = `main-mockup-container-${view.replace('main', '')}`;
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        // Clear the mockup container and recreate with correct classes
-        container.innerHTML = '';
-        
-        const imageClass = getImageClass(caseType);
-        const bgImg = document.createElement('img');
-        bgImg.className = `${imageClass}-bg`;
-        bgImg.src = mainMockup.bg;
-        bgImg.dataset.fullres = mainMockup.fullresBg;
-        
-        const designArea = document.createElement('div');
-        designArea.className = 'design-area';
-        const designImg = document.createElement('img');
-        designImg.className = 'user-design';
-        designImg.alt = '';
-        designImg.dataset.x = mainMockup.designX;
-        designImg.dataset.y = mainMockup.designY;
-        designImg.dataset.scale = mainMockup.designScale;
-        designImg.dataset.rotation = mainMockup.designRotation;
-        designImg.style.display = uploadedImage.src ? 'block' : 'none';
-        if (uploadedImage.src) {
-            designImg.src = uploadedImage.src;
-        }
-        designArea.appendChild(designImg);
-        
-        const overlayImg = document.createElement('img');
-        overlayImg.className = `${imageClass}-overlay`;
-        overlayImg.src = mainMockup.overlay;
-        overlayImg.dataset.fullres = mainMockup.fullresOverlay;
-        
-        // Add checkbox
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.className = 'carousel-checkbox';
-        checkbox.id = `checkbox-${view}`;
-        checkbox.dataset.view = view;
-        
-        const checkboxIndicator = document.createElement('div');
-        checkboxIndicator.className = 'carousel-checkbox-indicator';
-        
-        container.appendChild(checkbox);
-        container.appendChild(checkboxIndicator);
-        container.appendChild(bgImg);
-        container.appendChild(designArea);
-        container.appendChild(overlayImg);
-        
-        // Update design position if image is already uploaded
-        if (uploadedImage.src) {
-            updateDesignPosition(designImg);
-        }
-        
-        // Add checkbox event listener
-        checkbox.addEventListener('change', function() {
-            container.classList.toggle('selected', this.checked);
-        });
-    }
-
     // Function to update design position based on data attributes
     function updateDesignPosition(designElement) {
         const x = parseFloat(designElement.dataset.x) || 50;
@@ -1966,26 +1923,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const scale = parseFloat(scaleInput.value);
         const rotation = parseFloat(rotationInput.value);
         
-        if (selectedView === 'all') {
-            // Update all views
-            document.querySelectorAll('.user-design').forEach(design => {
-                design.dataset.x = x;
-                design.dataset.y = y;
-                design.dataset.scale = scale;
-                design.dataset.rotation = rotation;
-                updateDesignPosition(design);
-            });
-        } else {
-            // Update only the selected view
-            const designs = getDesignElementsForView(selectedView);
-            designs.forEach(design => {
-                design.dataset.x = x;
-                design.dataset.y = y;
-                design.dataset.scale = scale;
-                design.dataset.rotation = rotation;
-                updateDesignPosition(design);
-            });
-        }
+        // Update only the selected view
+        const designs = getDesignElementsForView(selectedView);
+        designs.forEach(design => {
+            design.dataset.x = x;
+            design.dataset.y = y;
+            design.dataset.scale = scale;
+            design.dataset.rotation = rotation;
+            updateDesignPosition(design);
+        });
     }
 
     // Get design elements for a specific view
@@ -2009,25 +1955,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function updatePositioningControls() {
         const selectedView = viewSelector.value;
         
-        if (selectedView === 'all') {
-            // For "All Views", we'll use the main view's values
-            const designs = getDesignElementsForView(currentMainView);
-            if (designs.length > 0) {
-                const design = designs[0];
-                positionX.value = design.dataset.x || 50;
-                positionY.value = design.dataset.y || 50;
-                scaleInput.value = design.dataset.scale || 100;
-                rotationInput.value = design.dataset.rotation || 0;
-            }
-        } else {
-            const designs = getDesignElementsForView(selectedView);
-            if (designs.length > 0) {
-                const design = designs[0];
-                positionX.value = design.dataset.x || 50;
-                positionY.value = design.dataset.y || 50;
-                scaleInput.value = design.dataset.scale || 100;
-                rotationInput.value = design.dataset.rotation || 0;
-            }
+        const designs = getDesignElementsForView(selectedView);
+        if (designs.length > 0) {
+            const design = designs[0];
+            positionX.value = design.dataset.x || 50;
+            positionY.value = design.dataset.y || 50;
+            scaleInput.value = design.dataset.scale || 100;
+            rotationInput.value = design.dataset.rotation || 0;
         }
     }
 
