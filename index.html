@@ -745,7 +745,7 @@
                 <div class="carousel-checkbox-indicator"></div>
                 <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
                 <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0">
+                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0" data-skew-x="0" data-skew-y="0">
                 </div>
                 <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
             </div>
@@ -755,7 +755,7 @@
                 <div class="carousel-checkbox-indicator"></div>
                 <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main2.png" data-fullres="mockups/originals/samsung-tpu-back-main2.png">
                 <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0">
+                    <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0" data-skew-x="0" data-skew-y="0">
                 </div>
                 <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main2.png" data-fullres="mockups/originals/samsung-tpu-overlay-main2.png">
             </div>
@@ -765,7 +765,7 @@
                 <div class="carousel-checkbox-indicator"></div>
                 <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main3.png" data-fullres="mockups/originals/samsung-tpu-back-main3.png">
                 <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5">
+                    <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5" data-skew-x="0" data-skew-y="0">
                 </div>
                 <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main3.png" data-fullres="mockups/originals/samsung-tpu-overlay-main3.png">
             </div>
@@ -803,6 +803,17 @@
                 <div style="flex: 1;">
                     <label class="control-label">Rotation</label>
                     <input type="range" id="rotation" class="control-input" min="-180" max="180" step="1" value="0">
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <div style="flex: 1;">
+                    <label class="control-label">Skew X</label>
+                    <input type="range" id="skew-x" class="control-input" min="-30" max="30" step="1" value="0">
+                </div>
+                <div style="flex: 1;">
+                    <label class="control-label">Skew Y</label>
+                    <input type="range" id="skew-y" class="control-input" min="-30" max="30" step="1" value="0">
                 </div>
             </div>
             
@@ -849,6 +860,8 @@
     const positionY = document.getElementById('position-y');
     const scaleInput = document.getElementById('scale');
     const rotationInput = document.getElementById('rotation');
+    const skewXInput = document.getElementById('skew-x');
+    const skewYInput = document.getElementById('skew-y');
     const resetPositionBtn = document.getElementById('reset-position-btn');
     const positionControls = document.querySelector('.position-controls');
     
@@ -871,7 +884,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 98,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/optimized/samsung-tpu-back-main2.png',
@@ -881,7 +896,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 98,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/optimized/samsung-tpu-back-main3.png',
@@ -891,34 +908,37 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 98,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0 },
-                { id: 2, bg: 'mockups/optimized/samsung-tpu-view2.png', overlay: 'mockups/optimized/samsung-tpu-view2-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view2.png', fullresOverlay: 'mockups/originals/samsung-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0 },
-                { id: 3, bg: 'mockups/optimized/samsung-tpu-view3.png', overlay: 'mockups/optimized/samsung-tpu-view3-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view3.png', fullresOverlay: 'mockups/originals/samsung-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42 },
-                { id: 4, bg: 'mockups/optimized/samsung-tpu-view4.png', overlay: 'mockups/optimized/samsung-tpu-view4-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view4.png', fullresOverlay: 'mockups/originals/samsung-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
-                { id: 5, bg: 'mockups/optimized/samsung-tpu-view5.png', overlay: 'mockups/optimized/samsung-tpu-view5-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view5.png', fullresOverlay: 'mockups/originals/samsung-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27 },
-                { id: 6, bg: 'mockups/optimized/samsung-tpu-view6.png', overlay: 'mockups/optimized/samsung-tpu-view6-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view6.png', fullresOverlay: 'mockups/originals/samsung-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
-                { id: 7, bg: 'mockups/optimized/samsung-tpu-view7.png', overlay: 'mockups/optimized/samsung-tpu-view7-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view7.png', fullresOverlay: 'mockups/originals/samsung-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
-                { id: 8, bg: 'mockups/optimized/samsung-tpu-view8.png', overlay: 'mockups/optimized/samsung-tpu-view8-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view8.png', fullresOverlay: 'mockups/originals/samsung-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
-                { id: 9, bg: 'mockups/optimized/samsung-tpu-view9.png', overlay: 'mockups/optimized/samsung-tpu-view9-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view9.png', fullresOverlay: 'mockups/originals/samsung-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
-                { id: 10, bg: 'mockups/optimized/samsung-tpu-view10.png', overlay: 'mockups/optimized/samsung-tpu-view10-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view10.png', fullresOverlay: 'mockups/originals/samsung-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
-                { id: 11, bg: 'mockups/optimized/samsung-tpu-view11.png', overlay: 'mockups/optimized/samsung-tpu-view11-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view11.png', fullresOverlay: 'mockups/originals/samsung-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
-                { id: 12, bg: 'mockups/optimized/samsung-tpu-view12.png', overlay: 'mockups/optimized/samsung-tpu-view12-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view12.png', fullresOverlay: 'mockups/originals/samsung-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
-                { id: 13, bg: 'mockups/optimized/samsung-tpu-view13.png', overlay: 'mockups/optimized/samsung-tpu-view13-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view13.png', fullresOverlay: 'mockups/originals/samsung-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42 },
-                { id: 14, bg: 'mockups/optimized/samsung-tpu-view14.png', overlay: 'mockups/optimized/samsung-tpu-view14-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view14.png', fullresOverlay: 'mockups/originals/samsung-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24 },
-                { id: 15, bg: 'mockups/optimized/samsung-tpu-view15.png', overlay: 'mockups/optimized/samsung-tpu-view15-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view15.png', fullresOverlay: 'mockups/originals/samsung-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46 },
-                { id: 16, bg: 'mockups/optimized/samsung-tpu-view16.png', overlay: 'mockups/optimized/samsung-tpu-view16-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view16.png', fullresOverlay: 'mockups/originals/samsung-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
-                { id: 17, bg: 'mockups/optimized/samsung-tpu-view17.png', overlay: 'mockups/optimized/samsung-tpu-view17-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view17.png', fullresOverlay: 'mockups/originals/samsung-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92 },
-                { id: 18, bg: 'mockups/optimized/samsung-tpu-view18.png', overlay: 'mockups/optimized/samsung-tpu-view18-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view18.png', fullresOverlay: 'mockups/originals/samsung-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
-                { id: 19, bg: 'mockups/optimized/samsung-tpu-view19.png', overlay: 'mockups/optimized/samsung-tpu-view19-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view19.png', fullresOverlay: 'mockups/originals/samsung-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
-                { id: 20, bg: 'mockups/optimized/samsung-tpu-view20.png', overlay: 'mockups/optimized/samsung-tpu-view20-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view20.png', fullresOverlay: 'mockups/originals/samsung-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0 },
-                { id: 21, bg: 'mockups/optimized/samsung-tpu-view21.png', overlay: 'mockups/optimized/samsung-tpu-view21-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view21.png', fullresOverlay: 'mockups/originals/samsung-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6 },
-                { id: 22, bg: 'mockups/optimized/samsung-tpu-view22.png', overlay: 'mockups/optimized/samsung-tpu-view22-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view22.png', fullresOverlay: 'mockups/originals/samsung-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
-                { id: 23, bg: 'mockups/optimized/samsung-tpu-view23.png', overlay: 'mockups/optimized/samsung-tpu-view23-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view23.png', fullresOverlay: 'mockups/originals/samsung-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
-                { id: 24, bg: 'mockups/optimized/samsung-tpu-view24.png', overlay: 'mockups/optimized/samsung-tpu-view24-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view24.png', fullresOverlay: 'mockups/originals/samsung-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
-            ]
+                [
+  { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 2, bg: 'mockups/optimized/samsung-tpu-view2.png', overlay: 'mockups/optimized/samsung-tpu-view2-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view2.png', fullresOverlay: 'mockups/originals/samsung-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 3, bg: 'mockups/optimized/samsung-tpu-view3.png', overlay: 'mockups/optimized/samsung-tpu-view3-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view3.png', fullresOverlay: 'mockups/originals/samsung-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
+  { id: 4, bg: 'mockups/optimized/samsung-tpu-view4.png', overlay: 'mockups/optimized/samsung-tpu-view4-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view4.png', fullresOverlay: 'mockups/originals/samsung-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
+  { id: 5, bg: 'mockups/optimized/samsung-tpu-view5.png', overlay: 'mockups/optimized/samsung-tpu-view5-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view5.png', fullresOverlay: 'mockups/originals/samsung-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
+  { id: 6, bg: 'mockups/optimized/samsung-tpu-view6.png', overlay: 'mockups/optimized/samsung-tpu-view6-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view6.png', fullresOverlay: 'mockups/originals/samsung-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 7, bg: 'mockups/optimized/samsung-tpu-view7.png', overlay: 'mockups/optimized/samsung-tpu-view7-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view7.png', fullresOverlay: 'mockups/originals/samsung-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
+  { id: 8, bg: 'mockups/optimized/samsung-tpu-view8.png', overlay: 'mockups/optimized/samsung-tpu-view8-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view8.png', fullresOverlay: 'mockups/originals/samsung-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
+  { id: 9, bg: 'mockups/optimized/samsung-tpu-view9.png', overlay: 'mockups/optimized/samsung-tpu-view9-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view9.png', fullresOverlay: 'mockups/originals/samsung-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
+  { id: 10, bg: 'mockups/optimized/samsung-tpu-view10.png', overlay: 'mockups/optimized/samsung-tpu-view10-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view10.png', fullresOverlay: 'mockups/originals/samsung-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
+  { id: 11, bg: 'mockups/optimized/samsung-tpu-view11.png', overlay: 'mockups/optimized/samsung-tpu-view11-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view11.png', fullresOverlay: 'mockups/originals/samsung-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
+  { id: 12, bg: 'mockups/optimized/samsung-tpu-view12.png', overlay: 'mockups/optimized/samsung-tpu-view12-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view12.png', fullresOverlay: 'mockups/originals/samsung-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
+  { id: 13, bg: 'mockups/optimized/samsung-tpu-view13.png', overlay: 'mockups/optimized/samsung-tpu-view13-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view13.png', fullresOverlay: 'mockups/originals/samsung-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
+  { id: 14, bg: 'mockups/optimized/samsung-tpu-view14.png', overlay: 'mockups/optimized/samsung-tpu-view14-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view14.png', fullresOverlay: 'mockups/originals/samsung-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
+  { id: 15, bg: 'mockups/optimized/samsung-tpu-view15.png', overlay: 'mockups/optimized/samsung-tpu-view15-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view15.png', fullresOverlay: 'mockups/originals/samsung-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
+  { id: 16, bg: 'mockups/optimized/samsung-tpu-view16.png', overlay: 'mockups/optimized/samsung-tpu-view16-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view16.png', fullresOverlay: 'mockups/originals/samsung-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 17, bg: 'mockups/optimized/samsung-tpu-view17.png', overlay: 'mockups/optimized/samsung-tpu-view17-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view17.png', fullresOverlay: 'mockups/originals/samsung-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
+  { id: 18, bg: 'mockups/optimized/samsung-tpu-view18.png', overlay: 'mockups/optimized/samsung-tpu-view18-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view18.png', fullresOverlay: 'mockups/originals/samsung-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 19, bg: 'mockups/optimized/samsung-tpu-view19.png', overlay: 'mockups/optimized/samsung-tpu-view19-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view19.png', fullresOverlay: 'mockups/originals/samsung-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
+  { id: 20, bg: 'mockups/optimized/samsung-tpu-view20.png', overlay: 'mockups/optimized/samsung-tpu-view20-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view20.png', fullresOverlay: 'mockups/originals/samsung-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 21, bg: 'mockups/optimized/samsung-tpu-view21.png', overlay: 'mockups/optimized/samsung-tpu-view21-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view21.png', fullresOverlay: 'mockups/originals/samsung-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
+  { id: 22, bg: 'mockups/optimized/samsung-tpu-view22.png', overlay: 'mockups/optimized/samsung-tpu-view22-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view22.png', fullresOverlay: 'mockups/originals/samsung-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
+  { id: 23, bg: 'mockups/optimized/samsung-tpu-view23.png', overlay: 'mockups/optimized/samsung-tpu-view23-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view23.png', fullresOverlay: 'mockups/originals/samsung-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 24, bg: 'mockups/optimized/samsung-tpu-view24.png', overlay: 'mockups/optimized/samsung-tpu-view24-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view24.png', fullresOverlay: 'mockups/originals/samsung-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+]
         },
         'iphone-tpu': {
             name: "iPhone TPU Case",
@@ -930,7 +950,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/optimized/iphone-tpu-back-main2.png',
@@ -940,7 +962,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/optimized/iphone-tpu-back-main3.png',
@@ -950,34 +974,37 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/optimized/iphone-tpu-view1.png', overlay: 'mockups/optimized/iphone-tpu-view1-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view1.png', fullresOverlay: 'mockups/originals/iphone-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
-                { id: 2, bg: 'mockups/optimized/iphone-tpu-view2.png', overlay: 'mockups/optimized/iphone-tpu-view2-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view2.png', fullresOverlay: 'mockups/originals/iphone-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 68, designRotation: 0 },
-                { id: 3, bg: 'mockups/optimized/iphone-tpu-view3.png', overlay: 'mockups/optimized/iphone-tpu-view3-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view3.png', fullresOverlay: 'mockups/originals/iphone-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
-                { id: 4, bg: 'mockups/optimized/iphone-tpu-view4.png', overlay: 'mockups/optimized/iphone-tpu-view4-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view4.png', fullresOverlay: 'mockups/originals/iphone-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
-                { id: 5, bg: 'mockups/optimized/iphone-tpu-view5.png', overlay: 'mockups/optimized/iphone-tpu-view5-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view5.png', fullresOverlay: 'mockups/originals/iphone-tpu-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 71.02, designRotation: 0.27 },
-                { id: 6, bg: 'mockups/optimized/iphone-tpu-view6.png', overlay: 'mockups/optimized/iphone-tpu-view6-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view6.png', fullresOverlay: 'mockups/originals/iphone-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
-                { id: 7, bg: 'mockups/optimized/iphone-tpu-view7.png', overlay: 'mockups/optimized/iphone-tpu-view7-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view7.png', fullresOverlay: 'mockups/originals/iphone-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
-                { id: 8, bg: 'mockups/optimized/iphone-tpu-view8.png', overlay: 'mockups/optimized/iphone-tpu-view8-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view8.png', fullresOverlay: 'mockups/originals/iphone-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
-                { id: 9, bg: 'mockups/optimized/iphone-tpu-view9.png', overlay: 'mockups/optimized/iphone-tpu-view9-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view9.png', fullresOverlay: 'mockups/originals/iphone-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 67.08, designRotation: 0.69 },
-                { id: 10, bg: 'mockups/optimized/iphone-tpu-view10.png', overlay: 'mockups/optimized/iphone-tpu-view10-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view10.png', fullresOverlay: 'mockups/originals/iphone-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
-                { id: 11, bg: 'mockups/optimized/iphone-tpu-view11.png', overlay: 'mockups/optimized/iphone-tpu-view11-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view11.png', fullresOverlay: 'mockups/originals/iphone-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
-                { id: 12, bg: 'mockups/optimized/iphone-tpu-view12.png', overlay: 'mockups/optimized/iphone-tpu-view12-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view12.png', fullresOverlay: 'mockups/originals/iphone-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
-                { id: 13, bg: 'mockups/optimized/iphone-tpu-view13.png', overlay: 'mockups/optimized/iphone-tpu-view13-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view13.png', fullresOverlay: 'mockups/originals/iphone-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42 },
-                { id: 14, bg: 'mockups/optimized/iphone-tpu-view14.png', overlay: 'mockups/optimized/iphone-tpu-view14-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view14.png', fullresOverlay: 'mockups/originals/iphone-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 61.14, designRotation: -0.24 },
-                { id: 15, bg: 'mockups/optimized/iphone-tpu-view15.png', overlay: 'mockups/optimized/iphone-tpu-view15-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view15.png', fullresOverlay: 'mockups/originals/iphone-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46 },
-                { id: 16, bg: 'mockups/optimized/iphone-tpu-view16.png', overlay: 'mockups/optimized/iphone-tpu-view16-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view16.png', fullresOverlay: 'mockups/originals/iphone-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
-                { id: 17, bg: 'mockups/optimized/iphone-tpu-view17.png', overlay: 'mockups/optimized/iphone-tpu-view17-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view17.png', fullresOverlay: 'mockups/originals/iphone-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 58.52, designRotation: 17.92 },
-                { id: 18, bg: 'mockups/optimized/iphone-tpu-view18.png', overlay: 'mockups/optimized/iphone-tpu-view18-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view18.png', fullresOverlay: 'mockups/originals/iphone-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
-                { id: 19, bg: 'mockups/optimized/iphone-tpu-view19.png', overlay: 'mockups/optimized/iphone-tpu-view19-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view19.png', fullresOverlay: 'mockups/originals/iphone-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
-                { id: 20, bg: 'mockups/optimized/iphone-tpu-view20.png', overlay: 'mockups/optimized/iphone-tpu-view20-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view20.png', fullresOverlay: 'mockups/originals/iphone-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 57.37, designRotation: 0 },
-                { id: 21, bg: 'mockups/optimized/iphone-tpu-view21.png', overlay: 'mockups/optimized/iphone-tpu-view21-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view21.png', fullresOverlay: 'mockups/originals/iphone-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 68.77, designRotation: -0.6 },
-                { id: 22, bg: 'mockups/optimized/iphone-tpu-view22.png', overlay: 'mockups/optimized/iphone-tpu-view22-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view22.png', fullresOverlay: 'mockups/originals/iphone-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
-                { id: 23, bg: 'mockups/optimized/iphone-tpu-view23.png', overlay: 'mockups/optimized/iphone-tpu-view23-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view23.png', fullresOverlay: 'mockups/originals/iphone-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
-                { id: 24, bg: 'mockups/optimized/iphone-tpu-view24.png', overlay: 'mockups/optimized/iphone-tpu-view24-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view24.png', fullresOverlay: 'mockups/originals/iphone-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
-            ]
+                [
+  { id: 1, bg: 'mockups/optimized/iphone-tpu-view1.png', overlay: 'mockups/optimized/iphone-tpu-view1-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view1.png', fullresOverlay: 'mockups/originals/iphone-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 2, bg: 'mockups/optimized/iphone-tpu-view2.png', overlay: 'mockups/optimized/iphone-tpu-view2-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view2.png', fullresOverlay: 'mockups/originals/iphone-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 3, bg: 'mockups/optimized/iphone-tpu-view3.png', overlay: 'mockups/optimized/iphone-tpu-view3-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view3.png', fullresOverlay: 'mockups/originals/iphone-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
+  { id: 4, bg: 'mockups/optimized/iphone-tpu-view4.png', overlay: 'mockups/optimized/iphone-tpu-view4-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view4.png', fullresOverlay: 'mockups/originals/iphone-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
+  { id: 5, bg: 'mockups/optimized/iphone-tpu-view5.png', overlay: 'mockups/optimized/iphone-tpu-view5-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view5.png', fullresOverlay: 'mockups/originals/iphone-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
+  { id: 6, bg: 'mockups/optimized/iphone-tpu-view6.png', overlay: 'mockups/optimized/iphone-tpu-view6-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view6.png', fullresOverlay: 'mockups/originals/iphone-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 7, bg: 'mockups/optimized/iphone-tpu-view7.png', overlay: 'mockups/optimized/iphone-tpu-view7-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view7.png', fullresOverlay: 'mockups/originals/iphone-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
+  { id: 8, bg: 'mockups/optimized/iphone-tpu-view8.png', overlay: 'mockups/optimized/iphone-tpu-view8-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view8.png', fullresOverlay: 'mockups/originals/iphone-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
+  { id: 9, bg: 'mockups/optimized/iphone-tpu-view9.png', overlay: 'mockups/optimized/iphone-tpu-view9-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view9.png', fullresOverlay: 'mockups/originals/iphone-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
+  { id: 10, bg: 'mockups/optimized/iphone-tpu-view10.png', overlay: 'mockups/optimized/iphone-tpu-view10-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view10.png', fullresOverlay: 'mockups/originals/iphone-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
+  { id: 11, bg: 'mockups/optimized/iphone-tpu-view11.png', overlay: 'mockups/optimized/iphone-tpu-view11-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view11.png', fullresOverlay: 'mockups/originals/iphone-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
+  { id: 12, bg: 'mockups/optimized/iphone-tpu-view12.png', overlay: 'mockups/optimized/iphone-tpu-view12-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view12.png', fullresOverlay: 'mockups/originals/iphone-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
+  { id: 13, bg: 'mockups/optimized/iphone-tpu-view13.png', overlay: 'mockups/optimized/iphone-tpu-view13-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view13.png', fullresOverlay: 'mockups/originals/iphone-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
+  { id: 14, bg: 'mockups/optimized/iphone-tpu-view14.png', overlay: 'mockups/optimized/iphone-tpu-view14-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view14.png', fullresOverlay: 'mockups/originals/iphone-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
+  { id: 15, bg: 'mockups/optimized/iphone-tpu-view15.png', overlay: 'mockups/optimized/iphone-tpu-view15-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view15.png', fullresOverlay: 'mockups/originals/iphone-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
+  { id: 16, bg: 'mockups/optimized/iphone-tpu-view16.png', overlay: 'mockups/optimized/iphone-tpu-view16-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view16.png', fullresOverlay: 'mockups/originals/iphone-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 17, bg: 'mockups/optimized/iphone-tpu-view17.png', overlay: 'mockups/optimized/iphone-tpu-view17-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view17.png', fullresOverlay: 'mockups/originals/iphone-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
+  { id: 18, bg: 'mockups/optimized/iphone-tpu-view18.png', overlay: 'mockups/optimized/iphone-tpu-view18-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view18.png', fullresOverlay: 'mockups/originals/iphone-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 19, bg: 'mockups/optimized/iphone-tpu-view19.png', overlay: 'mockups/optimized/iphone-tpu-view19-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view19.png', fullresOverlay: 'mockups/originals/iphone-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
+  { id: 20, bg: 'mockups/optimized/iphone-tpu-view20.png', overlay: 'mockups/optimized/iphone-tpu-view20-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view20.png', fullresOverlay: 'mockups/originals/iphone-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 21, bg: 'mockups/optimized/iphone-tpu-view21.png', overlay: 'mockups/optimized/iphone-tpu-view21-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view21.png', fullresOverlay: 'mockups/originals/iphone-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
+  { id: 22, bg: 'mockups/optimized/iphone-tpu-view22.png', overlay: 'mockups/optimized/iphone-tpu-view22-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view22.png', fullresOverlay: 'mockups/originals/iphone-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
+  { id: 23, bg: 'mockups/optimized/iphone-tpu-view23.png', overlay: 'mockups/optimized/iphone-tpu-view23-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view23.png', fullresOverlay: 'mockups/originals/iphone-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 24, bg: 'mockups/optimized/iphone-tpu-view24.png', overlay: 'mockups/optimized/iphone-tpu-view24-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view24.png', fullresOverlay: 'mockups/originals/iphone-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+]
         },
         'iphone-hybrid': {
             name: "iPhone Hybrid Case",
@@ -989,7 +1016,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/optimized/iphone-hybrid-back-main2.png',
@@ -999,7 +1028,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/optimized/iphone-hybrid-back-main3.png',
@@ -1009,34 +1040,36 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/optimized/iphone-hybrid-view1.png', overlay: 'mockups/optimized/iphone-hybrid-view1-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view1.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
-                { id: 2, bg: 'mockups/optimized/iphone-hybrid-view2.png', overlay: 'mockups/optimized/iphone-hybrid-view2-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view2.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view2-overlay.png', designX: 50, designY: 60, designScale: 68, designRotation: 0 },
-                { id: 3, bg: 'mockups/optimized/iphone-hybrid-view3.png', overlay: 'mockups/optimized/iphone-hybrid-view3-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view3.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
-                { id: 4, bg: 'mockups/optimized/iphone-hybrid-view4.png', overlay: 'mockups/optimized/iphone-hybrid-view4-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view4.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
-                { id: 5, bg: 'mockups/optimized/iphone-hybrid-view5.png', overlay: 'mockups/optimized/iphone-hybrid-view5-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view5.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 73.02, designRotation: 0.27 },
-                { id: 6, bg: 'mockups/optimized/iphone-hybrid-view6.png', overlay: 'mockups/optimized/iphone-hybrid-view6-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view6.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
-                { id: 7, bg: 'mockups/optimized/iphone-hybrid-view7.png', overlay: 'mockups/optimized/iphone-hybrid-view7-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view7.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
-                { id: 8, bg: 'mockups/optimized/iphone-hybrid-view8.png', overlay: 'mockups/optimized/iphone-hybrid-view8-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view8.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
-                { id: 9, bg: 'mockups/optimized/iphone-hybrid-view9.png', overlay: 'mockups/optimized/iphone-hybrid-view9-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view9.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
-                { id: 10, bg: 'mockups/optimized/iphone-hybrid-view10.png', overlay: 'mockups/optimized/iphone-hybrid-view10-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view10.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
-                { id: 11, bg: 'mockups/optimized/iphone-hybrid-view11.png', overlay: 'mockups/optimized/iphone-hybrid-view11-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view11.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
-                { id: 12, bg: 'mockups/optimized/iphone-hybrid-view12.png', overlay: 'mockups/optimized/iphone-hybrid-view12-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view12.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
-                { id: 13, bg: 'mockups/optimized/iphone-hybrid-view13.png', overlay: 'mockups/optimized/iphone-hybrid-view13-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view13.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 58.25, designRotation: 25.42 },
-                { id: 14, bg: 'mockups/optimized/iphone-hybrid-view14.png', overlay: 'mockups/optimized/iphone-hybrid-view14-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view14.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 61.14, designRotation: -0.24 },
-                { id: 15, bg: 'mockups/optimized/iphone-hybrid-view15.png', overlay: 'mockups/optimized/iphone-hybrid-view15-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view15.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46 },
-                { id: 16, bg: 'mockups/optimized/iphone-hybrid-view16.png', overlay: 'mockups/optimized/iphone-hybrid-view16-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view16.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
-                { id: 17, bg: 'mockups/optimized/iphone-hybrid-view17.png', overlay: 'mockups/optimized/iphone-hybrid-view17-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view17.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 58.52, designRotation: 17.92 },
-                { id: 18, bg: 'mockups/optimized/iphone-hybrid-view18.png', overlay: 'mockups/optimized/iphone-hybrid-view18-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view18.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
-                { id: 19, bg: 'mockups/optimized/iphone-hybrid-view19.png', overlay: 'mockups/optimized/iphone-hybrid-view19-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view19.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
-                { id: 20, bg: 'mockups/optimized/iphone-hybrid-view20.png', overlay: 'mockups/optimized/iphone-hybrid-view20-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view20.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 55.37, designRotation: 0 },
-                { id: 21, bg: 'mockups/optimized/iphone-hybrid-view21.png', overlay: 'mockups/optimized/iphone-hybrid-view21-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view21.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6 },
-                { id: 22, bg: 'mockups/optimized/iphone-hybrid-view22.png', overlay: 'mockups/optimized/iphone-hybrid-view22-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view22.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
-                { id: 23, bg: 'mockups/optimized/iphone-hybrid-view23.png', overlay: 'mockups/optimized/iphone-hybrid-view23-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view23.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
-                { id: 24, bg: 'mockups/optimized/iphone-hybrid-view24.png', overlay: 'mockups/optimized/iphone-hybrid-view24-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view24.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
-            ]
+                { id: 1, bg: 'mockups/optimized/iphone-hybrid-view1.png', overlay: 'mockups/optimized/iphone-hybrid-view1-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view1.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 2, bg: 'mockups/optimized/iphone-hybrid-view2.png', overlay: 'mockups/optimized/iphone-hybrid-view2-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view2.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 3, bg: 'mockups/optimized/iphone-hybrid-view3.png', overlay: 'mockups/optimized/iphone-hybrid-view3-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view3.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
+  { id: 4, bg: 'mockups/optimized/iphone-hybrid-view4.png', overlay: 'mockups/optimized/iphone-hybrid-view4-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view4.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
+  { id: 5, bg: 'mockups/optimized/iphone-hybrid-view5.png', overlay: 'mockups/optimized/iphone-hybrid-view5-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view5.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
+  { id: 6, bg: 'mockups/optimized/iphone-hybrid-view6.png', overlay: 'mockups/optimized/iphone-hybrid-view6-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view6.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 7, bg: 'mockups/optimized/iphone-hybrid-view7.png', overlay: 'mockups/optimized/iphone-hybrid-view7-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view7.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
+  { id: 8, bg: 'mockups/optimized/iphone-hybrid-view8.png', overlay: 'mockups/optimized/iphone-hybrid-view8-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view8.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
+  { id: 9, bg: 'mockups/optimized/iphone-hybrid-view9.png', overlay: 'mockups/optimized/iphone-hybrid-view9-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view9.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
+  { id: 10, bg: 'mockups/optimized/iphone-hybrid-view10.png', overlay: 'mockups/optimized/iphone-hybrid-view10-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view10.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
+  { id: 11, bg: 'mockups/optimized/iphone-hybrid-view11.png', overlay: 'mockups/optimized/iphone-hybrid-view11-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view11.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
+  { id: 12, bg: 'mockups/optimized/iphone-hybrid-view12.png', overlay: 'mockups/optimized/iphone-hybrid-view12-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view12.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
+  { id: 13, bg: 'mockups/optimized/iphone-hybrid-view13.png', overlay: 'mockups/optimized/iphone-hybrid-view13-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view13.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
+  { id: 14, bg: 'mockups/optimized/iphone-hybrid-view14.png', overlay: 'mockups/optimized/iphone-hybrid-view14-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view14.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
+  { id: 15, bg: 'mockups/optimized/iphone-hybrid-view15.png', overlay: 'mockups/optimized/iphone-hybrid-view15-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view15.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
+  { id: 16, bg: 'mockups/optimized/iphone-hybrid-view16.png', overlay: 'mockups/optimized/iphone-hybrid-view16-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view16.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 17, bg: 'mockups/optimized/iphone-hybrid-view17.png', overlay: 'mockups/optimized/iphone-hybrid-view17-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view17.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
+  { id: 18, bg: 'mockups/optimized/iphone-hybrid-view18.png', overlay: 'mockups/optimized/iphone-hybrid-view18-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view18.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 19, bg: 'mockups/optimized/iphone-hybrid-view19.png', overlay: 'mockups/optimized/iphone-hybrid-view19-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view19.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
+  { id: 20, bg: 'mockups/optimized/iphone-hybrid-view20.png', overlay: 'mockups/optimized/iphone-hybrid-view20-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view20.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 21, bg: 'mockups/optimized/iphone-hybrid-view21.png', overlay: 'mockups/optimized/iphone-hybrid-view21-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view21.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
+  { id: 22, bg: 'mockups/optimized/iphone-hybrid-view22.png', overlay: 'mockups/optimized/iphone-hybrid-view22-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view22.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
+  { id: 23, bg: 'mockups/optimized/iphone-hybrid-view23.png', overlay: 'mockups/optimized/iphone-hybrid-view23-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view23.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 24, bg: 'mockups/optimized/iphone-hybrid-view24.png', overlay: 'mockups/optimized/iphone-hybrid-view24-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view24.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+]
         },
         'pixel-tpu': {
             name: "Google Pixel TPU Case",
@@ -1048,7 +1081,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/optimized/pixel-tpu-back-main2.png',
@@ -1058,7 +1093,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/optimized/pixel-tpu-back-main3.png',
@@ -1068,34 +1105,36 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/optimized/pixel-tpu-view1.png', overlay: 'mockups/optimized/pixel-tpu-view1-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view1.png', fullresOverlay: 'mockups/originals/pixel-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
-                { id: 2, bg: 'mockups/optimized/pixel-tpu-view2.png', overlay: 'mockups/optimized/pixel-tpu-view2-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view2.png', fullresOverlay: 'mockups/originals/pixel-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0 },
-                { id: 3, bg: 'mockups/optimized/pixel-tpu-view3.png', overlay: 'mockups/optimized/pixel-tpu-view3-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view3.png', fullresOverlay: 'mockups/originals/pixel-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
-                { id: 4, bg: 'mockups/optimized/pixel-tpu-view4.png', overlay: 'mockups/optimized/pixel-tpu-view4-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view4.png', fullresOverlay: 'mockups/originals/pixel-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04 },
-                { id: 5, bg: 'mockups/optimized/pixel-tpu-view5.png', overlay: 'mockups/optimized/pixel-tpu-view5-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view5.png', fullresOverlay: 'mockups/originals/pixel-tpu-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 73.02, designRotation: 0.27 },
-                { id: 6, bg: 'mockups/optimized/pixel-tpu-view6.png', overlay: 'mockups/optimized/pixel-tpu-view6-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view6.png', fullresOverlay: 'mockups/originals/pixel-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 72.08, designRotation: 0 },
-                { id: 7, bg: 'mockups/optimized/pixel-tpu-view7.png', overlay: 'mockups/optimized/pixel-tpu-view7-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view7.png', fullresOverlay: 'mockups/originals/pixel-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41 },
-                { id: 8, bg: 'mockups/optimized/pixel-tpu-view8.png', overlay: 'mockups/optimized/pixel-tpu-view8-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view8.png', fullresOverlay: 'mockups/originals/pixel-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3 },
-                { id: 9, bg: 'mockups/optimized/pixel-tpu-view9.png', overlay: 'mockups/optimized/pixel-tpu-view9-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view9.png', fullresOverlay: 'mockups/originals/pixel-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
-                { id: 10, bg: 'mockups/optimized/pixel-tpu-view10.png', overlay: 'mockups/optimized/pixel-tpu-view10-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view10.png', fullresOverlay: 'mockups/originals/pixel-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35 },
-                { id: 11, bg: 'mockups/optimized/pixel-tpu-view11.png', overlay: 'mockups/optimized/pixel-tpu-view11-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view11.png', fullresOverlay: 'mockups/originals/pixel-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41 },
-                { id: 12, bg: 'mockups/optimized/pixel-tpu-view12.png', overlay: 'mockups/optimized/pixel-tpu-view12-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view12.png', fullresOverlay: 'mockups/originals/pixel-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49 },
-                { id: 13, bg: 'mockups/optimized/pixel-tpu-view13.png', overlay: 'mockups/optimized/pixel-tpu-view13-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view13.png', fullresOverlay: 'mockups/originals/pixel-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42 },
-                { id: 14, bg: 'mockups/optimized/pixel-tpu-view14.png', overlay: 'mockups/optimized/pixel-tpu-view14-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view14.png', fullresOverlay: 'mockups/originals/pixel-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24 },
-                { id: 15, bg: 'mockups/optimized/pixel-tpu-view15.png', overlay: 'mockups/optimized/pixel-tpu-view15-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view15.png', fullresOverlay: 'mockups/originals/pixel-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 79.73, designRotation: 0.46 },
-                { id: 16, bg: 'mockups/optimized/pixel-tpu-view16.png', overlay: 'mockups/optimized/pixel-tpu-view16-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view16.png', fullresOverlay: 'mockups/originals/pixel-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0 },
-                { id: 17, bg: 'mockups/optimized/pixel-tpu-view17.png', overlay: 'mockups/optimized/pixel-tpu-view17-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view17.png', fullresOverlay: 'mockups/originals/pixel-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92 },
-                { id: 18, bg: 'mockups/optimized/pixel-tpu-view18.png', overlay: 'mockups/optimized/pixel-tpu-view18-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view18.png', fullresOverlay: 'mockups/originals/pixel-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0 },
-                { id: 19, bg: 'mockups/optimized/pixel-tpu-view19.png', overlay: 'mockups/optimized/pixel-tpu-view19-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view19.png', fullresOverlay: 'mockups/originals/pixel-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74 },
-                { id: 20, bg: 'mockups/optimized/pixel-tpu-view20.png', overlay: 'mockups/optimized/pixel-tpu-view20-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view20.png', fullresOverlay: 'mockups/originals/pixel-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 57.37, designRotation: 0 },
-                { id: 21, bg: 'mockups/optimized/pixel-tpu-view21.png', overlay: 'mockups/optimized/pixel-tpu-view21-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view21.png', fullresOverlay: 'mockups/originals/pixel-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 68.77, designRotation: -0.6 },
-                { id: 22, bg: 'mockups/optimized/pixel-tpu-view22.png', overlay: 'mockups/optimized/pixel-tpu-view22-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view22.png', fullresOverlay: 'mockups/originals/pixel-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04 },
-                { id: 23, bg: 'mockups/optimized/pixel-tpu-view23.png', overlay: 'mockups/optimized/pixel-tpu-view23-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view23.png', fullresOverlay: 'mockups/originals/pixel-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 },
-                { id: 24, bg: 'mockups/optimized/pixel-tpu-view24.png', overlay: 'mockups/optimized/pixel-tpu-view24-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view24.png', fullresOverlay: 'mockups/originals/pixel-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0 }
-            ]
+                { id: 1, bg: 'mockups/optimized/pixel-tpu-view1.png', overlay: 'mockups/optimized/pixel-tpu-view1-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view1.png', fullresOverlay: 'mockups/originals/pixel-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 2, bg: 'mockups/optimized/pixel-tpu-view2.png', overlay: 'mockups/optimized/pixel-tpu-view2-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view2.png', fullresOverlay: 'mockups/originals/pixel-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 3, bg: 'mockups/optimized/pixel-tpu-view3.png', overlay: 'mockups/optimized/pixel-tpu-view3-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view3.png', fullresOverlay: 'mockups/originals/pixel-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
+  { id: 4, bg: 'mockups/optimized/pixel-tpu-view4.png', overlay: 'mockups/optimized/pixel-tpu-view4-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view4.png', fullresOverlay: 'mockups/originals/pixel-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
+  { id: 5, bg: 'mockups/optimized/pixel-tpu-view5.png', overlay: 'mockups/optimized/pixel-tpu-view5-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view5.png', fullresOverlay: 'mockups/originals/pixel-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
+  { id: 6, bg: 'mockups/optimized/pixel-tpu-view6.png', overlay: 'mockups/optimized/pixel-tpu-view6-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view6.png', fullresOverlay: 'mockups/originals/pixel-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 7, bg: 'mockups/optimized/pixel-tpu-view7.png', overlay: 'mockups/optimized/pixel-tpu-view7-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view7.png', fullresOverlay: 'mockups/originals/pixel-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
+  { id: 8, bg: 'mockups/optimized/pixel-tpu-view8.png', overlay: 'mockups/optimized/pixel-tpu-view8-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view8.png', fullresOverlay: 'mockups/originals/pixel-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
+  { id: 9, bg: 'mockups/optimized/pixel-tpu-view9.png', overlay: 'mockups/optimized/pixel-tpu-view9-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view9.png', fullresOverlay: 'mockups/originals/pixel-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
+  { id: 10, bg: 'mockups/optimized/pixel-tpu-view10.png', overlay: 'mockups/optimized/pixel-tpu-view10-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view10.png', fullresOverlay: 'mockups/originals/pixel-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
+  { id: 11, bg: 'mockups/optimized/pixel-tpu-view11.png', overlay: 'mockups/optimized/pixel-tpu-view11-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view11.png', fullresOverlay: 'mockups/originals/pixel-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
+  { id: 12, bg: 'mockups/optimized/pixel-tpu-view12.png', overlay: 'mockups/optimized/pixel-tpu-view12-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view12.png', fullresOverlay: 'mockups/originals/pixel-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
+  { id: 13, bg: 'mockups/optimized/pixel-tpu-view13.png', overlay: 'mockups/optimized/pixel-tpu-view13-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view13.png', fullresOverlay: 'mockups/originals/pixel-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
+  { id: 14, bg: 'mockups/optimized/pixel-tpu-view14.png', overlay: 'mockups/optimized/pixel-tpu-view14-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view14.png', fullresOverlay: 'mockups/originals/pixel-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
+  { id: 15, bg: 'mockups/optimized/pixel-tpu-view15.png', overlay: 'mockups/optimized/pixel-tpu-view15-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view15.png', fullresOverlay: 'mockups/originals/pixel-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
+  { id: 16, bg: 'mockups/optimized/pixel-tpu-view16.png', overlay: 'mockups/optimized/pixel-tpu-view16-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view16.png', fullresOverlay: 'mockups/originals/pixel-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 17, bg: 'mockups/optimized/pixel-tpu-view17.png', overlay: 'mockups/optimized/pixel-tpu-view17-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view17.png', fullresOverlay: 'mockups/originals/pixel-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
+  { id: 18, bg: 'mockups/optimized/pixel-tpu-view18.png', overlay: 'mockups/optimized/pixel-tpu-view18-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view18.png', fullresOverlay: 'mockups/originals/pixel-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 19, bg: 'mockups/optimized/pixel-tpu-view19.png', overlay: 'mockups/optimized/pixel-tpu-view19-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view19.png', fullresOverlay: 'mockups/originals/pixel-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
+  { id: 20, bg: 'mockups/optimized/pixel-tpu-view20.png', overlay: 'mockups/optimized/pixel-tpu-view20-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view20.png', fullresOverlay: 'mockups/originals/pixel-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 21, bg: 'mockups/optimized/pixel-tpu-view21.png', overlay: 'mockups/optimized/pixel-tpu-view21-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view21.png', fullresOverlay: 'mockups/originals/pixel-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
+  { id: 22, bg: 'mockups/optimized/pixel-tpu-view22.png', overlay: 'mockups/optimized/pixel-tpu-view22-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view22.png', fullresOverlay: 'mockups/originals/pixel-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
+  { id: 23, bg: 'mockups/optimized/pixel-tpu-view23.png', overlay: 'mockups/optimized/pixel-tpu-view23-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view23.png', fullresOverlay: 'mockups/originals/pixel-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 24, bg: 'mockups/optimized/pixel-tpu-view24.png', overlay: 'mockups/optimized/pixel-tpu-view24-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view24.png', fullresOverlay: 'mockups/originals/pixel-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+]
         },
         'iphone-fullprint': {
             name: "iPhone Fullprint Case",
@@ -1107,7 +1146,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/optimized/iphone-fullprint-back-main2.png',
@@ -1117,7 +1158,9 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/optimized/iphone-fullprint-back-main3.png',
@@ -1127,20 +1170,36 @@
                 designX: 48.5,
                 designY: 48.5,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/optimized/iphone-fullprint-view1.png', overlay: 'mockups/optimized/iphone-fullprint-view1-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view1.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view1-overlay.png', designX: 47, designY: 50, designScale: 56, designRotation: 0 },
-                { id: 2, bg: 'mockups/optimized/iphone-fullprint-view2.png', overlay: 'mockups/optimized/iphone-fullprint-view2-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view2.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view2-overlay.png', designX: 50, designY: 60, designScale: 68, designRotation: 0 },
-                { id: 3, bg: 'mockups/optimized/iphone-fullprint-view3.png', overlay: 'mockups/optimized/iphone-fullprint-view3-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view3.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 83, designRotation: -24.42 },
-                { id: 4, bg: 'mockups/optimized/iphone-fullprint-view4.png', overlay: 'mockups/optimized/iphone-fullprint-view4-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view4.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 70.59, designRotation: -1.04 },
-                { id: 5, bg: 'mockups/optimized/iphone-fullprint-view5.png', overlay: 'mockups/optimized/iphone-fullprint-view5-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view5.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view5-overlay.png', designX: 50.2, designY: 50.75, designScale: 75.02, designRotation: 0.27 },
-                { id: 6, bg: 'mockups/optimized/iphone-fullprint-view6.png', overlay: 'mockups/optimized/iphone-fullprint-view6-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view6.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0 },
-                { id: 7, bg: 'mockups/optimized/iphone-fullprint-view7.png', overlay: 'mockups/optimized/iphone-fullprint-view7-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view7.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 80.64, designRotation: 8.41 },
-                { id: 8, bg: 'mockups/optimized/iphone-fullprint-view8.png', overlay: 'mockups/optimized/iphone-fullprint-view8-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view8.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 75.54, designRotation: 37.3 },
-                { id: 9, bg: 'mockups/optimized/iphone-fullprint-view9.png', overlay: 'mockups/optimized/iphone-fullprint-view9-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view9.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69 },
-                { id: 10, bg: 'mockups/optimized/iphone-fullprint-view10.png', overlay: 'mockups/optimized/iphone-fullprint-view10-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view10.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view10-overlay.png', designX: 48.6, designY: 50.4, designScale: 68.77, designRotation: -0.6 }
-            ]
+                { id: 1, bg: 'mockups/optimized/iphone-fullprint-view1.png', overlay: 'mockups/optimized/iphone-fullprint-view1-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view1.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 2, bg: 'mockups/optimized/iphone-fullprint-view2.png', overlay: 'mockups/optimized/iphone-fullprint-view2-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view2.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 3, bg: 'mockups/optimized/iphone-fullprint-view3.png', overlay: 'mockups/optimized/iphone-fullprint-view3-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view3.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
+  { id: 4, bg: 'mockups/optimized/iphone-fullprint-view4.png', overlay: 'mockups/optimized/iphone-fullprint-view4-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view4.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
+  { id: 5, bg: 'mockups/optimized/iphone-fullprint-view5.png', overlay: 'mockups/optimized/iphone-fullprint-view5-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view5.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
+  { id: 6, bg: 'mockups/optimized/iphone-fullprint-view6.png', overlay: 'mockups/optimized/iphone-fullprint-view6-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view6.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 7, bg: 'mockups/optimized/iphone-fullprint-view7.png', overlay: 'mockups/optimized/iphone-fullprint-view7-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view7.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
+  { id: 8, bg: 'mockups/optimized/iphone-fullprint-view8.png', overlay: 'mockups/optimized/iphone-fullprint-view8-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view8.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
+  { id: 9, bg: 'mockups/optimized/iphone-fullprint-view9.png', overlay: 'mockups/optimized/iphone-fullprint-view9-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view9.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
+  { id: 10, bg: 'mockups/optimized/iphone-fullprint-view10.png', overlay: 'mockups/optimized/iphone-fullprint-view10-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view10.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
+  { id: 11, bg: 'mockups/optimized/iphone-fullprint-view11.png', overlay: 'mockups/optimized/iphone-fullprint-view11-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view11.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
+  { id: 12, bg: 'mockups/optimized/iphone-fullprint-view12.png', overlay: 'mockups/optimized/iphone-fullprint-view12-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view12.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
+  { id: 13, bg: 'mockups/optimized/iphone-fullprint-view13.png', overlay: 'mockups/optimized/iphone-fullprint-view13-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view13.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
+  { id: 14, bg: 'mockups/optimized/iphone-fullprint-view14.png', overlay: 'mockups/optimized/iphone-fullprint-view14-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view14.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
+  { id: 15, bg: 'mockups/optimized/iphone-fullprint-view15.png', overlay: 'mockups/optimized/iphone-fullprint-view15-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view15.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
+  { id: 16, bg: 'mockups/optimized/iphone-fullprint-view16.png', overlay: 'mockups/optimized/iphone-fullprint-view16-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view16.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 17, bg: 'mockups/optimized/iphone-fullprint-view17.png', overlay: 'mockups/optimized/iphone-fullprint-view17-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view17.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
+  { id: 18, bg: 'mockups/optimized/iphone-fullprint-view18.png', overlay: 'mockups/optimized/iphone-fullprint-view18-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view18.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 19, bg: 'mockups/optimized/iphone-fullprint-view19.png', overlay: 'mockups/optimized/iphone-fullprint-view19-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view19.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
+  { id: 20, bg: 'mockups/optimized/iphone-fullprint-view20.png', overlay: 'mockups/optimized/iphone-fullprint-view20-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view20.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 21, bg: 'mockups/optimized/iphone-fullprint-view21.png', overlay: 'mockups/optimized/iphone-fullprint-view21-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view21.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
+  { id: 22, bg: 'mockups/optimized/iphone-fullprint-view22.png', overlay: 'mockups/optimized/iphone-fullprint-view22-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view22.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
+  { id: 23, bg: 'mockups/optimized/iphone-fullprint-view23.png', overlay: 'mockups/optimized/iphone-fullprint-view23-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view23.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+  { id: 24, bg: 'mockups/optimized/iphone-fullprint-view24.png', overlay: 'mockups/optimized/iphone-fullprint-view24-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view24.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+]
         },
 
         // Plaques
@@ -1154,7 +1213,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 90,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/plaques/slate-10x10-main2.png',
@@ -1164,7 +1225,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 85,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/plaques/slate-10x10-main3.png',
@@ -1174,14 +1237,12 @@
                 designX: 50,
                 designY: 50,
                 designScale: 80,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/plaques/slate-10x10-view1.png', overlay: 'mockups/plaques/slate-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 2, bg: 'mockups/plaques/slate-10x10-view2.png', overlay: 'mockups/plaques/slate-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 3, bg: 'mockups/plaques/slate-10x10-view3.png', overlay: 'mockups/plaques/slate-10x10-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view3-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 4, bg: 'mockups/plaques/slate-10x10-view4.png', overlay: 'mockups/plaques/slate-10x10-view4-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view4.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view4-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 5, bg: 'mockups/plaques/slate-10x10-view5.png', overlay: 'mockups/plaques/slate-10x10-view5-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view5.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view5-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
+                { id: 1, bg: 'mockups/plaques/slate-10x10-view1.png', overlay: 'mockups/plaques/slate-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
             ]
         },
         'slate-plaque-15x15': {
@@ -1194,7 +1255,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 90,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/plaques/slate-15x15-main2.png',
@@ -1204,7 +1267,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 85,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/plaques/slate-15x15-main3.png',
@@ -1214,12 +1279,12 @@
                 designX: 50,
                 designY: 50,
                 designScale: 80,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/plaques/slate-15x15-view1.png', overlay: 'mockups/plaques/slate-15x15-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 2, bg: 'mockups/plaques/slate-15x15-view2.png', overlay: 'mockups/plaques/slate-15x15-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 3, bg: 'mockups/plaques/slate-15x15-view3.png', overlay: 'mockups/plaques/slate-15x15-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view3-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
+                { id: 1, bg: 'mockups/plaques/slate-15x15-view1.png', overlay: 'mockups/plaques/slate-15x15-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
             ]
         },
         'slate-plaque-20x30': {
@@ -1232,7 +1297,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 90,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/plaques/slate-20x30-main2.png',
@@ -1242,7 +1309,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 85,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/plaques/slate-20x30-main3.png',
@@ -1252,11 +1321,13 @@
                 designX: 50,
                 designY: 50,
                 designScale: 80,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/plaques/slate-20x30-view1.png', overlay: 'mockups/plaques/slate-20x30-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 2, bg: 'mockups/plaques/slate-20x30-view2.png', overlay: 'mockups/plaques/slate-20x30-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
+                { id: 1, bg: 'mockups/plaques/slate-20x30-view1.png', overlay: 'mockups/plaques/slate-20x30-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                { id: 2, bg: 'mockups/plaques/slate-20x30-view2.png', overlay: 'mockups/plaques/slate-20x30-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
             ]
         },
         'slate-plaque-heart-10x10': {
@@ -1269,7 +1340,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 90,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/plaques/slate-heart-10x10-main2.png',
@@ -1279,7 +1352,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 85,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/plaques/slate-heart-10x10-main3.png',
@@ -1289,11 +1364,12 @@
                 designX: 50,
                 designY: 50,
                 designScale: 80,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/plaques/slate-heart-10x10-view1.png', overlay: 'mockups/plaques/slate-heart-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 2, bg: 'mockups/plaques/slate-heart-10x10-view2.png', overlay: 'mockups/plaques/slate-heart-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
+                { id: 1, bg: 'mockups/plaques/slate-heart-10x10-view1.png', overlay: 'mockups/plaques/slate-heart-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
             ]
         },
         'slate-plaque-heart-25x25': {
@@ -1306,7 +1382,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 90,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/plaques/slate-heart-25x25-main2.png',
@@ -1316,7 +1394,9 @@
                 designX: 50,
                 designY: 50,
                 designScale: 85,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/plaques/slate-heart-25x25-main3.png',
@@ -1326,11 +1406,12 @@
                 designX: 50,
                 designY: 50,
                 designScale: 80,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             views: [
-                { id: 1, bg: 'mockups/plaques/slate-heart-25x25-view1.png', overlay: 'mockups/plaques/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 2, bg: 'mockups/plaques/slate-heart-25x25-view2.png', overlay: 'mockups/plaques/slate-heart-25x25-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
+                { id: 1, bg: 'mockups/plaques/slate-heart-25x25-view1.png', overlay: 'mockups/plaques/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
             ]
         },
 
@@ -1345,7 +1426,9 @@
                 designX: 15.7,
                 designY: 38.75,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/airpods/airpods-main2.png',
@@ -1355,7 +1438,9 @@
                 designX: 15.35,
                 designY: 50,
                 designScale: 100,
-                designRotation: 0
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main3: {
                 bg: 'mockups/airpods/airpods-main3.png',
@@ -1365,12 +1450,12 @@
                 designX: 13.75,
                 designY: 47.2,
                 designScale: 100,
-                designRotation: 8.54
+                designRotation: 8.54,
+                designSkewX: 0,
+                designSkewY: 8.54
             },
             views: [
-                { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 2, bg: 'mockups/airpods/airpods-view2.png', overlay: 'mockups/airpods/airpods-view2-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view2.png', fullresOverlay: 'mockups/airpods/originals/airpods-view2-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 },
-                { id: 3, bg: 'mockups/airpods/airpods-view3.png', overlay: 'mockups/airpods/airpods-view3-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view3.png', fullresOverlay: 'mockups/airpods/originals/airpods-view3-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0 }
+                { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
             ]
         }
     };
@@ -1683,6 +1768,15 @@ document.addEventListener('DOMContentLoaded', function() {
             updateDesignPositionFromControls();
         });
         
+        // Skew controls
+        skewXInput.addEventListener('input', function() {
+            updateDesignPositionFromControls();
+        });
+        
+        skewYInput.addEventListener('input', function() {
+            updateDesignPositionFromControls();
+        });
+        
         // Reset position button
         resetPositionBtn.addEventListener('click', function() {
             const selectedView = viewSelector.value;
@@ -1705,6 +1799,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     design.dataset.y = viewData.designY;
                     design.dataset.scale = viewData.designScale;
                     design.dataset.rotation = viewData.designRotation;
+                    design.dataset.skewX = viewData.designSkewX || 0;
+                    design.dataset.skewY = viewData.designSkewY || 0;
                     updateDesignPosition(design);
                 }
             });
@@ -1752,6 +1848,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     designImg.dataset.y = mainMockup.designY;
                     designImg.dataset.scale = mainMockup.designScale;
                     designImg.dataset.rotation = mainMockup.designRotation;
+                    designImg.dataset.skewX = mainMockup.designSkewX || 0;
+                    designImg.dataset.skewY = mainMockup.designSkewY || 0;
                     designImg.style.display = uploadedImage.src ? 'block' : 'none';
                     if (uploadedImage.src) {
                         designImg.src = uploadedImage.src;
@@ -1820,6 +1918,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
                              data-x="${view.designX}" data-y="${view.designY}" 
                              data-scale="${view.designScale}" data-rotation="${view.designRotation}"
+                             data-skew-x="${view.designSkewX || 0}" data-skew-y="${view.designSkewY || 0}"
                              style="display: ${uploadedImage.src ? 'block' : 'none'}">
                     </div>
                     <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
@@ -1909,10 +2008,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const y = parseFloat(designElement.dataset.y) || 50;
         const scale = parseFloat(designElement.dataset.scale) || 100;
         const rotation = parseFloat(designElement.dataset.rotation) || 0;
+        const skewX = parseFloat(designElement.dataset.skewX) || 0;
+        const skewY = parseFloat(designElement.dataset.skewY) || 0;
         
         designElement.style.top = `${y}%`;
         designElement.style.left = `${x}%`;
-        designElement.style.transform = `translate(-50%, -50%) scale(${scale/100}) rotate(${rotation}deg)`;
+        designElement.style.transform = `translate(-50%, -50%) 
+                                       scale(${scale/100}) 
+                                       rotate(${rotation}deg)
+                                       skew(${skewX}deg, ${skewY}deg)`;
     }
 
     // Update design position from control inputs
@@ -1922,6 +2026,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const y = parseFloat(positionY.value);
         const scale = parseFloat(scaleInput.value);
         const rotation = parseFloat(rotationInput.value);
+        const skewX = parseFloat(skewXInput.value);
+        const skewY = parseFloat(skewYInput.value);
         
         // Update only the selected view
         const designs = getDesignElementsForView(selectedView);
@@ -1930,6 +2036,8 @@ document.addEventListener('DOMContentLoaded', function() {
             design.dataset.y = y;
             design.dataset.scale = scale;
             design.dataset.rotation = rotation;
+            design.dataset.skewX = skewX;
+            design.dataset.skewY = skewY;
             updateDesignPosition(design);
         });
     }
@@ -1962,6 +2070,8 @@ document.addEventListener('DOMContentLoaded', function() {
             positionY.value = design.dataset.y || 50;
             scaleInput.value = design.dataset.scale || 100;
             rotationInput.value = design.dataset.rotation || 0;
+            skewXInput.value = design.dataset.skewX || 0;
+            skewYInput.value = design.dataset.skewY || 0;
         }
     }
 
@@ -2010,6 +2120,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const y = parseFloat(designElement.dataset.y) || 50;
                     const scale = parseFloat(designElement.dataset.scale) || 100;
                     const rotation = parseFloat(designElement.dataset.rotation) || 0;
+                    const skewX = parseFloat(designElement.dataset.skewX) || 0;
+                    const skewY = parseFloat(designElement.dataset.skewY) || 0;
                     
                     const designScale = Math.min(
                         canvas.width / design.width,
@@ -2027,6 +2139,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     ctx.save();
                     ctx.translate(posX + width/2, posY + height/2);
                     ctx.rotate(rotation * Math.PI / 180);
+                    // Apply skew transformation
+                    const skewXRad = skewX * Math.PI / 180;
+                    const skewYRad = skewY * Math.PI / 180;
+                    ctx.transform(1, Math.tan(skewYRad), Math.tan(skewXRad), 1, 0, 0);
                     ctx.drawImage(design, -width/2, -height/2, width, height);
                     ctx.restore();
                 } catch (e) {
