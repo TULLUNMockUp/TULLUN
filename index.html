@@ -728,6 +728,48 @@
                 height: 200px;
                 margin: 10px 5px;
             }
+
+                    .collapsible-box {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 16px 24px;
+            margin: 20px auto;
+            max-width: 800px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .collapsible-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .collapsible-header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .collapsible-arrow {
+            transition: transform 0.3s ease;
+            font-size: 20px;
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .collapsible-box.active .collapsible-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .collapsible-box.active .collapsible-content {
+            max-height: 2000px; /* Adjust based on content */
+            padding-top: 16px;
+          }
         }
     </style>
 </head>
@@ -737,7 +779,8 @@
             <a href="https://tullunmockup.github.io/TULLUN/" class="logo">TullunPrint</a>
         </div>
     </header>
-       
+    
+         <main class="container">
         <section class="hero">
             <h1>Product Mockup Generator</h1>
             <p>Upload your design to see it on our premium products</p>
@@ -773,17 +816,20 @@
             </div>
         </section>
 
-        <main class="container">
         <!-- Print File Templates Section -->
-        <section class="templates-section">
-            <h2>Print File Templates</h2>
-            
-<div class="template-category">
-    <h3>Phone Cases</h3>
-    <div class="template-links">
-        <a href="https://i.ibb.co/C5SzJycq/Phone-Case-Template.png" class="template-link" download="Phone-Case_Template.png">Phone Case Template (PNG)</a>
-    </div>
-</div>
+        <div class="collapsible-box" id="templates-box">
+            <div class="collapsible-header">
+                <h2>Print File Templates</h2>
+                <span class="collapsible-arrow">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="template-category">
+                    <h3>Phone Cases</h3>
+                    <div class="template-links">
+                        <a href="LINK_TO_FILE" class="template-link" download>iPhone Template</a>
+                        <a href="LINK_TO_FILE" class="template-link" download>Samsung Template</a>
+                    </div>
+                </div>
             
             <div class="template-category">
                 <h3>Plaques</h3>
@@ -866,10 +912,12 @@
         </div>
         
         <!-- Design positioning controls -->
-        <div class="position-controls" style="display: none;">
-            <h3>Design Positioning</h3>
-            
-            <div class="control-group">
+        <div class="collapsible-box" id="positioning-box" style="display: none;">
+            <div class="collapsible-header">
+                <h2>Design Positioning</h2>
+                <span class="collapsible-arrow">▼</span>
+            </div>
+            <div class="collapsible-content">
                 <div style="flex: 1;">
                     <label class="control-label">View</label>
                     <select id="view-selector" class="control-select">
@@ -950,6 +998,19 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 <script>
+            // Toggle functionality for collapsible boxes
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const box = this.parentElement;
+                box.classList.toggle('active');
+            });
+        });
+        
+        // Show positioning box only when needed
+        function showPositioningBox() {
+            document.getElementById('positioning-box').style.display = 'block';
+        }
+    
     // DOM Elements
     const imageUpload = document.getElementById('image-upload');
     const downloadBtn = document.getElementById('download-btn');
