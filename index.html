@@ -97,18 +97,18 @@
         }
         
         .product-category-link {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 500;
-            font-size: 17px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(0, 113, 227, 0.2);
-        }
+    display: inline-block;
+    padding: 16px 32px; /* Increased from 12px 24px */
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 17px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 113, 227, 0.2);
+}
         
         .product-category-link:hover {
             box-shadow: var(--shadow-hover);
@@ -550,14 +550,16 @@
             max-width: 800px;
         }
         
-        .templates-section h2 {
-            margin-bottom: 20px;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.templates-section h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal;
+    font-size: 24px;
+}
         
         .templates-section h2::after {
             content: "−";
@@ -799,9 +801,9 @@
             <p>Upload your design to see it on our premium products</p>
             
             <!-- Print File Templates Section - Moved under Product Template Generator -->
-            <section class="templates-section">
-                <h2 class="collapsible-header">Print File Templates</h2>
-                <div class="collapsible-content">
+<section class="templates-section">
+    <h2 class="collapsible-header collapsed">Print File Templates</h2>
+    <div class="collapsible-content collapsed">
                     <div class="template-category">
                         <h3 class="collapsible-header">Phone Cases</h3>
                         <div class="collapsible-content">
@@ -928,9 +930,9 @@
         </div>
         
         <!-- Design positioning controls -->
-        <div class="position-controls" style="display: none;">
-            <h3 class="collapsible-header">Design Positioning</h3>
-            <div class="collapsible-content">
+<div class="position-controls" style="display: none;">
+    <h3 class="collapsible-header collapsed">Design Positioning</h3>
+    <div class="collapsible-content collapsed">
                 <div class="control-group">
                     <div style="flex: 1;">
                         <label class="control-label">View</label>
