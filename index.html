@@ -553,6 +553,19 @@
         .templates-section h2 {
             margin-bottom: 20px;
             text-align: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .templates-section h2::after {
+            content: "−";
+            font-size: 24px;
+        }
+        
+        .templates-section.collapsed h2::after {
+            content: "+";
         }
         
         .template-category {
@@ -562,6 +575,19 @@
         .template-category h3 {
             margin-bottom: 10px;
             color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .template-category h3::after {
+            content: "−";
+            font-size: 18px;
+        }
+        
+        .template-category.collapsed h3::after {
+            content: "+";
         }
         
         .template-links {
@@ -659,6 +685,35 @@
             margin-bottom: 20px;
         }
         
+        /* Collapsible sections */
+        .collapsible-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .collapsible-header::after {
+            content: "−";
+            font-size: 20px;
+        }
+        
+        .collapsible-header.collapsed::after {
+            content: "+";
+        }
+        
+        .collapsible-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            max-height: 1000px;
+        }
+        
+        .collapsible-content.collapsed {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        
         /* Animations */
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -739,41 +794,48 @@
     </header>
     
     <main class="container">
-        <!-- Print File Templates Section -->
-        <section class="templates-section">
-            <h2>Print File Templates</h2>
-            
-            <div class="template-category">
-                <h3>Phone Cases</h3>
-                <div class="template-links">
-                    <a href="#" class="template-link">iPhone 14 Pro Template</a>
-                    <a href="#" class="template-link">Samsung S23 Template</a>
-                    <a href="#" class="template-link">Google Pixel 7 Template</a>
-                </div>
-            </div>
-            
-            <div class="template-category">
-                <h3>Plaques</h3>
-                <div class="template-links">
-                    <a href="#" class="template-link">10x10cm Template</a>
-                    <a href="#" class="template-link">15x15cm Template</a>
-                    <a href="#" class="template-link">20x30cm Template</a>
-                    <a href="#" class="template-link">Heart 10x10cm Template</a>
-                </div>
-            </div>
-            
-            <div class="template-category">
-                <h3>AirPods Cases</h3>
-                <div class="template-links">
-                    <a href="#" class="template-link">AirPods Pro Template</a>
-                    <a href="#" class="template-link">AirPods 3 Template</a>
-                </div>
-            </div>
-        </section>
-        
         <section class="hero">
             <h1>Product Mockup Generator</h1>
             <p>Upload your design to see it on our premium products</p>
+            
+            <!-- Print File Templates Section - Moved under Product Template Generator -->
+            <section class="templates-section">
+                <h2 class="collapsible-header">Print File Templates</h2>
+                <div class="collapsible-content">
+                    <div class="template-category">
+                        <h3 class="collapsible-header">Phone Cases</h3>
+                        <div class="collapsible-content">
+                            <div class="template-links">
+                                <a href="#" class="template-link">iPhone 14 Pro Template</a>
+                                <a href="#" class="template-link">Samsung S23 Template</a>
+                                <a href="#" class="template-link">Google Pixel 7 Template</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="template-category">
+                        <h3 class="collapsible-header">Plaques</h3>
+                        <div class="collapsible-content">
+                            <div class="template-links">
+                                <a href="#" class="template-link">10x10cm Template</a>
+                                <a href="#" class="template-link">15x15cm Template</a>
+                                <a href="#" class="template-link">20x30cm Template</a>
+                                <a href="#" class="template-link">Heart 10x10cm Template</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="template-category">
+                        <h3 class="collapsible-header">AirPods Cases</h3>
+                        <div class="collapsible-content">
+                            <div class="template-links">
+                                <a href="#" class="template-link">AirPods Pro Template</a>
+                                <a href="#" class="template-link">AirPods 3 Template</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
             <!-- Product Category Selection -->
             <div class="product-category-container">
@@ -822,7 +884,7 @@
                 </div>
             </div>
             <div class="upload-requirements">
-                See first page for best template sizes
+                See on first page for best template sizes
             </div>
             <div class="controls-row">
                 <button id="download-btn" disabled>Download Main Mockup</button>
@@ -865,70 +927,71 @@
         
         <!-- Design positioning controls -->
         <div class="position-controls" style="display: none;">
-            <h3>Design Positioning</h3>
-            
-            <div class="control-group">
-                <div style="flex: 1;">
-                    <label class="control-label">View</label>
-                    <select id="view-selector" class="control-select">
-                        <!-- Options will be added dynamically -->
-                    </select>
-                </div>
-            </div>
-            
-            <div class="control-group">
-                <div style="flex: 1;">
-                    <label class="control-label">Horizontal Position</label>
-                    <div class="slider-container">
-                        <span class="slider-value" id="position-x-value">50%</span>
-                        <input type="range" id="position-x" class="control-input" min="0" max="100" step="1" value="50">
+            <h3 class="collapsible-header">Design Positioning</h3>
+            <div class="collapsible-content">
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">View</label>
+                        <select id="view-selector" class="control-select">
+                            <!-- Options will be added dynamically -->
+                        </select>
                     </div>
                 </div>
-                <div style="flex: 1;">
-                    <label class="control-label">Vertical Position</label>
-                    <div class="slider-container">
-                        <span class="slider-value" id="position-y-value">50%</span>
-                        <input type="range" id="position-y" class="control-input" min="0" max="100" step="1" value="50">
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">Horizontal Position</label>
+                        <div class="slider-container">
+                            <span class="slider-value" id="position-x-value">50%</span>
+                            <input type="range" id="position-x" class="control-input" min="0" max="100" step="1" value="50">
+                        </div>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Vertical Position</label>
+                        <div class="slider-container">
+                            <span class="slider-value" id="position-y-value">50%</span>
+                            <input type="range" id="position-y" class="control-input" min="0" max="100" step="1" value="50">
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="control-group">
-                <div style="flex: 1;">
-                    <label class="control-label">Scale</label>
-                    <div class="slider-container">
-                        <span class="slider-value" id="scale-value">100%</span>
-                        <input type="range" id="scale" class="control-input" min="10" max="200" step="1" value="100">
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">Scale</label>
+                        <div class="slider-container">
+                            <span class="slider-value" id="scale-value">100%</span>
+                            <input type="range" id="scale" class="control-input" min="10" max="200" step="1" value="100">
+                        </div>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Rotation</label>
+                        <div class="slider-container">
+                            <span class="slider-value" id="rotation-value">0°</span>
+                            <input type="range" id="rotation" class="control-input" min="-180" max="180" step="1" value="0">
+                        </div>
                     </div>
                 </div>
-                <div style="flex: 1;">
-                    <label class="control-label">Rotation</label>
-                    <div class="slider-container">
-                        <span class="slider-value" id="rotation-value">0°</span>
-                        <input type="range" id="rotation" class="control-input" min="-180" max="180" step="1" value="0">
+                
+                <div class="control-group">
+                    <div style="flex: 1;">
+                        <label class="control-label">Skew X</label>
+                        <div class="slider-container">
+                            <span class="slider-value" id="skew-x-value">0°</span>
+                            <input type="range" id="skew-x" class="control-input" min="-30" max="30" step="1" value="0">
+                        </div>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Skew Y</label>
+                        <div class="slider-container">
+                            <span class="slider-value" id="skew-y-value">0°</span>
+                            <input type="range" id="skew-y" class="control-input" min="-30" max="30" step="1" value="0">
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="control-group">
-                <div style="flex: 1;">
-                    <label class="control-label">Skew X</label>
-                    <div class="slider-container">
-                        <span class="slider-value" id="skew-x-value">0°</span>
-                        <input type="range" id="skew-x" class="control-input" min="-30" max="30" step="1" value="0">
-                    </div>
+                
+                <div class="controls-row">
+                    <button id="reset-position-btn">Reset Position</button>
                 </div>
-                <div style="flex: 1;">
-                    <label class="control-label">Skew Y</label>
-                    <div class="slider-container">
-                        <span class="slider-value" id="skew-y-value">0°</span>
-                        <input type="range" id="skew-y" class="control-input" min="-30" max="30" step="1" value="0">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="controls-row">
-                <button id="reset-position-btn">Reset Position</button>
             </div>
         </div>
         
@@ -1216,12 +1279,12 @@
                 overlay: 'mockups/plaques/slate-10x10-overlay.png',
                 fullresBg: 'mockups/plaques/originals/slate-10x10-main.png',
                 fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay.png',
-                designX: 51,
-                designY: 44,
-                designScale: 70,
-                designRotation: -7,
-                designSkewX: 1,
-                designSkewY: 1
+                designX: 50,
+                designY: 50,
+                designScale: 90,
+                designRotation: 0,
+                designSkewX: 0,
+                designSkewY: 0
             },
             main2: {
                 bg: 'mockups/plaques/slate-10x10-main2.png',
@@ -1470,6 +1533,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Set up event listeners
     setupEventListeners();
+    
+    // Set up collapsible sections
+    setupCollapsibleSections();
 });
 
     // Set up all event listeners
@@ -1825,6 +1891,29 @@ document.addEventListener('DOMContentLoaded', function() {
         // View selector change handler
         viewSelector.addEventListener('change', function() {
             updatePositioningControls();
+        });
+    }
+
+    // Set up collapsible sections
+    function setupCollapsibleSections() {
+        // Collapse/expand for template sections
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                this.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+            });
+        });
+        
+        // Initially collapse all template categories except the first one
+        const templateCategories = document.querySelectorAll('.template-category');
+        templateCategories.forEach((category, index) => {
+            if (index !== 0) {
+                const header = category.querySelector('h3');
+                const content = header.nextElementSibling;
+                header.classList.add('collapsed');
+                content.classList.add('collapsed');
+            }
         });
     }
 
