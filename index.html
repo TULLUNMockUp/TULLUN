@@ -998,19 +998,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 <script>
-            // Toggle functionality for collapsible boxes
-        document.querySelectorAll('.collapsible-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const box = this.parentElement;
-                box.classList.toggle('active');
-            });
-        });
-        
-        // Show positioning box only when needed
-        function showPositioningBox() {
-            document.getElementById('positioning-box').style.display = 'block';
-        }
-    
     // DOM Elements
     const imageUpload = document.getElementById('image-upload');
     const downloadBtn = document.getElementById('download-btn');
@@ -2285,6 +2272,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function hideLoading() {
         loadingElement.style.display = 'none';
     }
+
+            // Toggle functionality for collapsible boxes
+        document.querySelectorAll('.collapsible-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const box = this.parentElement;
+                box.classList.toggle('active');
+            });
+        });
+        
+        // Show positioning box only when needed
+        function showPositioningBox() {
+            document.getElementById('positioning-box').style.display = 'block';
+        }
 </script>
 </body>
 </html>
