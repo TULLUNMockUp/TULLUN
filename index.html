@@ -808,11 +808,12 @@
             <!-- Print File Templates Section - Moved under Product Template Generator -->
 <div class="template-links">
     <div class="template-item">
-        <span>Phone Case Template (PNG, 2MB)</span>
+        <span>Phone Case Template</span>
         <div class="template-actions">
-            <a href="https://i.ibb.co/Hf05c2C0/phone-case-template.png" 
-               class="download-template-btn" 
-               download="Phone-Case-Template.png">
+            <a href="https://example.com/path/to/Phone-Case-Template.png" 
+               class="download-template-btn forced-download" 
+               download="Phone-Case-Template.png"
+               data-filename="Phone-Case-Template.png">
                Download
             </a>
         </div>
@@ -1556,6 +1557,58 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+        // Enhanced template download functionality
+    document.querySelectorAll('.template-download-btn').forEach(btn => {
+        btn.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const url = this.dataset.fileurl;
+            const filename = this.dataset.filename;
+            
+            if (!url) {
+                alert('Template file not available');
+                return;
+            }
+
+            showLoading(`Downloading ${filename}...`);
+            
+            try {
+                // First try using the download attribute
+                if ('download' in document.createElement('a')) {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                } 
+                // Fallback for browsers that don't support download attribute
+                else {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Failed to download template');
+                    
+                    const blob = await response.blob();
+                    const blobUrl = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                    // Clean up
+                    setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+                }
+            } catch (error) {
+                console.error('Download failed:', error);
+                // Final fallback - open in new tab
+                window.open(url, '_blank');
+            } finally {
+                hideLoading();
+            }
+        });
+    });
 
     // Set up all event listeners
     function setupEventListeners() {
