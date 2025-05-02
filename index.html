@@ -617,6 +617,31 @@
         .template-link:hover {
             background-color: var(--primary-hover);
             transform: translateY(-2px);
+
+        .template-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .download-template-btn {
+            padding: 6px 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .download-template-btn:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .download-all-templates {
+            margin-top: 20px;
+            text-align: center;
         }
         
         /* Slider value indicators */
@@ -806,44 +831,98 @@
             <p>Upload your design to see it on our premium products</p>
             
             <!-- Print File Templates Section - Moved under Product Template Generator -->
-<section class="templates-section">
-    <h2 class="collapsible-header collapsed">Print File Templates</h2>
-    <div class="collapsible-content collapsed">
-                    <div class="template-category">
-                        <h3 class="collapsible-header">Phone Cases</h3>
-                        <div class="collapsible-content">
-                           <div class="template-links">
-                           <a href="#" class="template-link" download="https://i.ibb.co/C5SzJycq/Phone-Case-Template.png">Print File Template</a>
-                           </div>
-                        </div>
-                    </div>
-                    
-                    <div class="template-category">
-                        <h3 class="collapsible-header">Plaques</h3>
-                        <div class="collapsible-content">
-                        <div class="template-links">
-                        <a href="#" class="template-link" download>10x10cm Template</a>
-                        <a href="#" class="template-link" download>15x15cm Template</a>
-                        <a href="#" class="template-link" download>20x30cm Template</a>
-                        <a href="#" class="template-link" download>Heart 10x10cm Template</a>
-                        <a href="#" class="template-link" download>Heart 25x25cm Template</a>
-                          </div>
-                        </div>
-                    </div>
-                    
-                    <div class="template-category">
-                        <h3 class="collapsible-header">AirPods Cases</h3>
-                        <div class="collapsible-content">
-                            <div class="template-links">
-                            <a href="#" class="template-link" download>AirPods 1/2 Template</a>
-                            <a href="#" class="template-link" download>AirPods 3 Template</a>
-                            <a href="#" class="template-link" download>AirPods 4 Template</a>
-                            <a href="#" class="template-link" download>AirPods Pro Template</a>
-                            <a href="#" class="template-link" download>AirPods Pro 2 Template</a>
-                           </div>
+    <section class="templates-section">
+        <h2 class="collapsible-header collapsed">Print File Templates</h2>
+        <div class="collapsible-content collapsed">
+            <div class="template-category">
+                <h3 class="collapsible-header">Phone Cases</h3>
+                <div class="collapsible-content">
+                    <div class="template-links">
+                        <div class="template-item">
+                            <span>Phone Case Template</span>
+                            <div class="template-actions">
+                                <a href="https://i.ibb.co/C5SzJycq/Phone-Case-Template.png" class="download-template-btn" download="Phone-Case-Template.png">Download</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="template-category">
+                <h3 class="collapsible-header">Plaques</h3>
+                <div class="collapsible-content">
+                    <div class="template-links">
+                        <div class="template-item">
+                            <span>10x10cm Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/plaques/10x10-template.png" data-filename="10x10cm-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>15x15cm Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/plaques/15x15-template.png" data-filename="15x15cm-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>20x30cm Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/plaques/20x30-template.png" data-filename="20x30cm-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>Heart 10x10cm Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/plaques/heart-10x10-template.png" data-filename="Heart-10x10cm-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>Heart 25x25cm Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/plaques/heart-25x25-template.png" data-filename="Heart-25x25cm-Template.png">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="template-category">
+                <h3 class="collapsible-header">AirPods Cases</h3>
+                <div class="collapsible-content">
+                    <div class="template-links">
+                        <div class="template-item">
+                            <span>AirPods 1/2 Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/airpods/airpods-1-2-template.png" data-filename="AirPods-1-2-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>AirPods 3 Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/airpods/airpods-3-template.png" data-filename="AirPods-3-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>AirPods 4 Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/airpods/airpods-4-template.png" data-filename="AirPods-4-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>AirPods Pro Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/airpods/airpods-pro-template.png" data-filename="AirPods-Pro-Template.png">Download</button>
+                            </div>
+                        </div>
+                        <div class="template-item">
+                            <span>AirPods Pro 2 Template</span>
+                            <div class="template-actions">
+                                <button class="download-template-btn" data-url="templates/airpods/airpods-pro-2-template.png" data-filename="AirPods-Pro-2-Template.png">Download</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </section>
             
             <!-- Product Category Selection -->
@@ -1539,22 +1618,38 @@
         }
     };
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Set up event listeners
-    setupEventListeners();
-    
-    // Set up collapsible sections
-    setupCollapsibleSections();
-    
-    // Make template links download immediately
-    document.querySelectorAll('.template-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
-                e.preventDefault();
-            }
+  document.addEventListener('DOMContentLoaded', function() {
+        // Previous setup code remains the same
+        
+        // Set up template download buttons
+        document.querySelectorAll('.download-template-btn').forEach(btn => {
+            if (btn.tagName === 'A') return; // Skip anchor links
+            
+            btn.addEventListener('click', async function() {
+                const url = this.dataset.url;
+                const filename = this.dataset.filename;
+                
+                if (!url) {
+                    alert('Template file not available');
+                    return;
+                }
+                
+                showLoading(`Downloading ${filename}...`);
+                
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Failed to download template');
+                    
+                    const blob = await response.blob();
+                    downloadBlob(blob, filename);
+                } catch (error) {
+                    console.error('Error downloading template:', error);
+                    alert('Failed to download template. Please try again.');
+                } finally {
+                    hideLoading();
+                }
+            });
         });
-    });
-});
 
     // Set up all event listeners
     function setupEventListeners() {
@@ -1616,6 +1711,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById(category).classList.add('active');
             });
         });
+
+            // Download all templates as ZIP
+    document.getElementById('download-all-templates-btn').addEventListener('click', async function() {
+        showLoading('Preparing all templates for download...');
+        
+        try {
+            const zip = new JSZip();
+            const templatePromises = [];
+            
+            // Get all template download buttons
+            const templateButtons = document.querySelectorAll('.download-template-btn');
+            
+            for (const btn of templateButtons) {
+                const url = btn.dataset.url;
+                const filename = btn.dataset.filename || url.split('/').pop();
+                
+                if (url) {
+                    templatePromises.push((async () => {
+                        try {
+                            const response = await fetch(url);
+                            if (response.ok) {
+                                const blob = await response.blob();
+                                zip.file(filename, blob);
+                            }
+                        } catch (error) {
+                            console.error(`Error fetching template ${url}:`, error);
+                        }
+                    })());
+                }
+            }
+            
+            // Wait for all templates to be added to ZIP
+            await Promise.all(templatePromises);
+            
+            // Generate and download ZIP
+            showLoading('Creating ZIP file...');
+            const content = await zip.generateAsync({ type: 'blob' });
+            downloadBlob(content, 'TullunPrint-Templates.zip');
+            
+        } catch (error) {
+            console.error('Error creating ZIP:', error);
+            alert('Failed to create template ZIP. Please try again.');
+        } finally {
+            hideLoading();
+        }
+    });
 
         // Product type click handler
         productTypeLinks.forEach(link => {
