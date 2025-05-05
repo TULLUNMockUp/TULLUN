@@ -97,18 +97,18 @@
         }
         
         .product-category-link {
-    display: inline-block;
-    padding: 16px 32px; /* Increased from 12px 24px */
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    color: var(--primary-color);
-    font-weight: 500;
-    font-size: 17px;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    border: 1px solid rgba(0, 113, 227, 0.2);
-}
+            display: inline-block;
+            padding: 16px 32px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 17px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 113, 227, 0.2);
+        }
         
         .product-category-link:hover {
             box-shadow: var(--shadow-hover);
@@ -124,7 +124,7 @@
         
         /* Product Type Selection */
         .product-type-container {
-            display: none; /* Hidden by default */
+            display: none;
             justify-content: center;
             flex-wrap: wrap;
             gap: 12px;
@@ -210,7 +210,7 @@
             padding: 24px;
             margin: 0 auto 40px;
             max-width: 800px;
-            display: none; /* Hidden by default */
+            display: none;
             animation: fadeIn 0.3s ease-out;
         }
         
@@ -328,7 +328,7 @@
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
-            display: none; /* Hidden by default */
+            display: none;
             animation: fadeIn 0.3s ease-out;
             vertical-align: top;
         }
@@ -364,13 +364,17 @@
             display: none;
         }
 
-        /* Add 20% opacity to plaque designs only */
-        .plaque-bg ~ .design-area .user-design {
-            opacity: 0.8;
-        }
-        
-        .phone-case-overlay, .tshirt-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay {
+        .flipped-design {
+            position: absolute;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none;
             z-index: 3;
+        }
+
+        .phone-case-overlay, .tshirt-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay {
+            z-index: 4;
             pointer-events: none;
         }
         
@@ -379,7 +383,7 @@
             max-width: 1600px;
             margin: 40px auto;
             padding: 0 20px;
-            display: none; /* Hidden by default */
+            display: none;
             animation: fadeIn 0.3s ease-out;
         }
         
@@ -451,7 +455,7 @@
             width: 20px;
             height: 20px;
             cursor: pointer;
-            opacity: 0; /* Make checkbox invisible but still clickable */
+            opacity: 0;
         }
         
         /* Style for the custom checkbox indicator */
@@ -465,7 +469,7 @@
             background-color: var(--card-bg);
             border-radius: 4px;
             border: 2px solid var(--primary-color);
-            pointer-events: none; /* Don't interfere with checkbox clicks */
+            pointer-events: none;
         }
         
         .carousel-checkbox:checked + .carousel-checkbox-indicator {
@@ -555,16 +559,16 @@
             max-width: 800px;
         }
         
-.templates-section h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: normal;
-    font-size: 24px;
-}
+        .templates-section h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: normal;
+            font-size: 24px;
+        }
         
         .templates-section h2::after {
             content: "−";
@@ -806,9 +810,9 @@
             <p>Upload your design to see it on our premium products</p>
             
             <!-- Print File Templates Section - Moved under Product Template Generator -->
-<section class="templates-section">
-    <h2 class="collapsible-header collapsed">Print File Templates</h2>
-    <div class="collapsible-content collapsed">
+            <section class="templates-section">
+                <h2 class="collapsible-header collapsed">Print File Templates</h2>
+                <div class="collapsible-content collapsed">
                     <div class="template-category">
                         <h3 class="collapsible-header">Phone Cases</h3>
                         <div class="collapsible-content">
@@ -907,43 +911,53 @@
             <div id="main-mockup-container-1" class="main-mockup-container">
                 <input type="checkbox" class="carousel-checkbox" id="checkbox-main1" data-view="main1" checked>
                 <div class="carousel-checkbox-indicator"></div>
-                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main.png" data-fullres="mockups/originals/samsung-tpu-back-main.png">
+                <img class="phone-case-bg" src="mockups/optimized/iphone-fullprint-back-main.png" data-fullres="mockups/originals/iphone-fullprint-back-main.png">
                 <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="98" data-rotation="0" data-skew-x="0" data-skew-y="0">
+                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0" data-skew-x="0" data-skew-y="0">
+                    <img class="flipped-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0" data-skew-x="0" data-skew-y="0" data-flip="false">
                 </div>
-                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main.png" data-fullres="mockups/originals/samsung-tpu-overlay-main.png">
+                <img class="phone-case-overlay" src="mockups/optimized/iphone-fullprint-overlay-main.png" data-fullres="mockups/originals/iphone-fullprint-overlay-main.png">
             </div>
             
             <div id="main-mockup-container-2" class="main-mockup-container">
                 <input type="checkbox" class="carousel-checkbox" id="checkbox-main2" data-view="main2" checked>
                 <div class="carousel-checkbox-indicator"></div>
-                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main2.png" data-fullres="mockups/originals/samsung-tpu-back-main2.png">
+                <img class="phone-case-bg" src="mockups/optimized/iphone-fullprint-back-main2.png" data-fullres="mockups/originals/iphone-fullprint-back-main2.png">
                 <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="50" data-y="50" data-scale="90" data-rotation="0" data-skew-x="0" data-skew-y="0">
+                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0" data-skew-x="0" data-skew-y="0">
+                    <img class="flipped-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0" data-skew-x="0" data-skew-y="0" data-flip="true">
                 </div>
-                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main2.png" data-fullres="mockups/originals/samsung-tpu-overlay-main2.png">
+                <img class="phone-case-overlay" src="mockups/optimized/iphone-fullprint-overlay-main2.png" data-fullres="mockups/originals/iphone-fullprint-overlay-main2.png">
             </div>
             
             <div id="main-mockup-container-3" class="main-mockup-container">
                 <input type="checkbox" class="carousel-checkbox" id="checkbox-main3" data-view="main3" checked>
                 <div class="carousel-checkbox-indicator"></div>
-                <img class="phone-case-bg" src="mockups/optimized/samsung-tpu-back-main3.png" data-fullres="mockups/originals/samsung-tpu-back-main3.png">
+                <img class="phone-case-bg" src="mockups/optimized/iphone-fullprint-back-main3.png" data-fullres="mockups/originals/iphone-fullprint-back-main3.png">
                 <div class="design-area">
-                    <img class="user-design" src="" alt="" data-x="52" data-y="48" data-scale="85" data-rotation="5" data-skew-x="0" data-skew-y="0">
+                    <img class="user-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0" data-skew-x="0" data-skew-y="0">
+                    <img class="flipped-design" src="" alt="" data-x="48.5" data-y="48.5" data-scale="100" data-rotation="0" data-skew-x="0" data-skew-y="0" data-flip="false">
                 </div>
-                <img class="phone-case-overlay" src="mockups/optimized/samsung-tpu-overlay-main3.png" data-fullres="mockups/originals/samsung-tpu-overlay-main3.png">
+                <img class="phone-case-overlay" src="mockups/optimized/iphone-fullprint-overlay-main3.png" data-fullres="mockups/originals/iphone-fullprint-overlay-main3.png">
             </div>
         </div>
         
         <!-- Design positioning controls -->
-<div class="position-controls" style="display: none;">
-    <h3 class="collapsible-header collapsed">Design Positioning</h3>
-    <div class="collapsible-content collapsed">
+        <div class="position-controls" style="display: none;">
+            <h3 class="collapsible-header collapsed">Design Positioning</h3>
+            <div class="collapsible-content collapsed">
                 <div class="control-group">
                     <div style="flex: 1;">
                         <label class="control-label">View</label>
                         <select id="view-selector" class="control-select">
                             <!-- Options will be added dynamically -->
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="control-label">Design Layer</label>
+                        <select id="layer-selector" class="control-select">
+                            <option value="original">Original Design</option>
+                            <option value="flipped">Flipped Design</option>
                         </select>
                     </div>
                 </div>
@@ -1019,1425 +1033,1480 @@
         <div>Generating your mockups...</div>
     </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-<script>
-    // DOM Elements
-    const imageUpload = document.getElementById('image-upload');
-    const downloadBtn = document.getElementById('download-btn');
-    const downloadZipBtn = document.getElementById('download-zip-btn');
-    const productCategoryLinks = document.querySelectorAll('.product-category-link');
-    const productTypeLinks = document.querySelectorAll('.product-type-link');
-    const loadingElement = document.querySelector('.loading');
-    const removeBtn = document.getElementById('remove-btn');
-    const mainMockupsWrapper = document.querySelector('.main-mockups-wrapper');
-    const gridWrapper = document.querySelector('.grid-wrapper');
-    const controlsSection = document.getElementById('controls');
-    const phoneCasesTypes = document.getElementById('phone-cases-types');
-    const plaquesTypes = document.getElementById('plaques-types');
-    const airpodsCasesTypes = document.getElementById('airpods-cases-types');
-    const gridContainer = document.querySelector('.grid-container');
-    
-    // Positioning controls
-    const viewSelector = document.getElementById('view-selector');
-    const positionX = document.getElementById('position-x');
-    const positionY = document.getElementById('position-y');
-    const scaleInput = document.getElementById('scale');
-    const rotationInput = document.getElementById('rotation');
-    const skewXInput = document.getElementById('skew-x');
-    const skewYInput = document.getElementById('skew-y');
-    const resetPositionBtn = document.getElementById('reset-position-btn');
-    const positionControls = document.querySelector('.position-controls');
-    
-    // Slider value displays
-    const positionXValue = document.getElementById('position-x-value');
-    const positionYValue = document.getElementById('position-y-value');
-    const scaleValue = document.getElementById('scale-value');
-    const rotationValue = document.getElementById('rotation-value');
-    const skewXValue = document.getElementById('skew-x-value');
-    const skewYValue = document.getElementById('skew-y-value');
-    
-    // State variables
-    let uploadedImage = new Image();
-    const mockupCache = new Map();
-    let currentCaseType = 'samsung-tpu';
-    let currentMainView = 'main1'; // Track which main view is active (for positioning controls)
-    let currentStandType = 'none'; // No longer used since stands are removed
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script>
+        // DOM Elements
+        const imageUpload = document.getElementById('image-upload');
+        const downloadBtn = document.getElementById('download-btn');
+        const downloadZipBtn = document.getElementById('download-zip-btn');
+        const productCategoryLinks = document.querySelectorAll('.product-category-link');
+        const productTypeLinks = document.querySelectorAll('.product-type-link');
+        const loadingElement = document.querySelector('.loading');
+        const removeBtn = document.getElementById('remove-btn');
+        const mainMockupsWrapper = document.querySelector('.main-mockups-wrapper');
+        const gridWrapper = document.querySelector('.grid-wrapper');
+        const controlsSection = document.getElementById('controls');
+        const phoneCasesTypes = document.getElementById('phone-cases-types');
+        const plaquesTypes = document.getElementById('plaques-types');
+        const airpodsCasesTypes = document.getElementById('airpods-cases-types');
+        const gridContainer = document.querySelector('.grid-container');
+        
+        // Positioning controls
+        const viewSelector = document.getElementById('view-selector');
+        const layerSelector = document.getElementById('layer-selector');
+        const positionX = document.getElementById('position-x');
+        const positionY = document.getElementById('position-y');
+        const scaleInput = document.getElementById('scale');
+        const rotationInput = document.getElementById('rotation');
+        const skewXInput = document.getElementById('skew-x');
+        const skewYInput = document.getElementById('skew-y');
+        const resetPositionBtn = document.getElementById('reset-position-btn');
+        const positionControls = document.querySelector('.position-controls');
+        
+        // Slider value displays
+        const positionXValue = document.getElementById('position-x-value');
+        const positionYValue = document.getElementById('position-y-value');
+        const scaleValue = document.getElementById('scale-value');
+        const rotationValue = document.getElementById('rotation-value');
+        const skewXValue = document.getElementById('skew-x-value');
+        const skewYValue = document.getElementById('skew-y-value');
+        
+        // State variables
+        let uploadedImage = new Image();
+        const mockupCache = new Map();
+        let currentCaseType = 'samsung-tpu';
+        let currentMainView = 'main1';
+        let currentStandType = 'none';
 
-    // Mockup data structure for all products
-    const mockupData = {
-        'samsung-tpu': {
-            name: "Samsung TPU Case",
-            main1: {
-                bg: 'mockups/optimized/samsung-tpu-back-main.png',
-                overlay: 'mockups/optimized/samsung-tpu-overlay-main.png',
-                fullresBg: 'mockups/originals/samsung-tpu-back-main.png',
-                fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main.png',
-                designX: 49,
-                designY: 49,
-                designScale: 98,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+        // Mockup data structure for all products
+        const mockupData = {
+            'samsung-tpu': {
+                name: "Samsung TPU Case",
+                main1: {
+                    bg: 'mockups/optimized/samsung-tpu-back-main.png',
+                    overlay: 'mockups/optimized/samsung-tpu-overlay-main.png',
+                    fullresBg: 'mockups/originals/samsung-tpu-back-main.png',
+                    fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main.png',
+                    designX: 49,
+                    designY: 49,
+                    designScale: 98,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/optimized/samsung-tpu-back-main2.png',
+                    overlay: 'mockups/optimized/samsung-tpu-overlay-main2.png',
+                    fullresBg: 'mockups/originals/samsung-tpu-back-main2.png',
+                    fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main2.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 98,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/optimized/samsung-tpu-back-main3.png',
+                    overlay: 'mockups/optimized/samsung-tpu-overlay-main3.png',
+                    fullresBg: 'mockups/originals/samsung-tpu-back-main3.png',
+                    fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main3.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 98,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                    { id: 24, bg: 'mockups/optimized/samsung-tpu-view24.png', overlay: 'mockups/optimized/samsung-tpu-view24-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view24.png', fullresOverlay: 'mockups/originals/samsung-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
             },
-            main2: {
-                bg: 'mockups/optimized/samsung-tpu-back-main2.png',
-                overlay: 'mockups/optimized/samsung-tpu-overlay-main2.png',
-                fullresBg: 'mockups/originals/samsung-tpu-back-main2.png',
-                fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main2.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 98,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'iphone-tpu': {
+                name: "iPhone TPU Case",
+                main1: {
+                    bg: 'mockups/optimized/iphone-tpu-back-main.png',
+                    overlay: 'mockups/optimized/iphone-tpu-overlay-main.png',
+                    fullresBg: 'mockups/originals/iphone-tpu-back-main.png',
+                    fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/optimized/iphone-tpu-back-main2.png',
+                    overlay: 'mockups/optimized/iphone-tpu-overlay-main2.png',
+                    fullresBg: 'mockups/originals/iphone-tpu-back-main2.png',
+                    fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main2.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/optimized/iphone-tpu-back-main3.png',
+                    overlay: 'mockups/optimized/iphone-tpu-overlay-main3.png',
+                    fullresBg: 'mockups/originals/iphone-tpu-back-main3.png',
+                    fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main3.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/optimized/iphone-tpu-view1.png', overlay: 'mockups/optimized/iphone-tpu-view1-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view1.png', fullresOverlay: 'mockups/originals/iphone-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                    { id: 24, bg: 'mockups/optimized/iphone-tpu-view24.png', overlay: 'mockups/optimized/iphone-tpu-view24-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view24.png', fullresOverlay: 'mockups/originals/iphone-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
             },
-            main3: {
-                bg: 'mockups/optimized/samsung-tpu-back-main3.png',
-                overlay: 'mockups/optimized/samsung-tpu-overlay-main3.png',
-                fullresBg: 'mockups/originals/samsung-tpu-back-main3.png',
-                fullresOverlay: 'mockups/originals/samsung-tpu-overlay-main3.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 98,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'iphone-hybrid': {
+                name: "iPhone Hybrid Case",
+                main1: {
+                    bg: 'mockups/optimized/iphone-hybrid-back-main.png',
+                    overlay: 'mockups/optimized/iphone-hybrid-overlay-main.png',
+                    fullresBg: 'mockups/originals/iphone-hybrid-back-main.png',
+                    fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/optimized/iphone-hybrid-back-main2.png',
+                    overlay: 'mockups/optimized/iphone-hybrid-overlay-main2.png',
+                    fullresBg: 'mockups/originals/iphone-hybrid-back-main2.png',
+                    fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main2.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/optimized/iphone-hybrid-back-main3.png',
+                    overlay: 'mockups/optimized/iphone-hybrid-overlay-main3.png',
+                    fullresBg: 'mockups/originals/iphone-hybrid-back-main3.png',
+                    fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main3.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/optimized/iphone-hybrid-view1.png', overlay: 'mockups/optimized/iphone-hybrid-view1-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view1.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                    { id: 24, bg: 'mockups/optimized/iphone-hybrid-view24.png', overlay: 'mockups/optimized/iphone-hybrid-view24-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view24.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
             },
-            views: [
-                { id: 1, bg: 'mockups/optimized/samsung-tpu-view1.png', overlay: 'mockups/optimized/samsung-tpu-view1-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view1.png', fullresOverlay: 'mockups/originals/samsung-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 2, bg: 'mockups/optimized/samsung-tpu-view2.png', overlay: 'mockups/optimized/samsung-tpu-view2-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view2.png', fullresOverlay: 'mockups/originals/samsung-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 3, bg: 'mockups/optimized/samsung-tpu-view3.png', overlay: 'mockups/optimized/samsung-tpu-view3-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view3.png', fullresOverlay: 'mockups/originals/samsung-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
-                { id: 4, bg: 'mockups/optimized/samsung-tpu-view4.png', overlay: 'mockups/optimized/samsung-tpu-view4-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view4.png', fullresOverlay: 'mockups/originals/samsung-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
-                { id: 5, bg: 'mockups/optimized/samsung-tpu-view5.png', overlay: 'mockups/optimized/samsung-tpu-view5-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view5.png', fullresOverlay: 'mockups/originals/samsung-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
-                { id: 6, bg: 'mockups/optimized/samsung-tpu-view6.png', overlay: 'mockups/optimized/samsung-tpu-view6-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view6.png', fullresOverlay: 'mockups/originals/samsung-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 7, bg: 'mockups/optimized/samsung-tpu-view7.png', overlay: 'mockups/optimized/samsung-tpu-view7-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view7.png', fullresOverlay: 'mockups/originals/samsung-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
-                { id: 8, bg: 'mockups/optimized/samsung-tpu-view8.png', overlay: 'mockups/optimized/samsung-tpu-view8-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view8.png', fullresOverlay: 'mockups/originals/samsung-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
-                { id: 9, bg: 'mockups/optimized/samsung-tpu-view9.png', overlay: 'mockups/optimized/samsung-tpu-view9-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view9.png', fullresOverlay: 'mockups/originals/samsung-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
-                { id: 10, bg: 'mockups/optimized/samsung-tpu-view10.png', overlay: 'mockups/optimized/samsung-tpu-view10-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view10.png', fullresOverlay: 'mockups/originals/samsung-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
-                { id: 11, bg: 'mockups/optimized/samsung-tpu-view11.png', overlay: 'mockups/optimized/samsung-tpu-view11-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view11.png', fullresOverlay: 'mockups/originals/samsung-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
-                { id: 12, bg: 'mockups/optimized/samsung-tpu-view12.png', overlay: 'mockups/optimized/samsung-tpu-view12-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view12.png', fullresOverlay: 'mockups/originals/samsung-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
-                { id: 13, bg: 'mockups/optimized/samsung-tpu-view13.png', overlay: 'mockups/optimized/samsung-tpu-view13-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view13.png', fullresOverlay: 'mockups/originals/samsung-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
-                { id: 14, bg: 'mockups/optimized/samsung-tpu-view14.png', overlay: 'mockups/optimized/samsung-tpu-view14-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view14.png', fullresOverlay: 'mockups/originals/samsung-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
-                { id: 15, bg: 'mockups/optimized/samsung-tpu-view15.png', overlay: 'mockups/optimized/samsung-tpu-view15-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view15.png', fullresOverlay: 'mockups/originals/samsung-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
-                { id: 16, bg: 'mockups/optimized/samsung-tpu-view16.png', overlay: 'mockups/optimized/samsung-tpu-view16-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view16.png', fullresOverlay: 'mockups/originals/samsung-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 17, bg: 'mockups/optimized/samsung-tpu-view17.png', overlay: 'mockups/optimized/samsung-tpu-view17-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view17.png', fullresOverlay: 'mockups/originals/samsung-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
-                { id: 18, bg: 'mockups/optimized/samsung-tpu-view18.png', overlay: 'mockups/optimized/samsung-tpu-view18-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view18.png', fullresOverlay: 'mockups/originals/samsung-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 19, bg: 'mockups/optimized/samsung-tpu-view19.png', overlay: 'mockups/optimized/samsung-tpu-view19-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view19.png', fullresOverlay: 'mockups/originals/samsung-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
-                { id: 20, bg: 'mockups/optimized/samsung-tpu-view20.png', overlay: 'mockups/optimized/samsung-tpu-view20-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view20.png', fullresOverlay: 'mockups/originals/samsung-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 21, bg: 'mockups/optimized/samsung-tpu-view21.png', overlay: 'mockups/optimized/samsung-tpu-view21-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view21.png', fullresOverlay: 'mockups/originals/samsung-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
-                { id: 22, bg: 'mockups/optimized/samsung-tpu-view22.png', overlay: 'mockups/optimized/samsung-tpu-view22-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view22.png', fullresOverlay: 'mockups/originals/samsung-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
-                { id: 23, bg: 'mockups/optimized/samsung-tpu-view23.png', overlay: 'mockups/optimized/samsung-tpu-view23-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view23.png', fullresOverlay: 'mockups/originals/samsung-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 24, bg: 'mockups/optimized/samsung-tpu-view24.png', overlay: 'mockups/optimized/samsung-tpu-view24-overlay.png', fullresBg: 'mockups/originals/samsung-tpu-view24.png', fullresOverlay: 'mockups/originals/samsung-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
-            ]
-        },
-        'iphone-tpu': {
-            name: "iPhone TPU Case",
-            main1: {
-                bg: 'mockups/optimized/iphone-tpu-back-main.png',
-                overlay: 'mockups/optimized/iphone-tpu-overlay-main.png',
-                fullresBg: 'mockups/originals/iphone-tpu-back-main.png',
-                fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'pixel-tpu': {
+                name: "Google Pixel TPU Case",
+                main1: {
+                    bg: 'mockups/optimized/pixel-tpu-back-main.png',
+                    overlay: 'mockups/optimized/pixel-tpu-overlay-main.png',
+                    fullresBg: 'mockups/originals/pixel-tpu-back-main.png',
+                    fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/optimized/pixel-tpu-back-main2.png',
+                    overlay: 'mockups/optimized/pixel-tpu-overlay-main2.png',
+                    fullresBg: 'mockups/originals/pixel-tpu-back-main2.png',
+                    fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main2.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/optimized/pixel-tpu-back-main3.png',
+                    overlay: 'mockups/optimized/pixel-tpu-overlay-main3.png',
+                    fullresBg: 'mockups/originals/pixel-tpu-back-main3.png',
+                    fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main3.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/optimized/pixel-tpu-view1.png', overlay: 'mockups/optimized/pixel-tpu-view1-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view1.png', fullresOverlay: 'mockups/originals/pixel-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                    { id: 24, bg: 'mockups/optimized/pixel-tpu-view24.png', overlay: 'mockups/optimized/pixel-tpu-view24-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view24.png', fullresOverlay: 'mockups/originals/pixel-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
             },
-            main2: {
-                bg: 'mockups/optimized/iphone-tpu-back-main2.png',
-                overlay: 'mockups/optimized/iphone-tpu-overlay-main2.png',
-                fullresBg: 'mockups/originals/iphone-tpu-back-main2.png',
-                fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main2.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'iphone-fullprint': {
+                name: "iPhone Fullprint Case",
+                main1: {
+                    bg: 'mockups/optimized/iphone-fullprint-back-main.png',
+                    overlay: 'mockups/optimized/iphone-fullprint-overlay-main.png',
+                    fullresBg: 'mockups/originals/iphone-fullprint-back-main.png',
+                    fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0,
+                    flippedDesignX: 48.5,
+                    flippedDesignY: 48.5,
+                    flippedDesignScale: 100,
+                    flippedDesignRotation: 0,
+                    flippedDesignSkewX: 0,
+                    flippedDesignSkewY: 0,
+                    flippedDesignFlip: false
+                },
+                main2: {
+                    bg: 'mockups/optimized/iphone-fullprint-back-main2.png',
+                    overlay: 'mockups/optimized/iphone-fullprint-overlay-main2.png',
+                    fullresBg: 'mockups/originals/iphone-fullprint-back-main2.png',
+                    fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main2.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0,
+                    flippedDesignX: 40,
+                    flippedDesignY: 40,
+                    flippedDesignScale: 100,
+                    flippedDesignRotation: 0,
+                    flippedDesignSkewX: 0,
+                    flippedDesignSkewY: 0,
+                    flippedDesignFlip: true
+                },
+                main3: {
+                    bg: 'mockups/optimized/iphone-fullprint-back-main3.png',
+                    overlay: 'mockups/optimized/iphone-fullprint-overlay-main3.png',
+                    fullresBg: 'mockups/originals/iphone-fullprint-back-main3.png',
+                    fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main3.png',
+                    designX: 48.5,
+                    designY: 48.5,
+                    designScale: 100,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0,
+                    flippedDesignX: 48.5,
+                    flippedDesignY: 48.5,
+                    flippedDesignScale: 100,
+                    flippedDesignRotation: 0,
+                    flippedDesignSkewX: 0,
+                    flippedDesignSkewY: 0,
+                    flippedDesignFlip: false
+                },
+                views: [
+                    { id: 1, bg: 'mockups/optimized/iphone-fullprint-view1.png', overlay: 'mockups/optimized/iphone-fullprint-view1-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view1.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                    { id: 10, bg: 'mockups/optimized/iphone-fullprint-view10.png', overlay: 'mockups/optimized/iphone-fullprint-view10-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view10.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 }
+                ]
             },
-            main3: {
-                bg: 'mockups/optimized/iphone-tpu-back-main3.png',
-                overlay: 'mockups/optimized/iphone-tpu-overlay-main3.png',
-                fullresBg: 'mockups/originals/iphone-tpu-back-main3.png',
-                fullresOverlay: 'mockups/originals/iphone-tpu-overlay-main3.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'slate-plaque-10x10': {
+                name: "Slate Plaque 10x10cm",
+                main1: {
+                    bg: 'mockups/plaques/slate-10x10-main.png',
+                    overlay: 'mockups/plaques/slate-10x10-overlay.png',
+                    fullresBg: 'mockups/plaques/originals/slate-10x10-main.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay.png',
+                    designX: 51,
+                    designY: 41,
+                    designScale: 71,
+                    designRotation: 0,
+                    designSkewX: -3,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques/slate-10x10-main2.png',
+                    overlay: 'mockups/plaques/slate-10x10-overlay2.png',
+                    fullresBg: 'mockups/plaques/originals/slate-10x10-main2.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay2.png',
+                    designX: 50,
+                    designY: 47,
+                    designScale: 79,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques/slate-10x10-main3.png',
+                    overlay: 'mockups/plaques/slate-10x10-overlay3.png',
+                    fullresBg: 'mockups/plaques/originals/slate-10x10-main3.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay3.png',
+                    designX: 50,
+                    designY: 47,
+                    designScale: 77,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques/slate-10x10-view1.png', overlay: 'mockups/plaques/slate-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view1-overlay.png', designX: 52, designY: 43, designScale: 70, designRotation: 0, designSkewX: 8, designSkewY: -4 },
+                    { id: 3, bg: 'mockups/plaques/slate-10x10-view3.png', overlay: 'mockups/plaques/slate-10x10-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view3-overlay.png', designX: 50, designY: 43, designScale: 72, designRotation: 0, designSkewX: 2, designSkewY: 0 }
+                ]
             },
-            views: [
-  { id: 1, bg: 'mockups/optimized/iphone-tpu-view1.png', overlay: 'mockups/optimized/iphone-tpu-view1-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view1.png', fullresOverlay: 'mockups/originals/iphone-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 2, bg: 'mockups/optimized/iphone-tpu-view2.png', overlay: 'mockups/optimized/iphone-tpu-view2-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view2.png', fullresOverlay: 'mockups/originals/iphone-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 3, bg: 'mockups/optimized/iphone-tpu-view3.png', overlay: 'mockups/optimized/iphone-tpu-view3-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view3.png', fullresOverlay: 'mockups/originals/iphone-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
-  { id: 4, bg: 'mockups/optimized/iphone-tpu-view4.png', overlay: 'mockups/optimized/iphone-tpu-view4-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view4.png', fullresOverlay: 'mockups/originals/iphone-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
-  { id: 5, bg: 'mockups/optimized/iphone-tpu-view5.png', overlay: 'mockups/optimized/iphone-tpu-view5-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view5.png', fullresOverlay: 'mockups/originals/iphone-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
-  { id: 6, bg: 'mockups/optimized/iphone-tpu-view6.png', overlay: 'mockups/optimized/iphone-tpu-view6-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view6.png', fullresOverlay: 'mockups/originals/iphone-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 7, bg: 'mockups/optimized/iphone-tpu-view7.png', overlay: 'mockups/optimized/iphone-tpu-view7-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view7.png', fullresOverlay: 'mockups/originals/iphone-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
-  { id: 8, bg: 'mockups/optimized/iphone-tpu-view8.png', overlay: 'mockups/optimized/iphone-tpu-view8-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view8.png', fullresOverlay: 'mockups/originals/iphone-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
-  { id: 9, bg: 'mockups/optimized/iphone-tpu-view9.png', overlay: 'mockups/optimized/iphone-tpu-view9-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view9.png', fullresOverlay: 'mockups/originals/iphone-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
-  { id: 10, bg: 'mockups/optimized/iphone-tpu-view10.png', overlay: 'mockups/optimized/iphone-tpu-view10-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view10.png', fullresOverlay: 'mockups/originals/iphone-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
-  { id: 11, bg: 'mockups/optimized/iphone-tpu-view11.png', overlay: 'mockups/optimized/iphone-tpu-view11-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view11.png', fullresOverlay: 'mockups/originals/iphone-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
-  { id: 12, bg: 'mockups/optimized/iphone-tpu-view12.png', overlay: 'mockups/optimized/iphone-tpu-view12-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view12.png', fullresOverlay: 'mockups/originals/iphone-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
-  { id: 13, bg: 'mockups/optimized/iphone-tpu-view13.png', overlay: 'mockups/optimized/iphone-tpu-view13-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view13.png', fullresOverlay: 'mockups/originals/iphone-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
-  { id: 14, bg: 'mockups/optimized/iphone-tpu-view14.png', overlay: 'mockups/optimized/iphone-tpu-view14-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view14.png', fullresOverlay: 'mockups/originals/iphone-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
-  { id: 15, bg: 'mockups/optimized/iphone-tpu-view15.png', overlay: 'mockups/optimized/iphone-tpu-view15-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view15.png', fullresOverlay: 'mockups/originals/iphone-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
-  { id: 16, bg: 'mockups/optimized/iphone-tpu-view16.png', overlay: 'mockups/optimized/iphone-tpu-view16-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view16.png', fullresOverlay: 'mockups/originals/iphone-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 17, bg: 'mockups/optimized/iphone-tpu-view17.png', overlay: 'mockups/optimized/iphone-tpu-view17-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view17.png', fullresOverlay: 'mockups/originals/iphone-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
-  { id: 18, bg: 'mockups/optimized/iphone-tpu-view18.png', overlay: 'mockups/optimized/iphone-tpu-view18-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view18.png', fullresOverlay: 'mockups/originals/iphone-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 19, bg: 'mockups/optimized/iphone-tpu-view19.png', overlay: 'mockups/optimized/iphone-tpu-view19-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view19.png', fullresOverlay: 'mockups/originals/iphone-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
-  { id: 20, bg: 'mockups/optimized/iphone-tpu-view20.png', overlay: 'mockups/optimized/iphone-tpu-view20-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view20.png', fullresOverlay: 'mockups/originals/iphone-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 21, bg: 'mockups/optimized/iphone-tpu-view21.png', overlay: 'mockups/optimized/iphone-tpu-view21-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view21.png', fullresOverlay: 'mockups/originals/iphone-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
-  { id: 22, bg: 'mockups/optimized/iphone-tpu-view22.png', overlay: 'mockups/optimized/iphone-tpu-view22-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view22.png', fullresOverlay: 'mockups/originals/iphone-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
-  { id: 23, bg: 'mockups/optimized/iphone-tpu-view23.png', overlay: 'mockups/optimized/iphone-tpu-view23-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view23.png', fullresOverlay: 'mockups/originals/iphone-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 24, bg: 'mockups/optimized/iphone-tpu-view24.png', overlay: 'mockups/optimized/iphone-tpu-view24-overlay.png', fullresBg: 'mockups/originals/iphone-tpu-view24.png', fullresOverlay: 'mockups/originals/iphone-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
-            ]
-        },
-        'iphone-hybrid': {
-            name: "iPhone Hybrid Case",
-            main1: {
-                bg: 'mockups/optimized/iphone-hybrid-back-main.png',
-                overlay: 'mockups/optimized/iphone-hybrid-overlay-main.png',
-                fullresBg: 'mockups/originals/iphone-hybrid-back-main.png',
-                fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'slate-plaque-15x15': {
+                name: "Slate Plaque 15x15cm",
+                main1: {
+                    bg: 'mockups/plaques/slate-15x15-main.png',
+                    overlay: 'mockups/plaques/slate-15x15-overlay.png',
+                    fullresBg: 'mockups/plaques/originals/slate-15x15-main.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay.png',
+                    designX: 51,
+                    designY: 41,
+                    designScale: 71,
+                    designRotation: 0,
+                    designSkewX: -3,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques/slate-15x15-main2.png',
+                    overlay: 'mockups/plaques/slate-15x15-overlay2.png',
+                    fullresBg: 'mockups/plaques/originals/slate-15x15-main2.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay2.png',
+                    designX: 50,
+                    designY: 47,
+                    designScale: 79,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques/slate-15x15-main3.png',
+                    overlay: 'mockups/plaques/slate-15x15-overlay3.png',
+                    fullresBg: 'mockups/plaques/originals/slate-15x15-main3.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay3.png',
+                    designX: 50,
+                    designY: 47,
+                    designScale: 77,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques/slate-15x15-view1.png', overlay: 'mockups/plaques/slate-15x15-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view1-overlay.png', designX: 52, designY: 43, designScale: 70, designRotation: 0, designSkewX: 8, designSkewY: -4 },
+                    { id: 3, bg: 'mockups/plaques/slate-15x15-view3.png', overlay: 'mockups/plaques/slate-15x15-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view3-overlay.png', designX: 50, designY: 43, designScale: 72, designRotation: 0, designSkewX: 2, designSkewY: 0 }
+                ]
             },
-            main2: {
-                bg: 'mockups/optimized/iphone-hybrid-back-main2.png',
-                overlay: 'mockups/optimized/iphone-hybrid-overlay-main2.png',
-                fullresBg: 'mockups/originals/iphone-hybrid-back-main2.png',
-                fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main2.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'slate-plaque-20x30': {
+                name: "Slate Plaque 20x30cm",
+                main1: {
+                    bg: 'mockups/plaques/slate-20x30-main.png',
+                    overlay: 'mockups/plaques/slate-20x30-overlay.png',
+                    fullresBg: 'mockups/plaques/originals/slate-20x30-main.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay.png',
+                    designX: 50,
+                    designY: 49,
+                    designScale: 96,
+                    designRotation: 0,
+                    designSkewX: 2,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques/slate-20x30-main2.png',
+                    overlay: 'mockups/plaques/slate-20x30-overlay2.png',
+                    fullresBg: 'mockups/plaques/originals/slate-20x30-main2.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay2.png',
+                    designX: 50,
+                    designY: 49,
+                    designScale: 93,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques/slate-20x30-main3.png',
+                    overlay: 'mockups/plaques/slate-20x30-overlay3.png',
+                    fullresBg: 'mockups/plaques/originals/slate-20x30-main3.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay3.png',
+                    designX: 50,
+                    designY: 49,
+                    designScale: 99,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques/slate-20x30-view1.png', overlay: 'mockups/plaques/slate-20x30-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view1-overlay.png', designX: 52, designY: 50, designScale: 98, designRotation: 0, designSkewX: 2, designSkewY: 0 },
+                    { id: 2, bg: 'mockups/plaques/slate-20x30-view2.png', overlay: 'mockups/plaques/slate-20x30-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view2-overlay.png', designX: 56, designY: 46, designScale: 89, designRotation: -1, designSkewX: 2, designSkewY: 1 }
+                ]
             },
-            main3: {
-                bg: 'mockups/optimized/iphone-hybrid-back-main3.png',
-                overlay: 'mockups/optimized/iphone-hybrid-overlay-main3.png',
-                fullresBg: 'mockups/originals/iphone-hybrid-back-main3.png',
-                fullresOverlay: 'mockups/originals/iphone-hybrid-overlay-main3.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'slate-plaque-heart-10x10': {
+                name: "Slate Plaque Heart 10x10cm",
+                main1: {
+                    bg: 'mockups/plaques/slate-heart-10x10-main.png',
+                    overlay: 'mockups/plaques/slate-heart-10x10-overlay.png',
+                    fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay.png',
+                    designX: 49,
+                    designY: 46,
+                    designScale: 86,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques/slate-heart-10x10-main2.png',
+                    overlay: 'mockups/plaques/slate-heart-10x10-overlay2.png',
+                    fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main2.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay2.png',
+                    designX: 50,
+                    designY: 44,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques/slate-heart-10x10-main3.png',
+                    overlay: 'mockups/plaques/slate-heart-10x10-overlay3.png',
+                    fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main3.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay3.png',
+                    designX: 50,
+                    designY: 44,
+                    designScale: 87,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques/slate-heart-10x10-view1.png', overlay: 'mockups/plaques/slate-heart-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view1-overlay.png', designX: 47, designY: 43, designScale: 85, designRotation: 0, designSkewX: -4, designSkewY: 1 },
+                    { id: 2, bg: 'mockups/plaques/slate-heart-10x10-view2.png', overlay: 'mockups/plaques/slate-heart-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view2-overlay.png', designX: 51, designY: 43, designScale: 67, designRotation: 0, designSkewX: 7, designSkewY: -9 }
+                ]
             },
-            views: [
-                   { id: 1, bg: 'mockups/optimized/iphone-hybrid-view1.png', overlay: 'mockups/optimized/iphone-hybrid-view1-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view1.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 2, bg: 'mockups/optimized/iphone-hybrid-view2.png', overlay: 'mockups/optimized/iphone-hybrid-view2-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view2.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 3, bg: 'mockups/optimized/iphone-hybrid-view3.png', overlay: 'mockups/optimized/iphone-hybrid-view3-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view3.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
-  { id: 4, bg: 'mockups/optimized/iphone-hybrid-view4.png', overlay: 'mockups/optimized/iphone-hybrid-view4-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view4.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
-  { id: 5, bg: 'mockups/optimized/iphone-hybrid-view5.png', overlay: 'mockups/optimized/iphone-hybrid-view5-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view5.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
-  { id: 6, bg: 'mockups/optimized/iphone-hybrid-view6.png', overlay: 'mockups/optimized/iphone-hybrid-view6-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view6.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 7, bg: 'mockups/optimized/iphone-hybrid-view7.png', overlay: 'mockups/optimized/iphone-hybrid-view7-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view7.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
-  { id: 8, bg: 'mockups/optimized/iphone-hybrid-view8.png', overlay: 'mockups/optimized/iphone-hybrid-view8-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view8.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
-  { id: 9, bg: 'mockups/optimized/iphone-hybrid-view9.png', overlay: 'mockups/optimized/iphone-hybrid-view9-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view9.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
-  { id: 10, bg: 'mockups/optimized/iphone-hybrid-view10.png', overlay: 'mockups/optimized/iphone-hybrid-view10-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view10.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
-  { id: 11, bg: 'mockups/optimized/iphone-hybrid-view11.png', overlay: 'mockups/optimized/iphone-hybrid-view11-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view11.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
-  { id: 12, bg: 'mockups/optimized/iphone-hybrid-view12.png', overlay: 'mockups/optimized/iphone-hybrid-view12-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view12.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
-  { id: 13, bg: 'mockups/optimized/iphone-hybrid-view13.png', overlay: 'mockups/optimized/iphone-hybrid-view13-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view13.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
-  { id: 14, bg: 'mockups/optimized/iphone-hybrid-view14.png', overlay: 'mockups/optimized/iphone-hybrid-view14-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view14.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
-  { id: 15, bg: 'mockups/optimized/iphone-hybrid-view15.png', overlay: 'mockups/optimized/iphone-hybrid-view15-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view15.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
-  { id: 16, bg: 'mockups/optimized/iphone-hybrid-view16.png', overlay: 'mockups/optimized/iphone-hybrid-view16-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view16.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 17, bg: 'mockups/optimized/iphone-hybrid-view17.png', overlay: 'mockups/optimized/iphone-hybrid-view17-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view17.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
-  { id: 18, bg: 'mockups/optimized/iphone-hybrid-view18.png', overlay: 'mockups/optimized/iphone-hybrid-view18-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view18.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 19, bg: 'mockups/optimized/iphone-hybrid-view19.png', overlay: 'mockups/optimized/iphone-hybrid-view19-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view19.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
-  { id: 20, bg: 'mockups/optimized/iphone-hybrid-view20.png', overlay: 'mockups/optimized/iphone-hybrid-view20-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view20.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 21, bg: 'mockups/optimized/iphone-hybrid-view21.png', overlay: 'mockups/optimized/iphone-hybrid-view21-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view21.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
-  { id: 22, bg: 'mockups/optimized/iphone-hybrid-view22.png', overlay: 'mockups/optimized/iphone-hybrid-view22-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view22.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
-  { id: 23, bg: 'mockups/optimized/iphone-hybrid-view23.png', overlay: 'mockups/optimized/iphone-hybrid-view23-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view23.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 24, bg: 'mockups/optimized/iphone-hybrid-view24.png', overlay: 'mockups/optimized/iphone-hybrid-view24-overlay.png', fullresBg: 'mockups/originals/iphone-hybrid-view24.png', fullresOverlay: 'mockups/originals/iphone-hybrid-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
-            ]
-        },
-        'pixel-tpu': {
-            name: "Google Pixel TPU Case",
-            main1: {
-                bg: 'mockups/optimized/pixel-tpu-back-main.png',
-                overlay: 'mockups/optimized/pixel-tpu-overlay-main.png',
-                fullresBg: 'mockups/originals/pixel-tpu-back-main.png',
-                fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
+            'slate-plaque-heart-25x25': {
+                name: "Slate Plaque Heart 25x25cm",
+                main1: {
+                    bg: 'mockups/plaques/slate-heart-25x25-main.png',
+                    overlay: 'mockups/plaques/slate-heart-25x25-overlay.png',
+                    fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay.png',
+                    designX: 50,
+                    designY: 46,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques/slate-heart-25x25-main2.png',
+                    overlay: 'mockups/plaques/slate-heart-25x25-overlay2.png',
+                    fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main2.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay2.png',
+                    designX: 49,
+                    designY: 47,
+                    designScale: 96,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques/slate-heart-25x25-main3.png',
+                    overlay: 'mockups/plaques/slate-heart-25x25-overlay3.png',
+                    fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main3.png',
+                    fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay3.png',
+                    designX: 50,
+                    designY: 47,
+                    designScale: 97,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques/slate-heart-25x25-view1.png', overlay: 'mockups/plaques/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view1-overlay.png', designX: 51, designY: 48, designScale: 91, designRotation: 0, designSkewX: -3, designSkewY: 2 }
+                ]
             },
-            main2: {
-                bg: 'mockups/optimized/pixel-tpu-back-main2.png',
-                overlay: 'mockups/optimized/pixel-tpu-overlay-main2.png',
-                fullresBg: 'mockups/originals/pixel-tpu-back-main2.png',
-                fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main2.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/optimized/pixel-tpu-back-main3.png',
-                overlay: 'mockups/optimized/pixel-tpu-overlay-main3.png',
-                fullresBg: 'mockups/originals/pixel-tpu-back-main3.png',
-                fullresOverlay: 'mockups/originals/pixel-tpu-overlay-main3.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-                  { id: 1, bg: 'mockups/optimized/pixel-tpu-view1.png', overlay: 'mockups/optimized/pixel-tpu-view1-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view1.png', fullresOverlay: 'mockups/originals/pixel-tpu-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 2, bg: 'mockups/optimized/pixel-tpu-view2.png', overlay: 'mockups/optimized/pixel-tpu-view2-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view2.png', fullresOverlay: 'mockups/originals/pixel-tpu-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 3, bg: 'mockups/optimized/pixel-tpu-view3.png', overlay: 'mockups/optimized/pixel-tpu-view3-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view3.png', fullresOverlay: 'mockups/originals/pixel-tpu-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
-  { id: 4, bg: 'mockups/optimized/pixel-tpu-view4.png', overlay: 'mockups/optimized/pixel-tpu-view4-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view4.png', fullresOverlay: 'mockups/originals/pixel-tpu-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
-  { id: 5, bg: 'mockups/optimized/pixel-tpu-view5.png', overlay: 'mockups/optimized/pixel-tpu-view5-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view5.png', fullresOverlay: 'mockups/originals/pixel-tpu-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
-  { id: 6, bg: 'mockups/optimized/pixel-tpu-view6.png', overlay: 'mockups/optimized/pixel-tpu-view6-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view6.png', fullresOverlay: 'mockups/originals/pixel-tpu-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 7, bg: 'mockups/optimized/pixel-tpu-view7.png', overlay: 'mockups/optimized/pixel-tpu-view7-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view7.png', fullresOverlay: 'mockups/originals/pixel-tpu-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
-  { id: 8, bg: 'mockups/optimized/pixel-tpu-view8.png', overlay: 'mockups/optimized/pixel-tpu-view8-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view8.png', fullresOverlay: 'mockups/originals/pixel-tpu-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
-  { id: 9, bg: 'mockups/optimized/pixel-tpu-view9.png', overlay: 'mockups/optimized/pixel-tpu-view9-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view9.png', fullresOverlay: 'mockups/originals/pixel-tpu-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
-  { id: 10, bg: 'mockups/optimized/pixel-tpu-view10.png', overlay: 'mockups/optimized/pixel-tpu-view10-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view10.png', fullresOverlay: 'mockups/originals/pixel-tpu-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 },
-  { id: 11, bg: 'mockups/optimized/pixel-tpu-view11.png', overlay: 'mockups/optimized/pixel-tpu-view11-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view11.png', fullresOverlay: 'mockups/originals/pixel-tpu-view11-overlay.png', designX: 51.2, designY: 57.65, designScale: 69.94, designRotation: -0.41, designSkewX: 0, designSkewY: 0 },
-  { id: 12, bg: 'mockups/optimized/pixel-tpu-view12.png', overlay: 'mockups/optimized/pixel-tpu-view12-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view12.png', fullresOverlay: 'mockups/originals/pixel-tpu-view12-overlay.png', designX: 44.34, designY: 49.52, designScale: 71.08, designRotation: -0.49, designSkewX: 0, designSkewY: 0 },
-  { id: 13, bg: 'mockups/optimized/pixel-tpu-view13.png', overlay: 'mockups/optimized/pixel-tpu-view13-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view13.png', fullresOverlay: 'mockups/originals/pixel-tpu-view13-overlay.png', designX: 49.78, designY: 40.55, designScale: 56.25, designRotation: 25.42, designSkewX: 0, designSkewY: 0 },
-  { id: 14, bg: 'mockups/optimized/pixel-tpu-view14.png', overlay: 'mockups/optimized/pixel-tpu-view14-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view14.png', fullresOverlay: 'mockups/originals/pixel-tpu-view14-overlay.png', designX: 51.27, designY: 58.16, designScale: 59.14, designRotation: -0.24, designSkewX: 0, designSkewY: 0 },
-  { id: 15, bg: 'mockups/optimized/pixel-tpu-view15.png', overlay: 'mockups/optimized/pixel-tpu-view15-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view15.png', fullresOverlay: 'mockups/originals/pixel-tpu-view15-overlay.png', designX: 49.66, designY: 52.18, designScale: 77.73, designRotation: 0.46, designSkewX: 0, designSkewY: 0 },
-  { id: 16, bg: 'mockups/optimized/pixel-tpu-view16.png', overlay: 'mockups/optimized/pixel-tpu-view16-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view16.png', fullresOverlay: 'mockups/originals/pixel-tpu-view16-overlay.png', designX: 50.26, designY: 48.78, designScale: 63.63, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 17, bg: 'mockups/optimized/pixel-tpu-view17.png', overlay: 'mockups/optimized/pixel-tpu-view17-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view17.png', fullresOverlay: 'mockups/originals/pixel-tpu-view17-overlay.png', designX: 47.31, designY: 52.23, designScale: 56.52, designRotation: 17.92, designSkewX: 0, designSkewY: 0 },
-  { id: 18, bg: 'mockups/optimized/pixel-tpu-view18.png', overlay: 'mockups/optimized/pixel-tpu-view18-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view18.png', fullresOverlay: 'mockups/originals/pixel-tpu-view18-overlay.png', designX: 45.47, designY: 59.15, designScale: 77.82, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 19, bg: 'mockups/optimized/pixel-tpu-view19.png', overlay: 'mockups/optimized/pixel-tpu-view19-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view19.png', fullresOverlay: 'mockups/originals/pixel-tpu-view19-overlay.png', designX: 52.16, designY: 40.91, designScale: 66.08, designRotation: -16.74, designSkewX: 0, designSkewY: 0 },
-  { id: 20, bg: 'mockups/optimized/pixel-tpu-view20.png', overlay: 'mockups/optimized/pixel-tpu-view20-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view20.png', fullresOverlay: 'mockups/originals/pixel-tpu-view20-overlay.png', designX: 54.68, designY: 44.52, designScale: 59.37, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 21, bg: 'mockups/optimized/pixel-tpu-view21.png', overlay: 'mockups/optimized/pixel-tpu-view21-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view21.png', fullresOverlay: 'mockups/originals/pixel-tpu-view21-overlay.png', designX: 47.6, designY: 50.4, designScale: 66.77, designRotation: -0.6, designSkewX: 0, designSkewY: 0 },
-  { id: 22, bg: 'mockups/optimized/pixel-tpu-view22.png', overlay: 'mockups/optimized/pixel-tpu-view22-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view22.png', fullresOverlay: 'mockups/originals/pixel-tpu-view22-overlay.png', designX: 43.48, designY: 30.44, designScale: 136.41, designRotation: 157.04, designSkewX: 0, designSkewY: 0 },
-  { id: 23, bg: 'mockups/optimized/pixel-tpu-view23.png', overlay: 'mockups/optimized/pixel-tpu-view23-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view23.png', fullresOverlay: 'mockups/originals/pixel-tpu-view23-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 24, bg: 'mockups/optimized/pixel-tpu-view24.png', overlay: 'mockups/optimized/pixel-tpu-view24-overlay.png', fullresBg: 'mockups/originals/pixel-tpu-view24.png', fullresOverlay: 'mockups/originals/pixel-tpu-view24-overlay.png', designX: 50, designY: 50, designScale: 100, designRotation: 0, designSkewX: 0, designSkewY: 0 }
-            ]
-        },
-        'iphone-fullprint': {
-            name: "iPhone Fullprint Case",
-            main1: {
-                bg: 'mockups/optimized/iphone-fullprint-back-main.png',
-                overlay: 'mockups/optimized/iphone-fullprint-overlay-main.png',
-                fullresBg: 'mockups/originals/iphone-fullprint-back-main.png',
-                fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main2: {
-                bg: 'mockups/optimized/iphone-fullprint-back-main2.png',
-                overlay: 'mockups/optimized/iphone-fullprint-overlay-main2.png',
-                fullresBg: 'mockups/originals/iphone-fullprint-back-main2.png',
-                fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main2.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/optimized/iphone-fullprint-back-main3.png',
-                overlay: 'mockups/optimized/iphone-fullprint-overlay-main3.png',
-                fullresBg: 'mockups/originals/iphone-fullprint-back-main3.png',
-                fullresOverlay: 'mockups/originals/iphone-fullprint-overlay-main3.png',
-                designX: 48.5,
-                designY: 48.5,
-                designScale: 100,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-                  { id: 1, bg: 'mockups/optimized/iphone-fullprint-view1.png', overlay: 'mockups/optimized/iphone-fullprint-view1-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view1.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view1-overlay.png', designX: 47, designY: 50, designScale: 54, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 2, bg: 'mockups/optimized/iphone-fullprint-view2.png', overlay: 'mockups/optimized/iphone-fullprint-view2-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view2.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view2-overlay.png', designX: 50, designY: 60, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 3, bg: 'mockups/optimized/iphone-fullprint-view3.png', overlay: 'mockups/optimized/iphone-fullprint-view3-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view3.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view3-overlay.png', designX: 50.48, designY: 49.84, designScale: 85, designRotation: -24.42, designSkewX: 0, designSkewY: 0 },
-  { id: 4, bg: 'mockups/optimized/iphone-fullprint-view4.png', overlay: 'mockups/optimized/iphone-fullprint-view4-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view4.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view4-overlay.png', designX: 53.97, designY: 48.08, designScale: 68.59, designRotation: -1.04, designSkewX: 0, designSkewY: 0 },
-  { id: 5, bg: 'mockups/optimized/iphone-fullprint-view5.png', overlay: 'mockups/optimized/iphone-fullprint-view5-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view5.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view5-overlay.png', designX: 50, designY: 50.75, designScale: 75.02, designRotation: 0.27, designSkewX: 0, designSkewY: 0 },
-  { id: 6, bg: 'mockups/optimized/iphone-fullprint-view6.png', overlay: 'mockups/optimized/iphone-fullprint-view6-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view6.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view6-overlay.png', designX: 53.05, designY: 51.7, designScale: 70.08, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-  { id: 7, bg: 'mockups/optimized/iphone-fullprint-view7.png', overlay: 'mockups/optimized/iphone-fullprint-view7-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view7.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view7-overlay.png', designX: 49.3, designY: 49.05, designScale: 78.64, designRotation: 8.41, designSkewX: 0, designSkewY: 0 },
-  { id: 8, bg: 'mockups/optimized/iphone-fullprint-view8.png', overlay: 'mockups/optimized/iphone-fullprint-view8-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view8.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view8-overlay.png', designX: 50.8, designY: 54.84, designScale: 73.54, designRotation: 37.3, designSkewX: 0, designSkewY: 0 },
-  { id: 9, bg: 'mockups/optimized/iphone-fullprint-view9.png', overlay: 'mockups/optimized/iphone-fullprint-view9-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view9.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view9-overlay.png', designX: 67.95, designY: 46.7, designScale: 65.08, designRotation: 0.69, designSkewX: 0, designSkewY: 0 },
-  { id: 10, bg: 'mockups/optimized/iphone-fullprint-view10.png', overlay: 'mockups/optimized/iphone-fullprint-view10-overlay.png', fullresBg: 'mockups/originals/iphone-fullprint-view10.png', fullresOverlay: 'mockups/originals/iphone-fullprint-view10-overlay.png', designX: 51.74, designY: 41.38, designScale: 72.01, designRotation: -0.35, designSkewX: 0, designSkewY: 0 }
-            ]
-        },
-
-        // Plaques
-        'slate-plaque-10x10': {
-            name: "Slate Plaque 10x10cm",
-            main1: {
-                bg: 'mockups/plaques/slate-10x10-main.png',
-                overlay: 'mockups/plaques/slate-10x10-overlay.png',
-                fullresBg: 'mockups/plaques/originals/slate-10x10-main.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay.png',
-                designX: 51,
-                designY: 41,
-                designScale: 71,
-                designRotation: 0,
-                designSkewX: -3,
-                designSkewY: 0
-            },
-            main2: {
-                bg: 'mockups/plaques/slate-10x10-main2.png',
-                overlay: 'mockups/plaques/slate-10x10-overlay2.png',
-                fullresBg: 'mockups/plaques/originals/slate-10x10-main2.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay2.png',
-                designX: 50,
-                designY: 47,
-                designScale: 79,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/plaques/slate-10x10-main3.png',
-                overlay: 'mockups/plaques/slate-10x10-overlay3.png',
-                fullresBg: 'mockups/plaques/originals/slate-10x10-main3.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-10x10-overlay3.png',
-                designX: 50,
-                designY: 47,
-                designScale: 77,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/plaques/slate-10x10-view1.png', overlay: 'mockups/plaques/slate-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view1-overlay.png', designX: 52, designY: 43, designScale: 70, designRotation: 0, designSkewX: 8, designSkewY: -4 },
-                 { id: 2, bg: 'mockups/plaques/slate-10x10-view2.png', overlay: 'mockups/plaques/slate-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view2-overlay.png', designX: 54, designY: 44, designScale: 73, designRotation: 0, designSkewX: 3, designSkewY: 1 },
-                 { id: 3, bg: 'mockups/plaques/slate-10x10-view3.png', overlay: 'mockups/plaques/slate-10x10-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-10x10-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-10x10-view3-overlay.png', designX: 50, designY: 43, designScale: 72, designRotation: 0, designSkewX: 2, designSkewY: 0 }
-            ]
-        },
-        'slate-plaque-15x15': {
-            name: "Slate Plaque 15x15cm",
-            main1: {
-                bg: 'mockups/plaques/slate-15x15-main.png',
-                overlay: 'mockups/plaques/slate-15x15-overlay.png',
-                fullresBg: 'mockups/plaques/originals/slate-15x15-main.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay.png',
-                designX: 51,
-                designY: 41,
-                designScale: 71,
-                designRotation: 0,
-                designSkewX: -3,
-                designSkewY: 0
-            },
-            main2: {
-                bg: 'mockups/plaques/slate-15x15-main2.png',
-                overlay: 'mockups/plaques/slate-15x15-overlay2.png',
-                fullresBg: 'mockups/plaques/originals/slate-15x15-main2.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay2.png',
-                designX: 50,
-                designY: 47,
-                designScale: 79,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/plaques/slate-15x15-main3.png',
-                overlay: 'mockups/plaques/slate-15x15-overlay3.png',
-                fullresBg: 'mockups/plaques/originals/slate-15x15-main3.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-15x15-overlay3.png',
-                designX: 50,
-                designY: 47,
-                designScale: 77,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-           { id: 1, bg: 'mockups/plaques/slate-15x15-view1.png', overlay: 'mockups/plaques/slate-15x15-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view1-overlay.png', designX: 52, designY: 43, designScale: 70, designRotation: 0, designSkewX: 8, designSkewY: -4 },
-                 { id: 2, bg: 'mockups/plaques/slate-15x15-view2.png', overlay: 'mockups/plaques/slate-15x15-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view2-overlay.png', designX: 54, designY: 44, designScale: 73, designRotation: 0, designSkewX: 3, designSkewY: 1 },
-                 { id: 3, bg: 'mockups/plaques/slate-15x15-view3.png', overlay: 'mockups/plaques/slate-15x15-view3-overlay.png', fullresBg: 'mockups/plaques/originals/slate-15x15-view3.png', fullresOverlay: 'mockups/plaques/originals/slate-15x15-view3-overlay.png', designX: 50, designY: 43, designScale: 72, designRotation: 0, designSkewX: 2, designSkewY: 0 }
-            ]
-        },
-        'slate-plaque-20x30': {
-            name: "Slate Plaque 20x30cm",
-            main1: {
-                bg: 'mockups/plaques/slate-20x30-main.png',
-                overlay: 'mockups/plaques/slate-20x30-overlay.png',
-                fullresBg: 'mockups/plaques/originals/slate-20x30-main.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay.png',
-                designX: 50,
-                designY: 49,
-                designScale: 96,
-                designRotation: 0,
-                designSkewX: 2,
-                designSkewY: 0
-            },
-            main2: {
-                bg: 'mockups/plaques/slate-20x30-main2.png',
-                overlay: 'mockups/plaques/slate-20x30-overlay2.png',
-                fullresBg: 'mockups/plaques/originals/slate-20x30-main2.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay2.png',
-                designX: 50,
-                designY: 49,
-                designScale: 93,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/plaques/slate-20x30-main3.png',
-                overlay: 'mockups/plaques/slate-20x30-overlay3.png',
-                fullresBg: 'mockups/plaques/originals/slate-20x30-main3.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-20x30-overlay3.png',
-                designX: 50,
-                designY: 49,
-                designScale: 99,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/plaques/slate-20x30-view1.png', overlay: 'mockups/plaques/slate-20x30-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view1-overlay.png', designX: 52, designY: 50, designScale: 98, designRotation: 0, designSkewX: 2, designSkewY: 0 },
-                { id: 2, bg: 'mockups/plaques/slate-20x30-view2.png', overlay: 'mockups/plaques/slate-20x30-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-20x30-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-20x30-view2-overlay.png', designX: 56, designY: 46, designScale: 89, designRotation: -1, designSkewX: 2, designSkewY: 1 }
-            ]
-        },
-        'slate-plaque-heart-10x10': {
-            name: "Slate Plaque Heart 10x10cm",
-            main1: {
-                bg: 'mockups/plaques/slate-heart-10x10-main.png',
-                overlay: 'mockups/plaques/slate-heart-10x10-overlay.png',
-                fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay.png',
-                designX: 49,
-                designY: 46,
-                designScale: 86,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main2: {
-                bg: 'mockups/plaques/slate-heart-10x10-main2.png',
-                overlay: 'mockups/plaques/slate-heart-10x10-overlay2.png',
-                fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main2.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay2.png',
-                designX: 50,
-                designY: 44,
-                designScale: 90,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/plaques/slate-heart-10x10-main3.png',
-                overlay: 'mockups/plaques/slate-heart-10x10-overlay3.png',
-                fullresBg: 'mockups/plaques/originals/slate-heart-10x10-main3.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-overlay3.png',
-                designX: 50,
-                designY: 44,
-                designScale: 87,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/plaques/slate-heart-10x10-view1.png', overlay: 'mockups/plaques/slate-heart-10x10-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view1-overlay.png', designX: 47, designY: 43, designScale: 85, designRotation: 0, designSkewX: -4, designSkewY: 1 },
-                { id: 2, bg: 'mockups/plaques/slate-heart-10x10-view2.png', overlay: 'mockups/plaques/slate-heart-10x10-view2-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-10x10-view2.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-10x10-view2-overlay.png', designX: 51, designY: 43, designScale: 67, designRotation: 0, designSkewX: 7, designSkewY: -9 }
-            ]
-        },
-        'slate-plaque-heart-25x25': {
-            name: "Slate Plaque Heart 25x25cm",
-            main1: {
-                bg: 'mockups/plaques/slate-heart-25x25-main.png',
-                overlay: 'mockups/plaques/slate-heart-25x25-overlay.png',
-                fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay.png',
-                designX: 50,
-                designY: 46,
-                designScale: 90,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main2: {
-                bg: 'mockups/plaques/slate-heart-25x25-main2.png',
-                overlay: 'mockups/plaques/slate-heart-25x25-overlay2.png',
-                fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main2.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay2.png',
-                designX: 49,
-                designY: 47,
-                designScale: 96,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/plaques/slate-heart-25x25-main3.png',
-                overlay: 'mockups/plaques/slate-heart-25x25-overlay3.png',
-                fullresBg: 'mockups/plaques/originals/slate-heart-25x25-main3.png',
-                fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-overlay3.png',
-                designX: 50,
-                designY: 47,
-                designScale: 97,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/plaques/slate-heart-25x25-view1.png', overlay: 'mockups/plaques/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view1-overlay.png', designX: 51, designY: 48, designScale: 91, designRotation: 0, designSkewX: -3, designSkewY: 2 }
-            ]
-        },
-
-        // AirPods Cases
-        'airpods-cases': {
-            name: "AirPods Cases",
-            main1: {
-                bg: 'mockups/airpods/airpods-main.png',
-                overlay: 'mockups/airpods/airpods-overlay.png',
-                fullresBg: 'mockups/airpods/originals/airpods-main.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-overlay.png',
-                designX: 36,
-                designY: 65,
-                designScale: 49,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main2: {
-                bg: 'mockups/airpods/airpods-main2.png',
-                overlay: 'mockups/airpods/airpods-overlay2.png',
-                fullresBg: 'mockups/airpods/originals/airpods-main2.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-overlay2.png',
-                designX: 36,
-                designY: 65,
-                designScale: 49,
-                designRotation: 0,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            main3: {
-                bg: 'mockups/airpods/airpods-main3.png',
-                overlay: 'mockups/airpods/airpods-overlay3.png',
-                fullresBg: 'mockups/airpods/originals/airpods-main3.png',
-                fullresOverlay: 'mockups/airpods/originals/airpods-overlay3.png',
-                designX: 37,
-                designY: 67,
-                designScale: 40,
-                designRotation: 10,
-                designSkewX: 0,
-                designSkewY: 0
-            },
-            views: [
-                { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 38, designY: 73, designScale: 40, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 2, bg: 'mockups/airpods/airpods-view2.png', overlay: 'mockups/airpods/airpods-view2-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view2.png', fullresOverlay: 'mockups/airpods/originals/airpods-view2-overlay.png', designX: 35, designY: 69, designScale: 30, designRotation: 20, designSkewX: -7, designSkewY: -5 },
-                { id: 3, bg: 'mockups/airpods/airpods-view3.png', overlay: 'mockups/airpods/airpods-view3-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view3.png', fullresOverlay: 'mockups/airpods/originals/airpods-view3-overlay.png', designX: 51, designY: 56, designScale: 29, designRotation: 36, designSkewX: -11, designSkewY: -3 },
-                { id: 4, bg: 'mockups/airpods/airpods-view4.png', overlay: 'mockups/airpods/airpods-view4-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view4.png', fullresOverlay: 'mockups/airpods/originals/airpods-view4-overlay.png', designX: 46, designY: 50, designScale: 36, designRotation: 157.96, designSkewX: 0, designSkewY: 0 },
-                { id: 5, bg: 'mockups/airpods/airpods-view5.png', overlay: 'mockups/airpods/airpods-view5-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view5.png', fullresOverlay: 'mockups/airpods/originals/airpods-view5-overlay.png', designX: 44, designY: 52, designScale: 34, designRotation: 21, designSkewX: -25, designSkewY: 0 },
-                { id: 6, bg: 'mockups/airpods/airpods-view6.png', overlay: 'mockups/airpods/airpods-view6-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view6.png', fullresOverlay: 'mockups/airpods/originals/airpods-view6-overlay.png', designX: 50, designY: 50, designScale: 80, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 7, bg: 'mockups/airpods/airpods-view7.png', overlay: 'mockups/airpods/airpods-view7-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view7.png', fullresOverlay: 'mockups/airpods/originals/airpods-view7-overlay.png', designX: 52, designY: 41, designScale: 28, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 8, bg: 'mockups/airpods/airpods-view8.png', overlay: 'mockups/airpods/airpods-view8-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view8.png', fullresOverlay: 'mockups/airpods/originals/airpods-view8-overlay.png', designX: 50, designY: 61, designScale: 34, designRotation: 0, designSkewX: 0, designSkewY: 0 },
-                { id: 9, bg: 'mockups/airpods/airpods-view9.png', overlay: 'mockups/airpods/airpods-view9-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view9.png', fullresOverlay: 'mockups/airpods/originals/airpods-view9-overlay.png', designX: 50, designY: 55, designScale: 36, designRotation: 0, designSkewX: 0, designSkewY: 0 }
-            ]
-        }
-    };
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Set up event listeners
-    setupEventListeners();
-    
-    // Set up collapsible sections
-    setupCollapsibleSections();
-    
-    // Make template links download immediately
-    document.querySelectorAll('.template-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
-                e.preventDefault();
+            'airpods-cases': {
+                name: "AirPods Cases",
+                main1: {
+                    bg: 'mockups/airpods/airpods-main.png',
+                    overlay: 'mockups/airpods/airpods-overlay.png',
+                    fullresBg: 'mockups/airpods/originals/airpods-main.png',
+                    fullresOverlay: 'mockups/airpods/originals/airpods-overlay.png',
+                    designX: 36,
+                    designY: 65,
+                    designScale: 49,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/airpods/airpods-main2.png',
+                    overlay: 'mockups/airpods/airpods-overlay2.png',
+                    fullresBg: 'mockups/airpods/originals/airpods-main2.png',
+                    fullresOverlay: 'mockups/airpods/originals/airpods-overlay2.png',
+                    designX: 36,
+                    designY: 65,
+                    designScale: 49,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/airpods/airpods-main3.png',
+                    overlay: 'mockups/airpods/airpods-overlay3.png',
+                    fullresBg: 'mockups/airpods/originals/airpods-main3.png',
+                    fullresOverlay: 'mockups/airpods/originals/airpods-overlay3.png',
+                    designX: 37,
+                    designY: 67,
+                    designScale: 40,
+                    designRotation: 10,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/airpods/airpods-view1.png', overlay: 'mockups/airpods/airpods-view1-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view1.png', fullresOverlay: 'mockups/airpods/originals/airpods-view1-overlay.png', designX: 38, designY: 73, designScale: 40, designRotation: 0, designSkewX: 0, designSkewY: 0 },
+                    { id: 9, bg: 'mockups/airpods/airpods-view9.png', overlay: 'mockups/airpods/airpods-view9-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view9.png', fullresOverlay: 'mockups/airpods/originals/airpods-view9-overlay.png', designX: 50, designY: 55, designScale: 36, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
             }
-        });
-    });
-});
+        };
 
-    // Set up all event listeners
-    function setupEventListeners() {
-        // Product category selection
-        productCategoryLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Update active category link
-                productCategoryLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                const category = this.dataset.category;
-                
-                // Show/hide product type selection based on category
-                phoneCasesTypes.style.display = 'none';
-                plaquesTypes.style.display = 'none';
-                airpodsCasesTypes.style.display = 'none';
-                
-                if (category === 'phone-cases') {
-                    phoneCasesTypes.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    positionControls.style.display = 'block';
-                    mainMockupsWrapper.style.display = 'block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize the grid for the default case type
-                    initializeGrid(currentCaseType);
-                } 
-                else if (category === 'plaques') {
-                    plaquesTypes.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    positionControls.style.display = 'block';
-                    mainMockupsWrapper.style.display = 'block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize with first plaque type
-                    currentCaseType = 'slate-plaque-10x10';
-                    updateMainMockups(currentCaseType);
-                    initializeGrid(currentCaseType);
-                }
-                else if (category === 'airpods-cases') {
-                    airpodsCasesTypes.style.display = 'flex';
-                    controlsSection.style.display = 'block';
-                    positionControls.style.display = 'block';
-                    mainMockupsWrapper.style.display = 'block';
-                    gridWrapper.style.display = 'block';
-                    
-                    // Initialize with AirPods case type
-                    currentCaseType = 'airpods-cases';
-                    updateMainMockups(currentCaseType);
-                    initializeGrid(currentCaseType);
-                }
-                
-                // Show selected product section
-                document.querySelectorAll('.product-section').forEach(section => {
-                    section.classList.remove('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Set up collapsible sections
+            setupCollapsibleSections();
+            
+            // Make template links download immediately
+            document.querySelectorAll('.template-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
                 });
-                document.getElementById(category).classList.add('active');
             });
         });
 
-        // Product type click handler
-        productTypeLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Product category selection
+            productCategoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active category link
+                    productCategoryLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    
+                    // Show/hide product type selection based on category
+                    phoneCasesTypes.style.display = 'none';
+                    plaquesTypes.style.display = 'none';
+                    airpodsCasesTypes.style.display = 'none';
+                    
+                    if (category === 'phone-cases') {
+                        phoneCasesTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize the grid for the default case type
+                        initializeGrid(currentCaseType);
+                    } 
+                    else if (category === 'plaques') {
+                        plaquesTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with first plaque type
+                        currentCaseType = 'slate-plaque-10x10';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    else if (category === 'airpods-cases') {
+                        airpodsCasesTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with AirPods case type
+                        currentCaseType = 'airpods-cases';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    
+                    // Show selected product section
+                    document.querySelectorAll('.product-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(category).classList.add('active');
+                });
+            });
+
+            // Product type click handler
+            productTypeLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active type link
+                    const container = this.closest('.product-type-container');
+                    container.querySelectorAll('.product-type-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentCaseType = this.dataset.case;
+                    
+                    // Show controls and main mockup
+                    controlsSection.style.display = 'block';
+                    positionControls.style.display = 'block';
+                    mainMockupsWrapper.style.display = 'block';
+                    
+                    // Show grid wrapper by default
+                    gridWrapper.style.display = 'block';
+                    
+                    // Update main mockups
+                    updateMainMockups(currentCaseType);
+                    
+                    // Update grid for the selected case type
+                    initializeGrid(currentCaseType);
+                    
+                    // Update view selector options
+                    updateViewSelectorOptions();
+                    
+                    // Update design positions if an image is already uploaded
+                    if (uploadedImage.src) {
+                        document.querySelectorAll('.user-design').forEach(design => {
+                            if (design.src) {
+                                design.style.display = 'block';
+                                updateDesignPosition(design);
+                            }
+                        });
+                        document.querySelectorAll('.flipped-design').forEach(design => {
+                            if (design.src) {
+                                design.style.display = 'block';
+                                updateFlippedDesignPosition(design);
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Image upload handler
+            imageUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (!file) return;
                 
-                // Update active type link
-                const container = this.closest('.product-type-container');
-                container.querySelectorAll('.product-type-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
+                showLoading("Loading your design...");
                 
-                currentCaseType = this.dataset.case;
-                
-                // Show controls and main mockup
-                controlsSection.style.display = 'block';
-                positionControls.style.display = 'block';
-                mainMockupsWrapper.style.display = 'block';
-                
-                // Show grid wrapper by default
-                gridWrapper.style.display = 'block';
-                
-                // Update main mockups
-                updateMainMockups(currentCaseType);
-                
-                // Update grid for the selected case type
-                initializeGrid(currentCaseType);
-                
-                // Update view selector options
-                updateViewSelectorOptions();
-                
-                // Update design positions if an image is already uploaded
-                if (uploadedImage.src) {
-                    document.querySelectorAll('.user-design').forEach(design => {
-                        if (design.src) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const testImage = new Image();
+                    testImage.onload = function() {
+                        // Update all designs with the new image
+                        document.querySelectorAll('.user-design').forEach(design => {
+                            design.src = e.target.result;
                             design.style.display = 'block';
                             updateDesignPosition(design);
+                        });
+                        
+                        // Update all flipped designs with the new image
+                        document.querySelectorAll('.flipped-design').forEach(design => {
+                            design.src = e.target.result;
+                            design.style.display = 'block';
+                            updateFlippedDesignPosition(design);
+                        });
+                        
+                        uploadedImage.src = e.target.result;
+                        mockupCache.clear();
+                        removeBtn.style.display = 'block';
+                        
+                        // Enable download buttons
+                        downloadBtn.disabled = false;
+                        downloadZipBtn.disabled = false;
+                        
+                        hideLoading();
+                    };
+                    testImage.onerror = function() {
+                        hideLoading();
+                        alert("Error: The image couldn't be loaded. Please try another file.");
+                    };
+                    testImage.src = e.target.result;
+                };
+                reader.onerror = function() {
+                    hideLoading();
+                    alert("Error reading file. Please try again.");
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // Remove button handler
+            removeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                document.querySelectorAll('.user-design').forEach(design => {
+                    design.src = '';
+                    design.style.display = 'none';
+                });
+                
+                document.querySelectorAll('.flipped-design').forEach(design => {
+                    design.src = '';
+                    design.style.display = 'none';
+                });
+                
+                uploadedImage.src = '';
+                imageUpload.value = '';
+                mockupCache.clear();
+                removeBtn.style.display = 'none';
+                
+                // Disable download buttons
+                downloadBtn.disabled = true;
+                downloadZipBtn.disabled = true;
+            });
+            
+            // Download main mockup
+            downloadBtn.addEventListener('click', async function() {
+                if (!uploadedImage.src) {
+                    alert('Please upload an image first');
+                    return;
+                }
+
+                // Check if at least one main view is selected
+                const mainCheckboxes = document.querySelectorAll('.main-mockup-container .carousel-checkbox');
+                const atLeastOneSelected = Array.from(mainCheckboxes).some(cb => cb.checked);
+                
+                if (!atLeastOneSelected) {
+                    alert('Please select at least one main view to download');
+                    return;
+                }
+
+                showLoading("Generating main mockups...");
+                
+                try {
+                    // Create a ZIP file containing all selected main mockups
+                    const zip = new JSZip();
+                    const caseData = mockupData[currentCaseType];
+                    const promises = [];
+                    
+                    // Add selected main mockups to ZIP
+                    for (let i = 1; i <= 3; i++) {
+                        const checkbox = document.getElementById(`checkbox-main${i}`);
+                        if (checkbox && checkbox.checked) {
+                            promises.push((async () => {
+                                showLoading(`Generating main mockup ${i}...`);
+                                const mainCanvas = await generateMockupImage(document.getElementById(`main-mockup-container-${i}`));
+                                const mainBlob = await canvasToBlob(mainCanvas);
+                                zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main${i}.png`, mainBlob);
+                            })());
                         }
-                    });
+                    }
+                    
+                    // Wait for all mockups to be generated
+                    await Promise.all(promises);
+                    
+                    // Generate and download ZIP
+                    showLoading("Creating ZIP file...");
+                    const content = await zip.generateAsync({ type: 'blob' });
+                    downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main-mockups.zip`);
+                    
+                } catch (error) {
+                    console.error("Error generating ZIP:", error);
+                    alert("Error generating mockups. Please try again.");
+                } finally {
+                    hideLoading();
                 }
             });
-        });
 
-        // Image upload handler
-        imageUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+            // Download selected mockups as ZIP
+            downloadZipBtn.addEventListener('click', async function() {
+                if (!uploadedImage.src) {
+                    alert('Please upload an image first');
+                    return;
+                }
+
+                // Check if at least one view is selected (main or secondary)
+                const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
+                
+                if (checkedItems.length === 0) {
+                    alert('Please select at least one mockup view to download');
+                    return;
+                }
+
+                showLoading("Preparing ZIP file...");
+                
+                try {
+                    const zip = new JSZip();
+                    const caseData = mockupData[currentCaseType];
+                    const promises = [];
+                    
+                    // Add selected main mockups to ZIP
+                    for (let i = 1; i <= 3; i++) {
+                        const checkbox = document.getElementById(`checkbox-main${i}`);
+                        if (checkbox && checkbox.checked) {
+                            promises.push((async () => {
+                                showLoading(`Generating main mockup ${i}...`);
+                                const mainCanvas = await generateMockupImage(document.getElementById(`main-mockup-container-${i}`));
+                                const mainBlob = await canvasToBlob(mainCanvas);
+                                zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main${i}.png`, mainBlob);
+                            })());
+                        }
+                    }
+                    
+                    // Process selected grid items
+                    for (const item of checkedItems) {
+                        const viewNumber = item.dataset.view;
+                        // Skip main mockups as we already added them
+                        if (viewNumber === 'main1' || viewNumber === 'main2' || viewNumber === 'main3') continue;
+                        
+                        const viewData = caseData.views.find(v => v.id == viewNumber);
+                        
+                        if (!viewData) continue;
+                        
+                        promises.push((async () => {
+                            showLoading(`Generating view ${viewNumber}...`);
+                            const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
+                            const canvas = await generateMockupImage(mockupContainer);
+                            const blob = await canvasToBlob(canvas);
+                            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
+                        })());
+                    }
+                    
+                    // Wait for all mockups to be generated
+                    await Promise.all(promises);
+                    
+                    // Generate and download ZIP
+                    showLoading("Creating ZIP file...");
+                    const content = await zip.generateAsync({ type: 'blob' });
+                    downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
+                    
+                } catch (error) {
+                    console.error("Error generating ZIP:", error);
+                    alert("Error generating ZIP file. Please try again.");
+                } finally {
+                    hideLoading();
+                }
+            });
+
+            // Positioning controls
+            positionX.addEventListener('input', function() {
+                positionXValue.textContent = `${this.value}%`;
+                updateDesignPositionFromControls();
+            });
             
-            showLoading("Loading your design...");
+            positionY.addEventListener('input', function() {
+                positionYValue.textContent = `${this.value}%`;
+                updateDesignPositionFromControls();
+            });
             
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const testImage = new Image();
-                testImage.onload = function() {
-                    // Update all designs with the new image
-                    document.querySelectorAll('.user-design').forEach(design => {
-                        design.src = e.target.result;
-                        design.style.display = 'block';
+            scaleInput.addEventListener('input', function() {
+                scaleValue.textContent = `${this.value}%`;
+                updateDesignPositionFromControls();
+            });
+            
+            rotationInput.addEventListener('input', function() {
+                rotationValue.textContent = `${this.value}°`;
+                updateDesignPositionFromControls();
+            });
+            
+            // Skew controls
+            skewXInput.addEventListener('input', function() {
+                skewXValue.textContent = `${this.value}°`;
+                updateDesignPositionFromControls();
+            });
+            
+            skewYInput.addEventListener('input', function() {
+                skewYValue.textContent = `${this.value}°`;
+                updateDesignPositionFromControls();
+            });
+            
+            // Layer selector change handler
+            layerSelector.addEventListener('change', function() {
+                updatePositioningControls();
+            });
+            
+            // Reset position button
+            resetPositionBtn.addEventListener('click', function() {
+                const selectedView = viewSelector.value;
+                const selectedLayer = layerSelector.value;
+                const caseData = mockupData[currentCaseType];
+                
+                // Reset only the selected view and layer
+                const designs = getDesignElementsForView(selectedView, selectedLayer);
+                designs.forEach(design => {
+                    let viewData;
+                    
+                    if (selectedView.startsWith('main')) {
+                        const viewNum = selectedView.replace('main', '');
+                        viewData = caseData[`main${viewNum}`];
+                        
+                        if (selectedLayer === 'flipped' && viewData) {
+                            design.dataset.x = viewData.flippedDesignX || viewData.designX;
+                            design.dataset.y = viewData.flippedDesignY || viewData.designY;
+                            design.dataset.scale = viewData.flippedDesignScale || viewData.designScale;
+                            design.dataset.rotation = viewData.flippedDesignRotation || viewData.designRotation;
+                            design.dataset.skewX = viewData.flippedDesignSkewX || viewData.designSkewX || 0;
+                            design.dataset.skewY = viewData.flippedDesignSkewY || viewData.designSkewY || 0;
+                            design.dataset.flip = viewData.flippedDesignFlip || 'false';
+                        } else if (viewData) {
+                            design.dataset.x = viewData.designX;
+                            design.dataset.y = viewData.designY;
+                            design.dataset.scale = viewData.designScale;
+                            design.dataset.rotation = viewData.designRotation;
+                            design.dataset.skewX = viewData.designSkewX || 0;
+                            design.dataset.skewY = viewData.designSkewY || 0;
+                        }
+                    } else {
+                        viewData = caseData.views.find(v => v.id == selectedView);
+                        if (viewData) {
+                            design.dataset.x = viewData.designX;
+                            design.dataset.y = viewData.designY;
+                            design.dataset.scale = viewData.designScale;
+                            design.dataset.rotation = viewData.designRotation;
+                            design.dataset.skewX = viewData.designSkewX || 0;
+                            design.dataset.skewY = viewData.designSkewY || 0;
+                        }
+                    }
+                    
+                    if (selectedLayer === 'flipped') {
+                        updateFlippedDesignPosition(design);
+                    } else {
                         updateDesignPosition(design);
-                    });
-                    
-                    uploadedImage.src = e.target.result;
-                    mockupCache.clear();
-                    removeBtn.style.display = 'block';
-                    
-                    // Enable download buttons
-                    downloadBtn.disabled = false;
-                    downloadZipBtn.disabled = false;
-                    
-                    hideLoading();
-                };
-                testImage.onerror = function() {
-                    hideLoading();
-                    alert("Error: The image couldn't be loaded. Please try another file.");
-                };
-                testImage.src = e.target.result;
-            };
-            reader.onerror = function() {
-                hideLoading();
-                alert("Error reading file. Please try again.");
-            };
-            reader.readAsDataURL(file);
-        });
+                    }
+                });
+                
+                // Update controls to reflect the reset values
+                updatePositioningControls();
+            });
+        }
 
-        // Remove button handler
-        removeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            document.querySelectorAll('.user-design').forEach(design => {
-                design.src = '';
-                design.style.display = 'none';
+        // Set up collapsible sections
+        function setupCollapsibleSections() {
+            // Collapse/expand for template sections
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    this.classList.toggle('collapsed');
+                    content.classList.toggle('collapsed');
+                });
             });
             
-            uploadedImage.src = '';
-            imageUpload.value = '';
-            mockupCache.clear();
-            removeBtn.style.display = 'none';
-            
-            // Disable download buttons
-            downloadBtn.disabled = true;
-            downloadZipBtn.disabled = true;
-        });
-        
-        // Download main mockup
-        downloadBtn.addEventListener('click', async function() {
-            if (!uploadedImage.src) {
-                alert('Please upload an image first');
-                return;
-            }
+            // Initially collapse all template categories except the first one
+            const templateCategories = document.querySelectorAll('.template-category');
+            templateCategories.forEach((category, index) => {
+                if (index !== 0) {
+                    const header = category.querySelector('h3');
+                    const content = header.nextElementSibling;
+                    header.classList.add('collapsed');
+                    content.classList.add('collapsed');
+                }
+            });
+        }
 
-            // Check if at least one main view is selected
-            const mainCheckboxes = document.querySelectorAll('.main-mockup-container .carousel-checkbox');
-            const atLeastOneSelected = Array.from(mainCheckboxes).some(cb => cb.checked);
+        // Update all main mockups for a specific case type
+        function updateMainMockups(caseType) {
+            const caseData = mockupData[caseType];
+            if (!caseData) return;
             
-            if (!atLeastOneSelected) {
-                alert('Please select at least one main view to download');
-                return;
-            }
-
-            showLoading("Generating main mockups...");
-            
-            try {
-                // Create a ZIP file containing all selected main mockups
-                const zip = new JSZip();
-                const caseData = mockupData[currentCaseType];
-                const promises = [];
-                
-                // Add selected main mockups to ZIP
-                for (let i = 1; i <= 3; i++) {
-                    const checkbox = document.getElementById(`checkbox-main${i}`);
-                    if (checkbox && checkbox.checked) {
-                        promises.push((async () => {
-                            showLoading(`Generating main mockup ${i}...`);
-                            const mainCanvas = await generateMockupImage(document.getElementById(`main-mockup-container-${i}`));
-                            const mainBlob = await canvasToBlob(mainCanvas);
-                            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main${i}.png`, mainBlob);
-                        })());
+            // Update all three main mockups
+            for (let i = 1; i <= 3; i++) {
+                const view = `main${i}`;
+                if (caseData[view]) {
+                    const container = document.getElementById(`main-mockup-container-${i}`);
+                    if (container) {
+                        container.style.display = 'inline-block';
+                        
+                        // Clear the mockup container and recreate with correct classes
+                        container.innerHTML = '';
+                        
+                        const imageClass = getImageClass(caseType);
+                        const mainMockup = caseData[view];
+                        
+                        const bgImg = document.createElement('img');
+                        bgImg.className = `${imageClass}-bg`;
+                        bgImg.src = mainMockup.bg;
+                        bgImg.dataset.fullres = mainMockup.fullresBg;
+                        
+                        const designArea = document.createElement('div');
+                        designArea.className = 'design-area';
+                        
+                        // Original design
+                        const designImg = document.createElement('img');
+                        designImg.className = 'user-design';
+                        designImg.alt = '';
+                        designImg.dataset.x = mainMockup.designX;
+                        designImg.dataset.y = mainMockup.designY;
+                        designImg.dataset.scale = mainMockup.designScale;
+                        designImg.dataset.rotation = mainMockup.designRotation;
+                        designImg.dataset.skewX = mainMockup.designSkewX || 0;
+                        designImg.dataset.skewY = mainMockup.designSkewY || 0;
+                        designImg.style.display = uploadedImage.src ? 'block' : 'none';
+                        if (uploadedImage.src) {
+                            designImg.src = uploadedImage.src;
+                        }
+                        designArea.appendChild(designImg);
+                        
+                        // Flipped design (only for iPhone fullprint cases)
+                        if (caseType === 'iphone-fullprint') {
+                            const flippedDesignImg = document.createElement('img');
+                            flippedDesignImg.className = 'flipped-design';
+                            flippedDesignImg.alt = '';
+                            flippedDesignImg.dataset.x = mainMockup.flippedDesignX || mainMockup.designX;
+                            flippedDesignImg.dataset.y = mainMockup.flippedDesignY || mainMockup.designY;
+                            flippedDesignImg.dataset.scale = mainMockup.flippedDesignScale || mainMockup.designScale;
+                            flippedDesignImg.dataset.rotation = mainMockup.flippedDesignRotation || mainMockup.designRotation;
+                            flippedDesignImg.dataset.skewX = mainMockup.flippedDesignSkewX || mainMockup.designSkewX || 0;
+                            flippedDesignImg.dataset.skewY = mainMockup.flippedDesignSkewY || mainMockup.designSkewY || 0;
+                            flippedDesignImg.dataset.flip = mainMockup.flippedDesignFlip || 'false';
+                            flippedDesignImg.style.display = uploadedImage.src ? 'block' : 'none';
+                            if (uploadedImage.src) {
+                                flippedDesignImg.src = uploadedImage.src;
+                            }
+                            designArea.appendChild(flippedDesignImg);
+                        }
+                        
+                        const overlayImg = document.createElement('img');
+                        overlayImg.className = `${imageClass}-overlay`;
+                        overlayImg.src = mainMockup.overlay;
+                        overlayImg.dataset.fullres = mainMockup.fullresOverlay;
+                        
+                        // Add checkbox
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'carousel-checkbox';
+                        checkbox.id = `checkbox-${view}`;
+                        checkbox.dataset.view = view;
+                        checkbox.checked = true; // Default to checked
+                        
+                        const checkboxIndicator = document.createElement('div');
+                        checkboxIndicator.className = 'carousel-checkbox-indicator';
+                        
+                        container.appendChild(checkbox);
+                        container.appendChild(checkboxIndicator);
+                        container.appendChild(bgImg);
+                        container.appendChild(designArea);
+                        container.appendChild(overlayImg);
+                        
+                        // Update design positions if image is already uploaded
+                        if (uploadedImage.src) {
+                            updateDesignPosition(designImg);
+                            if (caseType === 'iphone-fullprint') {
+                                updateFlippedDesignPosition(designArea.querySelector('.flipped-design'));
+                            }
+                        }
+                        
+                        // Add checkbox event listener
+                        checkbox.addEventListener('change', function() {
+                            container.classList.toggle('selected', this.checked);
+                        });
                     }
                 }
-                
-                // Wait for all mockups to be generated
-                await Promise.all(promises);
-                
-                // Generate and download ZIP
-                showLoading("Creating ZIP file...");
-                const content = await zip.generateAsync({ type: 'blob' });
-                downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main-mockups.zip`);
-                
-            } catch (error) {
-                console.error("Error generating ZIP:", error);
-                alert("Error generating mockups. Please try again.");
-            } finally {
-                hideLoading();
             }
-        });
+        }
 
-        // Download selected mockups as ZIP
-        downloadZipBtn.addEventListener('click', async function() {
-            if (!uploadedImage.src) {
-                alert('Please upload an image first');
-                return;
-            }
-
-            // Check if at least one view is selected (main or secondary)
-            const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
+        // Initialize grid for a specific case type
+        function initializeGrid(caseType) {
+            gridContainer.innerHTML = '';
             
-            if (checkedItems.length === 0) {
-                alert('Please select at least one mockup view to download');
-                return;
-            }
-
-            showLoading("Preparing ZIP file...");
+            const caseData = mockupData[caseType];
+            if (!caseData) return;
             
-            try {
-                const zip = new JSZip();
-                const caseData = mockupData[currentCaseType];
-                const promises = [];
+            caseData.views.forEach(view => {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
+                gridItem.dataset.view = view.id;
                 
-                // Add selected main mockups to ZIP
-                for (let i = 1; i <= 3; i++) {
-                    const checkbox = document.getElementById(`checkbox-main${i}`);
-                    if (checkbox && checkbox.checked) {
-                        promises.push((async () => {
-                            showLoading(`Generating main mockup ${i}...`);
-                            const mainCanvas = await generateMockupImage(document.getElementById(`main-mockup-container-${i}`));
-                            const mainBlob = await canvasToBlob(mainCanvas);
-                            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main${i}.png`, mainBlob);
-                        })());
+                const bgPath = view.bg;
+                const overlayPath = view.overlay;
+                const fullresBgPath = view.fullresBg;
+                const fullresOverlayPath = view.fullresOverlay;
+                
+                gridItem.innerHTML = `
+                    <div class="secondary-mockup">
+                        <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}">
+                        <div class="carousel-checkbox-indicator"></div>
+                        <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
+                        <div class="design-area">
+                            <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
+                                 data-x="${view.designX}" data-y="${view.designY}" 
+                                 data-scale="${view.designScale}" data-rotation="${view.designRotation}"
+                                 data-skew-x="${view.designSkewX || 0}" data-skew-y="${view.designSkewY || 0}"
+                                 style="display: ${uploadedImage.src ? 'block' : 'none'}">
+                        </div>
+                        <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
+                    </div>
+                    <div class="mockup-label">View ${view.id}</div>
+                `;
+                
+                gridContainer.appendChild(gridItem);
+                
+                // Update design position if image is already uploaded
+                if (uploadedImage.src) {
+                    const design = gridItem.querySelector('.user-design');
+                    updateDesignPosition(design);
+                }
+                
+                // Add click handler for the entire grid item
+                gridItem.addEventListener('click', function(e) {
+                    // Don't toggle if clicking directly on the checkbox (it will handle itself)
+                    if (e.target.classList.contains('carousel-checkbox')) {
+                        return;
                     }
-                }
-                
-                // Process selected grid items
-                for (const item of checkedItems) {
-                    const viewNumber = item.dataset.view;
-                    // Skip main mockups as we already added them
-                    if (viewNumber === 'main1' || viewNumber === 'main2' || viewNumber === 'main3') continue;
                     
-                    const viewData = caseData.views.find(v => v.id == viewNumber);
-                    
-                    if (!viewData) continue;
-                    
-                    promises.push((async () => {
-                        showLoading(`Generating view ${viewNumber}...`);
-                        const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
-                        const canvas = await generateMockupImage(mockupContainer);
-                        const blob = await canvasToBlob(canvas);
-                        zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
-                    })());
-                }
+                    const checkbox = this.querySelector('.carousel-checkbox');
+                    if (checkbox) {
+                        checkbox.checked = !checkbox.checked;
+                        this.classList.toggle('selected', checkbox.checked);
+                        
+                        // Trigger change event manually since we're changing checked state programmatically
+                        const event = new Event('change');
+                        checkbox.dispatchEvent(event);
+                    }
+                });
                 
-                // Wait for all mockups to be generated
-                await Promise.all(promises);
-                
-                // Generate and download ZIP
-                showLoading("Creating ZIP file...");
-                const content = await zip.generateAsync({ type: 'blob' });
-                downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
-                
-            } catch (error) {
-                console.error("Error generating ZIP:", error);
-                alert("Error generating ZIP file. Please try again.");
-            } finally {
-                hideLoading();
-            }
-        });
+                // Add change handler for the checkbox
+                const checkbox = gridItem.querySelector('.carousel-checkbox');
+                checkbox.addEventListener('change', function() {
+                    gridItem.classList.toggle('selected', this.checked);
+                });
+            });
+            
+            // Update view selector options
+            updateViewSelectorOptions();
+        }
 
-        // Positioning controls
-        positionX.addEventListener('input', function() {
-            positionXValue.textContent = `${this.value}%`;
-            updateDesignPositionFromControls();
-        });
-        
-        positionY.addEventListener('input', function() {
-            positionYValue.textContent = `${this.value}%`;
-            updateDesignPositionFromControls();
-        });
-        
-        scaleInput.addEventListener('input', function() {
-            scaleValue.textContent = `${this.value}%`;
-            updateDesignPositionFromControls();
-        });
-        
-        rotationInput.addEventListener('input', function() {
-            rotationValue.textContent = `${this.value}°`;
-            updateDesignPositionFromControls();
-        });
-        
-        // Skew controls
-        skewXInput.addEventListener('input', function() {
-            skewXValue.textContent = `${this.value}°`;
-            updateDesignPositionFromControls();
-        });
-        
-        skewYInput.addEventListener('input', function() {
-            skewYValue.textContent = `${this.value}°`;
-            updateDesignPositionFromControls();
-        });
-        
-        // Reset position button
-        resetPositionBtn.addEventListener('click', function() {
-            const selectedView = viewSelector.value;
+        // Update view selector dropdown with available views
+        function updateViewSelectorOptions() {
             const caseData = mockupData[currentCaseType];
+            if (!caseData) return;
             
-            // Reset only the selected view
-            const designs = getDesignElementsForView(selectedView);
-            designs.forEach(design => {
-                let viewData;
-                
-                if (selectedView.startsWith('main')) {
-                    const viewNum = selectedView.replace('main', '');
-                    viewData = caseData[`main${viewNum}`];
-                } else {
-                    viewData = caseData.views.find(v => v.id == selectedView);
+            // Clear existing options
+            viewSelector.innerHTML = '';
+            
+            // Add main views
+            for (let i = 1; i <= 3; i++) {
+                if (caseData[`main${i}`]) {
+                    const option = document.createElement('option');
+                    option.value = `main${i}`;
+                    option.textContent = `Main View ${i}`;
+                    viewSelector.appendChild(option);
                 }
+            }
+            
+            // Add secondary views
+            caseData.views.forEach(view => {
+                const option = document.createElement('option');
+                option.value = view.id;
+                option.textContent = `View ${view.id}`;
+                viewSelector.appendChild(option);
+            });
+        }
+
+        // Helper function to get the appropriate image class based on product type
+        function getImageClass(caseType) {
+            if (caseType.includes('phone') || caseType.includes('pixel') || caseType.includes('iphone')) {
+                return 'phone-case';
+            } else if (caseType.includes('plaque')) {
+                return 'plaque';
+            } else if (caseType.includes('airpods')) {
+                return 'airpods';
+            }
+            return 'phone-case'; // default
+        }
+
+        // Function to update original design position
+        function updateDesignPosition(designElement) {
+            const x = parseFloat(designElement.dataset.x) || 50;
+            const y = parseFloat(designElement.dataset.y) || 50;
+            const scale = parseFloat(designElement.dataset.scale) || 100;
+            const rotation = parseFloat(designElement.dataset.rotation) || 0;
+            const skewX = parseFloat(designElement.dataset.skewX) || 0;
+            const skewY = parseFloat(designElement.dataset.skewY) || 0;
+            
+            designElement.style.top = `${y}%`;
+            designElement.style.left = `${x}%`;
+            designElement.style.transform = `translate(-50%, -50%) 
+                                           scale(${scale/100}) 
+                                           rotate(${rotation}deg)
+                                           skew(${skewX}deg, ${skewY}deg)`;
+        }
+
+        // Function to update flipped design position
+        function updateFlippedDesignPosition(designElement) {
+            const x = parseFloat(designElement.dataset.x) || 50;
+            const y = parseFloat(designElement.dataset.y) || 50;
+            const scale = parseFloat(designElement.dataset.scale) || 100;
+            const rotation = parseFloat(designElement.dataset.rotation) || 0;
+            const skewX = parseFloat(designElement.dataset.skewX) || 0;
+            const skewY = parseFloat(designElement.dataset.skewY) || 0;
+            const flip = designElement.dataset.flip === 'true';
+            
+            designElement.style.top = `${y}%`;
+            designElement.style.left = `${x}%`;
+            
+            let transform = `translate(-50%, -50%) 
+                           scale(${scale/100}) 
+                           rotate(${rotation}deg)
+                           skew(${skewX}deg, ${skewY}deg)`;
+                           
+            if (flip) {
+                transform += ' scaleX(-1)';
+            }
+            
+            designElement.style.transform = transform;
+        }
+
+        // Update design position from control inputs
+        function updateDesignPositionFromControls() {
+            const selectedView = viewSelector.value;
+            const selectedLayer = layerSelector.value;
+            const x = parseFloat(positionX.value);
+            const y = parseFloat(positionY.value);
+            const scale = parseFloat(scaleInput.value);
+            const rotation = parseFloat(rotationInput.value);
+            const skewX = parseFloat(skewXInput.value);
+            const skewY = parseFloat(skewYInput.value);
+            
+            // Update only the selected view and layer
+            const designs = getDesignElementsForView(selectedView, selectedLayer);
+            designs.forEach(design => {
+                design.dataset.x = x;
+                design.dataset.y = y;
+                design.dataset.scale = scale;
+                design.dataset.rotation = rotation;
+                design.dataset.skewX = skewX;
+                design.dataset.skewY = skewY;
                 
-                if (viewData) {
-                    design.dataset.x = viewData.designX;
-                    design.dataset.y = viewData.designY;
-                    design.dataset.scale = viewData.designScale;
-                    design.dataset.rotation = viewData.designRotation;
-                    design.dataset.skewX = viewData.designSkewX || 0;
-                    design.dataset.skewY = viewData.designSkewY || 0;
+                if (selectedLayer === 'flipped') {
+                    updateFlippedDesignPosition(design);
+                } else {
                     updateDesignPosition(design);
                 }
             });
-            
-            // Update controls to reflect the reset values
-            updatePositioningControls();
-        });
+        }
 
-        // View selector change handler
-        viewSelector.addEventListener('change', function() {
-            updatePositioningControls();
-        });
-    }
-
-    // Set up collapsible sections
-    function setupCollapsibleSections() {
-        // Collapse/expand for template sections
-        document.querySelectorAll('.collapsible-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                this.classList.toggle('collapsed');
-                content.classList.toggle('collapsed');
-            });
-        });
-        
-        // Initially collapse all template categories except the first one
-        const templateCategories = document.querySelectorAll('.template-category');
-        templateCategories.forEach((category, index) => {
-            if (index !== 0) {
-                const header = category.querySelector('h3');
-                const content = header.nextElementSibling;
-                header.classList.add('collapsed');
-                content.classList.add('collapsed');
-            }
-        });
-    }
-
-    // Update all main mockups for a specific case type
-    function updateMainMockups(caseType) {
-        const caseData = mockupData[caseType];
-        if (!caseData) return;
-        
-        // Update all three main mockups
-        for (let i = 1; i <= 3; i++) {
-            const view = `main${i}`;
-            if (caseData[view]) {
-                const container = document.getElementById(`main-mockup-container-${i}`);
+        // Get design elements for a specific view and layer
+        function getDesignElementsForView(view, layer = 'original') {
+            if (view.startsWith('main')) {
+                const viewNum = view.replace('main', '');
+                const container = document.getElementById(`main-mockup-container-${viewNum}`);
                 if (container) {
-                    container.style.display = 'inline-block';
-                    
-                    // Clear the mockup container and recreate with correct classes
-                    container.innerHTML = '';
-                    
-                    const imageClass = getImageClass(caseType);
-                    const mainMockup = caseData[view];
-                    
-                    const bgImg = document.createElement('img');
-                    bgImg.className = `${imageClass}-bg`;
-                    bgImg.src = mainMockup.bg;
-                    bgImg.dataset.fullres = mainMockup.fullresBg;
-                    
-                    const designArea = document.createElement('div');
-                    designArea.className = 'design-area';
-                    const designImg = document.createElement('img');
-                    designImg.className = 'user-design';
-                    designImg.alt = '';
-                    designImg.dataset.x = mainMockup.designX;
-                    designImg.dataset.y = mainMockup.designY;
-                    designImg.dataset.scale = mainMockup.designScale;
-                    designImg.dataset.rotation = mainMockup.designRotation;
-                    designImg.dataset.skewX = mainMockup.designSkewX || 0;
-                    designImg.dataset.skewY = mainMockup.designSkewY || 0;
-                    designImg.style.display = uploadedImage.src ? 'block' : 'none';
-                    if (uploadedImage.src) {
-                        designImg.src = uploadedImage.src;
+                    if (layer === 'flipped') {
+                        return Array.from(container.querySelectorAll('.flipped-design'));
+                    } else {
+                        return Array.from(container.querySelectorAll('.user-design'));
                     }
-                    designArea.appendChild(designImg);
-                    
-                    const overlayImg = document.createElement('img');
-                    overlayImg.className = `${imageClass}-overlay`;
-                    overlayImg.src = mainMockup.overlay;
-                    overlayImg.dataset.fullres = mainMockup.fullresOverlay;
-                    
-                    // Add checkbox
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.className = 'carousel-checkbox';
-                    checkbox.id = `checkbox-${view}`;
-                    checkbox.dataset.view = view;
-                    checkbox.checked = true; // Default to checked
-                    
-                    const checkboxIndicator = document.createElement('div');
-                    checkboxIndicator.className = 'carousel-checkbox-indicator';
-                    
-                    container.appendChild(checkbox);
-                    container.appendChild(checkboxIndicator);
-                    container.appendChild(bgImg);
-                    container.appendChild(designArea);
-                    container.appendChild(overlayImg);
-                    
-                    // Update design position if image is already uploaded
-                    if (uploadedImage.src) {
-                        updateDesignPosition(designImg);
-                    }
-                    
-                    // Add checkbox event listener
-                    checkbox.addEventListener('change', function() {
-                        container.classList.toggle('selected', this.checked);
-                    });
+                }
+            } else {
+                const gridItem = document.querySelector(`.grid-item[data-view="${view}"]`);
+                if (gridItem) {
+                    return Array.from(gridItem.querySelectorAll('.user-design'));
                 }
             }
+            return [];
         }
-    }
 
-    // Initialize grid for a specific case type
-    function initializeGrid(caseType) {
-        gridContainer.innerHTML = '';
-        
-        const caseData = mockupData[caseType];
-        if (!caseData) return;
-        
-        caseData.views.forEach(view => {
-            const gridItem = document.createElement('div');
-            gridItem.className = 'grid-item';
-            gridItem.dataset.view = view.id;
+        // Update positioning controls with current values for the selected view and layer
+        function updatePositioningControls() {
+            const selectedView = viewSelector.value;
+            const selectedLayer = layerSelector.value;
             
-            const bgPath = view.bg;
-            const overlayPath = view.overlay;
-            const fullresBgPath = view.fullresBg;
-            const fullresOverlayPath = view.fullresOverlay;
-            
-            gridItem.innerHTML = `
-                <div class="secondary-mockup">
-                    <input type="checkbox" class="carousel-checkbox" id="checkbox-${view.id}" data-view="${view.id}">
-                    <div class="carousel-checkbox-indicator"></div>
-                    <img class="${getImageClass(caseType)}-bg" src="${bgPath}" data-fullres="${fullresBgPath}">
-                    <div class="design-area">
-                        <img class="user-design" src="${uploadedImage.src || ''}" alt="" 
-                             data-x="${view.designX}" data-y="${view.designY}" 
-                             data-scale="${view.designScale}" data-rotation="${view.designRotation}"
-                             data-skew-x="${view.designSkewX || 0}" data-skew-y="${view.designSkewY || 0}"
-                             style="display: ${uploadedImage.src ? 'block' : 'none'}">
-                    </div>
-                    <img class="${getImageClass(caseType)}-overlay" src="${overlayPath}" data-fullres="${fullresOverlayPath}">
-                </div>
-                <div class="mockup-label">View ${view.id}</div>
-            `;
-            
-            gridContainer.appendChild(gridItem);
-            
-            // Update design position if image is already uploaded
-            if (uploadedImage.src) {
-                const design = gridItem.querySelector('.user-design');
-                updateDesignPosition(design);
+            const designs = getDesignElementsForView(selectedView, selectedLayer);
+            if (designs.length > 0) {
+                const design = designs[0];
+                positionX.value = design.dataset.x || 50;
+                positionY.value = design.dataset.y || 50;
+                scaleInput.value = design.dataset.scale || 100;
+                rotationInput.value = design.dataset.rotation || 0;
+                skewXInput.value = design.dataset.skewX || 0;
+                skewYInput.value = design.dataset.skewY || 0;
+                
+                // Update the displayed values
+                positionXValue.textContent = `${positionX.value}%`;
+                positionYValue.textContent = `${positionY.value}%`;
+                scaleValue.textContent = `${scaleInput.value}%`;
+                rotationValue.textContent = `${rotationInput.value}°`;
+                skewXValue.textContent = `${skewXInput.value}°`;
+                skewYValue.textContent = `${skewYInput.value}°`;
             }
+        }
+
+        // Generate mockup image with caching
+        async function generateMockupImage(container) {
+            if (!container) return;
             
-            // Add click handler for the entire grid item
-            gridItem.addEventListener('click', function(e) {
-                // Don't toggle if clicking directly on the checkbox (it will handle itself)
-                if (e.target.classList.contains('carousel-checkbox')) {
-                    return;
+            const cacheKey = `${container.id}-${uploadedImage.src}`;
+            if (mockupCache.has(cacheKey)) {
+                return mockupCache.get(cacheKey);
+            }
+
+            showLoading("Generating mockup...");
+            
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = 2000;
+                canvas.height = 2000;
+                const ctx = canvas.getContext('2d');
+
+                // Load high-res originals for download
+                const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg');
+                const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay');
+                
+                if (!bgElement || !overlayElement) {
+                    throw new Error("Could not find required elements for mockup generation");
                 }
                 
-                const checkbox = this.querySelector('.carousel-checkbox');
-                if (checkbox) {
-                    checkbox.checked = !checkbox.checked;
-                    this.classList.toggle('selected', checkbox.checked);
-                    
-                    // Trigger change event manually since we're changing checked state programmatically
-                    const event = new Event('change');
-                    checkbox.dispatchEvent(event);
+                const bgSrc = bgElement.dataset.fullres;
+                const overlaySrc = overlayElement.dataset.fullres;
+                
+                const [bg, overlay] = await Promise.all([
+                    loadImage(bgSrc),
+                    loadImage(overlaySrc)
+                ]);
+
+                // Draw background
+                ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+                
+                // Draw design if uploaded
+                if (uploadedImage.src) {
+                    try {
+                        const design = await loadImage(uploadedImage.src);
+                        
+                        // Draw original design
+                        const designElement = container.querySelector('.user-design');
+                        if (designElement && designElement.style.display !== 'none') {
+                            const x = parseFloat(designElement.dataset.x) || 50;
+                            const y = parseFloat(designElement.dataset.y) || 50;
+                            const scale = parseFloat(designElement.dataset.scale) || 100;
+                            const rotation = parseFloat(designElement.dataset.rotation) || 0;
+                            const skewX = parseFloat(designElement.dataset.skewX) || 0;
+                            const skewY = parseFloat(designElement.dataset.skewY) || 0;
+                            
+                            const designScale = Math.min(
+                                canvas.width / design.width,
+                                canvas.height / design.height
+                            ) * (scale / 100);
+                            
+                            const width = design.width * designScale;
+                            const height = design.height * designScale;
+                            
+                            // Calculate position based on percentage values
+                            const posX = (canvas.width * x / 100) - (width / 2);
+                            const posY = (canvas.height * y / 100) - (height / 2);
+                            
+                            // Save context, rotate, then draw image
+                            ctx.save();
+                            ctx.translate(posX + width/2, posY + height/2);
+                            ctx.rotate(rotation * Math.PI / 180);
+                            // Apply skew transformation
+                            const skewXRad = skewX * Math.PI / 180;
+                            const skewYRad = skewY * Math.PI / 180;
+                            ctx.transform(1, Math.tan(skewYRad), Math.tan(skewXRad), 1, 0, 0);
+                            ctx.drawImage(design, -width/2, -height/2, width, height);
+                            ctx.restore();
+                        }
+                        
+                        // Draw flipped design (if exists)
+                        const flippedDesignElement = container.querySelector('.flipped-design');
+                        if (flippedDesignElement && flippedDesignElement.style.display !== 'none') {
+                            const x = parseFloat(flippedDesignElement.dataset.x) || 50;
+                            const y = parseFloat(flippedDesignElement.dataset.y) || 50;
+                            const scale = parseFloat(flippedDesignElement.dataset.scale) || 100;
+                            const rotation = parseFloat(flippedDesignElement.dataset.rotation) || 0;
+                            const skewX = parseFloat(flippedDesignElement.dataset.skewX) || 0;
+                            const skewY = parseFloat(flippedDesignElement.dataset.skewY) || 0;
+                            const flip = flippedDesignElement.dataset.flip === 'true';
+                            
+                            const designScale = Math.min(
+                                canvas.width / design.width,
+                                canvas.height / design.height
+                            ) * (scale / 100);
+                            
+                            const width = design.width * designScale;
+                            const height = design.height * designScale;
+                            
+                            // Calculate position based on percentage values
+                            const posX = (canvas.width * x / 100) - (width / 2);
+                            const posY = (canvas.height * y / 100) - (height / 2);
+                            
+                            // Save context, rotate, then draw image
+                            ctx.save();
+                            ctx.translate(posX + width/2, posY + height/2);
+                            ctx.rotate(rotation * Math.PI / 180);
+                            // Apply skew transformation
+                            const skewXRad = skewX * Math.PI / 180;
+                            const skewYRad = skewY * Math.PI / 180;
+                            ctx.transform(1, Math.tan(skewYRad), Math.tan(skewXRad), 1, 0, 0);
+                            if (flip) {
+                                ctx.scale(-1, 1);
+                            }
+                            ctx.drawImage(design, -width/2, -height/2, width, height);
+                            ctx.restore();
+                        }
+                    } catch (e) {
+                        console.warn("Design image not loaded:", e.message);
+                    }
                 }
+                
+                // Draw overlay
+                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
+                
+                mockupCache.set(cacheKey, canvas);
+                return canvas;
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Helper functions
+        function loadImage(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+                img.src = src;
             });
-            
-            // Add change handler for the checkbox
-            const checkbox = gridItem.querySelector('.carousel-checkbox');
-            checkbox.addEventListener('change', function() {
-                gridItem.classList.toggle('selected', this.checked);
+        }
+        
+        function canvasToBlob(canvas) {
+            return new Promise(resolve => {
+                canvas.toBlob(blob => {
+                    resolve(blob);
+                }, 'image/png', 0.95);
             });
-        });
-        
-        // Update view selector options
-        updateViewSelectorOptions();
-    }
-
-    // Update view selector dropdown with available views
-    function updateViewSelectorOptions() {
-        const caseData = mockupData[currentCaseType];
-        if (!caseData) return;
-        
-        // Clear existing options
-        viewSelector.innerHTML = '';
-        
-        // Add main views
-        for (let i = 1; i <= 3; i++) {
-            if (caseData[`main${i}`]) {
-                const option = document.createElement('option');
-                option.value = `main${i}`;
-                option.textContent = `Main View ${i}`;
-                viewSelector.appendChild(option);
-            }
         }
         
-        // Add secondary views
-        caseData.views.forEach(view => {
-            const option = document.createElement('option');
-            option.value = view.id;
-            option.textContent = `View ${view.id}`;
-            viewSelector.appendChild(option);
-        });
-    }
-
-    // Helper function to get the appropriate image class based on product type
-    function getImageClass(caseType) {
-        if (caseType.includes('phone') || caseType.includes('pixel') || caseType.includes('iphone')) {
-            return 'phone-case';
-        } else if (caseType.includes('plaque')) {
-            return 'plaque';
-        } else if (caseType.includes('airpods')) {
-            return 'airpods';
+        function downloadBlob(blob, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = URL.createObjectURL(blob);
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+                URL.revokeObjectURL(link.href);
+                link.remove();
+            }, 100);
         }
-        return 'phone-case'; // default
-    }
-
-    // Function to update design position based on data attributes
-    function updateDesignPosition(designElement) {
-        const x = parseFloat(designElement.dataset.x) || 50;
-        const y = parseFloat(designElement.dataset.y) || 50;
-        const scale = parseFloat(designElement.dataset.scale) || 100;
-        const rotation = parseFloat(designElement.dataset.rotation) || 0;
-        const skewX = parseFloat(designElement.dataset.skewX) || 0;
-        const skewY = parseFloat(designElement.dataset.skewY) || 0;
         
-        designElement.style.top = `${y}%`;
-        designElement.style.left = `${x}%`;
-        designElement.style.transform = `translate(-50%, -50%) 
-                                       scale(${scale/100}) 
-                                       rotate(${rotation}deg)
-                                       skew(${skewX}deg, ${skewY}deg)`;
-    }
-
-    // Update design position from control inputs
-    function updateDesignPositionFromControls() {
-        const selectedView = viewSelector.value;
-        const x = parseFloat(positionX.value);
-        const y = parseFloat(positionY.value);
-        const scale = parseFloat(scaleInput.value);
-        const rotation = parseFloat(rotationInput.value);
-        const skewX = parseFloat(skewXInput.value);
-        const skewY = parseFloat(skewYInput.value);
-        
-        // Update only the selected view
-        const designs = getDesignElementsForView(selectedView);
-        designs.forEach(design => {
-            design.dataset.x = x;
-            design.dataset.y = y;
-            design.dataset.scale = scale;
-            design.dataset.rotation = rotation;
-            design.dataset.skewX = skewX;
-            design.dataset.skewY = skewY;
-            updateDesignPosition(design);
-        });
-    }
-
-    // Get design elements for a specific view
-    function getDesignElementsForView(view) {
-        if (view.startsWith('main')) {
-            const viewNum = view.replace('main', '');
-            const container = document.getElementById(`main-mockup-container-${viewNum}`);
-            if (container) {
-                return Array.from(container.querySelectorAll('.user-design'));
-            }
-        } else {
-            const gridItem = document.querySelector(`.grid-item[data-view="${view}"]`);
-            if (gridItem) {
-                return Array.from(gridItem.querySelectorAll('.user-design'));
-            }
+        function showLoading(message = "Processing...") {
+            loadingElement.innerHTML = `
+                <div class="spinner"></div>
+                <div>${message}</div>
+            `;
+            loadingElement.style.display = 'flex';
         }
-        return [];
-    }
-
-    // Update positioning controls with current values for the selected view
-    function updatePositioningControls() {
-        const selectedView = viewSelector.value;
         
-        const designs = getDesignElementsForView(selectedView);
-        if (designs.length > 0) {
-            const design = designs[0];
-            positionX.value = design.dataset.x || 50;
-            positionY.value = design.dataset.y || 50;
-            scaleInput.value = design.dataset.scale || 100;
-            rotationInput.value = design.dataset.rotation || 0;
-            skewXInput.value = design.dataset.skewX || 0;
-            skewYInput.value = design.dataset.skewY || 0;
-            
-            // Update the displayed values
-            positionXValue.textContent = `${positionX.value}%`;
-            positionYValue.textContent = `${positionY.value}%`;
-            scaleValue.textContent = `${scaleInput.value}%`;
-            rotationValue.textContent = `${rotationInput.value}°`;
-            skewXValue.textContent = `${skewXInput.value}°`;
-            skewYValue.textContent = `${skewYInput.value}°`;
+        function hideLoading() {
+            loadingElement.style.display = 'none';
         }
-    }
-
-    // Generate mockup image with caching
-    async function generateMockupImage(container) {
-        if (!container) return;
-        
-        const cacheKey = `${container.id}-${uploadedImage.src}`;
-        if (mockupCache.has(cacheKey)) {
-            return mockupCache.get(cacheKey);
-        }
-
-        showLoading("Generating mockup...");
-        
-        try {
-            const canvas = document.createElement('canvas');
-            canvas.width = 2000;
-            canvas.height = 2000;
-            const ctx = canvas.getContext('2d');
-
-            // Load high-res originals for download
-            const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg');
-            const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay');
-            
-            if (!bgElement || !overlayElement) {
-                throw new Error("Could not find required elements for mockup generation");
-            }
-            
-            const bgSrc = bgElement.dataset.fullres;
-            const overlaySrc = overlayElement.dataset.fullres;
-            
-            const [bg, overlay] = await Promise.all([
-                loadImage(bgSrc),
-                loadImage(overlaySrc)
-            ]);
-
-            // Draw background
-            ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-            
-            // Draw design if uploaded
-            if (uploadedImage.src) {
-                try {
-                    const design = await loadImage(uploadedImage.src);
-                    const designElement = container.querySelector('.user-design');
-                    const x = parseFloat(designElement.dataset.x) || 50;
-                    const y = parseFloat(designElement.dataset.y) || 50;
-                    const scale = parseFloat(designElement.dataset.scale) || 100;
-                    const rotation = parseFloat(designElement.dataset.rotation) || 0;
-                    const skewX = parseFloat(designElement.dataset.skewX) || 0;
-                    const skewY = parseFloat(designElement.dataset.skewY) || 0;
-                    
-                    const designScale = Math.min(
-                        canvas.width / design.width,
-                        canvas.height / design.height
-                    ) * (scale / 100);
-                    
-                    const width = design.width * designScale;
-                    const height = design.height * designScale;
-                    
-                    // Calculate position based on percentage values
-                    const posX = (canvas.width * x / 100) - (width / 2);
-                    const posY = (canvas.height * y / 100) - (height / 2);
-                    
-                    // Save context, rotate, then draw image
-                    ctx.save();
-                    ctx.translate(posX + width/2, posY + height/2);
-                    ctx.rotate(rotation * Math.PI / 180);
-                    // Apply skew transformation
-                    const skewXRad = skewX * Math.PI / 180;
-                    const skewYRad = skewY * Math.PI / 180;
-                    ctx.transform(1, Math.tan(skewYRad), Math.tan(skewXRad), 1, 0, 0);
-                    ctx.drawImage(design, -width/2, -height/2, width, height);
-                    ctx.restore();
-                } catch (e) {
-                    console.warn("Design image not loaded:", e.message);
-                }
-            }
-            
-            // Draw overlay
-            ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-            
-            mockupCache.set(cacheKey, canvas);
-            return canvas;
-        } finally {
-            hideLoading();
-        }
-    }
-
-    // Helper functions
-    function loadImage(src) {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
-            img.src = src;
-        });
-    }
-    
-    function canvasToBlob(canvas) {
-        return new Promise(resolve => {
-            canvas.toBlob(blob => {
-                resolve(blob);
-            }, 'image/png', 0.95);
-        });
-    }
-    
-    function downloadBlob(blob, filename) {
-        const link = document.createElement('a');
-        link.download = filename;
-        link.href = URL.createObjectURL(blob);
-        document.body.appendChild(link);
-        link.click();
-        setTimeout(() => {
-            URL.revokeObjectURL(link.href);
-            link.remove();
-        }, 100);
-    }
-    
-    function showLoading(message = "Processing...") {
-        loadingElement.innerHTML = `
-            <div class="spinner"></div>
-            <div>${message}</div>
-        `;
-        loadingElement.style.display = 'flex';
-    }
-    
-    function hideLoading() {
-        loadingElement.style.display = 'none';
-    }
-</script>
+    </script>
 </body>
 </html>
