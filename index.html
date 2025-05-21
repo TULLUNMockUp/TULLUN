@@ -852,11 +852,12 @@
             </section>
             
             <!-- Product Category Selection -->
-            <div class="product-category-container">
-                <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
-                <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
-                <a href="#" class="product-category-link" data-category="airpods-cases">AirPods Cases</a>
-            </div>
+   <div class="product-category-container">
+    <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
+    <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
+    <a href="#" class="product-category-link" data-category="airpods-cases">AirPods Cases</a>
+    <a href="#" class="product-category-link" data-category="whiskey-glasses">Whiskey Glasses</a>
+</div>
             
             <!-- Product Type Selection (initially hidden) -->
             <div id="phone-cases-types" class="product-type-container">
@@ -880,6 +881,12 @@
             <div id="airpods-cases-types" class="product-type-container">
                 <a href="#" class="product-type-link" data-case="airpods-cases">AirPods Cases</a>
             </div>
+
+            <!-- Whiskey Glasses Type Selection -->
+    <div id="whiskey-glasses-types" class="product-type-container">
+    <a href="#" class="product-type-link" data-case="round-glasses">Round Glasses</a>
+    <a href="#" class="product-type-link" data-case="square-glasses">Square Glasses</a>
+        </div>
         </section>
         
         <!-- Controls Section (initially hidden) -->
@@ -1050,6 +1057,7 @@
         const plaquesTypes = document.getElementById('plaques-types');
         const airpodsCasesTypes = document.getElementById('airpods-cases-types');
         const gridContainer = document.querySelector('.grid-container');
+        const whiskeyGlassesTypes = document.getElementById('whiskey-glasses-types');
         
         // Positioning controls
         const viewSelector = document.getElementById('view-selector');
@@ -1677,8 +1685,92 @@
                 { id: 8, bg: 'mockups/airpods/airpods-view8.png', overlay: 'mockups/airpods/airpods-view8-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view8.png', fullresOverlay: 'mockups/airpods/originals/airpods-view8-overlay.png', designX: 50, designY: 61, designScale: 34, designRotation: 0, designSkewX: 0, designSkewY: 0 },
                 { id: 9, bg: 'mockups/airpods/airpods-view9.png', overlay: 'mockups/airpods/airpods-view9-overlay.png', fullresBg: 'mockups/airpods/originals/airpods-view9.png', fullresOverlay: 'mockups/airpods/originals/airpods-view9-overlay.png', designX: 50, designY: 55, designScale: 36, designRotation: 0, designSkewX: 0, designSkewY: 0 }
                 ]
-            }
-        };
+            },
+           'round-glasses': {
+        name: "Round Whiskey Glasses",
+        main1: {
+            bg: 'mockups/whiskey-glasses/round-main.png',
+            overlay: 'mockups/whiskey-glasses/round-overlay.png',
+            fullresBg: 'mockups/whiskey-glasses/originals/round-main.png',
+            fullresOverlay: 'mockups/whiskey-glasses/originals/round-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 80,
+            designRotation: 0,
+            designSkewX: 0,
+            designSkewY: 0
+        },
+        main2: {
+            bg: 'mockups/whiskey-glasses/round-main2.png',
+            overlay: 'mockups/whiskey-glasses/round-overlay2.png',
+            fullresBg: 'mockups/whiskey-glasses/originals/round-main2.png',
+            fullresOverlay: 'mockups/whiskey-glasses/originals/round-overlay2.png',
+            designX: 50,
+            designY: 50,
+            designScale: 80,
+            designRotation: 0,
+            designSkewX: 0,
+            designSkewY: 0
+        },
+        main3: {
+            bg: 'mockups/whiskey-glasses/round-main3.png',
+            overlay: 'mockups/whiskey-glasses/round-overlay3.png',
+            fullresBg: 'mockups/whiskey-glasses/originals/round-main3.png',
+            fullresOverlay: 'mockups/whiskey-glasses/originals/round-overlay3.png',
+            designX: 50,
+            designY: 50,
+            designScale: 80,
+            designRotation: 0,
+            designSkewX: 0,
+            designSkewY: 0
+        },
+        views: [
+            { id: 1, bg: 'mockups/whiskey-glasses/round-view1.png', overlay: 'mockups/whiskey-glasses/round-view1-overlay.png', fullresBg: 'mockups/whiskey-glasses/originals/round-view1.png', fullresOverlay: 'mockups/whiskey-glasses/originals/round-view1-overlay.png', designX: 50, designY: 50, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+        ]
+    },
+    'square-glasses': {
+        name: "Square Whiskey Glasses",
+        main1: {
+            bg: 'mockups/whiskey-glasses/square-main.png',
+            overlay: 'mockups/whiskey-glasses/square-overlay.png',
+            fullresBg: 'mockups/whiskey-glasses/originals/square-main.png',
+            fullresOverlay: 'mockups/whiskey-glasses/originals/square-overlay.png',
+            designX: 50,
+            designY: 50,
+            designScale: 80,
+            designRotation: 0,
+            designSkewX: 0,
+            designSkewY: 0
+        },
+        main2: {
+            bg: 'mockups/whiskey-glasses/square-main2.png',
+            overlay: 'mockups/whiskey-glasses/square-overlay2.png',
+            fullresBg: 'mockups/whiskey-glasses/originals/square-main2.png',
+            fullresOverlay: 'mockups/whiskey-glasses/originals/square-overlay2.png',
+            designX: 50,
+            designY: 50,
+            designScale: 80,
+            designRotation: 0,
+            designSkewX: 0,
+            designSkewY: 0
+        },
+        main3: {
+            bg: 'mockups/whiskey-glasses/square-main3.png',
+            overlay: 'mockups/whiskey-glasses/square-overlay3.png',
+            fullresBg: 'mockups/whiskey-glasses/originals/square-main3.png',
+            fullresOverlay: 'mockups/whiskey-glasses/originals/square-overlay3.png',
+            designX: 50,
+            designY: 50,
+            designScale: 80,
+            designRotation: 0,
+            designSkewX: 0,
+            designSkewY: 0
+        },
+        views: [
+            { id: 1, bg: 'mockups/whiskey-glasses/square-view1.png', overlay: 'mockups/whiskey-glasses/square-view1-overlay.png', fullresBg: 'mockups/whiskey-glasses/originals/square-view1.png', fullresOverlay: 'mockups/whiskey-glasses/originals/square-view1-overlay.png', designX: 50, designY: 50, designScale: 70, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+        ]
+    }
+};
 
         document.addEventListener('DOMContentLoaded', function() {
             // Set up event listeners
@@ -1699,64 +1791,77 @@
 
         // Set up all event listeners
         function setupEventListeners() {
-            // Product category selection
-            productCategoryLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Update active category link
-                    productCategoryLinks.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const category = this.dataset.category;
-                    
-                    // Show/hide product type selection based on category
-                    phoneCasesTypes.style.display = 'none';
-                    plaquesTypes.style.display = 'none';
-                    airpodsCasesTypes.style.display = 'none';
-                    
-                    if (category === 'phone-cases') {
-                        phoneCasesTypes.style.display = 'flex';
-                        controlsSection.style.display = 'block';
-                        positionControls.style.display = 'block';
-                        mainMockupsWrapper.style.display = 'block';
-                        gridWrapper.style.display = 'block';
-                        
-                        // Initialize the grid for the default case type
-                        initializeGrid(currentCaseType);
-                    } 
-                    else if (category === 'plaques') {
-                        plaquesTypes.style.display = 'flex';
-                        controlsSection.style.display = 'block';
-                        positionControls.style.display = 'block';
-                        mainMockupsWrapper.style.display = 'block';
-                        gridWrapper.style.display = 'block';
-                        
-                        // Initialize with first plaque type
-                        currentCaseType = 'slate-plaque-10x10';
-                        updateMainMockups(currentCaseType);
-                        initializeGrid(currentCaseType);
-                    }
-                    else if (category === 'airpods-cases') {
-                        airpodsCasesTypes.style.display = 'flex';
-                        controlsSection.style.display = 'block';
-                        positionControls.style.display = 'block';
-                        mainMockupsWrapper.style.display = 'block';
-                        gridWrapper.style.display = 'block';
-                        
-                        // Initialize with AirPods case type
-                        currentCaseType = 'airpods-cases';
-                        updateMainMockups(currentCaseType);
-                        initializeGrid(currentCaseType);
-                    }
-                    
-                    // Show selected product section
-                    document.querySelectorAll('.product-section').forEach(section => {
-                        section.classList.remove('active');
-                    });
-                    document.getElementById(category).classList.add('active');
-                });
-            });
+// Product category selection
+productCategoryLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Update active category link
+        productCategoryLinks.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.dataset.category;
+        
+        // Show/hide product type selection based on category
+        phoneCasesTypes.style.display = 'none';
+        plaquesTypes.style.display = 'none';
+        airpodsCasesTypes.style.display = 'none';
+        whiskeyGlassesTypes.style.display = 'none';
+        
+        if (category === 'phone-cases') {
+            phoneCasesTypes.style.display = 'flex';
+            controlsSection.style.display = 'block';
+            positionControls.style.display = 'block';
+            mainMockupsWrapper.style.display = 'block';
+            gridWrapper.style.display = 'block';
+            
+            // Initialize the grid for the default case type
+            initializeGrid(currentCaseType);
+        } 
+        else if (category === 'plaques') {
+            plaquesTypes.style.display = 'flex';
+            controlsSection.style.display = 'block';
+            positionControls.style.display = 'block';
+            mainMockupsWrapper.style.display = 'block';
+            gridWrapper.style.display = 'block';
+            
+            // Initialize with first plaque type
+            currentCaseType = 'slate-plaque-10x10';
+            updateMainMockups(currentCaseType);
+            initializeGrid(currentCaseType);
+        }
+        else if (category === 'airpods-cases') {
+            airpodsCasesTypes.style.display = 'flex';
+            controlsSection.style.display = 'block';
+            positionControls.style.display = 'block';
+            mainMockupsWrapper.style.display = 'block';
+            gridWrapper.style.display = 'block';
+            
+            // Initialize with AirPods case type
+            currentCaseType = 'airpods-cases';
+            updateMainMockups(currentCaseType);
+            initializeGrid(currentCaseType);
+        }
+        else if (category === 'whiskey-glasses') {
+            whiskeyGlassesTypes.style.display = 'flex';
+            controlsSection.style.display = 'block';
+            positionControls.style.display = 'block';
+            mainMockupsWrapper.style.display = 'block';
+            gridWrapper.style.display = 'block';
+            
+            // Initialize with first whiskey glass type
+            currentCaseType = 'round-glasses';
+            updateMainMockups(currentCaseType);
+            initializeGrid(currentCaseType);
+        }
+        
+        // Show selected product section
+        document.querySelectorAll('.product-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(category).classList.add('active');
+    });
+});
 
             // Product type click handler
             productTypeLinks.forEach(link => {
@@ -2316,16 +2421,18 @@
         }
 
         // Helper function to get the appropriate image class based on product type
-        function getImageClass(caseType) {
-            if (caseType.includes('phone') || caseType.includes('pixel') || caseType.includes('iphone')) {
-                return 'phone-case';
-            } else if (caseType.includes('plaque')) {
-                return 'plaque';
-            } else if (caseType.includes('airpods')) {
-                return 'airpods';
-            }
-            return 'phone-case'; // default
-        }
+function getImageClass(caseType) {
+    if (caseType.includes('phone') || caseType.includes('pixel') || caseType.includes('iphone')) {
+        return 'phone-case';
+    } else if (caseType.includes('plaque')) {
+        return 'plaque';
+    } else if (caseType.includes('airpods')) {
+        return 'airpods';
+    } else if (caseType.includes('glasses')) {
+        return 'whiskey-glass';
+    }
+    return 'phone-case'; // default
+}
 
         // Function to update original design position
         function updateDesignPosition(designElement) {
