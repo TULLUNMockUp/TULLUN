@@ -333,7 +333,7 @@
             vertical-align: top;
         }
         
-        .phone-case-bg, .phone-case-overlay, .tshirt-bg, .bag-bg, .plaque-bg, .plaque-overlay, .airpods-bg, .airpods-overlay, .whiskey-glasses-bg, .whiskey-glasses-overlay {
+        .phone-case-bg, .phone-case-overlay, .tshirt-bg, .bag-bg, .plaque-bg, .plaque-overlay, .airpods-bg, .airpods-overlay, .glasses-bg, .glasses-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -341,7 +341,7 @@
             height: auto;
         }
         
-        .phone-case-bg, .tshirt-bg, .bag-bg, .plaque-bg, .airpods-bg, .whiskey-glasses-bg {
+        .phone-case-bg, .tshirt-bg, .bag-bg, .plaque-bg, .airpods-bg, .glasses-bg {
             z-index: 1;
         }
         
@@ -373,7 +373,7 @@
             z-index: 3;
         }
 
-        .phone-case-overlay, .tshirt-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay, .whiskey-glasses-overlay {
+        .phone-case-overlay, .tshirt-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay, .glasses-overlay {
             z-index: 4;
             pointer-events: none;
         }
@@ -427,8 +427,8 @@
         .grid-item .plaque-overlay,
         .grid-item .airpods-bg,
         .grid-item .airpods-overlay
-        .grid-item .whiskey-glasses-bg,
-        .grid-item .whiskey-glasses-overlay {
+        .grid-item .glasses-bg,
+        .grid-item .glasses-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -445,7 +445,7 @@
         .grid-item .bag-overlay,
         .grid-item .plaque-overlay,
         .grid-item .airpods-overlay
-        .grid-item .whiskey-glasses-overlay {
+        .grid-item .glasses-overlay {
             z-index: 3;
         }
         
@@ -2452,7 +2452,7 @@ function getImageClass(caseType) {
     } else if (caseType.includes('airpods')) {
         return 'airpods';
     } else if (caseType.includes('glasses')) {
-        return 'whiskey-glass';
+        return 'glasses';
     }
     return 'phone-case'; // default
 }
