@@ -2592,8 +2592,8 @@ function getImageClass(caseType) {
                 const ctx = canvas.getContext('2d');
 
                 // Load high-res originals for download
-                const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg');
-                const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay');
+                const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg, .glasses-bg');
+                const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay, .glasses-overlay');
                 
                 if (!bgElement || !overlayElement) {
                     throw new Error("Could not find required elements for mockup generation");
