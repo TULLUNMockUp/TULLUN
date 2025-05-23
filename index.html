@@ -377,6 +377,17 @@
             z-index: 4;
             pointer-events: none;
         }
+
+        .user-design.engraved {
+    filter: grayscale(100%) brightness(1.2) contrast(0.8);
+    mix-blend-mode: multiply;
+    opacity: 0.9;
+}
+
+.glasses-overlay {
+    background-color: rgba(200, 200, 200, 0.3);
+    z-index: 5;
+}
         
         /* Grid View */
         .grid-wrapper {
@@ -2458,46 +2469,60 @@ function getImageClass(caseType) {
 }
 
         // Function to update original design position
-        function updateDesignPosition(designElement) {
-            const x = parseFloat(designElement.dataset.x) || 50;
-            const y = parseFloat(designElement.dataset.y) || 50;
-            const scale = parseFloat(designElement.dataset.scale) || 100;
-            const rotation = parseFloat(designElement.dataset.rotation) || 0;
-            const skewX = parseFloat(designElement.dataset.skewX) || 0;
-            const skewY = parseFloat(designElement.dataset.skewY) || 0;
-            
-            designElement.style.top = `${y}%`;
-            designElement.style.left = `${x}%`;
-            designElement.style.transform = `translate(-50%, -50%) 
-                                           scale(${scale/100}) 
-                                           rotate(${rotation}deg)
-                                           skew(${skewX}deg, ${skewY}deg)`;
-        }
-
+function updateDesignPosition(designElement) {
+    const x = parseFloat(designElement.dataset.x) || 50;
+    const y = parseFloat(designElement.dataset.y) || 50;
+    const scale = parseFloat(designElement.dataset.scale) || 100;
+    const rotation = parseFloat(designElement.dataset.rotation) || 0;
+    const skewX = parseFloat(designElement.dataset.skewX) || 0;
+    const skewY = parseFloat(designElement.dataset.skewY) || 0;
+    
+    // Add engraved effect for whiskey glasses
+    if (currentCaseType.includes('glasses')) {
+        designElement.classList.add('engraved');
+    } else {
+        designElement.classList.remove('engraved');
+    }
+    
+    designElement.style.top = `${y}%`;
+    designElement.style.left = `${x}%`;
+    designElement.style.transform = `translate(-50%, -50%) 
+                                   scale(${scale/100}) 
+                                   rotate(${rotation}deg)
+                                   skew(${skewX}deg, ${skewY}deg)`;
+}
+        
         // Function to update flipped design position
-        function updateFlippedDesignPosition(designElement) {
-            const x = parseFloat(designElement.dataset.x) || 50;
-            const y = parseFloat(designElement.dataset.y) || 50;
-            const scale = parseFloat(designElement.dataset.scale) || 100;
-            const rotation = parseFloat(designElement.dataset.rotation) || 0;
-            const skewX = parseFloat(designElement.dataset.skewX) || 0;
-            const skewY = parseFloat(designElement.dataset.skewY) || 0;
-            const flip = designElement.dataset.flip === 'true';
-            
-            designElement.style.top = `${y}%`;
-            designElement.style.left = `${x}%`;
-            
-            let transform = `translate(-50%, -50%) 
-                           scale(${scale/100}) 
-                           rotate(${rotation}deg)
-                           skew(${skewX}deg, ${skewY}deg)`;
-                           
-            if (flip) {
-                transform += ' scaleX(-1)';
-            }
-            
-            designElement.style.transform = transform;
-        }
+function updateFlippedDesignPosition(designElement) {
+    const x = parseFloat(designElement.dataset.x) || 50;
+    const y = parseFloat(designElement.dataset.y) || 50;
+    const scale = parseFloat(designElement.dataset.scale) || 100;
+    const rotation = parseFloat(designElement.dataset.rotation) || 0;
+    const skewX = parseFloat(designElement.dataset.skewX) || 0;
+    const skewY = parseFloat(designElement.dataset.skewY) || 0;
+    const flip = designElement.dataset.flip === 'true';
+    
+    // Add engraved effect for whiskey glasses
+    if (currentCaseType.includes('glasses')) {
+        designElement.classList.add('engraved');
+    } else {
+        designElement.classList.remove('engraved');
+    }
+    
+    designElement.style.top = `${y}%`;
+    designElement.style.left = `${x}%`;
+    
+    let transform = `translate(-50%, -50%) 
+                   scale(${scale/100}) 
+                   rotate(${rotation}deg)
+                   skew(${skewX}deg, ${skewY}deg)`;
+                   
+    if (flip) {
+        transform += ' scaleX(-1)';
+    }
+    
+    designElement.style.transform = transform;
+}
 
         // Update design position from control inputs
         function updateDesignPositionFromControls() {
