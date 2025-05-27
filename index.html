@@ -2060,71 +2060,74 @@ productCategoryLinks.forEach(link => {
             });
 
             // Download selected mockups as ZIP
-downloadZipBtn.addEventListener('click', async function() {
-    if (!uploadedImage.src) {
-        alert('Please upload an image first');
-        return;
-    }
+            downloadZipBtn.addEventListener('click', async function() {
+                if (!uploadedImage.src) {
+                    alert('Please upload an image first');
+                    return;
+                }
 
-    // Check if at least one view is selected (main or secondary)
-    const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
-    
-    if (checkedItems.length === 0) {
-        alert('Please select at least one mockup view to download');
-        return;
-    }
-
-    showLoading("Preparing ZIP file...");
-    
-    try {
-        const zip = new JSZip();
-        const caseData = mockupData[currentCaseType];
-        const promises = [];
-        
-        // Process all selected items
-        for (const item of checkedItems) {
-            const viewNumber = item.dataset.view;
-            
-            promises.push((async () => {
-                showLoading(`Generating view ${viewNumber}...`);
+                // Check if at least one view is selected (main or secondary)
+                const checkedItems = Array.from(document.querySelectorAll('.carousel-checkbox:checked'));
                 
-                let canvas;
-                if (viewNumber.startsWith('main')) {
-                    // Main view
-                    const viewNum = viewNumber.replace('main', '');
-                    const container = document.getElementById(`main-mockup-container-${viewNum}`);
-                    canvas = await generateMockupImage(container);
-                } else {
-                    // Secondary view
-                    const gridItem = document.querySelector(`.grid-item[data-view="${viewNumber}"]`);
-                    if (gridItem) {
-                        const mockupContainer = gridItem.querySelector('.secondary-mockup');
-                        canvas = await generateMockupImage(mockupContainer);
+                if (checkedItems.length === 0) {
+                    alert('Please select at least one mockup view to download');
+                    return;
+                }
+
+                showLoading("Preparing ZIP file...");
+                
+                try {
+                    const zip = new JSZip();
+                    const caseData = mockupData[currentCaseType];
+                    const promises = [];
+                    
+                    // Add selected main mockups to ZIP
+                    for (let i = 1; i <= 3; i++) {
+                        const checkbox = document.getElementById(`checkbox-main${i}`);
+                        if (checkbox && checkbox.checked) {
+                            promises.push((async () => {
+                                showLoading(`Generating main mockup ${i}...`);
+                                const mainCanvas = await generateMockupImage(document.getElementById(`main-mockup-container-${i}`));
+                                const mainBlob = await canvasToBlob(mainCanvas);
+                                zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-main${i}.png`, mainBlob);
+                            })());
+                        }
                     }
+                    
+                    // Process selected grid items
+                    for (const item of checkedItems) {
+                        const viewNumber = item.dataset.view;
+                        // Skip main mockups as we already added them
+                        if (viewNumber === 'main1' || viewNumber === 'main2' || viewNumber === 'main3') continue;
+                        
+                        const viewData = caseData.views.find(v => v.id == viewNumber);
+                        
+                        if (!viewData) continue;
+                        
+                        promises.push((async () => {
+                            showLoading(`Generating view ${viewNumber}...`);
+                            const mockupContainer = document.querySelector(`.grid-item[data-view="${viewNumber}"] .secondary-mockup`);
+                            const canvas = await generateMockupImage(mockupContainer);
+                            const blob = await canvasToBlob(canvas);
+                            zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-view-${viewNumber}.png`, blob);
+                        })());
+                    }
+                    
+                    // Wait for all mockups to be generated
+                    await Promise.all(promises);
+                    
+                    // Generate and download ZIP
+                    showLoading("Creating ZIP file...");
+                    const content = await zip.generateAsync({ type: 'blob' });
+                    downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
+                    
+                } catch (error) {
+                    console.error("Error generating ZIP:", error);
+                    alert("Error generating ZIP file. Please try again.");
+                } finally {
+                    hideLoading();
                 }
-                
-                if (canvas) {
-                    const blob = await canvasToBlob(canvas);
-                    zip.file(`${caseData.name.replace(/\s+/g, '-').toLowerCase()}-${viewNumber}.png`, blob);
-                }
-            })());
-        }
-        
-        // Wait for all mockups to be generated
-        await Promise.all(promises);
-        
-        // Generate and download ZIP
-        showLoading("Creating ZIP file...");
-        const content = await zip.generateAsync({ type: 'blob' });
-        downloadBlob(content, `${caseData.name.replace(/\s+/g, '-').toLowerCase()}-mockups.zip`);
-        
-    } catch (error) {
-        console.error("Error generating ZIP:", error);
-        alert("Error generating ZIP file. Please try again.");
-    } finally {
-        hideLoading();
-    }
-});
+            });
 
             // Positioning controls
             positionX.addEventListener('input', function() {
@@ -2608,131 +2611,95 @@ function getImageClass(caseType) {
                 ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
                 
                 // Draw design if uploaded
-async function generateMockupImage(container) {
-    if (!container) return;
-    
-    // Get the view ID from the container or its parent
-    let viewId;
-    if (container.classList.contains('main-mockup-container')) {
-        viewId = container.id.replace('main-mockup-container-', 'main');
-    } else if (container.classList.contains('secondary-mockup')) {
-        const gridItem = container.closest('.grid-item');
-        viewId = gridItem ? gridItem.dataset.view : null;
-    }
-    
-    const cacheKey = `${viewId}-${uploadedImage.src}`;
-    if (mockupCache.has(cacheKey)) {
-        return mockupCache.get(cacheKey);
-    }
-
-    showLoading("Generating mockup...");
-    
-    try {
-        const canvas = document.createElement('canvas');
-        canvas.width = 2000;
-        canvas.height = 2000;
-        const ctx = canvas.getContext('2d');
-
-        // Get the appropriate image class based on current case type
-        const imageClass = getImageClass(currentCaseType);
-        
-        // Load high-res originals for download
-        const bgElement = container.querySelector(`.${imageClass}-bg`);
-        const overlayElement = container.querySelector(`.${imageClass}-overlay`);
-        
-        if (!bgElement || !overlayElement) {
-            throw new Error("Could not find required elements for mockup generation");
-        }
-        
-        const bgSrc = bgElement.dataset.fullres;
-        const overlaySrc = overlayElement.dataset.fullres;
-        
-        const [bg, overlay] = await Promise.all([
-            loadImage(bgSrc),
-            loadImage(overlaySrc)
-        ]);
-
-        // Draw background
-        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-        
-        // Draw design if uploaded
-        if (uploadedImage.src) {
-            try {
-                const design = await loadImage(uploadedImage.src);
-                
-                // Get the correct design positioning data for this view
-                let designX, designY, designScale, designRotation, designSkewX, designSkewY;
-                
-                if (viewId.startsWith('main')) {
-                    // Main view
-                    const viewNum = viewId.replace('main', '');
-                    const mainData = mockupData[currentCaseType][`main${viewNum}`];
-                    if (mainData) {
-                        designX = mainData.designX;
-                        designY = mainData.designY;
-                        designScale = mainData.designScale;
-                        designRotation = mainData.designRotation;
-                        designSkewX = mainData.designSkewX || 0;
-                        designSkewY = mainData.designSkewY || 0;
-                    }
-                } else {
-                    // Secondary view
-                    const viewData = mockupData[currentCaseType].views.find(v => v.id == viewId);
-                    if (viewData) {
-                        designX = viewData.designX;
-                        designY = viewData.designY;
-                        designScale = viewData.designScale;
-                        designRotation = viewData.designRotation;
-                        designSkewX = viewData.designSkewX || 0;
-                        designSkewY = viewData.designSkewY || 0;
+                if (uploadedImage.src) {
+                    try {
+                        const design = await loadImage(uploadedImage.src);
+                        
+                        // Draw original design
+                        const designElement = container.querySelector('.user-design');
+                        if (designElement && designElement.style.display !== 'none') {
+                            const x = parseFloat(designElement.dataset.x) || 50;
+                            const y = parseFloat(designElement.dataset.y) || 50;
+                            const scale = parseFloat(designElement.dataset.scale) || 100;
+                            const rotation = parseFloat(designElement.dataset.rotation) || 0;
+                            const skewX = parseFloat(designElement.dataset.skewX) || 0;
+                            const skewY = parseFloat(designElement.dataset.skewY) || 0;
+                            
+                            const designScale = Math.min(
+                                canvas.width / design.width,
+                                canvas.height / design.height
+                            ) * (scale / 100);
+                            
+                            const width = design.width * designScale;
+                            const height = design.height * designScale;
+                            
+                            // Calculate position based on percentage values
+                            const posX = (canvas.width * x / 100) - (width / 2);
+                            const posY = (canvas.height * y / 100) - (height / 2);
+                            
+                            // Save context, rotate, then draw image
+                            ctx.save();
+                            ctx.translate(posX + width/2, posY + height/2);
+                            ctx.rotate(rotation * Math.PI / 180);
+                            // Apply skew transformation
+                            const skewXRad = skewX * Math.PI / 180;
+                            const skewYRad = skewY * Math.PI / 180;
+                            ctx.transform(1, Math.tan(skewYRad), Math.tan(skewXRad), 1, 0, 0);
+                            ctx.drawImage(design, -width/2, -height/2, width, height);
+                            ctx.restore();
+                        }
+                        
+                        // Draw flipped design (if exists)
+                        const flippedDesignElement = container.querySelector('.flipped-design');
+                        if (flippedDesignElement && flippedDesignElement.style.display !== 'none') {
+                            const x = parseFloat(flippedDesignElement.dataset.x) || 50;
+                            const y = parseFloat(flippedDesignElement.dataset.y) || 50;
+                            const scale = parseFloat(flippedDesignElement.dataset.scale) || 100;
+                            const rotation = parseFloat(flippedDesignElement.dataset.rotation) || 0;
+                            const skewX = parseFloat(flippedDesignElement.dataset.skewX) || 0;
+                            const skewY = parseFloat(flippedDesignElement.dataset.skewY) || 0;
+                            const flip = flippedDesignElement.dataset.flip === 'true';
+                            
+                            const designScale = Math.min(
+                                canvas.width / design.width,
+                                canvas.height / design.height
+                            ) * (scale / 100);
+                            
+                            const width = design.width * designScale;
+                            const height = design.height * designScale;
+                            
+                            // Calculate position based on percentage values
+                            const posX = (canvas.width * x / 100) - (width / 2);
+                            const posY = (canvas.height * y / 100) - (height / 2);
+                            
+                            // Save context, rotate, then draw image
+                            ctx.save();
+                            ctx.translate(posX + width/2, posY + height/2);
+                            ctx.rotate(rotation * Math.PI / 180);
+                            // Apply skew transformation
+                            const skewXRad = skewX * Math.PI / 180;
+                            const skewYRad = skewY * Math.PI / 180;
+                            ctx.transform(1, Math.tan(skewYRad), Math.tan(skewXRad), 1, 0, 0);
+                            if (flip) {
+                                ctx.scale(-1, 1);
+                            }
+                            ctx.drawImage(design, -width/2, -height/2, width, height);
+                            ctx.restore();
+                        }
+                    } catch (e) {
+                        console.warn("Design image not loaded:", e.message);
                     }
                 }
                 
-                // Default values if not found
-                designX = designX || 50;
-                designY = designY || 50;
-                designScale = designScale || 100;
-                designRotation = designRotation || 0;
-                designSkewX = designSkewX || 0;
-                designSkewY = designSkewY || 0;
+                // Draw overlay
+                ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
                 
-                const designScaleFactor = Math.min(
-                    canvas.width / design.width,
-                    canvas.height / design.height
-                ) * (designScale / 100);
-                
-                const width = design.width * designScaleFactor;
-                const height = design.height * designScaleFactor;
-                
-                // Calculate position based on percentage values
-                const posX = (canvas.width * designX / 100) - (width / 2);
-                const posY = (canvas.height * designY / 100) - (height / 2);
-                
-                // Save context, rotate, then draw image
-                ctx.save();
-                ctx.translate(posX + width/2, posY + height/2);
-                ctx.rotate(designRotation * Math.PI / 180);
-                // Apply skew transformation
-                const skewXRad = designSkewX * Math.PI / 180;
-                const skewYRad = designSkewY * Math.PI / 180;
-                ctx.transform(1, Math.tan(skewYRad), Math.tan(skewXRad), 1, 0, 0);
-                ctx.drawImage(design, -width/2, -height/2, width, height);
-                ctx.restore();
-                
-            } catch (e) {
-                console.warn("Design image not loaded:", e.message);
+                mockupCache.set(cacheKey, canvas);
+                return canvas;
+            } finally {
+                hideLoading();
             }
         }
-        
-        // Draw overlay
-        ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
-        
-        mockupCache.set(cacheKey, canvas);
-        return canvas;
-    } finally {
-        hideLoading();
-    }
-}
 
         // Helper functions
         function loadImage(src) {
