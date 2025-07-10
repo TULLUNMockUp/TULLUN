@@ -814,7 +814,7 @@
             
             <!-- Print File Templates Section - Moved under Product Template Generator -->
             <section class="templates-section">
-                <h2 class="collapsible-header collapsed">Phone Case Templates</h2>
+                <h2 class="collapsible-header collapsed">Print File Templates</h2>
                 <div class="collapsible-content collapsed">
                     <div class="template-category">
                         <h3 class="collapsible-header">Phone Cases</h3>
@@ -840,6 +840,15 @@
                     </div>
                     
                     <div class="template-category">
+                        <h3 class="collapsible-header">T-Shirts</h3>
+                        <div class="collapsible-content">
+                            <div class="template-links">
+                            <a href="#" class="template-link" download>T-Shirt Template</a>
+                           </div>
+                        </div>
+                    </div>
+                    
+                    <div class="template-category">
                         <h3 class="collapsible-header">AirPods Cases</h3>
                         <div class="collapsible-content">
                             <div class="template-links">
@@ -853,7 +862,7 @@
                         </div>
                     </div>
 
-                         <div class="template-category">
+                    <div class="template-category">
                         <h3 class="collapsible-header">Whiskey Glasses</h3>
                         <div class="collapsible-content">
                             <div class="template-links">
@@ -865,12 +874,15 @@
             </section>
             
             <!-- Product Category Selection -->
-   <div class="product-category-container">
-    <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
-    <a href="#" class="product-category-link" data-category="plaques">Plaques</a>
-    <a href="#" class="product-category-link" data-category="airpods-cases">AirPods Cases</a>
-    <a href="#" class="product-category-link" data-category="whiskey-glasses">Whiskey Glasses</a>
-</div>
+            <div class="product-category-container">
+                <a href="#" class="product-category-link" data-category="phone-cases">Phone Cases</a>
+                <a href="#" class="product-category-link" data-category="plaques">Plaques (Full Print)</a>
+                <a href="#" class="product-category-link" data-category="plaques-standard">Plaques</a>
+                <a href="#" class="product-category-link" data-category="acrylic-blocks">Acrylic Block</a>
+                <a href="#" class="product-category-link" data-category="tshirts">Unisex T-Shirts</a>
+                <a href="#" class="product-category-link" data-category="airpods-cases">AirPods Cases</a>
+                <a href="#" class="product-category-link" data-category="whiskey-glasses">Whiskey Glasses</a>
+            </div>
             
             <!-- Product Type Selection (initially hidden) -->
             <div id="phone-cases-types" class="product-type-container">
@@ -881,13 +893,60 @@
                 <a href="#" class="product-type-link" data-case="iphone-fullprint">iPhone Fullprint Case</a>
             </div>
 
-            <!-- Plaques Type Selection -->
+            <!-- Plaques (Full Print) Type Selection -->
             <div id="plaques-types" class="product-type-container">
-                <a href="#" class="product-type-link" data-case="slate-plaque-10x10">Slate Plaque 10x10cm</a>
-                <a href="#" class="product-type-link" data-case="slate-plaque-15x15">Slate Plaque 15x15cm</a>
-                <a href="#" class="product-type-link" data-case="slate-plaque-20x30">Slate Plaque 20x30cm</a>
-                <a href="#" class="product-type-link" data-case="slate-plaque-heart-10x10">Slate Plaque Heart 10x10cm</a>
-                <a href="#" class="product-type-link" data-case="slate-plaque-heart-25x25">Slate Plaque Heart 25x25cm</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-10x10">Slate Plaque 10x10cm (FP)</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-15x15">Slate Plaque 15x15cm (FP)</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-20x30">Slate Plaque 20x30cm (FP)</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-heart-10x10">Slate Plaque Heart 10x10cm (FP)</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-heart-25x25">Slate Plaque Heart 25x25cm (FP)</a>
+            </div>
+
+            <!-- Standard Plaques Type Selection -->
+            <div id="plaques-standard-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="slate-plaque-standard-10x10">Slate Plaque 10x10cm</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-standard-15x15">Slate Plaque 15x15cm</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-standard-20x30">Slate Plaque 20x30cm</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-standard-heart-10x10">Slate Plaque Heart 10x10cm</a>
+                <a href="#" class="product-type-link" data-case="slate-plaque-standard-heart-25x25">Slate Plaque Heart 25x25cm</a>
+            </div>
+
+            <!-- Acrylic Block Type Selection -->
+            <div id="acrylic-blocks-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="acrylic-block-10x10">Acrylic Block 10x10</a>
+            </div>
+
+            <!-- T-Shirts Type Selection -->
+            <div id="tshirts-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="unisex-tshirt">Unisex T-Shirt</a>
+            </div>
+            
+            <!-- T-Shirts Color Selection -->
+            <div id="tshirts-colors" class="color-size-container">
+                <div class="color-option" data-color="white">
+                    <span class="color-preview" style="background-color: #ffffff;"></span>White
+                </div>
+                <div class="color-option" data-color="black">
+                    <span class="color-preview" style="background-color: #000000;"></span>Black
+                </div>
+                <div class="color-option" data-color="navy-blue">
+                    <span class="color-preview" style="background-color: #1a237e;"></span>Navy Blue
+                </div>
+                <div class="color-option" data-color="melange">
+                    <span class="color-preview" style="background-color: #9e9e9e;"></span>Melange (Grey)
+                </div>
+                <div class="color-option" data-color="dark-heather">
+                    <span class="color-preview" style="background-color: #616161;"></span>Dark Heather
+                </div>
+                <div class="color-option" data-color="military-green">
+                    <span class="color-preview" style="background-color: #4b5320;"></span>Military Green
+                </div>
+                <div class="color-option" data-color="fuchsia-pink">
+                    <span class="color-preview" style="background-color: #ff4081;"></span>Fuchsia Pink
+                </div>
+                <div class="color-option" data-color="light-royal-blue">
+                    <span class="color-preview" style="background-color: #3f51b5;"></span>Light Royal Blue
+                </div>
             </div>
 
             <!-- AirPods Cases Type Selection -->
@@ -896,10 +955,10 @@
             </div>
 
             <!-- Whiskey Glasses Type Selection -->
-    <div id="whiskey-glasses-types" class="product-type-container">
-    <a href="#" class="product-type-link" data-case="round-glasses">Round Glasses</a>
-    <a href="#" class="product-type-link" data-case="square-glasses">Square Glasses</a>
-        </div>
+            <div id="whiskey-glasses-types" class="product-type-container">
+                <a href="#" class="product-type-link" data-case="round-glasses">Round Glasses</a>
+                <a href="#" class="product-type-link" data-case="square-glasses">Square Glasses</a>
+            </div>
         </section>
         
         <!-- Controls Section (initially hidden) -->
@@ -1068,9 +1127,13 @@
         const controlsSection = document.getElementById('controls');
         const phoneCasesTypes = document.getElementById('phone-cases-types');
         const plaquesTypes = document.getElementById('plaques-types');
+        const plaquesStandardTypes = document.getElementById('plaques-standard-types');
+        const acrylicBlocksTypes = document.getElementById('acrylic-blocks-types');
+        const tshirtsTypes = document.getElementById('tshirts-types');
+        const tshirtsColors = document.getElementById('tshirts-colors');
         const airpodsCasesTypes = document.getElementById('airpods-cases-types');
-        const gridContainer = document.querySelector('.grid-container');
         const whiskeyGlassesTypes = document.getElementById('whiskey-glasses-types');
+        const gridContainer = document.querySelector('.grid-container');
         
         // Positioning controls
         const viewSelector = document.getElementById('view-selector');
@@ -1098,6 +1161,8 @@
         let currentCaseType = 'samsung-tpu';
         let currentMainView = 'main1';
         let currentStandType = 'none';
+        let currentTshirtSize = 'M';
+        let currentTshirtColor = 'white';
 
         // Mockup data structure for all products
         const mockupData = {
@@ -1434,7 +1499,7 @@
                 ]
             },
             'slate-plaque-10x10': {
-                name: "Slate Plaque 10x10cm",
+                name: "Slate Plaque 10x10cm (FP)",
                 main1: {
                     bg: 'mockups/plaques/slate-10x10-main.png',
                     overlay: 'mockups/plaques/slate-10x10-overlay.png',
@@ -1478,7 +1543,7 @@
                 ]
             },
             'slate-plaque-15x15': {
-                name: "Slate Plaque 15x15cm",
+                name: "Slate Plaque 15x15cm (FP)",
                 main1: {
                     bg: 'mockups/plaques/slate-15x15-main.png',
                     overlay: 'mockups/plaques/slate-15x15-overlay.png',
@@ -1522,7 +1587,7 @@
                 ]
             },
             'slate-plaque-20x30': {
-                name: "Slate Plaque 20x30cm",
+                name: "Slate Plaque 20x30cm (FP)",
                 main1: {
                     bg: 'mockups/plaques/slate-20x30-main.png',
                     overlay: 'mockups/plaques/slate-20x30-overlay.png',
@@ -1565,7 +1630,7 @@
                 ]
             },
             'slate-plaque-heart-10x10': {
-                name: "Slate Plaque Heart 10x10cm",
+                name: "Slate Plaque Heart 10x10cm (FP)",
                 main1: {
                     bg: 'mockups/plaques/slate-heart-10x10-main.png',
                     overlay: 'mockups/plaques/slate-heart-10x10-overlay.png',
@@ -1608,7 +1673,7 @@
                 ]
             },
             'slate-plaque-heart-25x25': {
-                name: "Slate Plaque Heart 25x25cm",
+                name: "Slate Plaque Heart 25x25cm (FP)",
                 main1: {
                     bg: 'mockups/plaques/slate-heart-25x25-main.png',
                     overlay: 'mockups/plaques/slate-heart-25x25-overlay.png',
@@ -1647,6 +1712,300 @@
                 },
                 views: [
                     { id: 1, bg: 'mockups/plaques/slate-heart-25x25-view1.png', overlay: 'mockups/plaques/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques/originals/slate-heart-25x25-view1-overlay.png', designX: 51, designY: 48, designScale: 91, designRotation: 0, designSkewX: -3, designSkewY: 2 }
+                ]
+            },
+            'slate-plaque-standard-10x10': {
+                name: "Slate Plaque 10x10cm",
+                main1: {
+                    bg: 'mockups/plaques-standard/slate-10x10-main.png',
+                    overlay: 'mockups/plaques-standard/slate-10x10-overlay.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-10x10-main.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-10x10-overlay.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques-standard/slate-10x10-main2.png',
+                    overlay: 'mockups/plaques-standard/slate-10x10-overlay2.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-10x10-main2.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-10x10-overlay2.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques-standard/slate-10x10-main3.png',
+                    overlay: 'mockups/plaques-standard/slate-10x10-overlay3.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-10x10-main3.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-10x10-overlay3.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques-standard/slate-10x10-view1.png', overlay: 'mockups/plaques-standard/slate-10x10-view1-overlay.png', fullresBg: 'mockups/plaques-standard/originals/slate-10x10-view1.png', fullresOverlay: 'mockups/plaques-standard/originals/slate-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 80, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
+            },
+            'slate-plaque-standard-15x15': {
+                name: "Slate Plaque 15x15cm",
+                main1: {
+                    bg: 'mockups/plaques-standard/slate-15x15-main.png',
+                    overlay: 'mockups/plaques-standard/slate-15x15-overlay.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-15x15-main.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-15x15-overlay.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques-standard/slate-15x15-main2.png',
+                    overlay: 'mockups/plaques-standard/slate-15x15-overlay2.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-15x15-main2.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-15x15-overlay2.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques-standard/slate-15x15-main3.png',
+                    overlay: 'mockups/plaques-standard/slate-15x15-overlay3.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-15x15-main3.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-15x15-overlay3.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques-standard/slate-15x15-view1.png', overlay: 'mockups/plaques-standard/slate-15x15-view1-overlay.png', fullresBg: 'mockups/plaques-standard/originals/slate-15x15-view1.png', fullresOverlay: 'mockups/plaques-standard/originals/slate-15x15-view1-overlay.png', designX: 50, designY: 50, designScale: 80, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
+            },
+            'slate-plaque-standard-20x30': {
+                name: "Slate Plaque 20x30cm",
+                main1: {
+                    bg: 'mockups/plaques-standard/slate-20x30-main.png',
+                    overlay: 'mockups/plaques-standard/slate-20x30-overlay.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-20x30-main.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-20x30-overlay.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques-standard/slate-20x30-main2.png',
+                    overlay: 'mockups/plaques-standard/slate-20x30-overlay2.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-20x30-main2.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-20x30-overlay2.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques-standard/slate-20x30-main3.png',
+                    overlay: 'mockups/plaques-standard/slate-20x30-overlay3.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-20x30-main3.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-20x30-overlay3.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques-standard/slate-20x30-view1.png', overlay: 'mockups/plaques-standard/slate-20x30-view1-overlay.png', fullresBg: 'mockups/plaques-standard/originals/slate-20x30-view1.png', fullresOverlay: 'mockups/plaques-standard/originals/slate-20x30-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
+            },
+            'slate-plaque-standard-heart-10x10': {
+                name: "Slate Plaque Heart 10x10cm",
+                main1: {
+                    bg: 'mockups/plaques-standard/slate-heart-10x10-main.png',
+                    overlay: 'mockups/plaques-standard/slate-heart-10x10-overlay.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-heart-10x10-main.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-10x10-overlay.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques-standard/slate-heart-10x10-main2.png',
+                    overlay: 'mockups/plaques-standard/slate-heart-10x10-overlay2.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-heart-10x10-main2.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-10x10-overlay2.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques-standard/slate-heart-10x10-main3.png',
+                    overlay: 'mockups/plaques-standard/slate-heart-10x10-overlay3.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-heart-10x10-main3.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-10x10-overlay3.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques-standard/slate-heart-10x10-view1.png', overlay: 'mockups/plaques-standard/slate-heart-10x10-view1-overlay.png', fullresBg: 'mockups/plaques-standard/originals/slate-heart-10x10-view1.png', fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 80, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
+            },
+            'slate-plaque-standard-heart-25x25': {
+                name: "Slate Plaque Heart 25x25cm",
+                main1: {
+                    bg: 'mockups/plaques-standard/slate-heart-25x25-main.png',
+                    overlay: 'mockups/plaques-standard/slate-heart-25x25-overlay.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-heart-25x25-main.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-25x25-overlay.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/plaques-standard/slate-heart-25x25-main2.png',
+                    overlay: 'mockups/plaques-standard/slate-heart-25x25-overlay2.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-heart-25x25-main2.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-25x25-overlay2.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/plaques-standard/slate-heart-25x25-main3.png',
+                    overlay: 'mockups/plaques-standard/slate-heart-25x25-overlay3.png',
+                    fullresBg: 'mockups/plaques-standard/originals/slate-heart-25x25-main3.png',
+                    fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-25x25-overlay3.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/plaques-standard/slate-heart-25x25-view1.png', overlay: 'mockups/plaques-standard/slate-heart-25x25-view1-overlay.png', fullresBg: 'mockups/plaques-standard/originals/slate-heart-25x25-view1.png', fullresOverlay: 'mockups/plaques-standard/originals/slate-heart-25x25-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
+            },
+            'acrylic-block-10x10': {
+                name: "Acrylic Block 10x10",
+                main1: {
+                    bg: 'mockups/acrylic/acrylic-block-10x10-main.png',
+                    overlay: 'mockups/acrylic/acrylic-block-10x10-overlay.png',
+                    fullresBg: 'mockups/acrylic/originals/acrylic-block-10x10-main.png',
+                    fullresOverlay: 'mockups/acrylic/originals/acrylic-block-10x10-overlay.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/acrylic/acrylic-block-10x10-main2.png',
+                    overlay: 'mockups/acrylic/acrylic-block-10x10-overlay2.png',
+                    fullresBg: 'mockups/acrylic/originals/acrylic-block-10x10-main2.png',
+                    fullresOverlay: 'mockups/acrylic/originals/acrylic-block-10x10-overlay2.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/acrylic/acrylic-block-10x10-main3.png',
+                    overlay: 'mockups/acrylic/acrylic-block-10x10-overlay3.png',
+                    fullresBg: 'mockups/acrylic/originals/acrylic-block-10x10-main3.png',
+                    fullresOverlay: 'mockups/acrylic/originals/acrylic-block-10x10-overlay3.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 90,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/acrylic/acrylic-block-10x10-view1.png', overlay: 'mockups/acrylic/acrylic-block-10x10-view1-overlay.png', fullresBg: 'mockups/acrylic/originals/acrylic-block-10x10-view1.png', fullresOverlay: 'mockups/acrylic/originals/acrylic-block-10x10-view1-overlay.png', designX: 50, designY: 50, designScale: 90, designRotation: 0, designSkewX: 0, designSkewY: 0 }
+                ]
+            },
+            'unisex-tshirt': {
+                name: "Unisex T-Shirt",
+                main1: {
+                    bg: 'mockups/tshirts/unisex-main.png',
+                    overlay: 'mockups/tshirts/unisex-overlay.png',
+                    fullresBg: 'mockups/tshirts/originals/unisex-main.png',
+                    fullresOverlay: 'mockups/tshirts/originals/unisex-overlay.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main2: {
+                    bg: 'mockups/tshirts/unisex-main2.png',
+                    overlay: 'mockups/tshirts/unisex-overlay2.png',
+                    fullresBg: 'mockups/tshirts/originals/unisex-main2.png',
+                    fullresOverlay: 'mockups/tshirts/originals/unisex-overlay2.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                main3: {
+                    bg: 'mockups/tshirts/unisex-main3.png',
+                    overlay: 'mockups/tshirts/unisex-overlay3.png',
+                    fullresBg: 'mockups/tshirts/originals/unisex-main3.png',
+                    fullresOverlay: 'mockups/tshirts/originals/unisex-overlay3.png',
+                    designX: 50,
+                    designY: 50,
+                    designScale: 80,
+                    designRotation: 0,
+                    designSkewX: 0,
+                    designSkewY: 0
+                },
+                views: [
+                    { id: 1, bg: 'mockups/tshirts/unisex-view1.png', overlay: 'mockups/tshirts/unisex-view1-overlay.png', fullresBg: 'mockups/tshirts/originals/unisex-view1.png', fullresOverlay: 'mockups/tshirts/originals/unisex-view1-overlay.png', designX: 50, designY: 50, designScale: 80, designRotation: 0, designSkewX: 0, designSkewY: 0 }
                 ]
             },
             'airpods-cases': {
@@ -1815,77 +2174,118 @@
 
         // Set up all event listeners
         function setupEventListeners() {
-// Product category selection
-productCategoryLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Update active category link
-        productCategoryLinks.forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-        
-        const category = this.dataset.category;
-        
-        // Show/hide product type selection based on category
-        phoneCasesTypes.style.display = 'none';
-        plaquesTypes.style.display = 'none';
-        airpodsCasesTypes.style.display = 'none';
-        whiskeyGlassesTypes.style.display = 'none';
-        
-        if (category === 'phone-cases') {
-            phoneCasesTypes.style.display = 'flex';
-            controlsSection.style.display = 'block';
-            positionControls.style.display = 'block';
-            mainMockupsWrapper.style.display = 'block';
-            gridWrapper.style.display = 'block';
-            
-            // Initialize the grid for the default case type
-            initializeGrid(currentCaseType);
-        } 
-        else if (category === 'plaques') {
-            plaquesTypes.style.display = 'flex';
-            controlsSection.style.display = 'block';
-            positionControls.style.display = 'block';
-            mainMockupsWrapper.style.display = 'block';
-            gridWrapper.style.display = 'block';
-            
-            // Initialize with first plaque type
-            currentCaseType = 'slate-plaque-10x10';
-            updateMainMockups(currentCaseType);
-            initializeGrid(currentCaseType);
-        }
-        else if (category === 'airpods-cases') {
-            airpodsCasesTypes.style.display = 'flex';
-            controlsSection.style.display = 'block';
-            positionControls.style.display = 'block';
-            mainMockupsWrapper.style.display = 'block';
-            gridWrapper.style.display = 'block';
-            
-            // Initialize with AirPods case type
-            currentCaseType = 'airpods-cases';
-            updateMainMockups(currentCaseType);
-            initializeGrid(currentCaseType);
-        }
-        else if (category === 'whiskey-glasses') {
-            whiskeyGlassesTypes.style.display = 'flex';
-            controlsSection.style.display = 'block';
-            positionControls.style.display = 'block';
-            mainMockupsWrapper.style.display = 'block';
-            gridWrapper.style.display = 'block';
-            
-            // Initialize with first whiskey glass type
-            currentCaseType = 'round-glasses';
-            updateMainMockups(currentCaseType);
-            initializeGrid(currentCaseType);
-        }
-        
-        // Show selected product section
-        document.querySelectorAll('.product-section').forEach(section => {
-            section.classList.remove('active');
-        });
-        document.getElementById(category).classList.add('active');
-    });
-});
+            // Product category selection
+            productCategoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active category link
+                    productCategoryLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    
+                    // Show/hide product type selection based on category
+                    phoneCasesTypes.style.display = 'none';
+                    plaquesTypes.style.display = 'none';
+                    plaquesStandardTypes.style.display = 'none';
+                    acrylicBlocksTypes.style.display = 'none';
+                    tshirtsTypes.style.display = 'none';
+                    tshirtsColors.style.display = 'none';
+                    airpodsCasesTypes.style.display = 'none';
+                    whiskeyGlassesTypes.style.display = 'none';
+                    
+                    if (category === 'phone-cases') {
+                        phoneCasesTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize the grid for the default case type
+                        initializeGrid(currentCaseType);
+                    } 
+                    else if (category === 'plaques') {
+                        plaquesTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with first plaque type
+                        currentCaseType = 'slate-plaque-10x10';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    else if (category === 'plaques-standard') {
+                        plaquesStandardTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with first standard plaque type
+                        currentCaseType = 'slate-plaque-standard-10x10';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    else if (category === 'acrylic-blocks') {
+                        acrylicBlocksTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with Acrylic Block type
+                        currentCaseType = 'acrylic-block-10x10';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    else if (category === 'tshirts') {
+                        tshirtsTypes.style.display = 'flex';
+                        tshirtsColors.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with T-Shirt type
+                        currentCaseType = 'unisex-tshirt';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    else if (category === 'airpods-cases') {
+                        airpodsCasesTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with AirPods case type
+                        currentCaseType = 'airpods-cases';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    else if (category === 'whiskey-glasses') {
+                        whiskeyGlassesTypes.style.display = 'flex';
+                        controlsSection.style.display = 'block';
+                        positionControls.style.display = 'block';
+                        mainMockupsWrapper.style.display = 'block';
+                        gridWrapper.style.display = 'block';
+                        
+                        // Initialize with first whiskey glass type
+                        currentCaseType = 'round-glasses';
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
+                    }
+                    
+                    // Show selected product section
+                    document.querySelectorAll('.product-section').forEach(section => {
+                        section.classList.remove('active');
+                    });
+                    document.getElementById(category).classList.add('active');
+                });
+            });
 
             // Product type click handler
             productTypeLinks.forEach(link => {
@@ -1930,6 +2330,20 @@ productCategoryLinks.forEach(link => {
                                 updateFlippedDesignPosition(design);
                             }
                         });
+                    }
+                });
+            });
+
+            // T-Shirt color selection
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTshirtColor = this.dataset.color;
+                    // Update mockups with new color
+                    if (currentCaseType === 'unisex-tshirt') {
+                        updateMainMockups(currentCaseType);
+                        initializeGrid(currentCaseType);
                     }
                 });
             });
@@ -2264,10 +2678,24 @@ productCategoryLinks.forEach(link => {
                         const imageClass = getImageClass(caseType);
                         const mainMockup = caseData[view];
                         
+                        // For T-Shirts, update the background image based on selected color
+                        let bgSrc = mainMockup.bg;
+                        let overlaySrc = mainMockup.overlay;
+                        let fullresBgSrc = mainMockup.fullresBg;
+                        let fullresOverlaySrc = mainMockup.fullresOverlay;
+                        
+                        if (caseType === 'unisex-tshirt') {
+                            // Update paths to include color
+                            bgSrc = `mockups/tshirts/unisex-${currentTshirtColor}-main${i}.png`;
+                            overlaySrc = `mockups/tshirts/unisex-${currentTshirtColor}-overlay${i}.png`;
+                            fullresBgSrc = `mockups/tshirts/originals/unisex-${currentTshirtColor}-main${i}.png`;
+                            fullresOverlaySrc = `mockups/tshirts/originals/unisex-${currentTshirtColor}-overlay${i}.png`;
+                        }
+                        
                         const bgImg = document.createElement('img');
                         bgImg.className = `${imageClass}-bg`;
-                        bgImg.src = mainMockup.bg;
-                        bgImg.dataset.fullres = mainMockup.fullresBg;
+                        bgImg.src = bgSrc;
+                        bgImg.dataset.fullres = fullresBgSrc;
                         
                         const designArea = document.createElement('div');
                         designArea.className = 'design-area';
@@ -2309,8 +2737,8 @@ productCategoryLinks.forEach(link => {
                         
                         const overlayImg = document.createElement('img');
                         overlayImg.className = `${imageClass}-overlay`;
-                        overlayImg.src = mainMockup.overlay;
-                        overlayImg.dataset.fullres = mainMockup.fullresOverlay;
+                        overlayImg.src = overlaySrc;
+                        overlayImg.dataset.fullres = fullresOverlaySrc;
                         
                         // Add checkbox
                         const checkbox = document.createElement('input');
@@ -2358,10 +2786,18 @@ productCategoryLinks.forEach(link => {
                 gridItem.className = 'grid-item';
                 gridItem.dataset.view = view.id;
                 
-                const bgPath = view.bg;
-                const overlayPath = view.overlay;
-                const fullresBgPath = view.fullresBg;
-                const fullresOverlayPath = view.fullresOverlay;
+                // For T-Shirts, update the background image based on selected color
+                let bgPath = view.bg;
+                let overlayPath = view.overlay;
+                let fullresBgPath = view.fullresBg;
+                let fullresOverlayPath = view.fullresOverlay;
+                
+                if (caseType === 'unisex-tshirt') {
+                    bgPath = `mockups/tshirts/unisex-${currentTshirtColor}-view${view.id}.png`;
+                    overlayPath = `mockups/tshirts/unisex-${currentTshirtColor}-view${view.id}-overlay.png`;
+                    fullresBgPath = `mockups/tshirts/originals/unisex-${currentTshirtColor}-view${view.id}.png`;
+                    fullresOverlayPath = `mockups/tshirts/originals/unisex-${currentTshirtColor}-view${view.id}-overlay.png`;
+                }
                 
                 gridItem.innerHTML = `
                     <div class="secondary-mockup">
@@ -2445,18 +2881,22 @@ productCategoryLinks.forEach(link => {
         }
 
         // Helper function to get the appropriate image class based on product type
-function getImageClass(caseType) {
-    if (caseType.includes('phone') || caseType.includes('pixel') || caseType.includes('iphone')) {
-        return 'phone-case';
-    } else if (caseType.includes('plaque')) {
-        return 'plaque';
-    } else if (caseType.includes('airpods')) {
-        return 'airpods';
-    } else if (caseType.includes('glasses')) {
-        return 'glasses';
-    }
-    return 'phone-case'; // default
-}
+        function getImageClass(caseType) {
+            if (caseType.includes('phone') || caseType.includes('pixel') || caseType.includes('iphone')) {
+                return 'phone-case';
+            } else if (caseType.includes('plaque')) {
+                return 'plaque';
+            } else if (caseType.includes('acrylic')) {
+                return 'acrylic';
+            } else if (caseType.includes('tshirt')) {
+                return 'tshirt';
+            } else if (caseType.includes('airpods')) {
+                return 'airpods';
+            } else if (caseType.includes('glasses')) {
+                return 'glasses';
+            }
+            return 'phone-case'; // default
+        }
 
         // Function to update original design position
         function updateDesignPosition(designElement) {
@@ -2593,8 +3033,8 @@ function getImageClass(caseType) {
                 const ctx = canvas.getContext('2d');
 
                 // Load high-res originals for download
-                const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg, .glasses-bg');
-                const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay, .glasses-overlay');
+                const bgElement = container.querySelector('.phone-case-bg, .bag-bg, .plaque-bg, .airpods-bg, .glasses-bg, .tshirt-bg, .acrylic-bg');
+                const overlayElement = container.querySelector('.phone-case-overlay, .bag-overlay, .plaque-overlay, .airpods-overlay, .glasses-overlay, .tshirt-overlay, .acrylic-overlay');
                 
                 if (!bgElement || !overlayElement) {
                     throw new Error("Could not find required elements for mockup generation");
@@ -2664,7 +3104,7 @@ function getImageClass(caseType) {
                             const designScale = Math.min(
                                 canvas.width / design.width,
                                 canvas.height / design.height
-                            ) * (scale / 100);
+                                                            ) * (scale / 100);
                             
                             const width = design.width * designScale;
                             const height = design.height * designScale;
@@ -2687,62 +3127,73 @@ function getImageClass(caseType) {
                             ctx.drawImage(design, -width/2, -height/2, width, height);
                             ctx.restore();
                         }
-                    } catch (e) {
-                        console.warn("Design image not loaded:", e.message);
+                    } catch (error) {
+                        console.error("Error drawing design:", error);
                     }
                 }
                 
                 // Draw overlay
                 ctx.drawImage(overlay, 0, 0, canvas.width, canvas.height);
                 
+                // Cache the result
                 mockupCache.set(cacheKey, canvas);
                 return canvas;
+            } catch (error) {
+                console.error("Error generating mockup:", error);
+                throw error;
             } finally {
                 hideLoading();
             }
         }
 
-        // Helper functions
+        // Helper function to load an image
         function loadImage(src) {
             return new Promise((resolve, reject) => {
                 const img = new Image();
+                img.crossOrigin = 'Anonymous';
                 img.onload = () => resolve(img);
-                img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
+                img.onerror = reject;
                 img.src = src;
             });
         }
-        
+
+        // Convert canvas to blob
         function canvasToBlob(canvas) {
-            return new Promise(resolve => {
-                canvas.toBlob(blob => {
-                    resolve(blob);
-                }, 'image/png', 0.95);
+            return new Promise((resolve) => {
+                canvas.toBlob(resolve, 'image/png', 1);
             });
         }
-        
+
+        // Download blob as file
         function downloadBlob(blob, filename) {
-            const link = document.createElement('a');
-            link.download = filename;
-            link.href = URL.createObjectURL(blob);
-            document.body.appendChild(link);
-            link.click();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
             setTimeout(() => {
-                URL.revokeObjectURL(link.href);
-                link.remove();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
             }, 100);
         }
-        
-        function showLoading(message = "Processing...") {
-            loadingElement.innerHTML = `
-                <div class="spinner"></div>
-                <div>${message}</div>
-            `;
+
+        // Show loading overlay
+        function showLoading(message = "Loading...") {
             loadingElement.style.display = 'flex';
+            if (message) {
+                loadingElement.querySelector('div:last-child').textContent = message;
+            }
         }
-        
+
+        // Hide loading overlay
         function hideLoading() {
             loadingElement.style.display = 'none';
         }
+
+        // Initialize with phone cases by default
+        document.querySelector('.product-category-link[data-category="phone-cases"]').click();
+        document.querySelector('.product-type-link[data-case="samsung-tpu"]').click();
     </script>
 </body>
 </html>
